@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present: A Microsoft PowerPoint Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#3ecf8e;
+    --orange:#e8703a;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:'Inter', sans-serif;
+    background-image:linear-gradient(var(--grid-soft) 1px, transparent 1px), linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size:64px 32px; background-attachment:fixed; min-height:100vh;
+  }
+  ::selection{ background:var(--orange); color:#1a0e08; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* NAV */
+  .app-nav{ position:sticky; top:0; z-index:50; background:rgba(26,32,41,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--grid); }
+  .app-nav-inner{ max-width:1080px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:6px; overflow-x:auto; }
+  .app-nav-link{ font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; color:var(--muted); background:none; border:none; border-bottom:2px solid transparent; padding:14px 12px 12px; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:6px; }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{ color:var(--orange); border-bottom-color:var(--orange); }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* HOME CARD */
+  .home-card{ max-width:1080px; margin:48px auto 0; padding:0 24px; }
+  .home-card-inner{ background:var(--panel); border:1px solid var(--grid); border-radius:12px; padding:26px 26px 22px; }
+  .home-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+  .continue-btn{ font-family:'Archivo', sans-serif; font-weight:700; font-size:14px; color:#1a0e08; background:var(--orange); border:none; border-radius:7px; padding:11px 20px; cursor:pointer; white-space:nowrap; }
+  .continue-btn:hover{ background:#d15f2c; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .home-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .home-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .home-progress-fill{ height:100%; background:var(--orange); width:0%; transition:width 0.3s ease; }
+  .home-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .home-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .home-stat .dvalue{ font-family:'Archivo', sans-serif; font-size:20px; font-weight:800; margin-top:4px; color:var(--ink); }
+  @media (max-width:640px){ .home-stats{ grid-template-columns:repeat(2,1fr); } }
+
+  /* HERO */
+  header.hero{ position:relative; padding:76px 24px 64px; max-width:1080px; margin:0 auto; }
+  .slide-chrome{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); margin-bottom:36px; letter-spacing:0.02em; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:var(--grid); }
+  .dot.o{ background:var(--orange); }
+  .field-bar{ display:flex; align-items:center; background:var(--panel); border:1px solid var(--grid); border-radius:6px; padding:10px 14px; margin-bottom:44px; font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--orange); box-shadow:0 0 0 1px rgba(232,112,58,0.08), 0 8px 24px rgba(0,0,0,0.3); }
+  .field-bar .fx{ color:var(--muted); margin-right:12px; font-style:italic; border-right:1px solid var(--grid); padding-right:12px; }
+  .field-bar .caret{ display:inline-block; width:8px; height:16px; background:var(--orange); margin-left:2px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  h1{ font-family:'Archivo', sans-serif; font-weight:800; font-size:clamp(38px,6vw,64px); line-height:1.05; letter-spacing:-0.02em; max-width:860px; }
+  h1 .accent{ color:var(--orange); }
+  h1 .accent2{ color:var(--green); }
+  .hero-sub{ margin-top:22px; font-size:18px; color:var(--muted); max-width:580px; line-height:1.55; }
+  .hero-meta{ display:flex; gap:28px; margin-top:44px; flex-wrap:wrap; }
+  .meta-item{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  .meta-item strong{ display:block; font-family:'Archivo', sans-serif; font-size:22px; font-weight:700; color:var(--ink); margin-top:4px; }
+
+  /* SECTION LABEL */
+  .section-intro{ max-width:1080px; margin:88px auto 28px; padding:0 24px; display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .section-intro .ref{ font-family:'JetBrains Mono', monospace; color:var(--muted); font-size:13px; background:var(--panel); border:1px solid var(--grid); padding:3px 8px; border-radius:4px; }
+  .section-intro h2{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:700; }
+  .section-note{ max-width:1080px; margin:0 auto 8px; padding:0 24px; color:var(--muted); font-size:15px; }
+
+  /* BOARD */
+  .board{ max-width:1080px; margin:0 auto; padding:24px; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px; overflow:hidden; }
+  .level-col{ background:var(--panel); display:flex; flex-direction:column; }
+  .level-head{ padding:18px 16px 16px; border-bottom:1px solid var(--grid); position:sticky; top:0; background:var(--panel); z-index:2; }
+  .level-head .letter{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color,var(--muted)); font-weight:600; }
+  .level-head h3{ font-family:'Archivo', sans-serif; font-size:18px; font-weight:700; margin-top:6px; }
+  .level-head .tag{ display:inline-block; margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--col-color,var(--grid)); color:var(--col-color,var(--muted)); }
+  .cell{ position:relative; padding:16px; border-bottom:1px solid var(--grid-soft); cursor:pointer; transition:background 0.15s ease; }
+  .cell:hover{ background:var(--panel-2); }
+  .cell .addr{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--muted); opacity:0.7; display:flex; align-items:center; gap:8px; justify-content:space-between; }
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--orange); font-weight:700; }
+  .cell .addr .exp{ color:var(--col-color,var(--muted)); opacity:1; margin-left:auto; }
+  .time-est{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--muted); background:var(--panel-2); border:1px solid var(--grid); border-radius:10px; padding:1px 7px; white-space:nowrap; }
+  .skill-done-badge{ display:none; align-items:center; gap:4px; font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--orange); }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--orange); }
+  .cell.skill-mastered .addr{ color:var(--orange); }
+  .cell .skill{ font-weight:600; font-size:14px; margin-top:5px; line-height:1.3; }
+  .cell .why{ font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.45; }
+  .cell .example{ display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--grid); font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color,var(--orange)); line-height:1.6; white-space:pre-wrap; }
+  .cell.open .example{ display:block; }
+  .cell.open{ background:var(--panel-2); }
+  .challenge{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .challenge{ display:block; }
+  .ch-q{ font-size:12.5px; color:var(--ink); line-height:1.5; margin-bottom:8px; }
+  .ch-q b{ color:var(--col-color,var(--orange)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{ flex:1; min-width:0; background:var(--bg); border:1px solid var(--grid); border-radius:5px; padding:7px 9px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); }
+  .ch-input:focus{ outline:none; border-color:var(--col-color,var(--orange)); }
+  .ch-btn{ font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600; padding:7px 12px; border-radius:5px; border:1px solid var(--col-color,var(--orange)); background:transparent; color:var(--col-color,var(--orange)); cursor:pointer; white-space:nowrap; }
+  .ch-btn:hover{ background:color-mix(in srgb, var(--col-color,var(--orange)) 15%, transparent); }
+  .ch-result{ margin-top:8px; font-size:12px; font-family:'JetBrains Mono', monospace; line-height:1.5; min-height:0; }
+  .ch-result.correct{ color:var(--green); }
+  .ch-result.incorrect{ color:var(--red); }
+  .ch-reveal{ margin-top:8px; background:none; border:none; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11px; text-decoration:underline; cursor:pointer; padding:0; }
+  .ch-reveal:hover{ color:var(--ink); }
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--orange); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width:880px){ .board{ grid-template-columns:1fr; } .level-head{ position:static; } }
+
+  .level-continue-btn{ display:inline-block; margin:4px 16px 20px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#1a0e08; background:var(--col-color,var(--orange)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .level-practice-cta{ margin:0 14px 20px; display:flex; gap:10px; flex-wrap:wrap; }
+  .level-practice-cta .cta-link{ flex:1; min-width:130px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600; color:var(--col-color,var(--ink)); text-decoration:none; padding:10px 12px; border:1px solid var(--grid); border-left:2px solid var(--col-color,var(--grid)); border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
+  .level-practice-cta .cta-link:hover{ border-color:var(--col-color,var(--dim)); background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent); }
+
+  /* PRACTICE LAB */
+  .lab{ max-width:1080px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:880px){ .lab{ grid-template-columns:1fr; } }
+  .lab-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:22px; display:flex; flex-direction:column; }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--orange); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background:var(--col-color); }
+  .lab-head .lname{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--col-color); text-transform:uppercase; letter-spacing:0.05em; }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+  table.sample{ width:100%; border-collapse:collapse; font-family:'JetBrains Mono', monospace; font-size:11.5px; margin-bottom:14px; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  table.sample th{ background:var(--panel-2); color:var(--col-color); text-align:left; padding:7px 9px; font-weight:600; border-bottom:1px solid var(--grid); }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{ padding:9px 12px; cursor:pointer; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color); background:var(--panel-2); list-style:none; display:flex; align-items:center; gap:8px; }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition:transform 0.15s ease; }
+  details.solution[open] summary::before{ transform:rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{ display:block; margin:8px 0; padding:8px 10px; background:var(--bg); border:1px solid var(--grid); border-radius:5px; font-family:'JetBrains Mono', monospace; color:var(--col-color); font-size:12px; white-space:pre-wrap; }
+
+  /* PRACTICE FILES */
+  .datasets-grid{ max-width:1080px; margin:0 auto; padding:0 24px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--orange); margin-bottom:12px; }
+  .dataset-btn{ background:var(--panel-2); border:1px solid var(--orange); color:var(--orange); font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center; }
+  .dataset-btn:hover{ background:var(--orange); color:#1a0e08; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* CAPSTONES */
+  .capstone-overall{ max-width:1080px; margin:0 auto 24px; padding:0 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; min-width:120px; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--green), var(--orange), var(--amber), var(--red)); transition:width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{ background:none; border:1px solid var(--grid); color:var(--dim); font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap; }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+  .capstone{ max-width:1080px; margin:0 auto; padding:0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color,var(--grid)); border-radius:10px; padding:24px 26px; display:grid; grid-template-columns:220px 1fr; gap:24px; }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--orange); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width:760px){ .capstone-card{ grid-template-columns:1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{ display:inline-flex; align-self:flex-start; font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--col-color); color:var(--col-color); text-transform:uppercase; letter-spacing:0.05em; margin-top:4px; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color:var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration:line-through; text-decoration-color:var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background:var(--col-color); transition:width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color:var(--green); }
+
+  /* DASHBOARD */
+  .dashboard{ max-width:1080px; margin:40px auto 0; padding:0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--orange); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  @media (max-width:700px){ .dash-grid{ grid-template-columns:repeat(2,1fr); } }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:16px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--orange); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rmsg{ font-size:13px; color:var(--ink); line-height:1.5; }
+
+  /* WEEKLY PLAN */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color,var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--orange); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color,var(--orange)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* FOOTER */
+  footer{ max-width:1080px; margin:110px auto 60px; padding:32px 24px 0; border-top:1px solid var(--grid); display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  /* SHORTCUTS PANEL */
+  .shortcuts-toggle{ position:fixed; right:18px; bottom:18px; z-index:50; display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer; }
+  .shortcuts-toggle:hover{ border-color:var(--orange); color:var(--orange); }
+  .shortcuts-toggle .kicon{ color:var(--orange); }
+  .shortcuts-panel{ position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px); background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5); display:none; flex-direction:column; overflow:hidden; }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--orange); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--orange); color:var(--orange); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button"><span class="kicon">⌨</span> Shortcuts</button>
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head"><h4>Shortcut flash cards</h4><button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button></div>
+  <div class="sp-card" id="scCard"><span class="sp-prompt" id="scPrompt"></span><span class="sp-keys" id="scKeys"></span></div>
+  <p class="sp-hint">Tap the card to flip it · PowerPoint for Windows</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">← Prev</button>
+    <span class="sp-count" id="scCount">1 / 20</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next →</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">🏠 Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">📚 Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">🧪 Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">📂 Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">📊 Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="slide-chrome"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span>Presentation1 — TeamUpdate.pptx</span></div>
+  <div class="field-bar"><span class="fx">SLIDE 1</span><span id="slideText">Click to add title: "Excuses I Will No Longer Make"</span><span class="caret"></span></div>
+  <h1>Stop <span class="accent">reading</span> your slides.<br>Start <span class="accent2">perform</span>ing them.</h1>
+  <p class="hero-sub">A practical route from "I can put text on a slide" to "I built the deck the whole team reuses — and I actually enjoy presenting it." Four columns, one skill per row — tap any cell for the how-to, then prove it with a quick check.</p>
+  <div class="hero-meta">
+    <div class="meta-item">SKILLS<strong>37</strong></div>
+    <div class="meta-item">LEVELS<strong>4</strong></div>
+    <div class="meta-item">CAPSTONES<strong>4</strong></div>
+    <div class="meta-item">EST. TIME<strong>~8 hrs</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-top">
+      <div class="home-progress-row" style="flex:1; margin-bottom:0;">
+        <div class="home-progress-label"><strong id="homeCompletionVal">0%</strong><span id="homeCompletionSub">0 / 37 skills</span></div>
+        <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+      </div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning →</button>
+    </div>
+    <div class="home-stats">
+      <div class="home-stat"><div class="dlabel">Current Level</div><div class="dvalue" id="homeLevelVal">Slide Basics</div></div>
+      <div class="home-stat"><div class="dlabel">Next Up</div><div class="dvalue" id="homeNextLesson" style="font-size:14px;">—</div></div>
+      <div class="home-stat"><div class="dlabel">Mastered</div><div class="dvalue" id="homeMasteredVal">0 / 37</div></div>
+      <div class="home-stat"><div class="dlabel">Capstones</div><div class="dvalue" id="homeProjectsVal">0 / 4</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn">
+  <div class="section-intro"><span class="ref mono">01</span><h2>The Skill Board</h2></div>
+  <p class="section-note">37 skills across 4 levels. Tap a cell to open the how-to and a quick check — answer it correctly to mark the skill mastered.</p>
+  <div class="board" id="board"></div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice">
+  <div class="section-intro"><span class="ref mono">02</span><h2>Practice Lab</h2></div>
+  <p class="section-note">One task per level. Try it in PowerPoint first, then check the solution.</p>
+  <div class="lab" id="lab"></div>
+  <div class="section-intro" style="margin-top:56px;"><span class="ref mono">02b</span><h2>Practice Files</h2></div>
+  <p class="section-note">Download raw content to build slides from scratch.</p>
+  <div class="datasets-grid" id="datasetsGrid"></div>
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects">
+  <div class="section-intro"><span class="ref mono">03</span><h2>Capstone Projects</h2></div>
+  <p class="section-note">One real deliverable per level. Check off each requirement as you complete it.</p>
+  <div class="capstone-overall">
+    <span class="ov-label mono">Overall</span>
+    <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+    <span class="ov-count mono" id="capOverallCount">0 / 4 complete</span>
+    <button class="capstone-reset" id="capResetBtn" type="button">Reset checklist</button>
+  </div>
+  <div class="capstone" id="capstoneList"></div>
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress">
+  <div class="section-intro"><span class="ref mono">04</span><h2>Progress</h2></div>
+  <div class="dashboard">
+    <div class="dash-head">
+      <div class="dash-title">📊 Your dashboard</div>
+      <button class="dash-reset" id="dashResetBtn" type="button">Reset all progress</button>
+    </div>
+    <div class="dash-progress-row">
+      <div class="dash-progress-label"><strong id="dashCompletionVal">0%</strong><span id="dashCompletionSub">0 / 37 skills mastered</span></div>
+      <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card" data-metric="level"><div class="dlabel">Current Level</div><div class="dvalue" id="dashLevelVal">Slide Basics</div><div class="dsub">Based on lowest incomplete level</div></div>
+      <div class="dash-card" data-metric="mastered"><div class="dlabel">Skills Mastered</div><div class="dvalue" id="dashMasteredVal">0<span class="unit">/ 37</span></div><div class="dsub">Across all 4 levels</div></div>
+      <div class="dash-card" data-metric="projects"><div class="dlabel">Capstones Done</div><div class="dvalue" id="dashProjectsVal">0<span class="unit">/ 4</span></div><div class="dsub">Full projects completed</div></div>
+      <div class="dash-card" data-metric="streak"><div class="dlabel">Levels Cleared</div><div class="dvalue" id="dashLevelsClearedVal">0<span class="unit">/ 4</span></div><div class="dsub">100% mastered levels</div></div>
+    </div>
+    <div class="dash-readiness">
+      <div class="rscore" id="rScoreVal">0<span class="unit">/ 100</span></div>
+      <div class="rtext"><div class="rlabel">Stage-Ready Score</div><div class="rmsg" id="rMsg">Complete a few skills to get your first score.</div></div>
+    </div>
+  </div>
+
+  <div class="section-intro" style="margin-top:56px;"><span class="ref mono">05</span><h2>4-Week Plan</h2></div>
+  <p class="section-note">A steady rhythm if you'd rather work through this week by week instead of skill by skill.</p>
+  <div class="dashboard" id="weeklyWrap">
+    <div class="weekly-overall">
+      <span class="ov-label mono">Weekly checklist</span>
+      <div class="ov-bar" style="flex:1;"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+      <span class="ov-count mono" id="weeklyOverallCount">0 / 16 done</span>
+    </div>
+    <div class="weekly-grid" id="weeklyGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fcell">Made for <b>real talks</b>, not filler slides.</div>
+  <div class="fcell">Progress saved locally in this browser.</div>
+</footer>
+
+<script>
+(function(){
+  // ---------------- DATA ----------------
+  const LEVELS = [
+    { key:'beginner', label:'Slide Basics', letter:'B', color:'green', skills:[
+      { id:'b1', addr:'B1', time:'5 min', skill:'Slide Layouts & Placeholders', why:"Placeholders are pre-built content zones — using them instead of random text boxes keeps every slide aligned to the theme automatically.", example:'Home → New Slide → pick a Layout', q:"Which ribbon tab do you use to add a new slide?", a:['home'], good:['Pick a layout that matches your content, like Two Content for a comparison'], avoid:['Deleting placeholders and rebuilding with plain text boxes'] },
+      { id:'b2', addr:'B2', time:'5 min', skill:'Adding & Formatting Text', why:'Bold, italics, and font size control what a viewer reads first from ten feet away.', example:'Ctrl+B  ·  Ctrl+I  ·  Ctrl+Shift+> to bump size', q:"Shortcut to increase font size by one step?", a:['ctrl+shift+>','ctrl+shift+.'], good:['Keep body text 24pt or larger for readability'], avoid:['Shrinking text to fit — cut content instead'] },
+      { id:'b3', addr:'B3', time:'5 min', skill:'Inserting Images', why:'A relevant image communicates faster than a paragraph, and keeps a slide from becoming a wall of bullets.', example:'Insert → Pictures → This Device / Stock Images', q:"Which ribbon tab do you use to insert a picture?", a:['insert'], good:['Crop images to fill the frame rather than leaving empty margins'], avoid:[] },
+      { id:'b4', addr:'B4', time:'6 min', skill:'Icons, Shapes & Alignment Tools', why:'Shapes and icons let you build simple diagrams and callouts without leaving PowerPoint, and Align / Distribute / Group keep a cluster of objects looking intentional instead of scattered.', example:'Insert → Icons / Shapes  ·  Shape Format → Align → Align Center  ·  Ctrl+G to group', q:"Which ribbon tab do you use to insert an Icon or Shape?", a:['insert'], good:['Select multiple objects and use Align → Distribute Horizontally for even spacing','Group related shapes with Ctrl+G before moving them as one unit'], avoid:['Eyeballing alignment by dragging instead of using the Align tools'] },
+      { id:'b5', addr:'B5', time:'6 min', skill:'Basic Design Principles', why:'Alignment, contrast, white space, and hierarchy are what make a slide look professional even with plain PowerPoint shapes — they matter more than any theme applied on top.', example:'Grid & guides (Shift+F9) for alignment  ·  high contrast text/background  ·  6×6 rule: max 6 bullets, 6 words each', q:"What does the 6×6 rule limit on a slide?", a:['bullets and words per line','6 bullets 6 words','number of bullets and words'], good:['Leave generous white space instead of filling every inch of the slide','Use size and color to build a clear visual hierarchy — the most important idea should be biggest or boldest'], avoid:['Justifying title text — left- or center-aligned reads more naturally','Cramming a full paragraph onto one slide because it technically fits'] },
+      { id:'b6', addr:'B6', time:'5 min', skill:'Slide Sorter & Reordering', why:'The Slide Sorter view lets you drag whole slides into a new order in seconds instead of scrolling one at a time.', example:'View → Slide Sorter, or drag thumbnails in the left pane', q:"Which View shows all slides as thumbnails you can drag to reorder?", a:['slide sorter'], good:[], avoid:[] },
+      { id:'b7', addr:'B7', time:'5 min', skill:'Themes & Design Ideas', why:'A Theme applies consistent colors, fonts, and layout rules across every slide in one click.', example:'Design tab → Themes gallery / Design Ideas', q:"Which ribbon tab holds Themes and Design Ideas?", a:['design'], good:['Let Design Ideas suggest a layout, then tweak it'], avoid:['Mixing two different themes in one deck'] },
+      { id:'b8', addr:'B8', time:'5 min', skill:'Saving & Exporting', why:"Knowing .pptx vs PDF vs a video export means the right file lands in the right inbox with no surprise formatting breaks.", example:'Ctrl+S to save · File → Export → Create PDF/XPS', q:"Shortcut to save the current presentation?", a:['ctrl+s'], good:['Export to PDF before emailing to someone without PowerPoint'], avoid:[] },
+      { id:'b9', addr:'B9', time:'5 min', skill:'Running a Slideshow', why:'Knowing how to start, advance, and exit a slideshow cleanly is the difference between a smooth talk and a fumbled one.', example:'F5 from slide 1 · Shift+F5 from current slide · Esc to exit', q:"Shortcut to start the slideshow from the current slide?", a:['shift+f5'], good:[], avoid:['Pressing Esc mid-sentence out of habit — it kills the show instantly'] },
+    ]},
+    { key:'intermediate', label:'Visual Structure', letter:'I', color:'orange', skills:[
+      { id:'i1', addr:'I1', time:'6 min', skill:'Outline View', why:'Outline view lets you draft an entire deck as a text outline first — structure before design, so you plan a presentation before you decorate it.', example:'View → Outline View', q:"Which view lets you type slide titles and bullets as a plain text outline?", a:['outline','outline view'], good:[], avoid:[] },
+      { id:'i2', addr:'I2', time:'10 min', skill:'Slide Master', why:'Editing the Slide Master changes every slide at once — the single highest-leverage formatting move in PowerPoint.', example:'View → Slide Master', q:"Which ribbon tab opens Slide Master view?", a:['view'], good:['Set fonts and colors once in the Master instead of per-slide'], avoid:[] },
+      { id:'i3', addr:'I3', time:'8 min', skill:'Tables in PowerPoint', why:'A real table, not tabbed text, keeps comparative data aligned no matter how the slide is resized.', example:'Insert → Table → drag grid', q:"Which ribbon tab do you use to insert a table?", a:['insert'], good:[], avoid:['Pasting a huge spreadsheet screenshot instead of a formatted table'] },
+      { id:'i4', addr:'I4', time:'10 min', skill:'Charts Linked to Data', why:'Native PowerPoint charts, not pasted images, can be edited and relabeled without leaving the slide.', example:'Insert → Chart → pick a type → edit in the linked worksheet', q:"Which ribbon tab do you use to insert a chart?", a:['insert'], good:['Pick the simplest chart type that shows the comparison'], avoid:[] },
+      { id:'i5', addr:'I5', time:'8 min', skill:'SmartArt', why:'SmartArt turns a bullet list into a process diagram, hierarchy, or cycle graphic in a couple of clicks.', example:'Insert → SmartArt → pick a layout', q:"Which ribbon tab holds SmartArt?", a:['insert'], good:[], avoid:['Cramming more than about 6 items into one SmartArt diagram'] },
+      { id:'i6', addr:'I6', time:'6 min', skill:'Transitions', why:'A transition signals "new idea" to the audience — used sparingly, it adds polish instead of distraction.', example:'Transitions tab → pick an effect → Apply to All', q:"Which ribbon tab holds slide Transitions?", a:['transitions'], good:['Use one transition style consistently through the whole deck'], avoid:['Using a different flashy transition on every slide'] },
+      { id:'i7', addr:'I7', time:'10 min', skill:'Animations', why:'Animations control the order information appears — critical for walking an audience through a complex slide step by step.', example:'Animations tab → Add Animation → Entrance / Emphasis / Exit', q:"Which ribbon tab holds Animations?", a:['animations'], good:['Animate to reveal one bullet at a time on dense slides'], avoid:['Animating every single object because you can'] },
+      { id:'i8', addr:'I8', time:'10 min', skill:'Speaker Notes & Presenter View', why:'Presenter View shows your notes, a timer, and the next slide on your screen while the audience only ever sees the current slide — most business talks need this well before any advanced interactivity.', example:'Slide Show tab → check Use Presenter View', q:"Which view shows your speaker notes and a timer only to you during a talk?", a:['presenter view','presenter'], good:[], avoid:[] },
+    ]},
+    { key:'advanced', label:'Motion & Data', letter:'A', color:'amber', skills:[
+      { id:'a1', addr:'A1', time:'12 min', skill:'Animation Pane & Triggers', why:'The Animation Pane exposes exact timing and lets you fire an animation when a specific object is clicked — real interactivity, not just auto-play.', example:'Animations tab → Animation Pane; right-click → Timing → Triggers', q:"Which panel shows the exact order and timing of every animation on a slide?", a:['animation pane'], good:[], avoid:[] },
+      { id:'a2', addr:'A2', time:'12 min', skill:'Custom Slide Master Branding', why:'A fully customized Slide Master — logo placement, brand colors, footer rules — is what turns a deck into an on-brand template.', example:'View → Slide Master → edit layouts, insert logo on the master', q:"Where do you place a logo so it appears on every slide automatically?", a:['slide master','master'], good:[], avoid:[] },
+      { id:'a3', addr:'A3', time:'10 min', skill:'Morph Transition', why:'Morph smoothly animates an object moving, resizing, or changing between two slides — used for zooms, maps, and before/after reveals.', example:'Duplicate a slide, move/resize an object, then Transitions → Morph', q:"Which transition smoothly animates an object between two nearly-identical slides?", a:['morph'], good:[], avoid:[] },
+      { id:'a4', addr:'A4', time:'10 min', skill:'Linked Excel Data', why:'A chart linked, not pasted, to an external Excel file updates automatically when the source data changes.', example:"Insert Chart → Edit Data in Excel → keep the link", q:"What should you avoid doing to a chart if you want it to update automatically from Excel?", a:['pasting as a picture','paste as picture','pasting it as an image'], good:[], avoid:[] },
+      { id:'a5', addr:'A5', time:'8 min', skill:'Sections & Zoom', why:'Sections group slides into named chapters in the thumbnail pane; Zoom lets you jump non-sequentially between them during a live talk.', example:'Right-click between slides → Add Section; Insert → Zoom → Section Zoom', q:"Which feature lets you group slides into named chapters?", a:['sections','section'], good:[], avoid:[] },
+      { id:'a6', addr:'A6', time:'8 min', skill:'Hyperlinks & Action Buttons', why:'Hyperlinks and Action Buttons turn a linear deck into a clickable menu — useful for FAQs, training decks, or choose-your-own-path demos.', example:'Insert → Link, or Insert → Shapes → Action Buttons', q:"Which ribbon tab do you use to add a hyperlink to a slide object?", a:['insert'], good:[], avoid:[] },
+    ]},
+    { key:'expert', label:'Automation & Delivery', letter:'E', color:'red', skills:[
+      { id:'e1', addr:'E1', time:'20 min', skill:'Macros & VBA', why:'Recording or writing a macro automates repetitive slide-building tasks — resizing 40 images identically, for example — in seconds.', example:'View → Macros → View Macros; Alt+F11 for the VBA editor', q:"Shortcut to open the VBA editor?", a:['alt+f11'], good:[], avoid:['Running macros from an unknown source — they can contain harmful code'] },
+      { id:'e2', addr:'E2', time:'12 min', skill:'Custom Slide Shows', why:'A Custom Slide Show is a saved subset or reorder of your slides — one deck, multiple audience-specific versions, no duplicate files.', example:'Slide Show tab → Custom Slide Show → Custom Shows', q:"Which ribbon tab lets you build a Custom Slide Show?", a:['slide show'], good:[], avoid:[] },
+      { id:'e3', addr:'E3', time:'12 min', skill:'Video & Audio with Triggers', why:'Embedded media with a trigger only plays when a specific object is clicked, instead of auto-playing over you while you talk.', example:'Insert → Video, then Animations → Trigger → On Click of', q:"What do you set so a video only plays when a specific object is clicked?", a:['trigger'], good:[], avoid:['Embedding a video that auto-plays the instant the slide appears'] },
+      { id:'e4', addr:'E4', time:'8 min', skill:'Add-ins', why:"Add-ins extend PowerPoint with things it doesn't do natively — live polling, icon libraries, or design assistants.", example:'Insert → Get Add-ins', q:"Which ribbon tab do you use to install an Add-in?", a:['insert'], good:[], avoid:[] },
+      { id:'e5', addr:'E5', time:'14 min', skill:'Accessibility: Alt Text, Reading Order & Contrast', why:'Alt text, reading order, and color contrast are what let screen readers, and many compliance rules, actually parse your deck — the checker also flags small fonts and low-contrast text that human viewers struggle with too.', example:'Review → Check Accessibility  ·  right-click image → Edit Alt Text  ·  View → Selection Pane for reading order', q:"Which ribbon tab runs the Accessibility Checker?", a:['review'], good:['Add alt text to every image and chart before sharing publicly','Check that the reading order in the Selection Pane matches the order a sighted viewer would naturally follow','Keep body text at 24pt or larger with high text-to-background contrast'], avoid:[] },
+      { id:'e6', addr:'E6', time:'10 min', skill:'Co-authoring & Broadcasting', why:'Real-time co-authoring, via OneDrive or SharePoint, lets a team build one deck together instead of emailing versions back and forth.', example:'Share button (top-right) → invite people with edit access', q:"What must a file be saved to before real-time co-authoring works?", a:['onedrive','sharepoint','cloud'], good:[], avoid:[] },
+      { id:'e7', addr:'E7', time:'10 min', skill:'Templates (.potx) & Org Branding', why:'Saving a deck as a Template (.potx) locks in your Slide Master, theme, and layouts as a reusable starting point for a whole team.', example:'Save As → PowerPoint Template (*.potx)', q:"What file extension does a PowerPoint template use?", a:['.potx','potx'], good:[], avoid:[] },
+      { id:'e8', addr:'E8', time:'8 min', skill:'Designer Best Practices', why:'PowerPoint Designer auto-generates layout suggestions from your content — knowing when to trust it and when to override it saves time without producing generic-looking slides.', example:'Add content to a slide → Design tab → Design Ideas pane appears automatically', q:"Which pane suggests auto-generated layouts based on your slide content?", a:['design ideas','designer'], good:['Feed Designer one image or short text block at a time for better suggestions'], avoid:['Accepting the first Design Idea without checking it against your brand colors'] },
+      { id:'e9', addr:'E9', time:'12 min', skill:'Recording & Exporting to Video', why:'Record Slide Show captures narration, timing, and ink directly on your deck, and Export to Video turns the whole thing into an .mp4 you can send to anyone.', example:'Slide Show tab → Record Slide Show; File → Export → Create a Video', q:"Which ribbon tab do you use to start Record Slide Show?", a:['slide show'], good:['Record one slide at a time so a flubbed line only means re-recording that slide'], avoid:['Exporting to video before checking narration timing in Record Slide Show'] },
+      { id:'e10', addr:'E10', time:'8 min', skill:'Screen Recording', why:'Built-in screen recording lets you capture anything on your screen, like a live software demo, and drop it straight onto a slide without a separate app.', example:'Insert → Screen Recording → select an area → Record', q:"Which ribbon tab holds Screen Recording?", a:['insert'], good:[], avoid:['Recording your entire screen when only one app window is relevant'] },
+      { id:'e11', addr:'E11', time:'8 min', skill:'Embedding Live Web Content', why:'Embedding a live web page or video keeps a slide showing current data or content, instead of a static screenshot that goes stale.', example:'Insert → Video → Online Video, or Insert → Get Add-ins for a web viewer', q:"Which ribbon tab do you use to embed an online video or web add-in?", a:['insert'], good:[], avoid:['Embedding live web content you cannot preview offline — it can fail without an internet connection during a talk'] },
+      { id:'e12', addr:'E12', time:'10 min', skill:'SVG Graphics & 3D Models', why:'SVG icons stay crisp at any size and can be recolored piece by piece, and 3D Models let you rotate an object live during a talk instead of showing static angles.', example:'Insert → Icons for SVG  ·  Insert → 3D Models → From a File / Stock 3D Models', q:"What file format keeps an icon crisp no matter how large you scale it?", a:['svg'], good:['Right-click an SVG → Convert to Shape to recolor individual parts'], avoid:['Using a 3D Model when a static SVG icon would communicate the same idea faster'] },
+      { id:'e13', addr:'E13', time:'8 min', skill:'Ink & Draw Tools', why:'The Draw tab turns a mouse, trackpad, or stylus into a pen for annotating live during a talk or sketching a quick diagram no shape library has.', example:'Draw tab → pick a pen → draw directly on the slide, even during Slideshow mode', q:"Which ribbon tab holds the pen and highlighter tools?", a:['draw'], good:['Use ink annotations during a live Q&A to circle exactly what you mean'], avoid:['Leaving stray ink marks on a slide after using them to explain a point'] },
+      { id:'e14', addr:'E14', time:'10 min', skill:'Cameo & Rehearse with Coach', why:'Cameo places your webcam feed directly inside a slide layout for a talking-head look, and Rehearse with Coach gives live feedback on pacing, filler words, and slide reading.', example:'Insert → Cameo to add your camera; Slide Show tab → Rehearse with Coach', q:"Which ribbon tab do you use to add a live camera feed to a slide layout?", a:['insert'], good:['Run Rehearse with Coach at least once before a high-stakes talk to catch pacing issues'], avoid:[] },
+    ]},
+  ];
+
+  const CAPSTONES = [
+    { level:'beginner', num:'CAPSTONE 01', title:'Build a 5-Slide Personal Intro Deck', scenario:"You're introducing yourself at a new job or club and need a short, clean deck to walk through in under 3 minutes.", skills:['Layouts','Text Formatting','Images','Icons & Alignment','Design Basics','Themes','Reordering','Export'], deliver:[
+        'Use at least 3 different slide layouts',
+        'Insert and crop at least 2 images',
+        'Insert at least 2 icons or shapes and align/distribute them evenly',
+        'Keep every bullet slide within the 6×6 rule',
+        'Apply a single consistent Theme across all 5 slides',
+        'Reorder slides using the Slide Sorter',
+        'Export a PDF copy alongside the .pptx',
+      ]},
+    { level:'intermediate', num:'CAPSTONE 02', title:'Build a Data-Driven Team Update Deck', scenario:"Your manager wants a monthly team update deck with a real data table, a chart, and a visual process diagram, and you need to be ready to present it live.", skills:['Outline View','Slide Master','Tables','Charts','SmartArt','Transitions','Animations','Presenter View'], deliver:[
+        'Draft the deck structure in Outline View before adding any design',
+        'Customize the Slide Master with one consistent font/color set',
+        'Insert a table comparing at least 3 data points',
+        'Insert a chart built from real or provided data',
+        'Use SmartArt to show a process or timeline',
+        'Apply one transition style consistently across the deck',
+        'Animate one slide to reveal bullets one at a time',
+        'Write speaker notes for at least 2 slides and rehearse using Presenter View',
+      ]},
+    { level:'advanced', num:'CAPSTONE 03', title:'Build a Branded, Interactive Template', scenario:"The design team wants a reusable template with a working Morph zoom intro, a clickable slide menu, and a chart that updates itself from live data.", skills:['Custom Branding','Morph','Linked Data','Sections','Hyperlinks'], deliver:[
+        'Build a custom Slide Master with a logo and brand colors',
+        'Create a 2-slide Morph transition sequence',
+        'Link one chart to live Excel data so it updates automatically',
+        'Organize the deck into at least 2 named Sections',
+        'Add a clickable menu slide using hyperlinks or action buttons',
+      ]},
+    { level:'expert', num:'CAPSTONE 04', title:'Automate a Multi-Audience Presentation Kit', scenario:"Sales needs one master deck that can be trimmed into audience-specific versions, plus a macro that formats new slides automatically and a short video cut for people who can't attend live.", skills:['Macros','Custom Slide Shows','Video Triggers','Accessibility','Recording & Video','Templates'], deliver:[
+        'Record a macro that applies consistent formatting to a new slide',
+        'Build at least 2 Custom Slide Shows from the same master deck',
+        'Embed one video that only plays on a click trigger',
+        'Run the Accessibility Checker and resolve flagged issues',
+        'Export at least 3 slides as a narrated video using Record Slide Show',
+        'Save the final base deck as a .potx template',
+      ]},
+  ];
+
+  const LAB = [
+    { level:'beginner', title:'Build a Title + Content Slide from Scratch', task:"Take raw bullet text and place it into a Two Content layout alongside an image.", sample:[['Before','After'],['Plain bullet list, no layout','Two Content slide: bullets + image']], solution:'1. Home → New Slide → Two Content.\n2. Paste the bullet text into the left placeholder.\n3. Insert → Pictures into the right placeholder, then crop to fit.' },
+    { level:'intermediate', title:'Turn a Bullet List into SmartArt', task:"Convert a 4-step list into a SmartArt process diagram, then add a matching chart from sample data.", sample:[['Step','Description'],['1','Draft'],['2','Review'],['3','Revise'],['4','Publish']], solution:'1. Select the 4-item bulleted list → right-click → Convert to SmartArt → Process.\n2. Insert → Chart → Clustered Column, then paste in the sample numbers.\n3. Apply the deck theme colors to both.' },
+    { level:'advanced', title:'Build a 2-Slide Morph Sequence', task:"Duplicate a slide, move and resize one shape on the copy, then apply Morph between the two.", sample:[['Slide','Change']],
+      solution:'1. Right-click a slide → Duplicate Slide.\n2. On the copy, move and resize one shape noticeably.\n3. Select both slides → Transitions → Morph.' },
+    { level:'expert', title:'Record a Slide-Formatting Macro', task:"Record a macro that sets the title font, size, and color on whichever slide is active.", sample:[['Property','Target Value'],['Font','Same as theme heading font'],['Size','36pt'],['Color','Theme accent 1']],
+      solution:'1. View → Macros → Record Macro, name it FormatTitle.\n2. Click the title placeholder, set font/size/color manually.\n3. Stop recording, then run the macro on a different slide to confirm it works.' },
+  ];
+
+  const DATASETS = [
+    { key:'outline', name:'Raw Bullet Outline', desc:'Plain-text outline for building a first deck using Outline view.', meta:'.txt · 5 slides', file:'raw-bullet-outline.txt' },
+    { key:'numbers', name:'Quarterly Numbers', desc:'Sample sales data for chart and table practice.', meta:'.csv · 4 quarters', file:'quarterly-numbers.csv' },
+    { key:'steps', name:'Process Steps List', desc:'A short numbered process to convert into SmartArt.', meta:'.txt · 5 steps', file:'process-steps.txt' },
+    { key:'macro', name:'Macro Starter Script', desc:'A short, benign VBA snippet you can paste into the VBA editor to see how macros are structured.', meta:'.txt · VBA', file:'macro-starter.txt' },
+  ];
+
+  const SHORTCUTS = [
+    ['New slide','Ctrl + M'], ['Duplicate slide','Ctrl + D'], ['Start show from slide 1','F5'],
+    ['Start show from current slide','Shift + F5'], ['End slideshow','Esc'], ['Group objects','Ctrl + G'],
+    ['Ungroup objects','Ctrl + Shift + G'], ['Bold selection','Ctrl + B'], ['Italicize selection','Ctrl + I'],
+    ['Save the presentation','Ctrl + S'], ['Print','Ctrl + P'], ['Insert hyperlink','Ctrl + K'],
+    ['Open VBA editor','Alt + F11'], ['Copy formatting','Ctrl + Shift + C'], ['Paste formatting','Ctrl + Shift + V'],
+    ['Black out screen during show','B'], ['White out screen during show','W'], ['Select all objects','Ctrl + A'],
+    ['Center align text','Ctrl + E'], ['Insert new text box','Alt, N, X'],
+  ];
+
+  window.PPT_LEVELS = LEVELS;
+
+  // ---------------- STORAGE ----------------
+  const MASTERED_KEY = 'pptRoadmapMastered';
+  const CAP_KEY = 'pptRoadmapCapDone';
+  const WEEKLY_KEY = 'pptRoadmapWeekly';
+  const PAGE_KEY = 'pptRoadmapActivePage';
+  function loadSet(key){ try{ return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }catch(e){ return new Set(); } }
+  function saveSet(key, set){ try{ localStorage.setItem(key, JSON.stringify([...set])); }catch(e){} }
+  function loadObj(key){ try{ return JSON.parse(localStorage.getItem(key) || '{}'); }catch(e){ return {}; } }
+  function saveObj(key, obj){ try{ localStorage.setItem(key, JSON.stringify(obj)); }catch(e){} }
+
+  let mastered = loadSet(MASTERED_KEY);
+  let capDone = loadObj(CAP_KEY);
+  let weeklyDone = loadSet(WEEKLY_KEY);
+
+  // ---------------- RENDER BOARD ----------------
+  const board = document.getElementById('board');
+  LEVELS.forEach(level => {
+    const col = document.createElement('div');
+    col.className = 'level-col';
+    col.dataset.level = level.key;
+    col.innerHTML = '<div class="level-head"><div class="letter mono">LEVEL ' + level.letter + '</div><h3>' + level.label + '</h3><span class="tag mono">' + level.skills.length + ' skills</span></div>';
+    level.skills.forEach(s => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.id = s.id;
+      const goodList = s.good && s.good.length ? ('<div class="tn-group"><div class="tn-label good">Do</div><ul class="tn-list good">' + s.good.map(g=>'<li>'+g+'</li>').join('') + '</ul></div>') : '';
+      const avoidList = s.avoid && s.avoid.length ? ('<div class="tn-group"><div class="tn-label avoid">Avoid</div><ul class="tn-list avoid">' + s.avoid.map(g=>'<li>'+g+'</li>').join('') + '</ul></div>') : '';
+      cell.innerHTML =
+        '<div class="addr mono"><span>' + s.addr + '</span><span class="time-est">' + s.time + '</span><span class="skill-done-badge">✓ mastered</span></div>' +
+        '<div class="skill">' + s.skill + '</div>' +
+        '<div class="why">' + s.why + '</div>' +
+        '<div class="example mono">' + s.example + '</div>' +
+        ((goodList||avoidList) ? ('<div class="tool-notes">' + goodList + avoidList + '</div>') : '') +
+        '<div class="challenge" data-id="' + s.id + '">' +
+          '<div class="ch-q"><b>Quick check:</b> ' + s.q + '</div>' +
+          '<div class="ch-row"><input class="ch-input mono" type="text" placeholder="Type your answer…"><button class="ch-btn mono" type="button">Check</button></div>' +
+          '<div class="ch-result"></div>' +
+          '<button class="ch-reveal" type="button">Reveal answer</button>' +
+        '</div>';
+      cell.addEventListener('click', (e) => {
+        if (e.target.closest('.challenge')) return;
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== cell) c.classList.remove('open'); });
+        cell.classList.toggle('open');
+      });
+      const input = cell.querySelector('.ch-input');
+      const checkBtn = cell.querySelector('.ch-btn');
+      const result = cell.querySelector('.ch-result');
+      const revealBtn = cell.querySelector('.ch-reveal');
+      function norm(str){ return (str||'').toLowerCase().trim().replace(/\s+/g,' '); }
+      function check(){
+        const val = norm(input.value);
+        const ok = s.a.some(ans => val === norm(ans) || val.includes(norm(ans)));
+        if (ok){
+          result.textContent = '✓ Correct — skill mastered.';
+          result.className = 'ch-result correct';
+          if (!mastered.has(s.id)){ mastered.add(s.id); saveSet(MASTERED_KEY, mastered); }
+          cell.classList.add('skill-mastered');
+          updateAll();
+        } else {
+          result.textContent = '✗ Not quite — try again, or reveal the answer.';
+          result.className = 'ch-result incorrect';
+        }
+      }
+      checkBtn.addEventListener('click', check);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+      revealBtn.addEventListener('click', () => {
+        result.textContent = 'Answer: ' + s.a[0];
+        result.className = 'ch-result';
+      });
+      if (mastered.has(s.id)) cell.classList.add('skill-mastered');
+      col.appendChild(cell);
+    });
+    const cta = document.createElement('div');
+    cta.className = 'level-practice-cta';
+    cta.innerHTML = '<a class="cta-link mono" href="#lab-' + level.key + '" data-goto-tab>🧪 Practice</a><a class="cta-link mono" href="#capstone-' + level.key + '">📂 Capstone</a>';
+    col.appendChild(cta);
+    board.appendChild(col);
+  });
+
+  // ---------------- RENDER LAB ----------------
+  const lab = document.getElementById('lab');
+  LAB.forEach(item => {
+    const level = LEVELS.find(l => l.key === item.level);
+    const card = document.createElement('div');
+    card.className = 'lab-card';
+    card.id = 'lab-' + item.level;
+    card.dataset.level = item.level;
+    const rows = item.sample.slice(1).map(r => '<tr>' + r.map(c=>'<td>'+c+'</td>').join('') + '</tr>').join('');
+    card.innerHTML =
+      '<div class="lab-head"><span class="swatch"></span><span class="lname mono">' + level.label + '</span></div>' +
+      '<h4>' + item.title + '</h4>' +
+      '<p class="task">' + item.task + '</p>' +
+      '<table class="sample"><thead><tr>' + item.sample[0].map(h=>'<th>'+h+'</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<details class="solution"><summary>View solution steps</summary><div class="sol-body"><code>' + item.solution + '</code></div></details>';
+    lab.appendChild(card);
+  });
+
+  // ---------------- RENDER DATASETS ----------------
+  const CONTENT = {
+    outline: "Slide 1: Compose: My First PowerPoint Deck\n- A quick 5-slide walkthrough\n\nSlide 2: Why This Matters\n- Slides help an audience follow a spoken idea\n- Good slides support you, they don't replace you\n\nSlide 3: What Makes a Slide Work\n- One idea per slide\n- Big readable text\n- One supporting image\n\nSlide 4: Common Mistakes\n- Too much text\n- Too many fonts\n- Reading straight off the slide\n\nSlide 5: Try It Yourself\n- Pick one layout\n- Add one image\n- Practice saying it out loud",
+    steps: "1. Gather requirements from the team\n2. Draft the first version\n3. Send for review\n4. Revise based on feedback\n5. Publish the final version",
+    macro: "Sub FormatTitle()\n    ' Sets the title placeholder on the active slide\n    ' to a consistent font, size, and color.\n    Dim sld As Slide\n    Dim shp As Shape\n    Set sld = ActiveWindow.View.Slide\n\n    For Each shp In sld.Shapes\n        If shp.Type = msoPlaceholder Then\n            If shp.PlaceholderFormat.Type = ppPlaceholderTitle Then\n                shp.TextFrame.TextRange.Font.Name = \"Archivo\"\n                shp.TextFrame.TextRange.Font.Size = 36\n                shp.TextFrame.TextRange.Font.Color.RGB = RGB(232, 112, 58)\n            End If\n        End If\n    Next shp\nEnd Sub",
+  };
+  function genNumbersCSV(){
+    const rows = [['Quarter','Revenue','Expenses','NewCustomers']];
+    const data = [['Q1',48200,31500,64],['Q2',52100,33800,71],['Q3',55900,34200,80],['Q4',61300,36700,93]];
+    data.forEach(r => rows.push(r));
+    return rows.map(r => r.join(',')).join('\n');
+  }
+  function download(filename, text){
+    const blob = new Blob([text], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  const grid = document.getElementById('datasetsGrid');
+  DATASETS.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'dataset-card';
+    card.innerHTML = '<h4>' + d.name + '</h4><p>' + d.desc + '</p><div class="dataset-meta mono">' + d.meta + '</div><button class="dataset-btn" type="button">Download</button>';
+    card.querySelector('.dataset-btn').addEventListener('click', function(){
+      const btn = this; const original = btn.textContent;
+      btn.textContent = 'Generating…';
+      setTimeout(() => {
+        const text = d.key === 'numbers' ? genNumbersCSV() : CONTENT[d.key];
+        download(d.file, text);
+        btn.textContent = 'Downloaded ✓';
+        setTimeout(() => { btn.textContent = original; }, 1600);
+      }, 10);
+    });
+    grid.appendChild(card);
+  });
+
+  // ---------------- RENDER CAPSTONES ----------------
+  const capList = document.getElementById('capstoneList');
+  CAPSTONES.forEach(cap => {
+    const level = LEVELS.find(l => l.key === cap.level);
+    if (!capDone[cap.level]) capDone[cap.level] = new Array(cap.deliver.length).fill(false);
+    const card = document.createElement('div');
+    card.className = 'capstone-card';
+    card.dataset.level = cap.level;
+    card.id = 'capstone-' + cap.level;
+    card.innerHTML =
+      '<div class="cap-side">' +
+        '<div class="cap-num mono">' + cap.num + '</div>' +
+        '<h4>' + cap.title + '</h4>' +
+        '<span class="cap-level-tag mono">' + level.label + '</span>' +
+        '<span class="cap-done-badge mono">✓ Complete</span>' +
+        '<div class="cap-progress-row"><span class="cap-progress-count mono">0 / ' + cap.deliver.length + '</span><div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div></div>' +
+      '</div>' +
+      '<div class="cap-body">' +
+        '<p class="cap-scenario"><b>Scenario:</b> ' + cap.scenario + '</p>' +
+        '<div class="cap-skills">' + cap.skills.map(s=>'<span class="cap-skill-chip mono">'+s+'</span>').join('') + '</div>' +
+        '<div class="cap-deliver"><div class="cap-deliver-label mono">Deliverables</div><ul>' + cap.deliver.map((d,i)=>'<li data-idx="'+i+'">'+d+'</li>').join('') + '</ul></div>' +
+      '</div>';
+    card.querySelectorAll('.cap-deliver li').forEach(li => {
+      const idx = +li.dataset.idx;
+      if (capDone[cap.level][idx]) li.classList.add('done');
+      li.addEventListener('click', () => {
+        capDone[cap.level][idx] = !capDone[cap.level][idx];
+        li.classList.toggle('done');
+        saveObj(CAP_KEY, capDone);
+        updateAll();
+      });
+    });
+    capList.appendChild(card);
+  });
+  document.getElementById('capResetBtn').addEventListener('click', () => {
+    if (!confirm('Reset all capstone checklists?')) return;
+    CAPSTONES.forEach(cap => { capDone[cap.level] = new Array(cap.deliver.length).fill(false); });
+    saveObj(CAP_KEY, capDone);
+    document.querySelectorAll('.cap-deliver li.done').forEach(li => li.classList.remove('done'));
+    updateAll();
+  });
+
+  // ---------------- RENDER WEEKLY PLAN ----------------
+    const WEEKLY = [
+    { level:'beginner', title:'Week 1 — Slide Basics', sub:'Get comfortable building a single deck', days:[
+      'Build a slide using a real Layout, not a blank text box',
+      'Insert and crop one image',
+      'Insert 2 shapes or icons, align them, and check one slide against the 6×6 rule',
+      'Apply a Theme to a 3-slide deck',
+      'Save a deck as both .pptx and PDF']},
+    { level:'intermediate', title:'Week 2 — Visual Structure', sub:'Make a deck that looks and moves consistently', days:[
+      'Draft a 5-slide outline in Outline View, then build it out',
+      'Edit the Slide Master to set one font/color pairing',
+      'Insert a table and a chart on the same deck',
+      'Convert a bullet list into SmartArt',
+      'Apply one transition style to every slide',
+      'Rehearse the deck once using Presenter View']},
+    { level:'advanced', title:'Week 3 — Motion & Data', sub:'Add real interactivity', days:[
+      'Build a 2-slide Morph sequence',
+      'Link a chart to live Excel data',
+      'Group slides into 2 named Sections',
+      'Add a hyperlink or action-button menu slide with at least 3 links']},
+    { level:'expert', title:'Week 4 — Automation & Delivery', sub:'Build something that runs itself', days:[
+      'Record your first macro',
+      'Build one Custom Slide Show',
+      'Add a video with a click trigger',
+      'Run the Accessibility Checker on any deck',
+      'Export 2–3 slides as a narrated video using Record Slide Show']},
+  ];
+  const weeklyGrid = document.getElementById('weeklyGrid');
+  let weeklyTotal = 0;
+  WEEKLY.forEach(w => {
+    const wk = document.createElement('div');
+    wk.className = 'weekly-week';
+    wk.dataset.level = w.level;
+    wk.innerHTML = '<div class="weekly-week-head"><h4>' + w.title + '</h4><span class="wk-sub mono">' + w.sub + '</span></div><div class="weekly-days"></div>';
+    const daysWrap = wk.querySelector('.weekly-days');
+    w.days.forEach((d, i) => {
+      weeklyTotal++;
+      const key = w.level + '-' + i;
+      const row = document.createElement('label');
+      row.className = 'weekly-day' + (weeklyDone.has(key) ? ' done' : '');
+      row.innerHTML = '<input type="checkbox" ' + (weeklyDone.has(key)?'checked':'') + '><span class="wd-text">' + d + '</span>';
+      row.querySelector('input').addEventListener('change', function(){
+        if (this.checked){ weeklyDone.add(key); row.classList.add('done'); } else { weeklyDone.delete(key); row.classList.remove('done'); }
+        saveSet(WEEKLY_KEY, weeklyDone);
+        updateAll();
+      });
+      daysWrap.appendChild(row);
+    });
+    weeklyGrid.appendChild(wk);
+  });
+
+  // ---------------- DASHBOARD / STATS ----------------
+  function updateDashboard(){
+    const totalSkills = LEVELS.reduce((n,l) => n + l.skills.length, 0);
+    const masteredCount = mastered.size;
+    const pct = Math.round((masteredCount/totalSkills)*100);
+    const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+    const setWidth = (id, w) => { const el = document.getElementById(id); if (el) el.style.width = w + '%'; };
+
+    setText('dashCompletionVal', pct + '%');
+    setText('dashCompletionSub', masteredCount + ' / ' + totalSkills + ' skills mastered');
+    setWidth('dashCompletionFill', pct);
+    setText('homeCompletionVal', pct + '%');
+    setText('homeCompletionSub', masteredCount + ' / ' + totalSkills + ' skills');
+    setWidth('homeCompletionFill', pct);
+
+    let currentLevel = LEVELS[LEVELS.length-1].label;
+    let levelsCleared = 0;
+    for (const level of LEVELS){
+      const allDone = level.skills.every(s => mastered.has(s.id));
+      if (allDone) levelsCleared++; else { currentLevel = level.label; break; }
+    }
+    if (levelsCleared === LEVELS.length) currentLevel = 'All levels complete';
+    setText('dashLevelVal', currentLevel);
+    setText('homeLevelVal', currentLevel);
+    setText('dashLevelsClearedVal', levelsCleared);
+
+    document.querySelector('#dashMasteredVal').innerHTML = masteredCount + '<span class="unit">/ ' + totalSkills + '</span>';
+    setText('homeMasteredVal', masteredCount + ' / ' + totalSkills);
+
+    const projectsDone = CAPSTONES.filter(c => capDone[c.level] && capDone[c.level].every(Boolean)).length;
+    document.querySelector('#dashProjectsVal').innerHTML = projectsDone + '<span class="unit">/ ' + CAPSTONES.length + '</span>';
+    setText('homeProjectsVal', projectsDone + ' / ' + CAPSTONES.length);
+
+    let nextLessonText = 'All skills mastered! 🎉';
+    for (const level of LEVELS){
+      const next = level.skills.find(s => !mastered.has(s.id));
+      if (next){ nextLessonText = next.skill; break; }
+    }
+    setText('homeNextLesson', nextLessonText);
+
+    const readiness = Math.round(pct * 0.7 + (projectsDone/CAPSTONES.length)*100*0.3);
+    document.querySelector('#rScoreVal').innerHTML = readiness + '<span class="unit">/ 100</span>';
+    let msg = 'Complete a few skills to get your first score.';
+    if (readiness >= 90) msg = "You could walk into any conference room and rebuild the deck live if the projector glitched.";
+    else if (readiness >= 60) msg = 'Solid working knowledge — the advanced motion and data tools are where the real polish comes from.';
+    else if (readiness >= 25) msg = 'Good start — the Slide Basics skills alone will noticeably clean up your decks.';
+    setText('rMsg', msg);
+
+    let capOverallDone = 0, capOverallTotal = 0;
+    CAPSTONES.forEach(c => {
+      const arr = capDone[c.level] || [];
+      capOverallDone += arr.filter(Boolean).length;
+      capOverallTotal += c.deliver.length;
+    });
+    setWidth('capOverallFill', capOverallTotal ? Math.round((capOverallDone/capOverallTotal)*100) : 0);
+    setText('capOverallCount', projectsDone + ' / ' + CAPSTONES.length + ' complete');
+
+    CAPSTONES.forEach(cap => {
+      const card = document.getElementById('capstone-' + cap.level);
+      if (!card) return;
+      const arr = capDone[cap.level] || [];
+      const done = arr.filter(Boolean).length;
+      card.querySelector('.cap-progress-count').textContent = done + ' / ' + cap.deliver.length;
+      card.querySelector('.cap-progress-bar-fill').style.width = Math.round((done/cap.deliver.length)*100) + '%';
+      card.classList.toggle('cap-complete', done === cap.deliver.length);
+    });
+
+    const weeklyDoneCount = weeklyDone.size;
+    setWidth('weeklyOverallFill', weeklyTotal ? Math.round((weeklyDoneCount/weeklyTotal)*100) : 0);
+    setText('weeklyOverallCount', weeklyDoneCount + ' / ' + weeklyTotal + ' done');
+  }
+  function updateAll(){ updateDashboard(); }
+  updateAll();
+
+  document.getElementById('dashResetBtn').addEventListener('click', () => {
+    if (!confirm('Reset ALL progress — skills, capstones, and weekly checklist?')) return;
+    mastered = new Set(); saveSet(MASTERED_KEY, mastered);
+    capDone = {}; CAPSTONES.forEach(c => capDone[c.level] = new Array(c.deliver.length).fill(false)); saveObj(CAP_KEY, capDone);
+    weeklyDone = new Set(); saveSet(WEEKLY_KEY, weeklyDone);
+    document.querySelectorAll('.cell.skill-mastered').forEach(c => c.classList.remove('skill-mastered'));
+    document.querySelectorAll('.cap-deliver li.done').forEach(li => li.classList.remove('done'));
+    document.querySelectorAll('.weekly-day.done').forEach(row => { row.classList.remove('done'); row.querySelector('input').checked = false; });
+    updateAll();
+  });
+
+  // ---------------- PAGE ROUTER ----------------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => { const el = document.getElementById('page-'+p); if (el) el.style.display = (p===pageId) ? '' : 'none'; });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem(PAGE_KEY, pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => { const t = document.getElementById(scrollTargetId); if (t) t.scrollIntoView({behavior:'smooth', block:'start'}); else window.scrollTo(0,0); });
+    } else { window.scrollTo(0,0); }
+  }
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem(PAGE_KEY) || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); showPage('projects', a.getAttribute('href').slice(1)); });
+  });
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); showPage('practice', a.getAttribute('href').slice(1)); });
+  });
+
+  document.getElementById('continueLearningBtn').addEventListener('click', () => {
+    let targetId = null;
+    for (const level of LEVELS){
+      const next = level.skills.find(s => !mastered.has(s.id));
+      if (next){ targetId = next.id; break; }
+    }
+    showPage('learn');
+    requestAnimationFrame(() => {
+      if (!targetId) return;
+      const cell = document.querySelector('.cell[data-id="'+targetId+'"]');
+      if (cell){ cell.classList.add('open'); cell.scrollIntoView({behavior:'smooth', block:'center'}); }
+    });
+  });
+
+  // ---------------- SHORTCUTS FLASHCARDS ----------------
+  let scIdx = 0;
+  const scToggle = document.getElementById('scToggle');
+  const scPanel = document.getElementById('scPanel');
+  const scCard = document.getElementById('scCard');
+  const scPrompt = document.getElementById('scPrompt');
+  const scKeys = document.getElementById('scKeys');
+  const scCount = document.getElementById('scCount');
+  function renderCard(){
+    scCard.classList.remove('flipped');
+    scPrompt.textContent = SHORTCUTS[scIdx][0];
+    scKeys.textContent = SHORTCUTS[scIdx][1];
+    scCount.textContent = (scIdx+1) + ' / ' + SHORTCUTS.length;
+  }
+  scToggle.addEventListener('click', () => { scPanel.classList.toggle('open'); if (scPanel.classList.contains('open')) renderCard(); });
+  document.getElementById('scClose').addEventListener('click', () => scPanel.classList.remove('open'));
+  scCard.addEventListener('click', () => scCard.classList.toggle('flipped'));
+  document.getElementById('scPrev').addEventListener('click', () => { scIdx = (scIdx-1+SHORTCUTS.length)%SHORTCUTS.length; renderCard(); });
+  document.getElementById('scNext').addEventListener('click', () => { scIdx = (scIdx+1)%SHORTCUTS.length; renderCard(); });
+  document.getElementById('scShuffle').addEventListener('click', () => { scIdx = Math.floor(Math.random()*SHORTCUTS.length); renderCard(); });
+  renderCard();
+})();
+</script>
+</body>
+</html>

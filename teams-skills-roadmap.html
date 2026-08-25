@@ -1,0 +1,3398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up: A Microsoft Teams Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#3ecf8e;
+    --green-dim:#2a8f63;
+    --blue:#5b9dff;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    background-image:
+      linear-gradient(var(--grid-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size: 64px 32px;
+    background-attachment: fixed;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--green); color:#0c1410; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- APP NAV ---------- */
+  .app-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(26,32,41,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--grid);
+  }
+  .app-nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .app-nav-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--muted);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:14px 12px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+  }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* ---------- HOME / CONTINUE CARD ---------- */
+  .home-card{
+    max-width:1080px;
+    margin:48px auto 0;
+    padding:0 24px;
+  }
+  .home-card-inner{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:12px;
+    padding:26px 26px 22px;
+  }
+  .home-card-slim{ padding:20px 26px 22px; }
+  .home-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .home-card-slim .home-top{ margin-bottom:12px; }
+  .continue-btn{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:#0c1410;
+    background:var(--green);
+    border:none;
+    border-radius:7px;
+    padding:11px 20px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .continue-btn:hover{ background:#35b87e; }
+  .home-slim-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .home-slim-next span{ color:var(--ink); }
+  .home-analytics-link{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .home-analytics-link:hover{ text-decoration:underline; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .home-progress-label strong{
+    font-family:'Archivo', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    text-transform:none;
+  }
+  .home-progress-bar{
+    height:8px;
+    border-radius:5px;
+    background:var(--grid-soft);
+    overflow:hidden;
+  }
+  .home-progress-fill{
+    height:100%;
+    background:var(--green);
+    width:0%;
+    transition:width 0.3s ease;
+  }
+  .home-stats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    margin-bottom:0;
+  }
+  .home-stat .dlabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .home-stat .dvalue{
+    font-family:'Archivo', sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-top:4px;
+    color:var(--ink);
+  }
+  @media (max-width:640px){
+    .home-stats{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding: 76px 24px 64px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .sheet-chrome{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:36px;
+    letter-spacing:0.02em;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--grid);}
+  .dot.g{background:var(--green);}
+
+  .formula-bar{
+    display:flex;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:6px;
+    padding:10px 14px;
+    margin-bottom:44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--green);
+    box-shadow: 0 0 0 1px rgba(62,207,142,0.06), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .formula-bar .fx{
+    color:var(--muted);
+    margin-right:12px;
+    font-style:italic;
+    border-right:1px solid var(--grid);
+    padding-right:12px;
+  }
+  .formula-bar .caret{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--green);
+    margin-left:2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width: 860px;
+  }
+  h1 .accent{ color:var(--green); }
+  h1 .accent2{ color:var(--blue); }
+
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:580px;
+    line-height:1.55;
+  }
+
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .meta-item strong{
+    display:block;
+    font-family:'Archivo', sans-serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-intro{
+    max-width:1080px;
+    margin: 88px auto 28px;
+    padding: 0 24px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-intro .ref{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:13px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .section-intro h2{
+    font-family:'Archivo', sans-serif;
+    font-size:26px;
+    font-weight:700;
+  }
+  .section-note{
+    max-width:1080px;
+    margin: 0 auto 8px;
+    padding: 0 24px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* ---------- GRID OF LEVELS ---------- */
+  .board{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background:var(--grid);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .level-col{
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .level-head{
+    padding:18px 16px 16px;
+    border-bottom:1px solid var(--grid);
+    position:sticky;
+    top:0;
+    background:var(--panel);
+    z-index:2;
+  }
+  .level-head .letter{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--muted));
+    font-weight:600;
+  }
+  .level-head h3{
+    font-family:'Archivo', sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin-top:6px;
+  }
+  .level-head .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    border:1px solid var(--col-color, var(--grid));
+    color: var(--col-color, var(--muted));
+  }
+
+  .topic-divider{
+    margin: 18px 16px 2px;
+    padding-bottom:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color: var(--col-color, var(--muted));
+    border-bottom:1px dashed var(--grid);
+  }
+
+  .cell{
+    position:relative;
+    padding:16px;
+    border-bottom:1px solid var(--grid-soft);
+    cursor:pointer;
+    transition: background 0.15s ease;
+  }
+  .cell:hover{ background: var(--panel-2); }
+  .cell .addr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    opacity:0.7;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:space-between;
+  }
+  .cell .addr .exp{
+    color: var(--col-color, var(--muted));
+    opacity:1;
+    margin-left:auto;
+  }
+  .time-est{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    background:var(--panel-2);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:1px 7px;
+    white-space:nowrap;
+  }
+  .skill-done-badge{
+    display:none;
+    align-items:center;
+    gap:4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--green);
+  }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--green); }
+  .cell.skill-mastered .addr{ color:var(--green); }
+
+  .cell .skill{
+    font-weight:600;
+    font-size:14px;
+    margin-top:5px;
+    line-height:1.3;
+  }
+  .cell .why{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.45;
+  }
+  .cell .example{
+    display:none;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--grid);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--green));
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .cell.open .example{ display:block; }
+  .cell.open{ background: var(--panel-2); }
+
+  .challenge{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--grid);
+  }
+  .cell.open .challenge{ display:block; }
+  .ch-q{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .ch-q b{ color: var(--col-color, var(--green)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{
+    flex:1;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    padding:7px 9px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+  }
+  .ch-input:focus{ outline:none; border-color: var(--col-color, var(--green)); }
+  .ch-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:5px;
+    border:1px solid var(--col-color, var(--green));
+    background: transparent;
+    color: var(--col-color, var(--green));
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .ch-btn:hover{ background: color-mix(in srgb, var(--col-color, var(--green)) 15%, transparent); }
+  .ch-result{
+    margin-top:8px;
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    line-height:1.5;
+    min-height:0;
+  }
+  .ch-result.correct{ color: var(--green); }
+  .ch-result.incorrect{ color: var(--red); }
+  .ch-reveal{
+    margin-top:8px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
+  .ch-reveal:hover{ color:var(--ink); }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--blue); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+
+  .section-lock-banner{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    background:rgba(232,176,75,0.08);
+    border:1px solid rgba(232,176,75,0.3);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:14px 14px 0;
+  }
+  .section-locked .section-lock-banner{ display:flex; }
+  .level-col.section-locked .cell{ opacity:0.35; filter:grayscale(0.4); pointer-events:none; }
+
+  @media (max-width: 880px){
+    .board{ grid-template-columns: 1fr; }
+    .level-head{ position:static; }
+  }
+
+  /* ---------- DIAGRAMS ---------- */
+  .diagram{
+    margin-top:14px;
+    padding:14px 14px 12px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:8px;
+  }
+  .diagram-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:8px;
+  }
+  .diagram svg{ display:block; width:100%; height:auto; }
+  .diagram text{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- PRACTICE LAB ---------- */
+  .lab{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width: 880px){ .lab{ grid-template-columns:1fr; } }
+
+  .lab-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+  }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background: var(--col-color); }
+  .lab-head .lname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color: var(--col-color);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+
+  table.sample{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    margin-bottom:14px;
+    border:1px solid var(--grid);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  table.sample th{
+    background:var(--panel-2);
+    color: var(--col-color);
+    text-align:left;
+    padding:7px 9px;
+    font-weight:600;
+    border-bottom:1px solid var(--grid);
+  }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{
+    padding:9px 12px;
+    cursor:pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color);
+    background:var(--panel-2);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition: transform 0.15s ease; }
+  details.solution[open] summary::before{ transform: rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{
+    display:block;
+    margin:8px 0;
+    padding:8px 10px;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--col-color);
+    font-size:12px;
+    white-space:pre-wrap;
+  }
+
+  /* ---------- CAPSTONE PROJECTS ---------- */
+  .capstone-overall{
+    max-width:1080px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--green), var(--blue), var(--amber), var(--red)); transition: width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{
+    background:none; border:1px solid var(--grid); color:var(--dim);
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;
+  }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+
+  .capstone{ max-width:1080px; margin: 0 auto; padding: 0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-left:3px solid var(--col-color, var(--grid));
+    border-radius:10px;
+    padding:24px 26px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap:24px;
+  }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width: 760px){ .capstone-card{ grid-template-columns: 1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{
+    display:inline-flex; align-self:flex-start;
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px;
+    border:1px solid var(--col-color); color: var(--col-color);
+    text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;
+  }
+  .cap-audience{ font-size:12px; color:var(--dim); font-family:'JetBrains Mono', monospace; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver{ font-size:13px; }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; transition: color 0.15s ease, opacity 0.15s ease; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color: var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration: line-through; text-decoration-color: var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background: var(--col-color); transition: width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color: var(--green); }
+
+  /* ---------- PRACTICE DATASETS ---------- */
+  .datasets-grid{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px 24px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; }
+  .dataset-cols{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); line-height:1.6; margin-bottom:12px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--green); margin-bottom:12px; }
+  .dataset-btn{
+    background:var(--panel-2); border:1px solid var(--green); color:var(--green);
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center;
+  }
+  .dataset-btn:hover{ background:var(--green); color:#0c1410; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* ---------- 30 DAY RHYTHM ---------- */
+  .rhythm{ max-width:1080px; margin: 100px auto 0; padding: 0 24px; }
+  .rhythm-grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; margin-top:24px; }
+  .rhythm-day{ aspect-ratio:1; border-radius:4px; background:var(--panel); border:1px solid var(--grid); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .rhythm-day.active{ background: rgba(62,207,142,0.12); border-color: var(--green); color: var(--green); font-weight:600; }
+  .rhythm-note{ margin-top:18px; font-size:14px; color:var(--muted); max-width:660px; line-height:1.6; }
+  .rhythm-note strong{ color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:1080px; margin: 110px auto 60px; padding: 32px 24px 0; border-top:1px solid var(--grid);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  @media (max-width:600px){
+    .hero-meta{ gap:20px; }
+    .section-intro{ flex-direction:column; align-items:flex-start; gap:6px; }
+  }
+
+  /* ---------- KEYBOARD SHORTCUTS FLASHCARDS ---------- */
+  .shortcuts-toggle{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--grid); color:var(--ink);
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer;
+  }
+  .shortcuts-toggle:hover{ border-color:var(--green); color:var(--green); }
+  .shortcuts-toggle .kicon{ color:var(--green); }
+
+  .shortcuts-panel{
+    position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px);
+    background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5);
+    display:none; flex-direction:column; overflow:hidden;
+  }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-cat{ padding:9px 16px; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.04em; color:var(--green); background:var(--panel-2); border-bottom:1px solid var(--grid-soft); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--green); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--green); color:var(--green); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+
+  /* ---------- INLINE MASTERY INDICATOR ---------- */
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--green); font-weight:700; }
+
+  /* ---------- TOOL NOTES (per-cell do/avoid) ---------- */
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.bad{ color:var(--red); }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.bad li::before{ content:'✕'; position:absolute; left:0; top:0; color:var(--red); font-size:10.5px; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  /* ---------- CHALLENGE MISTAKE CALLOUT ---------- */
+  .ch-mistake{ margin-top:10px; padding:8px 10px; background: rgba(232,176,75,0.08); border-left:2px solid var(--amber); border-radius:3px; font-size:11.5px; color:var(--muted); line-height:1.5; display:none; }
+  .ch-mistake.show{ display:block; }
+  .ch-mistake b{ color:var(--amber); }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard{ max-width:1080px; margin: 40px auto 0; padding: 0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--green); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-bar{ height:4px; border-radius:3px; background:var(--grid-soft); margin-top:11px; overflow:hidden; }
+  .dash-bar-fill{ height:100%; width:0%; background:var(--green); transition:width 0.3s ease; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:18px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--green); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rverdict{ font-family:'Archivo', sans-serif; font-weight:700; font-size:15px; color:var(--ink); }
+  .dash-readiness .rdetail{ font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+  @media (max-width:880px){ .dash-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:560px){ .dash-grid{ grid-template-columns: 1fr; } .dash-readiness{ flex-direction:column; align-items:flex-start; } }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-block{ margin-top:20px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px 20px; }
+  .ach-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .ach-head .dash-head-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; }
+  .ach-count{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted); }
+  .ach-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  @media (max-width:760px){ .ach-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:460px){ .ach-grid{ grid-template-columns:1fr; } }
+  .ach-badge{ display:flex; align-items:flex-start; gap:10px; padding:12px; border:1px solid var(--grid); border-radius:8px; background:var(--panel-2); opacity:0.45; }
+  .ach-badge.unlocked{ opacity:1; border-color:var(--green-dim); background:rgba(62,207,142,0.06); }
+  .ach-badge .ach-icon{ font-size:20px; line-height:1; }
+  .ach-badge .ach-name{ font-family:'Archivo', sans-serif; font-size:13px; font-weight:700; color:var(--ink); }
+  .ach-badge .ach-desc{ font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+
+  /* ---------- CAPSTONE SUBMIT GATING ---------- */
+  .cap-submit-btn{ margin-top:16px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#0c1410; background:var(--col-color, var(--green)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .cap-submit-btn:hover{ filter:brightness(1.08); }
+  .cap-submit-btn:disabled{ background:none; border:1px solid var(--grid); color:var(--dim); cursor:not-allowed; }
+  .cap-submit-btn.submitted{ background:none; border:1px solid var(--green); color:var(--green); cursor:default; }
+  .cap-submit-btn.submitted:hover{ filter:none; }
+  .cap-deliver li.locked{ pointer-events:none; }
+  .capstone-card.cap-complete{ border-left-color: var(--amber); }
+  .capstone-card.cap-submitted{ border-left-color: var(--green); }
+  .capstone-card.cap-submitted .cap-done-badge{ display:inline-flex !important; }
+
+  /* ---------- PRACTICE TABS ---------- */
+  .practice-tabs{ max-width:1080px; margin: 24px auto 0; padding: 0 24px; display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--grid); }
+  .practice-tab{ background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:10px 4px 12px; cursor:pointer; margin-right:18px; letter-spacing:0.01em; }
+  .practice-tab:hover{ color:var(--ink); }
+  .practice-tab.active{ color:var(--green); border-bottom-color:var(--green); }
+  .practice-panel{ max-width:1080px; margin:0 auto; padding:24px 24px 0; }
+  .practice-subhead{ font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+
+  /* ---------- TIMED CHALLENGES ---------- */
+  .timed-setup{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px; }
+  .timed-level-picker{ display:flex; gap:6px; flex-wrap:wrap; }
+  .timed-level-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .timed-level-btn.active{ color:var(--bg); background:var(--green); border-color:var(--green); }
+  .timed-best{ font-size:11.5px; color:var(--dim); flex-grow:1; }
+  .timed-start-btn{ background:var(--green); color:#0c1410; border:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:13px; padding:11px 18px; border-radius:7px; cursor:pointer; }
+  .timed-start-btn:hover{ background:var(--green-dim); }
+  .timed-round{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:20px; }
+  .timed-hud{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .timed-hud-item{ font-family:'JetBrains Mono', monospace; }
+  .timed-clock{ color:var(--amber); font-weight:700; font-size:15px; }
+  .timed-clock.low{ color:var(--red); }
+  .timed-question{ font-size:15px; line-height:1.5; margin-bottom:14px; color:var(--ink); }
+  .timed-input{ width:100%; margin-bottom:10px; }
+  .timed-actions{ display:flex; gap:8px; margin-bottom:10px; }
+  .timed-summary{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:24px; text-align:center; }
+  .timed-summary h4{ font-family:'Archivo', sans-serif; font-size:18px; margin-bottom:16px; }
+  .timed-summary-stats{ display:flex; justify-content:center; gap:36px; margin-bottom:16px; }
+  .timed-stat .dvalue{ display:block; font-family:'Archivo', sans-serif; font-size:30px; font-weight:800; color:var(--ink); }
+  .timed-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; }
+  .timed-new-best{ color:var(--green); font-weight:700; font-size:13px; margin-bottom:14px; }
+
+  /* ---------- WEEKLY EXERCISES ---------- */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color, var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--blue); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color, var(--green)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); min-width:34px; flex-shrink:0; padding-top:1px; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* ---------- LEVEL PRACTICE CTA (links out to Practice / Projects) ---------- */
+  .level-continue-btn{
+    display:inline-block;
+    margin:4px 16px 20px;
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#0c1410;
+    background:var(--col-color, var(--green));
+    border:none;
+    border-radius:7px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .level-practice-cta{
+    margin:20px 14px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .level-practice-cta .cta-link{
+    flex:1;
+    min-width:180px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color: var(--col-color, var(--ink));
+    text-decoration:none;
+    padding:12px 14px;
+    border:1px solid var(--grid);
+    border-left:2px solid var(--col-color, var(--grid));
+    border-radius:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .level-practice-cta .cta-link:hover{
+    border-color: var(--col-color, var(--dim));
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+  }
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button">
+  <span class="kicon">⌨</span> Shortcuts
+</button>
+
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head">
+    <h4>Shortcut flash cards</h4>
+    <button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="sp-cat" id="scCat">GENERAL</div>
+  <div class="sp-card" id="scCard">
+    <span class="sp-prompt" id="scPrompt">Save the report</span>
+    <span class="sp-keys" id="scKeys">Ctrl + S</span>
+  </div>
+  <p class="sp-hint">Tap the card to flip it · Microsoft Teams, Windows desktop (press Ctrl+. for the full list)</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">← Prev</button>
+    <span class="sp-count" id="scCount">1 / 20</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next →</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">🏠 Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">📚 Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">🧪 Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">📂 Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">📊 Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="sheet-chrome">
+    <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+    <span>General — Project Phoenix (Team)</span>
+  </div>
+
+  <div class="formula-bar">
+    <span class="fx">CMD</span>
+    <span id="formulaText">/files Q3-Budget.xlsx</span>
+    <span class="caret"></span>
+  </div>
+
+  <h1>Stop <span class="accent">email</span>ing files around.<br>Start <span class="accent2">running</span> the team in Teams.</h1>
+  <p class="hero-sub">
+    A practical route from "I can join a meeting" to "I run the team's whole workflow
+    through Teams." Four columns, one skill per row — click any cell for the how-to,
+    then try the practice exercises and capstone projects below.
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">TIME TO NEXT LEVEL<strong>8–12 wks</strong></div>
+    <div class="meta-item">SKILLS TRACKED<strong>32</strong></div>
+    <div class="meta-item">PREREQ<strong>None</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner home-card-slim">
+    <div class="home-top">
+      <div class="home-progress-label"><strong>Pick up where you left off</strong></div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning</button>
+    </div>
+    <div class="home-slim-row">
+      <span class="home-slim-next">Next up: <span id="homeNextLesson">Chat vs. posting in a channel</span></span>
+      <a class="home-analytics-link" href="#analytics">View Progress →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-intro" style="margin-top:60px;">
+  <span class="ref">SNAPSHOT</span>
+  <h2>Current Progress</h2>
+</div>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-progress-row">
+      <div class="home-progress-label">
+        <span id="homeCompletionSub">0 of 0 skills + capstones</span>
+        <span><strong id="homeCompletionVal">0</strong>%</span>
+      </div>
+      <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+    </div>
+    <div class="home-stats" style="margin-top:18px;">
+      <div class="home-stat">
+        <div class="dlabel">Current level</div>
+        <div class="dvalue" id="homeLevelVal">Beginner</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Skills mastered</div>
+        <div class="dvalue" id="homeMasteredVal">0 / 32</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Capstones submitted</div>
+        <div class="dvalue" id="homeProjectsVal">0 / 4</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">A1:D4</span>
+  <h2>The Board</h2>
+</div>
+<p class="section-note">
+  Work left to right. Don't skip a column — each one assumes fluency in the last.
+  <b style="color:var(--ink)">Click a cell</b> to reveal the how-to and a checkable challenge for that skill.
+  Answer a challenge correctly and it's marked mastered — get every skill in a column right to unlock the next one.
+  <span id="skillProgressCount" style="color:var(--green); font-family:'JetBrains Mono',monospace;"></span>
+</p>
+
+<div class="board">
+
+  <!-- ===================== BEGINNER ===================== -->
+  <div class="level-col" data-level="beginner">
+    <div class="level-head">
+      <div class="letter mono">COLUMN A</div>
+      <h3>Beginner</h3>
+      <span class="tag">week 1–2</span>
+    </div>
+
+    <div class="topic-divider">Everyday messaging</div>
+    <div class="cell">
+      <div class="addr"><span>A1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Chat vs. posting in a channel</div>
+      <div class="why">A chat is just between the people in it. A channel post is visible — and searchable — to the whole team. Defaulting to chat for everything is the #1 reason work gets lost.</div>
+      <div class="example">New chat: click the pencil icon (New chat) at the top of the Chat list
+Channel post: open the Team → pick a channel → Posts tab → type in the box at the bottom
+Rule of thumb: if the whole team should be able to find it later, post it in a channel</div>
+      <div class="challenge" data-id="A1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>A2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Read presence status and set your own</div>
+      <div class="why">The colored dot on someone's photo tells you if they're free, busy, in a meeting, or away before you even message them. Setting your own status — and a status message — sets expectations for how fast you'll reply.</div>
+      <div class="example">Click your profile picture, top-right → pick a status (Available, Busy, Do not disturb, Away)
+Set a status message: profile picture → Set status message → add text and an expiry time
+Green dot = available, red = busy/DND, yellow moon = away</div>
+      <div class="challenge" data-id="A2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Meetings &amp; calls</div>
+    <div class="cell">
+      <div class="addr"><span>A3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Join a meeting and use the core controls</div>
+      <div class="why">Every meeting has the same core controls no matter who scheduled it: mute, camera, leave, and the reactions bar. Muting on entry is the single most requested piece of meeting etiquette.</div>
+      <div class="example">Calendar → open the meeting → Join
+Mic icon = mute/unmute, Camera icon = video on/off
+Leave (red phone icon, or the arrow beside it → Leave / End meeting for everyone)
+Reactions (👍 / ✋) → send a quick signal without unmuting</div>
+      <div class="challenge" data-id="A3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>A4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Share and find files in a chat vs. a channel</div>
+      <div class="why">Attach a file in a 1:1 chat and it lives in your own OneDrive, shared just with that person. Attach it in a channel and it lands in that channel's SharePoint site, visible to the whole team — that's the version everyone should be editing.</div>
+      <div class="example">Chat: paper-clip icon → Upload from this device / OneDrive / recent
+Channel: Files tab at the top of the channel → Upload, or drag-and-drop
+Everyone editing the same file → open it in Teams and co-author live, don't download a copy</div>
+      <div class="challenge" data-id="A4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Files &amp; finding your way around</div>
+    <div class="cell">
+      <div class="addr"><span>A5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Find your way around the app shell</div>
+      <div class="why">The left rail — Activity, Chat, Teams, Calendar, Calls, Files — is where everything lives. Knowing which icon does what, and that Search beats scrolling, is the fastest way to stop feeling lost.</div>
+      <div class="example">Left rail top-to-bottom: Activity (your @mentions/notifications), Chat, Teams, Calendar, Calls, Files
+Ctrl+E (or click the search bar) → jump straight to a person, channel, or message
+Activity feed is the fastest way to see what actually needs your attention</div>
+      <div class="challenge" data-id="A5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="beginner" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-beginner" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-beginner">🚀 Beginner project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column A</div>
+  </div>
+
+  <!-- ===================== INTERMEDIATE ===================== -->
+  <div class="level-col" data-level="intermediate">
+    <div class="level-head">
+      <div class="letter mono">COLUMN B</div>
+      <h3>Intermediate</h3>
+      <span class="tag">week 3–5</span>
+    </div>
+
+    <div class="topic-divider">Team &amp; channel structure</div>
+    <div class="cell">
+      <div class="addr"><span>B1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Structure a Team: standard, private, and shared channels</div>
+      <div class="why">A standard channel is visible to everyone on the team. A private channel carves out a smaller group with its own separate files and conversation. A shared channel goes further — it can include people from another team, or another organization entirely, without adding them to your whole team.</div>
+      <div class="example">Team → + Add channel → choose Standard / Private / Shared
+Private channel: only its members can see it — even other team owners can't unless invited
+Shared channel: can include people outside the team, even from another Microsoft 365 org, via Teams Connect</div>
+      <div class="diagram">
+        <div class="diagram-label">One Team, three kinds of channel</div>
+        <svg viewBox="0 0 480 220">
+          <g font-size="12">
+            <rect x="190" y="90" width="100" height="40" rx="4" fill="#1a2029" stroke="#5b9dff"/><text x="240" y="114" fill="#5b9dff" text-anchor="middle">Project Phoenix</text>
+
+            <rect x="30" y="10" width="120" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="90" y="31" fill="#e9ecf1" text-anchor="middle">General (standard)</text>
+            <rect x="340" y="10" width="120" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="400" y="31" fill="#e9ecf1" text-anchor="middle">Leadership (private)</text>
+            <rect x="185" y="176" width="120" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="245" y="197" fill="#e9ecf1" text-anchor="middle">Vendor Sync (shared)</text>
+
+            <line x1="150" y1="27" x2="220" y2="90" stroke="#3ecf8e"/>
+            <line x1="340" y1="27" x2="270" y2="90" stroke="#3ecf8e"/>
+            <line x1="245" y1="176" x2="245" y2="130" stroke="#3ecf8e"/>
+          </g>
+          <text x="240" y="204" fill="#8b93a3" font-size="10" text-anchor="middle">every channel type lives under the same Team</text>
+        </svg>
+      </div>
+      <div class="challenge" data-id="B1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Add tabs and apps to a channel</div>
+      <div class="why">A tab pins an app, file, or webpage to the top of a channel so it's one click away instead of buried in Files or a link in an old message. Planner, a pinned file, and a Power BI report are the three most common tabs teams add.</div>
+      <div class="example">Open a channel → click the + next to the existing tabs
+Search for an app (Planner, Excel, Website, Power BI) or pin an existing file
+Reorder tabs by dragging — put the most-used one right after Posts and Files</div>
+      <div class="challenge" data-id="B2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Meetings, meaningfully</div>
+    <div class="cell">
+      <div class="addr"><span>B3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Record a meeting and use the transcript</div>
+      <div class="why">A recording plus an auto-generated transcript means nobody has to take notes live, and anyone who missed the meeting can search the transcript instead of scrubbing through video. Recording has to be started explicitly by the organizer or someone with permission.</div>
+      <div class="example">During a meeting → More (...) → Record and transcribe → Start recording
+The recording processes after the meeting ends, then posts to the chat / channel
+Open the recording → Transcript tab → search a keyword instead of watching the whole thing</div>
+      <div class="challenge" data-id="B3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Schedule a recurring or channel meeting</div>
+      <div class="why">A channel meeting posts right into that channel's Posts tab, so anyone on the team can see it's happening and join — not just the invited list. Recurrence patterns save you from re-scheduling a standing meeting every single week.</div>
+      <div class="example">Calendar → New meeting → Add channel (instead of just people) to post it there
+Set "Does not repeat" → pick Daily / Weekly / Custom for a recurring series
+Channel meetings show a join banner right in Posts, so drop-ins are easy</div>
+      <div class="challenge" data-id="B4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Who can do what</div>
+    <div class="cell">
+      <div class="addr"><span>B5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Understand owner, member, and guest roles</div>
+      <div class="why">An owner can add or remove members, change settings, and delete the team. A member can post and share but not manage settings. A guest is someone outside your organization added to a specific team — useful, but worth reviewing periodically.</div>
+      <div class="example">Team name → More options (...) → Manage team → Members tab
+The Role column shows Owner / Member / Guest per person
+Every team should have at least 2 owners, so no single person is a bottleneck</div>
+      <div class="challenge" data-id="B5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Use @mentions and channel/team-wide notifications deliberately</div>
+      <div class="why">@name notifies one person, no matter their notification settings. @channel notifies everyone who's favorited that channel; @team notifies the whole team. The wider the mention, the more it should be reserved for things that genuinely need everyone's attention.</div>
+      <div class="example">@ + name → notify one person directly, even if they've muted the channel
+@channel → notify everyone who has this channel favorited
+@team → notify every member of the team, in every channel — the broadest option, use sparingly</div>
+      <div class="challenge" data-id="B6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="intermediate" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-intermediate" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-intermediate">🚀 Intermediate project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column B</div>
+  </div>
+
+  <!-- ===================== ADVANCED ===================== -->
+  <div class="level-col" data-level="advanced">
+    <div class="level-head">
+      <div class="letter mono">COLUMN C</div>
+      <h3>Advanced</h3>
+      <span class="tag">week 6–9</span>
+    </div>
+
+    <div class="topic-divider">Admin center basics</div>
+    <div class="cell">
+      <div class="addr"><span>C1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Navigate the Teams admin center and messaging policies</div>
+      <div class="why">The Teams admin center — not the regular app — is where org-wide settings live. Messaging policies control things like whether users can delete sent messages or use Giphy, set per group of users rather than per person.</div>
+      <div class="example">admin.teams.microsoft.com → sign in with an admin account
+Messaging policies → create or edit a policy → assign it to a group of users
+Common toggles: owners can delete sent messages, Giphy in conversations, read receipts</div>
+      <div class="challenge" data-id="C1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Configure meeting policies (lobby, recording, who can present)</div>
+      <div class="why">Meeting policies decide who waits in the lobby before being let in, whether recording is even allowed, and who can present versus just attend — critical for anything with external attendees.</div>
+      <div class="example">Teams admin center → Meetings → Meeting policies
+Who can bypass the lobby: everyone / people in my org / organizer only
+Who can present: everyone / people in my org / specific people / only organizers</div>
+      <div class="challenge" data-id="C2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Automating the work</div>
+    <div class="cell">
+      <div class="addr"><span>C3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Trigger a Power Automate flow from a Teams message</div>
+      <div class="why">Power Automate can watch for a message, a reaction, or a form submission in Teams and kick off an approval, a notification, or a record in another system — turning a manual forward-and-remember process into something automatic.</div>
+      <div class="example">Message → More actions (...) → trigger from a template like "Get approval for message"
+Power Automate → "For a selected message" → build a flow: trigger, condition, action
+Approval flows post an Approve/Reject card right back into the chat</div>
+      <div class="challenge" data-id="C3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Manage schedules with the Shifts app</div>
+      <div class="why">Shifts is Teams' scheduling app for frontline and hourly teams — building a weekly schedule, letting people swap shifts, and clocking in/out, all without a separate scheduling tool.</div>
+      <div class="example">Teams app bar → Shifts (pin it if it isn't already)
+Create a schedule → add shifts per person per day → Share with team
+Team members can request to Swap, Offer, or take Time off directly from their own Shifts view</div>
+      <div class="challenge" data-id="C4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Bigger meetings</div>
+    <div class="cell">
+      <div class="addr"><span>C5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Tell webinars, town halls, and regular meetings apart</div>
+      <div class="why">A regular meeting is for a known group working together. A webinar adds registration and a presenter/attendee split, good for external audiences. A town hall is built for large internal broadcasts, with structured Q&A and a dedicated producer view.</div>
+      <div class="example">Calendar → New meeting dropdown → Meeting / Webinar / Town hall
+Webinar: registration page, email confirmations, presenter vs. attendee roles
+Town hall: producer role, moderated Q&A, designed for large one-to-many broadcasts</div>
+      <div class="challenge" data-id="C5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Set up and manage breakout rooms</div>
+      <div class="why">Breakout rooms split a meeting into smaller parallel rooms — for workshops, small-group discussion, or 1:1 practice — with the organizer able to hop between rooms, broadcast to everyone, and set a timer to auto-close them.</div>
+      <div class="example">During (or before) a meeting → Breakout rooms icon → create rooms
+Assign participants automatically or manually
+Set a timer, or use "Announce" to broadcast one message to every room at once</div>
+      <div class="challenge" data-id="C6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Teams Premium &amp; app control</div>
+    <div class="cell">
+      <div class="addr"><span>C7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Know what Teams Premium adds</div>
+      <div class="why">Teams Premium is a paid add-on layered on top of a regular license — intelligent meeting recap, watermarking for sensitive meetings, and advanced webinar features are the headline additions.</div>
+      <div class="example">Licensed users see "Intelligent recap" appear on a recorded meeting automatically — AI-generated notes, chapters, and speaker-tagged action items
+Watermarking: Meeting options → turn on watermark, overlays each participant's name/email on shared content
+Advanced webinar: registration approval, custom emails, a green room</div>
+      <div class="challenge" data-id="C7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Control which apps users can pin or install</div>
+      <div class="why">App permission policies decide which apps — Microsoft, third-party, or custom — users are even allowed to install. Setup policies then control which of those allowed apps get pinned by default: the difference between "allowed" and "everyone actually sees it."</div>
+      <div class="example">Teams admin center → Teams apps → Permission policies → allow/block by app or publisher
+Teams admin center → Teams apps → Setup policies → pin specific apps to the app bar by default
+Setup policies also control whether users can pin/unpin apps themselves</div>
+      <div class="challenge" data-id="C8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Access &amp; integrations</div>
+    <div class="cell">
+      <div class="addr"><span>C9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Configure guest and external access</div>
+      <div class="why">Guest access adds a specific outside person to one of your teams, with a scoped set of permissions you control. External access is broader and looser — it lets your users find and chat with people at another domain without adding anyone to a team. Confusing the two is the most common external-collaboration misconfiguration.</div>
+      <div class="example">Teams admin center → Org-wide settings → Guest access → turn on/off, then fine-tune what guests can do (calling, meetings, private channels)
+Teams admin center → Org-wide settings → External access → allow or block specific domains for chat/calls
+A guest still needs to be individually added to a team; external access never adds anyone anywhere</div>
+      <div class="challenge" data-id="C9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C10</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Extend Teams with Outlook, Forms, and SharePoint</div>
+      <div class="why">Teams isn't an island — a channel meeting shows up on everyone's Outlook calendar automatically, a Forms poll can be shared right into a chat, and a channel's Files tab is really just a view onto a SharePoint document library. Knowing where each integration actually lives makes troubleshooting "missing" content far faster.</div>
+      <div class="example">Outlook: a Teams meeting scheduled in Outlook shows the Join button in both apps — same event, two calendars
+Forms: New tab → Forms, or share a form link directly into a channel or chat for quick polling
+SharePoint: every channel's Files tab opens the same document library visible in the connected SharePoint site</div>
+      <div class="challenge" data-id="C10">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="advanced" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-advanced">🚀 Advanced project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column C</div>
+  </div>
+
+  <!-- ===================== EXPERT ===================== -->
+  <div class="level-col" data-level="expert">
+    <div class="level-head">
+      <div class="letter mono">COLUMN D</div>
+      <h3>Expert</h3>
+      <span class="tag">week 10–14</span>
+    </div>
+
+    <div class="topic-divider">Scripting &amp; the Graph</div>
+    <div class="cell">
+      <div class="addr"><span>D1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Manage Teams at scale with PowerShell</div>
+      <div class="why">The MicrosoftTeams PowerShell module is how you bulk-create teams, bulk-assign policies, or pull a tenant-wide report — anything that would take hours clicking through the admin center one team at a time.</div>
+      <div class="example">Install-Module MicrosoftTeams
+Connect-MicrosoftTeams
+Get-Team -Archived $false | Export-Csv teams.csv
+New-Team -DisplayName "Project Phoenix" -Visibility Private</div>
+      <div class="challenge" data-id="D1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Provision teams with the Microsoft Graph API</div>
+      <div class="why">Graph API is the programmatic layer under both the Teams app and PowerShell — the way to provision teams from an external system, like an HR onboarding tool, or read data no admin-center report exposes.</div>
+      <div class="example">POST https://graph.microsoft.com/v1.0/teams — body includes a template and owner, creates a new team
+GET https://graph.microsoft.com/v1.0/teams/{team-id}/channels — list channels programmatically
+Requires an app registration in Entra ID with the right Teams permissions, like Team.Create</div>
+      <div class="challenge" data-id="D2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Compliance &amp; data</div>
+    <div class="cell">
+      <div class="addr"><span>D3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Apply retention policies and support eDiscovery</div>
+      <div class="why">Retention policies decide how long chats, channel messages, and meeting recordings are kept — or must be kept — before deletion. eDiscovery is how legal and compliance teams search and hold that data for a case.</div>
+      <div class="example">Microsoft Purview compliance portal → Data lifecycle management → Retention policies → scope to Teams chats/channels
+eDiscovery (Standard/Premium) → new case → search Teams content by keyword, date range, or participant → place on hold</div>
+      <div class="challenge" data-id="D3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Manage Teams Rooms devices</div>
+      <div class="why">Teams Rooms turns a physical conference room into a one-touch-join Teams endpoint — managed centrally through the Teams Rooms Pro Management portal, which tracks device health, software updates, and room utilization across every room in the org.</div>
+      <div class="example">Teams Rooms Pro Management portal → Inventory → see every room's device health at a glance
+A room device shows a join banner automatically when a meeting on that room's calendar is starting
+Utilization reports show which rooms are over- or under-used, informing real estate decisions</div>
+      <div class="challenge" data-id="D4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Network &amp; call quality</div>
+    <div class="cell">
+      <div class="addr"><span>D5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Plan network capacity and QoS for Teams calls</div>
+      <div class="why">Teams calls need low latency and jitter more than raw bandwidth. Quality of Service (QoS) tags real-time voice/video traffic so it's prioritized over things like a large file download on the same network — especially critical over VPN or a saturated office link.</div>
+      <div class="example">Estimate bandwidth per concurrent call (roughly 1.5–4 Mbps depending on video quality)
+Teams admin center → Network → enable QoS marking, tag Teams media traffic with DSCP values
+Network team then configures routers/switches to actually honor those DSCP priorities end-to-end</div>
+      <div class="challenge" data-id="D5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Diagnose call quality with the Call Quality Dashboard</div>
+      <div class="why">The Call Quality Dashboard (CQD) aggregates quality metrics — packet loss, jitter, latency — across every call and meeting in the org, so you can spot a bad pattern (one building, one ISP, one device model) instead of chasing single complaints one at a time.</div>
+      <div class="example">Teams admin center → Analytics &amp; reports, or the dedicated CQD portal → filter by location, subnet, or date range
+Look for correlated poor-quality calls (same building, same Wi-Fi AP) rather than treating each complaint in isolation
+Pair CQD's aggregate view with Call Analytics for one user's specific call detail</div>
+      <div class="challenge" data-id="D6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Telephony &amp; governance</div>
+    <div class="cell">
+      <div class="addr"><span>D7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Choose between Direct Routing and Operator Connect</div>
+      <div class="why">To let Teams make and receive real phone calls, you need a path to the public phone network (PSTN). Direct Routing connects your own SBC — a session border controller — to any telephony carrier. Operator Connect is the simpler managed alternative: a pre-integrated carrier partner, no SBC to run yourself.</div>
+      <div class="example">Direct Routing: deploy and configure an SBC, pair it with Teams, bring your own carrier trunk — most control, most setup
+Operator Connect: pick a partner carrier already integrated with Microsoft, assign numbers — far less to manage
+Microsoft Calling Plans: simplest option, phone numbers and calling bundled directly from Microsoft</div>
+      <div class="challenge" data-id="D7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Restrict cross-team communication with information barriers</div>
+      <div class="why">Information barriers block or limit chat, calls, and file sharing between specific groups of users — for example, keeping a deal team from communicating with a research team to avoid a conflict of interest — enforced automatically, not just by policy on paper.</div>
+      <div class="example">Microsoft Purview compliance portal → Information barriers → define segments (groups of users), then define policies between segments
+Policies can block all communication, or allow only certain combinations
+Requires Entra ID attributes, like department, to correctly segment users first</div>
+      <div class="challenge" data-id="D8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Extend collaboration across organizations with Teams Connect</div>
+      <div class="why">Teams Connect is the underlying capability that powers shared channels — letting a channel span organizations, so an agency and a client, or two merging companies, can work in one shared space without guest-inviting every single person into each other's tenant.</div>
+      <div class="example">Teams admin center → cross-tenant access settings → decide which external orgs can be shared-channel partners
+Channel → Share this channel → invite by email or as a whole team, from inside or outside your org
+No guest accounts needed — external users just see the shared channel from within their own tenant</div>
+      <div class="challenge" data-id="D9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Org design &amp; adoption</div>
+    <div class="cell">
+      <div class="addr"><span>D10</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Govern Teams sprawl with naming conventions and lifecycle policies</div>
+      <div class="why">Without governance, a self-serve "anyone can create a team" org ends up with hundreds of abandoned, duplicate, or confusingly-named teams within a year. Naming conventions make ownership obvious at a glance; lifecycle policies automatically flag or archive teams nobody's touched in months.</div>
+      <div class="example">Teams admin center → Teams → Manage teams, or Entra ID → Groups → Naming policy → enforce a prefix/suffix, like "PROJ-" or "-2026"
+Entra ID → Groups → Expiration → auto-archive or prompt renewal for inactive teams after N days
+Usage reports (below) tell you which teams are actually candidates for archiving</div>
+      <div class="challenge" data-id="D10">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D11</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Drive adoption with training, champions, and usage reports</div>
+      <div class="why">Rolling Teams out technically is the easy half — getting an org to actually use it well is the harder one. A champions program (a trained advocate per department) and the built-in usage reports turn "we deployed it" into "people are actually collaborating in it," and tell you exactly where adoption is lagging.</div>
+      <div class="example">Teams admin center → Analytics &amp; reports → Usage reports → active users, channels, and messages by team or department
+Recruit one champion per department to run a short training session and answer day-to-day questions
+Track adoption over time, not just at launch — usage typically dips a few weeks after the initial rollout push</div>
+      <div class="challenge" data-id="D11">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="expert" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-expert" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-expert">🚀 Expert project →</a>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">Cap!A1</span>
+  <h2>Capstone Projects</h2>
+</div>
+<p class="section-note">One end-to-end build per level. Click a checklist item to mark it done — progress is saved in this browser.</p>
+
+<div class="capstone-overall">
+  <span class="ov-label mono">Overall progress</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+  <span class="ov-count mono" id="capOverallCount">0 / 0</span>
+  <button class="capstone-reset" id="capResetBtn" type="button">Reset</button>
+</div>
+
+<div class="capstone">
+
+  <div class="capstone-card" id="capstone-beginner" data-level="beginner" data-cap="1">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 01</span>
+      <h4>Team Kickoff Hub</h4>
+      <span class="cap-level-tag">Beginner</span>
+      <span class="cap-audience">~2–3 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Stand up a workspace for a new project team — the kind you'd actually use to kick a real project off, from a first post to a standing meeting.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Channels</span>
+        <span class="cap-skill-chip">@mentions</span>
+        <span class="cap-skill-chip">Files tab</span>
+        <span class="cap-skill-chip">Meeting scheduling</span>
+        <span class="cap-skill-chip">Presence</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Create a <b>team</b> named after the project, with a General channel and one topic channel</li>
+          <li>Post a <b>kickoff message</b> in the topic channel, @mentioning every teammate</li>
+          <li>Upload the project brief to the <b>Files tab</b> and pin it as a tab</li>
+          <li>Schedule a <b>recurring weekly meeting</b> on the channel</li>
+          <li>Set your <b>status message</b> so teammates know your working hours</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-intermediate" data-level="intermediate" data-cap="2">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 02</span>
+      <h4>Cross-Functional Workspace</h4>
+      <span class="cap-level-tag">Intermediate</span>
+      <span class="cap-audience">~4–6 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take a growing team past "one channel for everything" — carve out the private and shared spaces it actually needs, and put a real meeting recording to work.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Private channels</span>
+        <span class="cap-skill-chip">Owner/member roles</span>
+        <span class="cap-skill-chip">Tabs &amp; apps</span>
+        <span class="cap-skill-chip">Recording</span>
+        <span class="cap-skill-chip">Transcript</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Add a <b>private channel</b> for a sensitive subset of the team, like Leadership</li>
+          <li>Assign at least <b>2 owners</b> and review the full member/guest list</li>
+          <li>Add a <b>Planner tab</b> and a pinned file tab to the main channel</li>
+          <li><b>Record</b> a real meeting, then find something specific in the <b>transcript</b></li>
+          <li>Set up a <b>shared channel</b> with one external partner (or simulate one)</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-advanced" data-level="advanced" data-cap="3">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 03</span>
+      <h4>Governed Team Rollout</h4>
+      <span class="cap-level-tag">Advanced</span>
+      <span class="cap-audience">~6–8 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Roll Teams out to a department the way an admin actually would: governed by policy, automated where it matters, and ready for a large event — not just clicked together ad hoc.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Messaging policy</span>
+        <span class="cap-skill-chip">Meeting policy</span>
+        <span class="cap-skill-chip">Power Automate</span>
+        <span class="cap-skill-chip">Shifts</span>
+        <span class="cap-skill-chip">Town hall / webinar</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Create a <b>messaging policy</b> and a <b>meeting policy</b>, and assign both to a test group</li>
+          <li>Build a <b>Power Automate approval flow</b> triggered from a Teams message</li>
+          <li>Build a one-week schedule for a mock frontline team in <b>Shifts</b></li>
+          <li>Schedule a <b>webinar or town hall</b> and configure registration/producer roles</li>
+          <li>Set up and test <b>breakout rooms</b> in a mock meeting</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-expert" data-level="expert" data-cap="4">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 04</span>
+      <h4>Enterprise Teams Operations</h4>
+      <span class="cap-level-tag">Expert</span>
+      <span class="cap-audience">~8–12 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Operate Teams the way a platform team does at scale: scripted provisioning, governed data retention, monitored call quality, and a deliberate telephony strategy.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">PowerShell</span>
+        <span class="cap-skill-chip">Graph API</span>
+        <span class="cap-skill-chip">Retention policy</span>
+        <span class="cap-skill-chip">Call Quality Dashboard</span>
+        <span class="cap-skill-chip">Direct Routing / Operator Connect</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Bulk-create or bulk-report on teams using the <b>MicrosoftTeams PowerShell module</b></li>
+          <li>Provision, or script, a team using the <b>Microsoft Graph API</b></li>
+          <li>Configure a <b>retention policy</b> scoped to Teams chats and channel messages</li>
+          <li>Review the <b>Call Quality Dashboard</b> for a location and identify a pattern</li>
+          <li>Document a <b>PSTN calling</b> decision — Direct Routing vs. Operator Connect vs. Calling Plans — with reasoning</li>
+          <li>Set up an <b>information barrier</b> or <b>Teams Connect</b> shared channel for a cross-org scenario</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/6</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice" style="display:none;">
+<div class="section-intro" id="practice" style="margin-top:100px;">
+  <span class="ref mono">PRACTICE</span>
+  <h2>Practice</h2>
+</div>
+<p class="section-note">Everything hands-on lives here: work a Mini Lab, pull a real dataset, race the clock, or follow a weekly plan.</p>
+
+<div class="practice-tabs" role="tablist">
+  <button class="practice-tab active" type="button" data-tab="labs" role="tab" aria-selected="true">Mini Labs</button>
+  <button class="practice-tab" type="button" data-tab="datasets" role="tab" aria-selected="false">Templates &amp; Scripts</button>
+  <button class="practice-tab" type="button" data-tab="timed" role="tab" aria-selected="false">Timed Challenges</button>
+  <button class="practice-tab" type="button" data-tab="weekly" role="tab" aria-selected="false">Weekly Exercises</button>
+  <button class="practice-tab" type="button" data-tab="troubleshooting" role="tab" aria-selected="false">Troubleshooting</button>
+  <button class="practice-tab" type="button" data-tab="scenarios" role="tab" aria-selected="false">Scenarios</button>
+</div>
+
+<div class="practice-panel" data-panel="labs">
+<p class="section-note" style="padding:0; margin-bottom:16px;">One hands-on task per level. Try it in Microsoft Teams against a sample scenario before checking the solution.</p>
+
+<div class="lab">
+  <div class="lab-card" id="lab-beginner" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Beginner</span></div>
+    <h4>Stand up a project channel and get people talking</h4>
+    <p class="task">Create a channel, post a kickoff message that <b>@mentions</b> two teammates, then pin the shared brief as a <b>tab</b>.</p>
+    <table class="sample">
+      <tr><th>Name</th><th>Role</th></tr>
+      <tr><td>Alicia Moore</td><td>Project Lead</td></tr>
+      <tr><td>James Chen</td><td>Designer</td></tr>
+      <tr><td>Priya Patel</td><td>Engineer</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Team → + Add channel → name it, leave it Standard.<br>
+        Posts → type your message → type @ + name to mention each teammate → Send.<br>
+        Files tab → upload the brief → + next to the tabs → pin it as a file tab.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Intermediate</span></div>
+    <h4>Add a private channel and control who's in it</h4>
+    <p class="task">Create a private channel for a 3-person subset of the team below, then add a <b>Planner tab</b> to the main channel.</p>
+    <table class="sample">
+      <tr><th>Name</th><th>Private channel?</th></tr>
+      <tr><td>Alicia Moore</td><td>Yes</td></tr>
+      <tr><td>James Chen</td><td>Yes</td></tr>
+      <tr><td>Priya Patel</td><td>Yes</td></tr>
+      <tr><td>Marcus Diaz</td><td>No</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        + Add channel → Private → add only the 3 members who need it.<br>
+        Main channel → + next to the tabs → search Planner → Create a new plan → Save.<br>
+        Private channel members see it in their channel list; everyone else on the team does not.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-advanced" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Advanced</span></div>
+    <h4>Build a Power Automate approval from a Teams message</h4>
+    <p class="task">Trigger an approval flow from a flagged message, route it to a manager, and post the result back to the chat.</p>
+    <table class="sample">
+      <tr><th>Step</th><th>What it does</th></tr>
+      <tr><td>Trigger</td><td>New message posted in the target channel</td></tr>
+      <tr><td>Condition</td><td>Message contains "approve:"</td></tr>
+      <tr><td>Action</td><td>Start and wait for approval, then post the result</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Power Automate → Create → Automated cloud flow → trigger "When a new channel message is added".<br>
+        Add a condition checking whether the message content contains "approve:".<br>
+        Add "Start and wait for an approval" → assign an approver → Post message in a chat or channel with the result.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-expert" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Expert</span></div>
+    <h4>Bulk-provision teams with PowerShell</h4>
+    <p class="task">Given a CSV of team names and owners, script the creation of each team and export a report of the results.</p>
+    <table class="sample">
+      <tr><th>TeamName</th><th>Owner</th><th>Visibility</th></tr>
+      <tr><td>Project Phoenix</td><td>alicia@contoso.com</td><td>Private</td></tr>
+      <tr><td>Marketing Launch</td><td>james@contoso.com</td><td>Public</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        <code>Connect-MicrosoftTeams
+Import-Csv .\teams.csv | ForEach-Object {
+    New-Team -DisplayName $_.TeamName -Owner $_.Owner -Visibility $_.Visibility
+}
+Get-Team | Export-Csv .\teams-report.csv -NoTypeInformation</code>
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: labs -->
+
+<div class="practice-panel" data-panel="datasets" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Practice CSVs for the admin-side exercises above — feed them into <b>Import-Csv</b> in PowerShell, or use them as reference data for the Mini Labs.</p>
+
+<div class="datasets-grid">
+  <div class="dataset-card">
+    <h4>Team Roster</h4>
+    <p>Members across several teams with their role — good for practicing owner/member/guest review.</p>
+    <div class="dataset-cols mono">DisplayName, UserPrincipalName, Team, Role</div>
+    <div class="dataset-meta mono">~80 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="roster">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Bulk Team Provisioning List</h4>
+    <p>Requested teams with an owner and visibility — feed straight into a New-Team PowerShell loop.</p>
+    <div class="dataset-cols mono">TeamName, Owner, Visibility, Template, RequestedBy, RequestDate</div>
+    <div class="dataset-meta mono">~60 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="provisioning">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Shifts Schedule</h4>
+    <p>A frontline roster with shift times and roles — good for practicing Shifts import and grouping.</p>
+    <div class="dataset-cols mono">EmployeeID, Name, Team, ShiftDate, StartTime, EndTime, Role</div>
+    <div class="dataset-meta mono">~150 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="shifts">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Meeting &amp; Call Quality Log</h4>
+    <p>Meeting-level quality metrics — built for practicing Call Quality Dashboard-style analysis.</p>
+    <div class="dataset-cols mono">MeetingID, Organizer, StartTime, EndTime, ParticipantCount, AvgJitterMs, AvgPacketLossPct, Location</div>
+    <div class="dataset-meta mono">~120 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="callquality">Download CSV</button>
+  </div>
+</div>
+</div><!-- /panel: datasets -->
+
+<div class="practice-panel" data-panel="timed" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Five questions pulled at random from a level's Board challenges, a running clock, and no reveal button until time runs out. Best time and score per level are saved in this browser.</p>
+
+<div class="timed-setup">
+  <div class="timed-level-picker" role="tablist">
+    <button class="timed-level-btn active" type="button" data-level="beginner">Beginner</button>
+    <button class="timed-level-btn" type="button" data-level="intermediate">Intermediate</button>
+    <button class="timed-level-btn" type="button" data-level="advanced">Advanced</button>
+    <button class="timed-level-btn" type="button" data-level="expert">Expert</button>
+  </div>
+  <div class="timed-best mono" id="timedBestLine">Best for Beginner: —</div>
+  <button class="timed-start-btn" id="timedStartBtn" type="button">Start Timed Round →</button>
+</div>
+
+<div class="timed-round" id="timedRound" style="display:none;">
+  <div class="timed-hud">
+    <span class="timed-hud-item mono">Question <span id="timedQNum">1</span> / <span id="timedQTotal">5</span></span>
+    <span class="timed-hud-item mono">Score <span id="timedScore">0</span></span>
+    <span class="timed-hud-item mono timed-clock" id="timedClock">0:45</span>
+  </div>
+  <div class="timed-question" id="timedQuestionText"></div>
+  <input type="text" class="ch-input timed-input" id="timedInput" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+  <div class="timed-actions">
+    <button class="ch-btn" id="timedSubmitBtn" type="button">Submit</button>
+    <button class="ch-reveal" id="timedSkipBtn" type="button">Skip</button>
+  </div>
+  <div class="ch-result" id="timedResult"></div>
+</div>
+
+<div class="timed-summary" id="timedSummary" style="display:none;">
+  <h4>Round complete</h4>
+  <div class="timed-summary-stats">
+    <div class="timed-stat"><span class="dvalue" id="timedFinalScore">0</span><span class="dlabel">/ 5 correct</span></div>
+    <div class="timed-stat"><span class="dvalue" id="timedFinalTime">0:00</span><span class="dlabel">total time</span></div>
+  </div>
+  <div id="timedNewBest" class="timed-new-best" style="display:none;">🏆 New best for this level</div>
+  <button class="timed-start-btn" id="timedAgainBtn" type="button">Run again →</button>
+</div>
+</div><!-- /panel: timed -->
+
+<div class="practice-panel" data-panel="weekly" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">A four-week plan, one week per level — short tool days, a lab/capstone day, a rest day. Check off days as you go; progress is saved in this browser and feeds the dashboard above.</p>
+
+<div class="weekly-overall">
+  <span class="ov-label mono">Weeks completed</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+  <span class="ov-count mono" id="weeklyOverallCount">0 / 28 days</span>
+  <button class="capstone-reset" id="weeklyResetBtn" type="button">Reset progress</button>
+</div>
+
+<div class="weekly-grid" id="weeklyGrid"></div>
+</div><!-- /panel: weekly -->
+
+<div class="practice-panel" data-panel="troubleshooting" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Advanced users spend a lot of their time solving problems, not learning new features. Six of the most common ones, and where to actually look.</p>
+<div class="lab">
+  <div class="lab-card" data-level="beginner">
+    <h4>Camera not working</h4>
+    <p class="task">Black screen, a spinning icon, or "no camera found" during a call.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Settings → Devices → confirm the right camera is selected, not a disabled or virtual device.<br>
+        Close other apps that might already be holding the camera (Zoom, a browser tab, the Camera app).<br>
+        Windows: Settings → Privacy → Camera → confirm Teams has permission.<br>
+        Restart Teams, then the device, if the above doesn't fix it.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="beginner">
+    <h4>Microphone issues</h4>
+    <p class="task">Others can't hear you, or you can't hear them, even though you're unmuted.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Settings → Devices → check the microphone AND speaker selections separately — they're often set to different devices.<br>
+        Run "Make a test call" from Settings → Devices to isolate a device issue from a network one.<br>
+        Check the physical mute switch on a headset, separate from Teams' own mute button.<br>
+        Confirm OS-level microphone permission for Teams, same place as the camera permission.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="intermediate">
+    <h4>Screen sharing problems</h4>
+    <p class="task">Share fails to start, shows a black rectangle to viewers, or freezes on one frame.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Windows: check Screen recording / desktop app permission for Teams in system privacy settings.<br>
+        Share a specific window instead of the whole desktop — more reliable on a flaky connection.<br>
+        DRM-protected video (like some streaming content) shows as black by design; there's no fix, share it differently.<br>
+        macOS: System Settings → Privacy &amp; Security → Screen Recording must be explicitly enabled for Teams.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="intermediate">
+    <h4>Sync issues</h4>
+    <p class="task">Messages appear late, a file shows an old version, or a channel doesn't reflect a teammate's change.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Sign out and back in — this forces a fresh sync of chats, channels, and files.<br>
+        Clear the Teams cache and reopen the app if signing out doesn't help.<br>
+        Confirm you're actually online — a flaky connection silently queues messages instead of erroring.<br>
+        For file sync specifically, check OneDrive/SharePoint sync status separately, since Files runs through it.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="advanced">
+    <h4>File permission errors</h4>
+    <p class="task">"You need permission" or "Access denied" when opening a file someone just shared.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Confirm you're actually a member of the team/channel the file lives in, not just someone who received a forwarded link.<br>
+        Ask the file owner to check sharing settings directly in SharePoint/OneDrive, not just re-share in Teams.<br>
+        Guests and external users often need an explicit share even if they can see the channel.<br>
+        Try opening the file's SharePoint link directly in a browser to isolate a Teams-client-specific issue.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="advanced">
+    <h4>Notification troubleshooting</h4>
+    <p class="task">Missing @mention notifications, or getting notified for everything regardless of settings.</p>
+    <details class="solution">
+      <summary>Show the fix</summary>
+      <div class="sol-body">
+        Settings → Notifications → review each category's rule — an overly broad "Off" can suppress mentions too.<br>
+        Check OS-level notification settings or Focus Assist, which can silently block Teams even when Teams is configured to notify.<br>
+        Each channel has its own notification setting (All / Mentions only / Off) via its bell icon, separate from global settings.<br>
+        Custom per-channel rules override the global default, so check the channel first if a specific one is misbehaving.
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: troubleshooting -->
+
+<div class="practice-panel" data-panel="scenarios" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Most roadmaps stop at daily usage. These are the situations that actually come up once you're running Teams for a real organization.</p>
+<div class="lab">
+  <div class="lab-card" data-level="advanced">
+    <h4>Managing a 500+ member Team</h4>
+    <p class="task">A single flat Team with hundreds of people quickly turns Posts into unreadable noise, and ownership gets unclear.</p>
+    <details class="solution">
+      <summary>Show the approach</summary>
+      <div class="sol-body">
+        Split by function or region into channels rather than relying on one General channel for everything.<br>
+        Moderate the busiest channels: Manage channel → restrict posting to owners/moderators for announcement-style channels.<br>
+        Assign several owners across departments, not just the original creator, so admin doesn't bottleneck on one person.<br>
+        Reassess whether a sub-group actually needs its own Team instead of staying a channel in a huge one.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="advanced">
+    <h4>Running company-wide announcements</h4>
+    <p class="task">Leadership needs a way to reach everyone without the message getting buried in a channel nobody checks.</p>
+    <details class="solution">
+      <summary>Show the approach</summary>
+      <div class="sol-body">
+        Use a Town Hall for a live, moderated broadcast to a large internal audience.<br>
+        For async messages, post an "Announcement"-type message to a moderated, org-wide channel so it's visually bannered.<br>
+        Pin the announcement so it stays visible instead of scrolling out of view.<br>
+        Follow up with a short recap email or SharePoint news post for anyone who missed it live.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="advanced">
+    <h4>Department collaboration</h4>
+    <p class="task">Two departments need to work together on a shared initiative without merging their separate Teams.</p>
+    <details class="solution">
+      <summary>Show the approach</summary>
+      <div class="sol-body">
+        A shared channel is usually the right tool — it pulls members from either team without moving anyone.<br>
+        Alternatively, stand up a dedicated cross-functional team with representatives from each department.<br>
+        Agree early on one place of record, so the same conversation doesn't split across three different spaces.<br>
+        Set clear channel ownership so the shared space doesn't become an orphaned no-one's-job.
+      </div>
+    </details>
+  </div>
+  <div class="lab-card" data-level="advanced">
+    <h4>Executive meeting workflows</h4>
+    <p class="task">Leadership meetings need tighter structure than a typical team standup — agendas, action items, and a clean record.</p>
+    <details class="solution">
+      <summary>Show the approach</summary>
+      <div class="sol-body">
+        Attach an agenda directly in the meeting invite so everyone arrives aligned.<br>
+        Use intelligent recap or manual notes to capture decisions and owners, not just the discussion itself.<br>
+        Keep a running "Leadership" channel or chat as the single place recaps and action items get posted after each session.<br>
+        For sensitive strategic discussions, use a private channel or a chat rather than a broadly-visible one.
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: scenarios -->
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref">ANALYTICS</span>
+  <h2 id="analytics">Progress</h2>
+</div>
+<p class="section-note">Everything below is computed from what you've actually done in this browser — mastery on the Board, capstones submitted, weekly consistency, timed challenges, and time on task.</p>
+
+<div class="dashboard">
+  <div class="dash-head">
+    <div class="dash-title"><span class="dot g"></span>Current Progress</div>
+    <button class="dash-reset" id="dashResetBtn" type="button">Reset quiz progress</button>
+  </div>
+
+  <div class="dash-progress-row">
+    <div class="dash-progress-label">
+      <span id="dashCompletionSub">0 of 0 skills + capstones</span>
+      <span><strong id="dashCompletionVal">0</strong>%</span>
+    </div>
+    <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="dash-card" data-metric="level">
+      <div class="dlabel">Current level</div>
+      <div class="dvalue" id="dashLevelVal">Beginner</div>
+      <div class="dsub" id="dashLevelSub">0/5 mastered</div>
+    </div>
+    <div class="dash-card" data-metric="mastered">
+      <div class="dlabel">Skills mastered</div>
+      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 32</span></div>
+      <div class="dsub">Answered correctly on the board</div>
+    </div>
+    <div class="dash-card" data-metric="projects">
+      <div class="dlabel">Capstones submitted</div>
+      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 4</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashProjectsFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="accuracy">
+      <div class="dlabel">Quiz accuracy</div>
+      <div class="dvalue"><span id="dashAccuracyVal">—</span><span class="unit" id="dashAccuracyUnit"></span></div>
+      <div class="dsub" id="dashAccuracySub">No attempts yet</div>
+    </div>
+    <div class="dash-card" data-metric="weekly">
+      <div class="dlabel">Weekly activity</div>
+      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 28 days</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashWeeklyFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="timed">
+      <div class="dlabel">Timed challenges</div>
+      <div class="dvalue" id="dashTimedVal">Not played</div>
+      <div class="dsub" id="dashTimedSub">Best score across levels</div>
+    </div>
+    <div class="dash-card" data-metric="timespent">
+      <div class="dlabel">Time spent</div>
+      <div class="dvalue" id="dashTimeSpentVal">0m</div>
+      <div class="dsub">Across all sessions in this browser</div>
+    </div>
+    <div class="dash-card" data-metric="remaining">
+      <div class="dlabel">Skills remaining</div>
+      <div class="dvalue"><span id="dashRemainingVal">32</span></div>
+      <div class="dsub" id="dashRemainingSub">Still unattempted or missed</div>
+    </div>
+  </div>
+
+  <div class="dash-readiness">
+    <div class="rscore"><span id="dashReadinessVal">0</span><span class="unit">/100</span></div>
+    <div class="rtext">
+      <div class="rlabel">Readiness verdict</div>
+      <div class="rverdict" id="dashVerdict">Just getting started</div>
+      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges and check off a capstone deliverable to see your score move.</div>
+    </div>
+  </div>
+
+  <div class="ach-block">
+    <div class="ach-head">
+      <div class="dash-head-title">Achievements</div>
+      <span class="ach-count" id="achCount">0 / 9 unlocked</span>
+    </div>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fcell">SKILLS TRACKED <b id="fSkills">32</b></div>
+  <div class="fcell">CAPSTONES <b>4</b></div>
+  <div class="fcell">TEMPLATES <b>4</b></div>
+  <div class="fcell">TIMED ROUNDS <b>4 levels</b></div>
+  <div class="fcell">WEEKLY PLAN <b>28 days</b></div>
+  <div class="fcell">ACHIEVEMENTS <b>9</b></div>
+  <div class="fcell">PREREQ <b>None</b></div>
+</footer>
+
+<script>
+  // ---------- Rotating formula bar ----------
+  const formulas = [
+    '/files Q3-Budget.xlsx',
+    '@channel standup moved to 9:15',
+    'Connect-MicrosoftTeams -Credential $cred',
+    'New-Team -DisplayName "keep going"'
+  ];
+  let fi = 0;
+  const formulaEl = document.getElementById('formulaText');
+  formulaEl.style.transition = 'opacity 0.25s ease';
+  setInterval(() => {
+    fi = (fi + 1) % formulas.length;
+    formulaEl.style.opacity = 0;
+    setTimeout(() => { formulaEl.textContent = formulas[fi]; formulaEl.style.opacity = 1; }, 250);
+  }, 3800);
+
+  // ---------- Cell open/close ----------
+  document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const wasOpen = cell.classList.contains('open');
+      cell.parentElement.querySelectorAll('.cell.open').forEach(c => {
+        c.classList.remove('open');
+        const exp = c.querySelector('.exp'); if (exp) exp.textContent = 'tap ▸';
+      });
+      if (!wasOpen){
+        cell.classList.add('open');
+        const exp = cell.querySelector('.exp'); if (exp) exp.textContent = 'tap ▾';
+      }
+    });
+  });
+
+  // ---------- Challenge content ----------
+  const CHALLENGES = {
+    A1: { q:'Which tab do you post to inside a channel, as opposed to sending a private one-to-one message?', required:[['POSTS']], answer:'Posts', mistake:'Defaulting to a private chat for something the whole team needed to see and search later.' },
+    A2: { q:'What\'s the term for the small colored dot on someone\'s profile picture that shows whether they\'re available, busy, or away?', required:[['PRESENCE']], answer:'Presence indicator', mistake:'Messaging someone marked Do Not Disturb expecting an instant reply, then following up in three more places.' },
+    A3: { q:'Which keyboard shortcut toggles your microphone on or off during a Teams meeting or call?', required:[['CTRL+SHIFT+M']], answer:'Ctrl + Shift + M', mistake:'Forgetting to mute before a meeting, or fumbling for the mouse on video instead of just using the shortcut.' },
+    A4: { q:'Which tab at the top of a channel shows every file shared in that channel, backed by SharePoint?', required:[['FILES']], answer:'The Files tab', mistake:'Downloading a copy of a shared file to edit locally instead of co-authoring it live, creating two conflicting versions.' },
+    A5: { q:'Which keyboard shortcut jumps straight to the search bar from anywhere in Teams?', required:[['CTRL+E']], answer:'Ctrl + E', mistake:'Scrolling through the Chat list hunting for a conversation instead of just searching for it.' },
+    B1: { q:'Which channel type can include people from another team — or another organization entirely — without adding them to your whole team?', required:[['SHARED']], answer:'A shared channel', mistake:'Creating a private channel when what was actually needed was a shared channel that includes an external partner.' },
+    B2: { q:'What\'s the term for an app, file, or page pinned across the top of a channel, right next to Posts and Files?', required:[['TAB']], answer:'A tab', mistake:'Re-pasting a link to the same file in chat every week instead of pinning it once as a tab.' },
+    B3: { q:'Which tab next to a meeting recording lets you search the spoken content as text instead of scrubbing through video?', required:[['TRANSCRIPT']], answer:'The Transcript tab', mistake:'Recording a meeting without checking whether recording was actually allowed by the org\'s meeting policy, so it silently fails.' },
+    B4: { q:'What do you add to a meeting invite, instead of just individual people, so it posts to everyone on that team automatically?', required:[['CHANNEL']], answer:'A channel', mistake:'Inviting individual people one by one to a standing team meeting instead of just scheduling it on the channel.' },
+    B5: { q:'Which role can add or remove team members and change team settings, but a regular member cannot?', required:[['OWNER']], answer:'Owner', mistake:'Having only one owner on a team, so nobody else can add a member or fix settings when that person is out.' },
+    B6: { q:'Which @mention notifies every member of the team across every channel — the broadest option available?', required:[['@TEAM']], answer:'@team', mistake:'Using @team for something only one channel actually needed to see, training people to ignore the mention.' },
+    C1: { q:'What kind of admin policy controls whether users can delete sent messages or use Giphy in chat?', required:[['MESSAGING']], answer:'A messaging policy', mistake:'Changing a setting for one user directly in their account instead of assigning them the right policy, so it doesn\'t scale.' },
+    C2: { q:'Which meeting policy setting decides whether an external guest waits to be let in, or joins straight into the meeting?', required:[['LOBBY']], answer:'The lobby (bypass lobby) setting', mistake:'Leaving "Everyone" able to bypass the lobby on a meeting with sensitive external attendees, letting anyone with the link straight in.' },
+    C3: { q:'Which Microsoft product lets you build a flow that reacts to a Teams message or reaction and runs an action automatically?', required:[['POWER AUTOMATE']], answer:'Power Automate', mistake:'Building an approval process out of manual @mentions and forwarded messages instead of a Power Automate approval flow.' },
+    C4: { q:'Which Teams app is built for creating weekly schedules and letting frontline staff swap or request time off?', required:[['SHIFTS']], answer:'Shifts', mistake:'Publishing a schedule as a static spreadsheet instead of in Shifts, so people can\'t request swaps in one place.' },
+    C5: { q:'Which Teams event type is built for large, mostly one-way internal broadcasts with a producer role and moderated Q&A?', required:[['TOWN HALL']], answer:'A town hall', mistake:'Running a large all-hands as a regular meeting instead of a town hall, so it lacks a producer view and moderated Q&A.' },
+    C6: { q:'As the organizer, which feature lets you send one message to every breakout room simultaneously?', required:[['ANNOUNCE']], answer:'The Announce feature', mistake:'Manually messaging each breakout room one at a time instead of using Announce to reach everyone at once.' },
+    C7: { q:'Which Teams Premium feature automatically generates meeting notes, chapters, and speaker-tagged action items?', required:[['INTELLIGENT RECAP']], answer:'Intelligent recap', mistake:'Paying for Teams Premium org-wide without checking whether intelligent recap actually needs a separate license per user.' },
+    C8: { q:'Which type of Teams admin policy decides which apps are even allowed, as opposed to which ones are pinned by default?', required:[['PERMISSION']], answer:'An app permission policy', mistake:'Editing a setup policy to pin an app that a permission policy is still blocking, so nothing actually shows up.' },
+    C9: { q:'Which type of access adds one outside person to a specific team, as opposed to just letting your users chat with another domain generally?', required:[['GUEST']], answer:'Guest access', mistake:'Turning on broad external access when what was actually needed was adding one specific person as a guest.' },
+    C10: { q:'A channel\'s Files tab is really just a view onto which underlying Microsoft 365 service?', required:[['SHAREPOINT']], answer:'SharePoint', mistake:'Treating a "missing" file as lost instead of checking the connected SharePoint site directly.' },
+    D1: { q:'Which cmdlet do you run right after installing the module, to authenticate PowerShell against your tenant?', required:[['CONNECT-MICROSOFTTEAMS']], answer:'Connect-MicrosoftTeams', mistake:'Running Get-Team or New-Team before connecting, and getting an authentication error instead of results.' },
+    D2: { q:'Which Microsoft platform is the underlying REST API that both the Teams app and PowerShell module ultimately call?', required:[['GRAPH']], answer:'The Microsoft Graph API', mistake:'Building a custom provisioning tool against the Teams UI instead of the Graph API, which breaks the moment the UI changes.' },
+    D3: { q:'Which portal — not the Teams admin center — is where you configure retention policies for Teams chats and channel messages?', required:[['PURVIEW']], answer:'The Microsoft Purview compliance portal', mistake:'Assuming a deleted chat message is gone entirely, when a retention policy or legal hold may be preserving it in the background.' },
+    D4: { q:'Which portal centrally tracks device health, updates, and utilization across every Teams Rooms conference room in an org?', required:[['TEAMS ROOMS PRO MANAGEMENT']], answer:'The Teams Rooms Pro Management portal', mistake:'Troubleshooting a room device locally, room by room, instead of checking its health centrally first.' },
+    D5: { q:'What\'s the acronym for the network feature that prioritizes real-time Teams call traffic over less time-sensitive traffic?', required:[['QOS']], answer:'QoS (Quality of Service)', mistake:'Enabling QoS tagging in the Teams admin center but never confirming the network hardware actually honors those tags end-to-end.' },
+    D6: { q:'Which tool aggregates call-quality metrics like packet loss and jitter across the whole org, rather than just one user\'s call?', required:[['CALL QUALITY DASHBOARD']], answer:'The Call Quality Dashboard (CQD)', mistake:'Digging into one user\'s Call Analytics for every complaint instead of checking CQD first for an org-wide pattern.' },
+    D7: { q:'Which PSTN calling option requires you to deploy and manage your own session border controller (SBC)?', required:[['DIRECT ROUTING']], answer:'Direct Routing', mistake:'Choosing Direct Routing for its flexibility without budgeting for the ongoing SBC management it actually requires.' },
+    D8: { q:'Which compliance feature automatically blocks chat and calls between two defined groups of users, rather than relying on policy alone?', required:[['INFORMATION BARRIERS']], answer:'Information barriers', mistake:'Relying on a written policy to keep two teams from communicating instead of enforcing it technically with information barriers.' },
+    D9: { q:'Which underlying capability lets a channel span two different Microsoft 365 organizations without adding everyone as guests?', required:[['TEAMS CONNECT']], answer:'Teams Connect', mistake:'Guest-inviting an entire partner company member-by-member instead of setting up one Teams Connect shared channel.' },
+    D10: { q:'Which Entra ID / admin center setting enforces a required prefix or suffix on every new team\'s name?', required:[['NAMING']], answer:'A naming policy', mistake:'Letting teams be created with free-form names, so nobody can tell what a team is for or who owns it a year later.' },
+    D11: { q:'What\'s the term for a trained, per-department advocate who helps drive adoption of a new tool like Teams?', required:[['CHAMPION']], answer:'A champion', mistake:'Measuring adoption only at launch week instead of tracking usage reports over the following months.' }
+  };
+
+  // ---------- Tool notes (per-cell mistakes / practices / avoid) ----------
+  const TOOL_NOTES = {
+    A1: { mistakes:['Defaulting to a private chat for something the whole team needed to see and search later', 'Starting a new chat thread for a topic that already has a channel', 'Not checking if a channel already exists before creating a duplicate'], practices:['Ask "should the team be able to find this later?" before choosing chat vs. a channel post', 'Reply in the same thread instead of starting a new post for an ongoing topic'], avoid:['Don\'t post something meant for only 2-3 people into a channel everyone on the team will see'] },
+    A2: { mistakes:['Messaging someone marked Do Not Disturb expecting an instant reply', 'Never setting a status message, so teammates guess at your availability', 'Leaving status on "Available" while away from the desk all day'], practices:['Check presence before sending something time-sensitive', 'Set a status message with an expiry time for focus blocks or time off'], avoid:['Don\'t rely on presence alone for anything urgent — a quick message or call is more reliable'] },
+    A3: { mistakes:['Forgetting to mute before a meeting, or fumbling for the mouse instead of using the shortcut', 'Leaving video on for a call that didn\'t need it, straining bandwidth', 'Clicking "End meeting for everyone" instead of just "Leave" as a participant'], practices:['Join muted by default and unmute when you\'re ready to speak', 'Use reactions for quick signals instead of interrupting to talk'], avoid:['Don\'t leave your camera on by habit for large broadcast-style meetings where it adds no value'] },
+    A4: { mistakes:['Downloading a copy of a shared file to edit locally instead of co-authoring live', 'Attaching a file in a 1:1 chat that really needed to live in the channel', 'Not checking the Files tab before re-uploading a file that\'s already there'], practices:['Default to co-authoring a channel file live instead of downloading a copy', 'Check the Files tab first before uploading a possible duplicate'], avoid:['Don\'t share something sensitive in a broad channel chat when a scoped private channel would be safer'] },
+    A5: { mistakes:['Scrolling through the Chat list hunting for a conversation instead of searching', 'Not knowing the Activity feed exists, and missing @mentions as a result', 'Pinning too many chats/channels, making the left rail as cluttered as before'], practices:['Use Ctrl+E to search before scrolling for anything', 'Check the Activity feed first thing to see what actually needs attention'], avoid:['Don\'t pin every channel you\'re a member of — pin only the ones you check daily'] },
+    B1: { mistakes:['Creating a private channel when a shared channel with an external partner was actually needed', 'Adding every team member to every private channel "just in case"', 'Forgetting private channel files live in a separate SharePoint site from the main team'], practices:['Ask "does this need to be invisible to some of the team, or open to people outside it?" before picking a channel type', 'Keep private channel membership to exactly who needs it'], avoid:['Don\'t create a new standard channel for a short-lived topic — a thread in an existing channel is often enough'] },
+    B2: { mistakes:['Re-pasting a link to the same file in chat every week instead of pinning it as a tab', 'Adding so many tabs that the important ones scroll out of view', 'Pinning a personal file instead of the shared team copy'], practices:['Pin anything referenced weekly as a tab instead of re-linking it', 'Order tabs with the most-used one right after Posts and Files'], avoid:['Don\'t add a tab for a one-time reference document — a normal Files upload is enough'] },
+    B3: { mistakes:['Recording a meeting without checking the org\'s meeting policy allows it', 'Never opening the transcript, and re-watching the whole recording instead', 'Forgetting to tell attendees a meeting is being recorded'], practices:['Announce recording at the start of a meeting, out of courtesy and often by policy', 'Search the transcript for a keyword before scrubbing through video'], avoid:['Don\'t record every routine meeting by habit — it adds storage and review overhead nobody uses'] },
+    B4: { mistakes:['Inviting individual people one by one to a standing team meeting instead of scheduling it on the channel', 'Setting the wrong recurrence pattern and having to recreate the series', 'Forgetting a channel meeting is visible to the whole team, not just invitees'], practices:['Add the channel, not just people, for any meeting the whole team should be able to join', 'Double-check the recurrence pattern before sending the invite'], avoid:['Don\'t make a sensitive 1:1 conversation a channel meeting — schedule it with just the individuals'] },
+    B5: { mistakes:['Having only one owner on a team, so nobody else can add a member or fix settings', 'Adding a guest without a clear reason or an offboarding plan', 'Confusing "member of the team" with "member of every channel in it"'], practices:['Keep at least two owners on every team', 'Review the guest list periodically and remove access that\'s no longer needed'], avoid:['Don\'t make everyone an owner by default — it removes the accountability owners are meant to provide'] },
+    B6: { mistakes:['Using @team for something only one channel actually needed to see', 'Never using @mentions, so people miss messages meant specifically for them', '@mentioning someone who\'s already in the thread, causing duplicate notifications'], practices:['Reach for the narrowest mention that will actually reach who needs it', 'Use @name for anything genuinely one person needs to act on'], avoid:['Don\'t @channel or @team out of habit for routine updates — save it for things everyone truly needs'] },
+    C1: { mistakes:['Changing a setting for one user directly instead of assigning them the right policy', 'Editing the Global (org-wide) policy instead of creating a scoped one', 'Not testing a new policy on a pilot group before rolling it out broadly'], practices:['Create scoped policies for groups instead of editing individual user settings', 'Pilot a new policy on a small group before assigning it org-wide'], avoid:['Don\'t give every user admin-level messaging settings just to solve one person\'s request'] },
+    C2: { mistakes:['Leaving "Everyone" able to bypass the lobby on a meeting with sensitive external attendees', 'Not reviewing who can present before an external-facing meeting', 'Assuming the default meeting policy fits every kind of meeting the org runs'], practices:['Set the lobby to "people in my org" or stricter for anything sensitive', 'Build a separate meeting policy for external-facing or large-audience meetings'], avoid:['Don\'t lock down "who can present" so tightly on a normal internal meeting that it slows the team down'] },
+    C3: { mistakes:['Building an approval process out of manual @mentions and forwarded messages', 'Not testing a flow\'s condition logic before relying on it for something important', 'Granting a flow broader permissions than the specific channel or list it needs'], practices:['Reach for a Power Automate approval flow the moment "forward and remember" becomes the process', 'Test the trigger condition with a few sample messages before trusting it'], avoid:['Don\'t automate a one-off task that will only ever happen once — the setup overhead isn\'t worth it'] },
+    C4: { mistakes:['Publishing a schedule as a static spreadsheet instead of in Shifts', 'Not reviewing swap/time-off requests promptly, leaving shifts unfilled', 'Building next week\'s schedule from scratch instead of copying and adjusting the last one'], practices:['Publish every schedule change in Shifts so the team sees it in one place', 'Copy last week\'s schedule as a starting point instead of rebuilding it'], avoid:['Don\'t use Shifts for a small salaried team with no shift variation — a shared calendar is simpler'] },
+    C5: { mistakes:['Running a large all-hands as a regular meeting instead of a town hall', 'Choosing a webinar for a small internal team meeting that didn\'t need registration', 'Forgetting to assign a producer role for a large broadcast event'], practices:['Match the event type to the audience size and whether it\'s internal or external', 'Assign a producer for any town hall or large webinar'], avoid:['Don\'t default every large meeting to a webinar — a town hall fits an internal all-hands better'] },
+    C6: { mistakes:['Manually messaging each breakout room one at a time instead of using Announce', 'Not setting a timer, so rooms run long and the main session falls behind', 'Assigning rooms manually when automatic assignment would\'ve been faster'], practices:['Use Announce for anything every room needs to hear', 'Set a timer so rooms close automatically and stay on schedule'], avoid:['Don\'t use breakout rooms for a meeting under 8-10 people — a single discussion works fine'] },
+    C7: { mistakes:['Paying for Teams Premium org-wide without checking intelligent recap needs a separate license', 'Turning on watermarking for routine meetings where it just adds noise', 'Not telling attendees a meeting is being watermarked or recapped'], practices:['Assign Premium licenses to the specific users who\'ll actually use recap or advanced webinars', 'Reserve watermarking for meetings that actually involve sensitive content'], avoid:['Don\'t roll out every Premium feature at once — start with intelligent recap, the highest-value one for most teams'] },
+    C8: { mistakes:['Editing a setup policy to pin an app that a permission policy is still blocking', 'Blocking an app broadly instead of scoping the block to the group that needed it', 'Forgetting setup policies also control whether users can pin/unpin apps themselves'], practices:['Check the permission policy first if a pinned app isn\'t showing up for someone', 'Scope app blocks to the specific group that needs the restriction'], avoid:['Don\'t pin more than a handful of apps by default — it just creates clutter no one navigates'] },
+    D1: { mistakes:['Running Get-Team or New-Team before connecting, and getting an authentication error', 'Running a bulk script against production without testing on one team first', 'Not exporting a report before a bulk change, losing the ability to compare before/after'], practices:['Test any bulk cmdlet against a single team before running it tenant-wide', 'Export a Get-Team report before and after a bulk change to confirm what happened'], avoid:['Don\'t reach for PowerShell for a single one-off team edit — the admin center UI is faster for that'] },
+    D2: { mistakes:['Building a custom provisioning tool against the Teams UI instead of the Graph API', 'Requesting overly broad Graph API permissions instead of the specific scope needed', 'Not handling token refresh, so automation silently breaks after a few hours'], practices:['Scope an app registration\'s permissions to exactly what the automation needs, like Team.Create', 'Handle token refresh explicitly in any long-running Graph automation'], avoid:['Don\'t call the Graph API directly for something the MicrosoftTeams PowerShell module already wraps cleanly'] },
+    D3: { mistakes:['Assuming a deleted chat message is gone entirely when a retention policy may be preserving it', 'Setting a retention period shorter than a legal or regulatory requirement', 'Placing a broad legal hold that captures far more content than the case actually needs'], practices:['Confirm retention requirements with legal/compliance before setting a policy', 'Scope an eDiscovery hold as narrowly as the case allows'], avoid:['Don\'t assume the Teams admin center controls retention — that\'s Purview\'s job'] },
+    D4: { mistakes:['Troubleshooting a room device locally, room by room, instead of checking health centrally first', 'Ignoring utilization reports and letting real estate decisions run on guesswork', 'Not keeping room device software up to date, causing avoidable join failures'], practices:['Check the Pro Management portal first for any room-device issue', 'Review utilization data before deciding to add or remove meeting rooms'], avoid:['Don\'t manage a large room fleet purely through on-site visits — the portal gives a faster, org-wide view'] },
+    D5: { mistakes:['Enabling QoS tagging in the Teams admin center but never confirming the network honors it', 'Estimating bandwidth for typical use but not for peak concurrent-call periods', 'Rolling out QoS changes without involving the network team that owns the switches/routers'], practices:['Confirm end-to-end DSCP handling with the network team, not just the Teams-side setting', 'Plan bandwidth around peak concurrent calls, not an average day'], avoid:['Don\'t assume QoS alone fixes call quality — a genuinely saturated link needs more bandwidth, not just prioritization'] },
+    D6: { mistakes:['Digging into one user\'s Call Analytics for every complaint instead of checking CQD first', 'Comparing call quality across dates without accounting for known network changes', 'Ignoring device-model patterns in favor of only looking at locations'], practices:['Start with CQD\'s aggregate view to spot a pattern before drilling into individual calls', 'Cross-reference poor-quality clusters against known network or device changes'], avoid:['Don\'t chase a single bad call as a systemic issue without checking whether CQD shows it\'s isolated'] },
+    D7: { mistakes:['Choosing Direct Routing for its flexibility without budgeting for ongoing SBC management', 'Picking Calling Plans in a region Microsoft doesn\'t support, and finding out too late', 'Not comparing per-minute and per-user costs across all three options before deciding'], practices:['Match the calling option to how much telephony infrastructure the org actually wants to own', 'Get real cost estimates for Direct Routing, Operator Connect, and Calling Plans before choosing'], avoid:['Don\'t default to Direct Routing "for control" if the org has no interest in running its own SBC'] },
+    D8: { mistakes:['Relying on a written policy to keep two teams from communicating instead of enforcing it technically', 'Segmenting users incorrectly because the underlying Entra ID attribute wasn\'t accurate', 'Forgetting information barriers can block legitimate cross-team collaboration if scoped too broadly'], practices:['Verify the Entra ID attributes used for segmentation are accurate before applying a barrier', 'Test a new information barrier policy against a small group before rolling it out widely'], avoid:['Don\'t apply information barriers as a blanket policy when only one specific pairing of groups needed restricting'] },
+    D9: { mistakes:['Guest-inviting an entire partner company member-by-member instead of setting up Teams Connect', 'Not reviewing cross-tenant access settings before allowing a shared channel with a new partner org', 'Assuming a shared channel gives the same access as adding someone as a full team member'], practices:['Set up cross-tenant access settings deliberately before the first shared channel with a new partner', 'Explain to teammates that shared-channel guests see less than a full team member does'], avoid:['Don\'t use Teams Connect for a one-off external meeting — a normal guest invite to a single meeting is simpler'] },
+    D10: { mistakes:['Letting teams be created with free-form names, so nobody can tell what a team is for a year later', 'Setting a naming policy so rigid that people work around it with unofficial teams instead', 'Never reviewing usage reports before deciding which teams are stale enough to archive'], practices:['Enforce a simple, consistent naming policy from day one, not after sprawl has already happened', 'Pair a naming policy with an expiration/lifecycle policy so cleanup is automatic, not manual'], avoid:['Don\'t apply strict lifecycle expiration to teams that are long-lived by design, like a department\'s permanent team'] },
+    D11: { mistakes:['Measuring adoption only at launch week instead of tracking usage reports over the following months', 'Rolling Teams out with no champions, leaving day-to-day questions unanswered', 'Assuming training once at kickoff is enough, with no refresher as features change'], practices:['Recruit and train at least one champion per department before a broad rollout', 'Check usage reports periodically, not just once, to catch adoption dipping after the initial push'], avoid:['Don\'t treat a successful technical deployment as the finish line — adoption is a separate, ongoing effort'] }
+  };
+  document.querySelectorAll('.cell').forEach(cell => {
+    const box = cell.querySelector('.challenge');
+    if (!box) return;
+    const id = box.dataset.id;
+    const notes = TOOL_NOTES[id];
+    if (!notes) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'tool-notes';
+    wrap.innerHTML =
+      '<div class="tn-group">' +
+        '<div class="tn-label bad">\u2715 Common mistakes</div>' +
+        '<ul class="tn-list bad">' + notes.mistakes.map(m => '<li>' + m + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label good">\u2713 Best practices</div>' +
+        '<ul class="tn-list good">' + notes.practices.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label avoid">When NOT to use this</div>' +
+        '<ul class="tn-list avoid">' + notes.avoid.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
+      '</div>';
+    cell.insertBefore(wrap, box);
+  });
+
+  function normalize(raw){ return raw.toUpperCase().replace(/\s+/g,' ').trim(); }
+
+  // ---------- Level lock / mastery progress ----------
+  const LEVELS = [
+    { key:'beginner', ids:['A1','A2','A3','A4','A5'] },
+    { key:'intermediate', ids:['B1','B2','B3','B4','B5','B6'] },
+    { key:'advanced', ids:['C1','C2','C3','C4','C5','C6','C7','C8','C9','C10'] },
+    { key:'expert', ids:['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10','D11'] }
+  ];
+  const PROGRESS_KEY = 'teamsRoadmapProgress';
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }catch(e){ progress = {}; }
+  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){} }
+  function isMastered(id){ return !!(progress[id] && progress[id].mastered); }
+  function recordAttempt(id, correct){
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0 };
+    rec.totalAttempts += 1;
+    if (correct){ rec.correctAttempts += 1; rec.mastered = true; }
+    progress[id] = rec;
+    saveProgress();
+  }
+
+  function applyLocks(){
+    let unlocked = true;
+    LEVELS.forEach(level => {
+      const col = document.querySelector('.level-col[data-level="' + level.key + '"]');
+      if (!col) return;
+      col.classList.toggle('section-locked', !unlocked);
+      unlocked = unlocked && level.ids.every(id => isMastered(id));
+    });
+    const total = LEVELS.reduce((n,l)=>n+l.ids.length,0);
+    const done = Object.keys(progress).filter(k => isMastered(k)).length;
+    const el = document.getElementById('skillProgressCount');
+    if (el) el.textContent = '· ' + done + ' / ' + total + ' mastered';
+  }
+
+  function applyBadges(){
+    Object.keys(CHALLENGES).forEach(id => {
+      const box = document.querySelector('.challenge[data-id="' + id + '"]');
+      if (!box) return;
+      box.closest('.cell').classList.toggle('skill-mastered', isMastered(id));
+    });
+  }
+
+  document.querySelectorAll('.challenge').forEach(box => {
+    const id = box.dataset.id;
+    const data = CHALLENGES[id];
+    if (!data) return;
+    const qEl = box.querySelector('.ch-q');
+    const input = box.querySelector('.ch-input');
+    const btn = box.querySelector('.ch-btn');
+    const result = box.querySelector('.ch-result');
+    const reveal = box.querySelector('.ch-reveal');
+    const mistakeEl = box.querySelector('.ch-mistake');
+
+    qEl.innerHTML = '<b>Challenge — ' + id + ':</b> ' + data.q;
+
+    function check(){
+      const raw = input.value;
+      if (!raw.trim()){
+        result.textContent = 'Type an answer first.';
+        result.className = 'ch-result';
+        return;
+      }
+      const norm = normalize(raw);
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      recordAttempt(id, ok);
+      if (ok){
+        result.textContent = '✓ Correct.';
+        result.className = 'ch-result correct';
+        if (mistakeEl) mistakeEl.classList.remove('show');
+        applyLocks();
+        applyBadges();
+      } else {
+        result.textContent = '✗ Not quite — check the key term and try again, or reveal the answer.';
+        result.className = 'ch-result incorrect';
+        if (mistakeEl && data.mistake){
+          mistakeEl.innerHTML = '<b>Common mistake:</b> ' + data.mistake;
+          mistakeEl.classList.add('show');
+        }
+      }
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); check(); });
+    input.addEventListener('click', (e) => e.stopPropagation());
+    input.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') check(); });
+    reveal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      result.textContent = 'Answer: ' + data.answer;
+      result.className = 'ch-result';
+    });
+  });
+
+  applyLocks();
+  applyBadges();
+
+  // ---------- Capstone checklists + submit gating ----------
+  (function(){
+    const STORAGE_KEY = 'teamsRoadmapCapstoneProgress';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ state = {}; }
+
+    const cards = Array.from(document.querySelectorAll('.capstone-card'));
+    const overallFill = document.getElementById('capOverallFill');
+    const overallCount = document.getElementById('capOverallCount');
+    const resetBtn = document.getElementById('capResetBtn');
+
+    function itemKey(capId, idx){ return 'c' + capId + '-' + idx; }
+    function submitKey(capId){ return 'submitted-' + capId; }
+    function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+    function updateCard(card){
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      let done = 0;
+      items.forEach((li, idx) => {
+        const key = itemKey(capId, idx);
+        if (state[key]) { li.classList.add('done'); done++; }
+        else { li.classList.remove('done'); }
+      });
+      const total = items.length;
+      const countEl = card.querySelector('.cap-progress-count');
+      const fillEl = card.querySelector('.cap-progress-bar-fill');
+      if (countEl) countEl.textContent = done + '/' + total;
+      if (fillEl) fillEl.style.width = (total ? (done/total*100) : 0) + '%';
+      const complete = total > 0 && done === total;
+      card.classList.toggle('cap-complete', complete);
+
+      const submitted = !!state[submitKey(capId)];
+      card.classList.toggle('cap-submitted', submitted);
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        if (submitted){
+          submitBtn.textContent = '✓ Submitted';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('submitted');
+        } else {
+          submitBtn.textContent = 'Submit Capstone';
+          submitBtn.classList.remove('submitted');
+          submitBtn.disabled = !complete;
+        }
+      }
+      return { done, total, submitted };
+    }
+
+    function updateOverall(){
+      let done = 0, total = 0;
+      cards.forEach(card => { const r = updateCard(card); done += r.done; total += r.total; });
+      if (overallCount) overallCount.textContent = done + ' / ' + total;
+      if (overallFill) overallFill.style.width = (total ? (done/total*100) : 0) + '%';
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    cards.forEach(card => {
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      items.forEach((li, idx) => {
+        li.addEventListener('click', () => {
+          if (state[submitKey(capId)]) return;
+          const key = itemKey(capId, idx);
+          state[key] = !state[key];
+          save();
+          updateOverall();
+        });
+      });
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        submitBtn.addEventListener('click', () => {
+          if (submitBtn.disabled) return;
+          state[submitKey(capId)] = true;
+          save();
+          updateOverall();
+        });
+      }
+    });
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); updateOverall(); });
+    }
+
+    window.getCapstoneSubmittedCount = function(){
+      return cards.filter(c => !!state[submitKey(c.dataset.cap)]).length;
+    };
+
+    updateOverall();
+  })();
+
+  // ---------- Practice tabs ----------
+  (function(){
+    const tabs = document.querySelectorAll('.practice-tab');
+    const panels = document.querySelectorAll('.practice-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+        const target = tab.dataset.tab;
+        panels.forEach(p => { p.style.display = (p.dataset.panel === target) ? 'block' : 'none'; });
+      });
+    });
+  })();
+
+  // ---------- Weekly exercises ----------
+  (function(){
+    const WEEKLY_KEY = 'teamsRoadmapWeekly';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(WEEKLY_KEY)) || {}; }catch(e){ state = {}; }
+    function save(){ try{ localStorage.setItem(WEEKLY_KEY, JSON.stringify(state)); }catch(e){} }
+
+    const WEEKS = [
+      { level:'beginner', title:'Week 1 — Beginner', sub:'Get oriented and start collaborating', days:[
+        'Cell A1 — chat vs. posting in a channel',
+        'Cell A2 — presence status',
+        'Cell A3 — join a meeting and use core controls',
+        'Cell A4 — share files in chat vs. a channel',
+        'Cell A5 — tour the app shell (Ctrl+E search)',
+        'Work the Beginner Mini Lab',
+        'Rest, or start the Team Kickoff Hub capstone'
+      ]},
+      { level:'intermediate', title:'Week 2 — Intermediate', sub:'Structure the team properly', sub2:'', days:[
+        'Cell B1 — standard, private, and shared channels',
+        'Cell B2 — add tabs and apps',
+        'Cell B3 — record a meeting and use the transcript',
+        'Cell B4 — schedule a channel or recurring meeting',
+        'Cell B5 — owner, member, and guest roles',
+        'Cell B6 — @mentions and notification scope',
+        'Work the Intermediate Mini Lab, then start the Cross-Functional Workspace capstone'
+      ]},
+      { level:'advanced', title:'Week 3 — Advanced', sub:'Get fluent in admin and automation', days:[
+        'Cell C1 — admin center and messaging policies',
+        'Cell C2 — meeting policies (lobby, recording, presenters)',
+        'Cell C3 — trigger a Power Automate flow',
+        'Cell C4 — manage schedules with Shifts',
+        'Cells C5 + C6 — webinars/town halls, then breakout rooms',
+        'Cells C7 + C8 — Teams Premium features, then app permission policies',
+        'Work the Advanced Mini Lab, then start the Governed Team Rollout capstone'
+      ]},
+      { level:'expert', title:'Week 4 — Expert', sub:'Operate it at enterprise scale', days:[
+        'Cell D1 — manage Teams with PowerShell',
+        'Cell D2 — provision teams with the Graph API',
+        'Cell D3 — retention policies and eDiscovery',
+        'Cell D4 — manage Teams Rooms devices',
+        'Cells D5 + D6 — network QoS, then the Call Quality Dashboard',
+        'Cells D7 + D8 — Direct Routing/Operator Connect, then information barriers',
+        'Cell D9 — Teams Connect, then finish the Enterprise Teams Operations capstone'
+      ]}
+    ];
+
+    const grid = document.getElementById('weeklyGrid');
+    const overallFill = document.getElementById('weeklyOverallFill');
+    const overallCount = document.getElementById('weeklyOverallCount');
+    const resetBtn = document.getElementById('weeklyResetBtn');
+    const TOTAL_DAYS = WEEKS.reduce((n,w)=>n+w.days.length,0);
+
+    function dayKey(wi, di){ return 'w' + wi + '-d' + di; }
+
+    function render(){
+      grid.innerHTML = '';
+      WEEKS.forEach((week, wi) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'weekly-week';
+        wrap.dataset.level = week.level;
+        const head = document.createElement('div');
+        head.className = 'weekly-week-head';
+        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>';
+        wrap.appendChild(head);
+        const daysWrap = document.createElement('div');
+        daysWrap.className = 'weekly-days';
+        week.days.forEach((text, di) => {
+          const key = dayKey(wi, di);
+          const row = document.createElement('label');
+          row.className = 'weekly-day' + (state[key] ? ' done' : '');
+          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Day ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
+          const box = row.querySelector('input');
+          box.addEventListener('change', () => {
+            state[key] = box.checked;
+            row.classList.toggle('done', box.checked);
+            save();
+            updateOverall();
+            if (typeof window.updateDashboard === 'function') window.updateDashboard();
+          });
+          daysWrap.appendChild(row);
+        });
+        wrap.appendChild(daysWrap);
+        grid.appendChild(wrap);
+      });
+    }
+
+    function updateOverall(){
+      const done = Object.values(state).filter(Boolean).length;
+      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' days';
+      overallFill.style.width = (done/TOTAL_DAYS*100) + '%';
+    }
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); render(); updateOverall(); if (typeof window.updateDashboard === 'function') window.updateDashboard(); });
+    }
+
+    window.getWeeklyDoneCount = function(){ return Object.values(state).filter(Boolean).length; };
+
+    render();
+    updateOverall();
+  })();
+
+  // ---------- Timed Challenges ----------
+  (function(){
+    const BEST_KEY = 'teamsRoadmapTimedBest';
+    let best = {};
+    try{ best = JSON.parse(localStorage.getItem(BEST_KEY)) || {}; }catch(e){ best = {}; }
+    function saveBest(){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(best)); }catch(e){} }
+
+    const levelBtns = document.querySelectorAll('.timed-level-btn');
+    const bestLine = document.getElementById('timedBestLine');
+    const startBtn = document.getElementById('timedStartBtn');
+    const setupBox = document.querySelector('.timed-setup');
+    const roundBox = document.getElementById('timedRound');
+    const summaryBox = document.getElementById('timedSummary');
+    const qNumEl = document.getElementById('timedQNum');
+    const qTotalEl = document.getElementById('timedQTotal');
+    const scoreEl = document.getElementById('timedScore');
+    const clockEl = document.getElementById('timedClock');
+    const qTextEl = document.getElementById('timedQuestionText');
+    const inputEl = document.getElementById('timedInput');
+    const submitBtn = document.getElementById('timedSubmitBtn');
+    const skipBtn = document.getElementById('timedSkipBtn');
+    const resultEl = document.getElementById('timedResult');
+    const finalScoreEl = document.getElementById('timedFinalScore');
+    const finalTimeEl = document.getElementById('timedFinalTime');
+    const newBestEl = document.getElementById('timedNewBest');
+    const againBtn = document.getElementById('timedAgainBtn');
+
+    const levelLabels = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    let selectedLevel = 'beginner';
+    let ids = [], idx = 0, score = 0, secondsLeft = 45, timerHandle = null, roundStart = 0;
+
+    function fmtTime(ms){
+      const s = Math.round(ms/1000);
+      const m = Math.floor(s/60), r = s%60;
+      return m + ':' + String(r).padStart(2,'0');
+    }
+
+    function renderBestLine(){
+      const b = best[selectedLevel];
+      bestLine.textContent = 'Best for ' + levelLabels[selectedLevel] + ': ' + (b ? (b.score + '/' + b.total + ' in ' + fmtTime(b.timeMs)) : '—');
+    }
+
+    levelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedLevel = btn.dataset.level;
+        renderBestLine();
+      });
+    });
+    renderBestLine();
+
+    function shuffledIds(level){
+      const src = (window.TEAMS_LEVELS.find(l => l.key === level) || {ids:[]}).ids.slice();
+      for (let i = src.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [src[i], src[j]] = [src[j], src[i]];
+      }
+      return src.slice(0, Math.min(5, src.length));
+    }
+
+    function startRound(){
+      ids = shuffledIds(selectedLevel);
+      idx = 0; score = 0; roundStart = Date.now();
+      setupBox.style.display = 'none';
+      summaryBox.style.display = 'none';
+      roundBox.style.display = 'block';
+      qTotalEl.textContent = ids.length;
+      scoreEl.textContent = '0';
+      loadQuestion();
+    }
+
+    function tick(){
+      secondsLeft--;
+      clockEl.textContent = '0:' + String(Math.max(secondsLeft,0)).padStart(2,'0');
+      clockEl.classList.toggle('low', secondsLeft <= 10);
+      if (secondsLeft <= 0){
+        clearInterval(timerHandle);
+        resultEl.textContent = '⏱ Time\'s up.';
+        resultEl.className = 'ch-result incorrect';
+        setTimeout(nextQuestion, 700);
+      }
+    }
+
+    function loadQuestion(){
+      if (idx >= ids.length){ finishRound(); return; }
+      const data = window.TEAMS_CHALLENGES[ids[idx]];
+      qNumEl.textContent = idx + 1;
+      qTextEl.innerHTML = '<b>' + ids[idx] + ':</b> ' + data.q;
+      inputEl.value = '';
+      resultEl.textContent = '';
+      resultEl.className = 'ch-result';
+      secondsLeft = 45;
+      clockEl.textContent = '0:45';
+      clockEl.classList.remove('low');
+      clearInterval(timerHandle);
+      timerHandle = setInterval(tick, 1000);
+      inputEl.focus();
+    }
+
+    function submitAnswer(){
+      clearInterval(timerHandle);
+      const id = ids[idx];
+      const data = window.TEAMS_CHALLENGES[id];
+      const norm = inputEl.value.toUpperCase().replace(/\s+/g,' ').trim();
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      if (typeof window.recordChallengeAttempt === 'function') window.recordChallengeAttempt(id, ok);
+      if (ok){
+        score++;
+        scoreEl.textContent = score;
+        resultEl.textContent = '✓ Correct.';
+        resultEl.className = 'ch-result correct';
+      } else {
+        resultEl.textContent = '✗ Answer: ' + data.answer;
+        resultEl.className = 'ch-result incorrect';
+      }
+      setTimeout(nextQuestion, 700);
+    }
+
+    function nextQuestion(){ idx++; loadQuestion(); }
+
+    function finishRound(){
+      const elapsed = Date.now() - roundStart;
+      roundBox.style.display = 'none';
+      summaryBox.style.display = 'block';
+      finalScoreEl.textContent = score + '/' + ids.length;
+      finalTimeEl.textContent = fmtTime(elapsed);
+      const prev = best[selectedLevel];
+      const isNewBest = !prev || score > prev.score || (score === prev.score && elapsed < prev.timeMs);
+      if (isNewBest){
+        best[selectedLevel] = { score:score, total:ids.length, timeMs:elapsed };
+        saveBest();
+        newBestEl.style.display = 'block';
+      } else {
+        newBestEl.style.display = 'none';
+      }
+      renderBestLine();
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    startBtn.addEventListener('click', startRound);
+    submitBtn.addEventListener('click', submitAnswer);
+    skipBtn.addEventListener('click', nextQuestion);
+    inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
+    againBtn.addEventListener('click', () => {
+      summaryBox.style.display = 'none';
+      setupBox.style.display = 'flex';
+    });
+
+    window.getTimedBestSummary = function(){
+      let bestLevel = null, bestRec = null;
+      Object.keys(best).forEach(lvl => {
+        const rec = best[lvl];
+        if (!bestRec || rec.score > bestRec.score || (rec.score === bestRec.score && rec.timeMs < bestRec.timeMs)){
+          bestRec = rec; bestLevel = lvl;
+        }
+      });
+      if (!bestRec) return null;
+      return {
+        text: bestRec.score + '/' + bestRec.total + ' in ' + fmtTime(bestRec.timeMs),
+        level: levelLabels[bestLevel] || bestLevel,
+        perfect: bestRec.score === bestRec.total
+      };
+    };
+  })();
+
+  // ---------- Time spent tracker ----------
+  (function(){
+    const KEY = 'teamsRoadmapTimeSpent';
+    setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      let mins = 0;
+      try{ mins = parseInt(localStorage.getItem(KEY) || '0', 10) || 0; }catch(e){}
+      mins += 1;
+      try{ localStorage.setItem(KEY, String(mins)); }catch(e){}
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }, 60000);
+  })();
+
+  // ---------- Dashboard, readiness, and achievements ----------
+  window.TEAMS_LEVELS = LEVELS;
+  window.TEAMS_CHALLENGES = CHALLENGES;
+  window.recordChallengeAttempt = recordAttempt;
+
+  function updateDashboard(){
+    const totalSkills = Object.keys(CHALLENGES).length;
+    const masteredIds = Object.keys(progress).filter(id => isMastered(id));
+    const masteredCount = masteredIds.length;
+    const remaining = totalSkills - masteredCount;
+
+    const levelNames = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    const currentLevelObj = LEVELS.find(l => !l.ids.every(id => isMastered(id))) || LEVELS[LEVELS.length-1];
+    const curMasteredInLevel = currentLevelObj.ids.filter(id => isMastered(id)).length;
+
+    setText('dashLevelVal', levelNames[currentLevelObj.key]);
+    setText('dashLevelSub', curMasteredInLevel + '/' + currentLevelObj.ids.length + ' mastered');
+    setText('dashMasteredVal', masteredCount);
+    setText('dashRemainingVal', remaining);
+    setText('dashRemainingSub', remaining === 0 ? 'Every skill mastered' : 'Still unattempted or missed');
+
+    let totalCorrect = 0, totalAttempts = 0;
+    Object.values(progress).forEach(rec => { totalCorrect += rec.correctAttempts || 0; totalAttempts += rec.totalAttempts || 0; });
+    const accuracyPct = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
+    setText('dashAccuracyVal', accuracyPct === null ? '—' : accuracyPct);
+    setText('dashAccuracyUnit', accuracyPct === null ? '' : '%');
+    setText('dashAccuracySub', totalAttempts > 0 ? (totalCorrect + ' correct of ' + totalAttempts + ' attempts') : 'No attempts yet');
+
+    const submitted = typeof window.getCapstoneSubmittedCount === 'function' ? window.getCapstoneSubmittedCount() : 0;
+    setText('dashProjectsVal', submitted);
+    setWidth('dashProjectsFill', submitted/4*100);
+
+    const weeklyDone = typeof window.getWeeklyDoneCount === 'function' ? window.getWeeklyDoneCount() : 0;
+    setText('dashWeeklyVal', weeklyDone);
+    setWidth('dashWeeklyFill', weeklyDone/28*100);
+
+    const timedSummary = typeof window.getTimedBestSummary === 'function' ? window.getTimedBestSummary() : null;
+    setText('dashTimedVal', timedSummary ? timedSummary.text : 'Not played');
+    setText('dashTimedSub', timedSummary ? ('Best on ' + timedSummary.level) : 'Best score across levels');
+
+    let mins = 0;
+    try{ mins = parseInt(localStorage.getItem('teamsRoadmapTimeSpent') || '0', 10) || 0; }catch(e){}
+    const h = Math.floor(mins/60), m = mins%60;
+    setText('dashTimeSpentVal', h > 0 ? (h + 'h ' + m + 'm') : (m + 'm'));
+
+    const skillPct = masteredCount/totalSkills*100;
+    const capPct = submitted/4*100;
+    const completionPct = Math.round((skillPct + capPct)/2);
+    setText('dashCompletionVal', completionPct);
+    setWidth('dashCompletionFill', completionPct);
+    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + submitted + ' of 4 capstones');
+
+    const accForReadiness = accuracyPct === null ? 0 : accuracyPct;
+    const readiness = Math.round(skillPct*0.45 + capPct*0.35 + accForReadiness*0.20);
+    setText('dashReadinessVal', readiness);
+    let verdict, detail;
+    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges and check off a capstone deliverable to see your score move.'; }
+    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics — keep working the board and start a capstone if you haven\'t.'; }
+    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Advanced column and get a capstone submitted.'; }
+    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own running Teams for a real team. A few more Expert skills and capstones will round this out.'; }
+    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, shipped capstones, and your quiz accuracy backs it up — you\'re ready to run Teams for a real organization.'; }
+    setText('dashVerdict', verdict);
+    setText('dashVerdictDetail', detail);
+
+    const beginnerIds = LEVELS[0].ids;
+    const achievements = [
+      { icon:'🚀', name:'First Steps', desc:'Master your first skill on the board', unlocked: masteredCount >= 1 },
+      { icon:'🟢', name:'Beginner Builder', desc:'Master every Beginner skill', unlocked: beginnerIds.every(id => isMastered(id)) },
+      { icon:'📊', name:'Halfway There', desc:'Master 16 of 32 skills', unlocked: masteredCount >= 16 },
+      { icon:'🏆', name:'Board Master', desc:'Master all 32 skills', unlocked: masteredCount >= totalSkills },
+      { icon:'🚢', name:'First Ship', desc:'Submit your first capstone', unlocked: submitted >= 1 },
+      { icon:'📦', name:'Full Portfolio', desc:'Submit all 4 capstones', unlocked: submitted >= 4 },
+      { icon:'🎯', name:'Sharpshooter', desc:'90%+ quiz accuracy over 10+ attempts', unlocked: totalAttempts >= 10 && accuracyPct !== null && accuracyPct >= 90 },
+      { icon:'🔥', name:'Week Warrior', desc:'Check off 7+ weekly exercise days', unlocked: weeklyDone >= 7 },
+      { icon:'⚡', name:'Speed Demon', desc:'Score a perfect round in Timed Challenges', unlocked: !!(timedSummary && timedSummary.perfect) }
+    ];
+    const achGrid = document.getElementById('achGrid');
+    if (achGrid){
+      achGrid.innerHTML = achievements.map(a =>
+        '<div class="ach-badge' + (a.unlocked ? ' unlocked' : '') + '"><span class="ach-icon">' + a.icon + '</span><div><div class="ach-name">' + a.name + '</div><div class="ach-desc">' + a.desc + '</div></div></div>'
+      ).join('');
+    }
+    setText('achCount', achievements.filter(a => a.unlocked).length + ' / ' + achievements.length + ' unlocked');
+  }
+  function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
+  function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
+  window.updateDashboard = updateDashboard;
+
+  const dashResetBtn = document.getElementById('dashResetBtn');
+  if (dashResetBtn){
+    dashResetBtn.addEventListener('click', () => {
+      progress = {};
+      saveProgress();
+      applyLocks();
+      applyBadges();
+      updateDashboard();
+    });
+  }
+
+  updateDashboard();
+
+  // ---------- Keyboard shortcuts flashcards ----------
+  (function(){
+    const SHORTCUTS = [
+      {cat:'General', action:'Go to Search', keys:'Ctrl + E'},
+      {cat:'General', action:'Start a new chat', keys:'Ctrl + N'},
+      {cat:'General', action:'Pop a chat out into its own window', keys:'Ctrl + O'},
+      {cat:'General', action:'Open all keyboard shortcuts', keys:'Ctrl + .'},
+      {cat:'General', action:'Open Settings', keys:'Ctrl + ,'},
+      {cat:'General', action:'Jump between Activity / Chat / Teams / Calendar / Calls / Files', keys:'Ctrl + 1–6'},
+      {cat:'Meetings & calls', action:'Mute / unmute your microphone', keys:'Ctrl + Shift + M'},
+      {cat:'Meetings & calls', action:'Turn your camera on/off', keys:'Ctrl + Shift + O'},
+      {cat:'Meetings & calls', action:'Accept an incoming call', keys:'Ctrl + Shift + A'},
+      {cat:'Meetings & calls', action:'Decline an incoming call', keys:'Ctrl + Shift + D'},
+      {cat:'Meetings & calls', action:'Push-to-talk (temporarily unmute while held)', keys:'Ctrl + Spacebar'},
+      {cat:'Compose box', action:'Expand the compose box', keys:'Ctrl + Shift + X'},
+      {cat:'Compose box', action:'Start a new line instead of sending', keys:'Shift + Enter'},
+      {cat:'Compose box', action:'Send the message', keys:'Enter'},
+      {cat:'Slash commands', action:'Set your status to Available', keys:'/available'},
+      {cat:'Slash commands', action:'Set your status to Away', keys:'/away'},
+      {cat:'Slash commands', action:'Start a call with someone', keys:'/call [name]'},
+      {cat:'Slash commands', action:'See everything you\'ve been @mentioned in', keys:'/mentions'},
+      {cat:'Search operators', action:'Find messages/files from one person', keys:'from:name'},
+      {cat:'Search operators', action:'Find results in one channel or chat', keys:'in:channel'},
+      {cat:'Search operators', action:'Find results with an exact subject or keyword', keys:'subject:keyword'},
+      {cat:'Search operators', action:'Find results sent on or after a date', keys:'sent:date'},
+      {cat:'Meeting best practices', action:'Attach an agenda so people arrive aligned', keys:'add it in the invite'},
+      {cat:'Meeting best practices', action:'Join muted, unmute when ready to speak', keys:'etiquette, not a shortcut'},
+      {cat:'Meeting best practices', action:'Skip a meeting nobody prepared an agenda for', keys:'a real time-saver'}
+    ];
+
+    let idx = 0;
+    const toggle = document.getElementById('scToggle');
+    const panel = document.getElementById('scPanel');
+    const closeBtn = document.getElementById('scClose');
+    const card = document.getElementById('scCard');
+    const catEl = document.getElementById('scCat');
+    const promptEl = document.getElementById('scPrompt');
+    const keysEl = document.getElementById('scKeys');
+    const countEl = document.getElementById('scCount');
+    const prevBtn = document.getElementById('scPrev');
+    const nextBtn = document.getElementById('scNext');
+    const shuffleBtn = document.getElementById('scShuffle');
+
+    function render(){
+      const s = SHORTCUTS[idx];
+      catEl.textContent = s.cat.toUpperCase();
+      promptEl.textContent = s.action;
+      keysEl.textContent = s.keys;
+      countEl.textContent = (idx+1) + ' / ' + SHORTCUTS.length;
+      card.classList.remove('flipped');
+    }
+    function shuffle(){
+      for (let i = SHORTCUTS.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [SHORTCUTS[i], SHORTCUTS[j]] = [SHORTCUTS[j], SHORTCUTS[i]];
+      }
+      idx = 0; render();
+    }
+
+    toggle.addEventListener('click', () => { panel.classList.toggle('open'); if (panel.classList.contains('open')) render(); });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    prevBtn.addEventListener('click', () => { idx = (idx - 1 + SHORTCUTS.length) % SHORTCUTS.length; render(); });
+    nextBtn.addEventListener('click', () => { idx = (idx + 1) % SHORTCUTS.length; render(); });
+    shuffleBtn.addEventListener('click', shuffle);
+    render();
+  })();
+
+  // ---------- Practice dataset CSV downloads ----------
+  (function(){
+    function toCSV(rows){
+      return rows.map(r => r.map(v => {
+        const s = String(v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+      }).join(',')).join('\r\n');
+    }
+    function download(filename, text){
+      const blob = new Blob([text], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function rnd(min, max){ return Math.random()*(max-min)+min; }
+    function round2(n){ return Math.round(n*100)/100; }
+    function pad(n, len){ return String(n).padStart(len,'0'); }
+    function fmtDate(d){ return d.toISOString().slice(0,10); }
+    function randomDate(y1, y2){
+      const start = new Date(y1,0,1).getTime();
+      const end = new Date(y2,11,31).getTime();
+      return new Date(start + Math.random()*(end-start));
+    }
+    const firstNames = ['Alicia','James','Priya','Marcus','Elena','Tom','Sofia','Noah','Grace','Liam','Maya','Ethan','Chloe','Omar','Nina','Diego','Ivy','Sam','Ruth','Leo'];
+    const lastNames = ['Moore','Chen','Patel','Diaz','Novak','Reid','Kim','Silva','Turner','Boyd','Fischer','Ahmed','Ward','Lopez','Grant','Osei','Kane','Ito','Brown','Fox'];
+    function fullName(){ return pick(firstNames) + ' ' + pick(lastNames); }
+
+    function genRoster(){
+      const teams = ['Project Phoenix','Marketing Launch','Finance Ops','Customer Success','Field Engineering'];
+      const roles = ['Owner','Member','Member','Member','Guest'];
+      const rows = [['DisplayName','UserPrincipalName','Team','Role']];
+      for (let i = 1; i <= 80; i++){
+        const name = fullName();
+        const upn = name.toLowerCase().replace(' ', '.') + '@contoso.com';
+        rows.push([name, upn, pick(teams), pick(roles)]);
+      }
+      return rows;
+    }
+
+    function genProvisioning(){
+      const templates = ['Standard','Education Class','Event Management','Retail Store'];
+      const visibility = ['Private','Public'];
+      const rows = [['TeamName','Owner','Visibility','Template','RequestedBy','RequestDate']];
+      const projectWords1 = ['Project','Team','Program','Initiative'];
+      const projectWords2 = ['Phoenix','Atlas','Northwind','Horizon','Beacon','Summit','Orbit','Vantage'];
+      for (let i = 1; i <= 60; i++){
+        const teamName = pick(projectWords1) + ' ' + pick(projectWords2);
+        const owner = fullName();
+        const requester = fullName();
+        rows.push([teamName, owner.toLowerCase().replace(' ', '.') + '@contoso.com', pick(visibility), pick(templates), requester, fmtDate(randomDate(2025,2026))]);
+      }
+      return rows;
+    }
+
+    function genShifts(){
+      const teams = ['Support Desk','Retail Floor','Warehouse','Field Service'];
+      const roles = ['Associate','Team Lead','Supervisor'];
+      const rows = [['EmployeeID','Name','Team','ShiftDate','StartTime','EndTime','Role']];
+      for (let i = 1; i <= 150; i++){
+        const startHour = pick([6,7,8,9,14,15,16]);
+        const endHour = startHour + 8;
+        rows.push(['E' + pad(i,4), fullName(), pick(teams), fmtDate(randomDate(2026,2026)), pad(startHour,2) + ':00', pad(endHour % 24,2) + ':00', pick(roles)]);
+      }
+      return rows;
+    }
+
+    function genCallQuality(){
+      const locations = ['HQ - Seattle','HQ - Austin','Branch - Denver','Branch - Chicago','Remote/VPN'];
+      const rows = [['MeetingID','Organizer','StartTime','EndTime','ParticipantCount','AvgJitterMs','AvgPacketLossPct','Location']];
+      for (let i = 1; i <= 120; i++){
+        const start = randomDate(2025,2026);
+        const durationMin = Math.round(rnd(15,60));
+        const end = new Date(start.getTime() + durationMin*60000);
+        rows.push(['MTG' + pad(i,4), fullName(), fmtDate(start), fmtDate(end), Math.round(rnd(2,20)), Math.round(rnd(5,60)), round2(rnd(0,3)), pick(locations)]);
+      }
+      return rows;
+    }
+
+    const GENERATORS = {
+      roster: {fn: genRoster, file: 'team-roster-practice.csv'},
+      provisioning: {fn: genProvisioning, file: 'bulk-provisioning-practice.csv'},
+      shifts: {fn: genShifts, file: 'shifts-schedule-practice.csv'},
+      callquality: {fn: genCallQuality, file: 'meeting-call-quality-practice.csv'}
+    };
+
+    document.querySelectorAll('.dataset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.dataset;
+        const gen = GENERATORS[key];
+        if (!gen) return;
+        const original = btn.textContent;
+        btn.textContent = 'Generating…';
+        setTimeout(() => {
+          download(gen.file, toCSV(gen.fn()));
+          btn.textContent = 'Downloaded ✓';
+          setTimeout(() => { btn.textContent = original; }, 1600);
+        }, 10);
+      });
+    });
+  })();
+</script>
+
+<script>
+(function(){
+  // ---------- PAGE ROUTER ----------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.style.display = (p === pageId) ? '' : 'none';
+    });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem('teamsRoadmapActivePage', pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => {
+        const t = document.getElementById(scrollTargetId);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+        else window.scrollTo(0,0);
+      });
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+
+  window.goToPage = showPage;
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem('teamsRoadmapActivePage') || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.home-analytics-link').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); showPage('progress'); });
+  });
+
+  // ---------- CONTINUE LEARNING ----------
+  const continueBtn = document.getElementById('continueLearningBtn');
+  if (continueBtn){
+    continueBtn.addEventListener('click', () => {
+      const levels = window.TEAMS_LEVELS || [];
+      let targetId = null;
+      for (const level of levels){
+        const nextUnmastered = level.ids.find(id => {
+          const box = document.querySelector('.challenge[data-id="' + id + '"]');
+          return box && !box.closest('.cell').classList.contains('skill-mastered');
+        });
+        if (nextUnmastered){ targetId = nextUnmastered; break; }
+      }
+      showPage('learn', targetId ? null : undefined);
+      requestAnimationFrame(() => {
+        if (!targetId) return;
+        const box = document.querySelector('.challenge[data-id="' + targetId + '"]');
+        const cell = box ? box.closest('.cell') : null;
+        if (cell){
+          cell.classList.add('open');
+          cell.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+      });
+    });
+  }
+
+  // ---------- LEVEL PRACTICE CTA (per-column Continue + links to Practice/Projects) ----------
+  function goToNextInLevel(levelKey){
+    showPage('learn');
+    const col = document.querySelector('.level-col[data-level="' + levelKey + '"]');
+    if (!col || col.classList.contains('section-locked')) return;
+    const nextCell = col.querySelector('.cell:not(.skill-mastered)');
+    requestAnimationFrame(() => {
+      if (nextCell){
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== nextCell) c.classList.remove('open'); });
+        nextCell.classList.add('open');
+        nextCell.scrollIntoView({ behavior:'smooth', block:'center' });
+      } else {
+        const cta = col.querySelector('.level-practice-cta');
+        if (cta) cta.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  }
+
+  document.querySelectorAll('.level-continue-btn').forEach(btn => {
+    btn.addEventListener('click', () => goToNextInLevel(btn.dataset.level));
+  });
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('projects', a.getAttribute('href').slice(1));
+    });
+  });
+
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('practice', a.getAttribute('href').slice(1));
+    });
+  });
+
+  // ---------- HOME SNAPSHOT (mirrors the Progress-page dashboard) ----------
+  function refreshHomeSnapshot(){
+    const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const levels = window.TEAMS_LEVELS || [];
+    const compVal = document.getElementById('dashCompletionVal');
+    const compSub = document.getElementById('dashCompletionSub');
+    const compFillEl = document.getElementById('dashCompletionFill');
+    if (compVal) set('homeCompletionVal', compVal.textContent);
+    if (compSub) set('homeCompletionSub', compSub.textContent);
+    if (compFillEl){ const homeFill = document.getElementById('homeCompletionFill'); if (homeFill) homeFill.style.width = compFillEl.style.width; }
+    const levelVal = document.getElementById('dashLevelVal');
+    if (levelVal) set('homeLevelVal', levelVal.textContent);
+    const masteredVal = document.getElementById('dashMasteredVal');
+    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 32');
+    const projVal = document.getElementById('dashProjectsVal');
+    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 4');
+
+    let nextLessonText = 'All skills mastered! 🎉';
+    for (const level of levels){
+      const nextUnmastered = level.ids.find(id => {
+        const box = document.querySelector('.challenge[data-id="' + id + '"]');
+        return box && !box.closest('.cell').classList.contains('skill-mastered');
+      });
+      if (nextUnmastered){
+        const box = document.querySelector('.challenge[data-id="' + nextUnmastered + '"]');
+        const skillEl = box ? box.closest('.cell').querySelector('.skill') : null;
+        if (skillEl) nextLessonText = skillEl.textContent;
+        break;
+      }
+    }
+    set('homeNextLesson', nextLessonText);
+  }
+
+  const origUpdateDashboard = window.updateDashboard;
+  if (typeof origUpdateDashboard === 'function'){
+    window.updateDashboard = function(){
+      origUpdateDashboard();
+      refreshHomeSnapshot();
+    };
+  }
+  refreshHomeSnapshot();
+})();
+</script>
+
+</body>
+</html>

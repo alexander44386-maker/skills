@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up: An Outlook Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#3ecf8e;
+    --green-dim:#2a8f63;
+    --blue:#5b9dff;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    background-image:
+      linear-gradient(var(--grid-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size: 64px 32px;
+    background-attachment: fixed;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--green); color:#0c1410; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- APP NAV ---------- */
+  .app-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(26,32,41,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--grid);
+  }
+  .app-nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .app-nav-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--muted);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:14px 12px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+  }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* ---------- HOME / CONTINUE CARD ---------- */
+  .home-card{
+    max-width:1080px;
+    margin:48px auto 0;
+    padding:0 24px;
+  }
+  .home-card-inner{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:12px;
+    padding:26px 26px 22px;
+  }
+  .home-card-slim{ padding:20px 26px 22px; }
+  .home-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .home-card-slim .home-top{ margin-bottom:12px; }
+  .continue-btn{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:#0c1410;
+    background:var(--green);
+    border:none;
+    border-radius:7px;
+    padding:11px 20px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .continue-btn:hover{ background:#35b87e; }
+  .home-slim-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .home-slim-next span{ color:var(--ink); }
+  .home-analytics-link{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .home-analytics-link:hover{ text-decoration:underline; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .home-progress-label strong{
+    font-family:'Archivo', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    text-transform:none;
+  }
+  .home-progress-bar{
+    height:8px;
+    border-radius:5px;
+    background:var(--grid-soft);
+    overflow:hidden;
+  }
+  .home-progress-fill{
+    height:100%;
+    background:var(--green);
+    width:0%;
+    transition:width 0.3s ease;
+  }
+  .home-stats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    margin-bottom:0;
+  }
+  .home-stat .dlabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .home-stat .dvalue{
+    font-family:'Archivo', sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-top:4px;
+    color:var(--ink);
+  }
+  @media (max-width:640px){
+    .home-stats{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding: 76px 24px 64px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .sheet-chrome{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:36px;
+    letter-spacing:0.02em;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--grid);}
+  .dot.g{background:var(--green);}
+
+  .formula-bar{
+    display:flex;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:6px;
+    padding:10px 14px;
+    margin-bottom:44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--green);
+    box-shadow: 0 0 0 1px rgba(62,207,142,0.06), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .formula-bar .fx{
+    color:var(--muted);
+    margin-right:12px;
+    font-style:italic;
+    border-right:1px solid var(--grid);
+    padding-right:12px;
+  }
+  .formula-bar .caret{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--green);
+    margin-left:2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width: 860px;
+  }
+  h1 .accent{ color:var(--green); }
+  h1 .accent2{ color:var(--blue); }
+
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:580px;
+    line-height:1.55;
+  }
+
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .meta-item strong{
+    display:block;
+    font-family:'Archivo', sans-serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-intro{
+    max-width:1080px;
+    margin: 88px auto 28px;
+    padding: 0 24px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-intro .ref{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:13px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .section-intro h2{
+    font-family:'Archivo', sans-serif;
+    font-size:26px;
+    font-weight:700;
+  }
+  .section-note{
+    max-width:1080px;
+    margin: 0 auto 8px;
+    padding: 0 24px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* ---------- GRID OF LEVELS ---------- */
+  .board{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background:var(--grid);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .level-col{
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .level-head{
+    padding:18px 16px 16px;
+    border-bottom:1px solid var(--grid);
+    position:sticky;
+    top:0;
+    background:var(--panel);
+    z-index:2;
+  }
+  .level-head .letter{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--muted));
+    font-weight:600;
+  }
+  .level-head h3{
+    font-family:'Archivo', sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin-top:6px;
+  }
+  .level-head .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    border:1px solid var(--col-color, var(--grid));
+    color: var(--col-color, var(--muted));
+  }
+
+  .topic-divider{
+    margin: 18px 16px 2px;
+    padding-bottom:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color: var(--col-color, var(--muted));
+    border-bottom:1px dashed var(--grid);
+  }
+
+  .cell{
+    position:relative;
+    padding:16px;
+    border-bottom:1px solid var(--grid-soft);
+    cursor:pointer;
+    transition: background 0.15s ease;
+  }
+  .cell:hover{ background: var(--panel-2); }
+  .cell .addr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    opacity:0.7;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:space-between;
+  }
+  .cell .addr .exp{
+    color: var(--col-color, var(--muted));
+    opacity:1;
+    margin-left:auto;
+  }
+  .time-est{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    background:var(--panel-2);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:1px 7px;
+    white-space:nowrap;
+  }
+  .skill-done-badge{
+    display:none;
+    align-items:center;
+    gap:4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--green);
+  }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--green); }
+  .cell.skill-mastered .addr{ color:var(--green); }
+
+  .cell .skill{
+    font-weight:600;
+    font-size:14px;
+    margin-top:5px;
+    line-height:1.3;
+  }
+  .cell .why{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.45;
+  }
+  .cell .example{
+    display:none;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--grid);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--green));
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .cell.open .example{ display:block; }
+  .cell.open{ background: var(--panel-2); }
+
+  .challenge{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--grid);
+  }
+  .cell.open .challenge{ display:block; }
+  .ch-q{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .ch-q b{ color: var(--col-color, var(--green)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{
+    flex:1;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    padding:7px 9px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+  }
+  .ch-input:focus{ outline:none; border-color: var(--col-color, var(--green)); }
+  .ch-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:5px;
+    border:1px solid var(--col-color, var(--green));
+    background: transparent;
+    color: var(--col-color, var(--green));
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .ch-btn:hover{ background: color-mix(in srgb, var(--col-color, var(--green)) 15%, transparent); }
+  .ch-result{
+    margin-top:8px;
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    line-height:1.5;
+    min-height:0;
+  }
+  .ch-result.correct{ color: var(--green); }
+  .ch-result.incorrect{ color: var(--red); }
+  .ch-reveal{
+    margin-top:8px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
+  .ch-reveal:hover{ color:var(--ink); }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--blue); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+
+  .section-lock-banner{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    background:rgba(232,176,75,0.08);
+    border:1px solid rgba(232,176,75,0.3);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:14px 14px 0;
+  }
+  .section-locked .section-lock-banner{ display:flex; }
+  .level-col.section-locked .cell{ opacity:0.35; filter:grayscale(0.4); pointer-events:none; }
+
+  @media (max-width: 880px){
+    .board{ grid-template-columns: 1fr; }
+    .level-head{ position:static; }
+  }
+
+  /* ---------- DIAGRAMS ---------- */
+  .diagram{
+    margin-top:14px;
+    padding:14px 14px 12px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:8px;
+  }
+  .diagram-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:8px;
+  }
+  .diagram svg{ display:block; width:100%; height:auto; }
+  .diagram text{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- PRACTICE LAB ---------- */
+  .lab{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width: 880px){ .lab{ grid-template-columns:1fr; } }
+
+  .lab-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+  }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background: var(--col-color); }
+  .lab-head .lname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color: var(--col-color);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+
+  table.sample{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    margin-bottom:14px;
+    border:1px solid var(--grid);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  table.sample th{
+    background:var(--panel-2);
+    color: var(--col-color);
+    text-align:left;
+    padding:7px 9px;
+    font-weight:600;
+    border-bottom:1px solid var(--grid);
+  }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{
+    padding:9px 12px;
+    cursor:pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color);
+    background:var(--panel-2);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition: transform 0.15s ease; }
+  details.solution[open] summary::before{ transform: rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{
+    display:block;
+    margin:8px 0;
+    padding:8px 10px;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--col-color);
+    font-size:12px;
+    white-space:pre-wrap;
+  }
+
+  /* ---------- CAPSTONE PROJECTS ---------- */
+  .capstone-overall{
+    max-width:1080px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--green), var(--blue), var(--amber), var(--red)); transition: width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{
+    background:none; border:1px solid var(--grid); color:var(--dim);
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;
+  }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+
+  .capstone{ max-width:1080px; margin: 0 auto; padding: 0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-left:3px solid var(--col-color, var(--grid));
+    border-radius:10px;
+    padding:24px 26px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap:24px;
+  }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width: 760px){ .capstone-card{ grid-template-columns: 1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{
+    display:inline-flex; align-self:flex-start;
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px;
+    border:1px solid var(--col-color); color: var(--col-color);
+    text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;
+  }
+  .cap-audience{ font-size:12px; color:var(--dim); font-family:'JetBrains Mono', monospace; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver{ font-size:13px; }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; transition: color 0.15s ease, opacity 0.15s ease; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color: var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration: line-through; text-decoration-color: var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background: var(--col-color); transition: width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color: var(--green); }
+
+  /* ---------- PRACTICE DATASETS ---------- */
+  .datasets-grid{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px 24px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; }
+  .dataset-cols{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); line-height:1.6; margin-bottom:12px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--green); margin-bottom:12px; }
+  .dataset-btn{
+    background:var(--panel-2); border:1px solid var(--green); color:var(--green);
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center;
+  }
+  .dataset-btn:hover{ background:var(--green); color:#0c1410; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* ---------- 30 DAY RHYTHM ---------- */
+  .rhythm{ max-width:1080px; margin: 100px auto 0; padding: 0 24px; }
+  .rhythm-grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; margin-top:24px; }
+  .rhythm-day{ aspect-ratio:1; border-radius:4px; background:var(--panel); border:1px solid var(--grid); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .rhythm-day.active{ background: rgba(62,207,142,0.12); border-color: var(--green); color: var(--green); font-weight:600; }
+  .rhythm-note{ margin-top:18px; font-size:14px; color:var(--muted); max-width:660px; line-height:1.6; }
+  .rhythm-note strong{ color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:1080px; margin: 110px auto 60px; padding: 32px 24px 0; border-top:1px solid var(--grid);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  @media (max-width:600px){
+    .hero-meta{ gap:20px; }
+    .section-intro{ flex-direction:column; align-items:flex-start; gap:6px; }
+  }
+
+  /* ---------- KEYBOARD SHORTCUTS FLASHCARDS ---------- */
+  .shortcuts-toggle{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--grid); color:var(--ink);
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer;
+  }
+  .shortcuts-toggle:hover{ border-color:var(--green); color:var(--green); }
+  .shortcuts-toggle .kicon{ color:var(--green); }
+
+  .shortcuts-panel{
+    position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px);
+    background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5);
+    display:none; flex-direction:column; overflow:hidden;
+  }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-cat{ padding:9px 16px; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.04em; color:var(--green); background:var(--panel-2); border-bottom:1px solid var(--grid-soft); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--green); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--green); color:var(--green); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+
+  /* ---------- INLINE MASTERY INDICATOR ---------- */
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--green); font-weight:700; }
+
+  /* ---------- TOOL NOTES (per-cell do/avoid) ---------- */
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.bad{ color:var(--red); }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.bad li::before{ content:'✕'; position:absolute; left:0; top:0; color:var(--red); font-size:10.5px; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  /* ---------- CHALLENGE MISTAKE CALLOUT ---------- */
+  .ch-mistake{ margin-top:10px; padding:8px 10px; background: rgba(232,176,75,0.08); border-left:2px solid var(--amber); border-radius:3px; font-size:11.5px; color:var(--muted); line-height:1.5; display:none; }
+  .ch-mistake.show{ display:block; }
+  .ch-mistake b{ color:var(--amber); }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard{ max-width:1080px; margin: 40px auto 0; padding: 0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--green); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-bar{ height:4px; border-radius:3px; background:var(--grid-soft); margin-top:11px; overflow:hidden; }
+  .dash-bar-fill{ height:100%; width:0%; background:var(--green); transition:width 0.3s ease; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:18px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--green); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rverdict{ font-family:'Archivo', sans-serif; font-weight:700; font-size:15px; color:var(--ink); }
+  .dash-readiness .rdetail{ font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+  @media (max-width:880px){ .dash-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:560px){ .dash-grid{ grid-template-columns: 1fr; } .dash-readiness{ flex-direction:column; align-items:flex-start; } }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-block{ margin-top:20px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px 20px; }
+  .ach-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .ach-head .dash-head-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; }
+  .ach-count{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted); }
+  .ach-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  @media (max-width:760px){ .ach-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:460px){ .ach-grid{ grid-template-columns:1fr; } }
+  .ach-badge{ display:flex; align-items:flex-start; gap:10px; padding:12px; border:1px solid var(--grid); border-radius:8px; background:var(--panel-2); opacity:0.45; }
+  .ach-badge.unlocked{ opacity:1; border-color:var(--green-dim); background:rgba(62,207,142,0.06); }
+  .ach-badge .ach-icon{ font-size:20px; line-height:1; }
+  .ach-badge .ach-name{ font-family:'Archivo', sans-serif; font-size:13px; font-weight:700; color:var(--ink); }
+  .ach-badge .ach-desc{ font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+
+  /* ---------- CAPSTONE SUBMIT GATING ---------- */
+  .cap-submit-btn{ margin-top:16px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#0c1410; background:var(--col-color, var(--green)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .cap-submit-btn:hover{ filter:brightness(1.08); }
+  .cap-submit-btn:disabled{ background:none; border:1px solid var(--grid); color:var(--dim); cursor:not-allowed; }
+  .cap-submit-btn.submitted{ background:none; border:1px solid var(--green); color:var(--green); cursor:default; }
+  .cap-submit-btn.submitted:hover{ filter:none; }
+  .cap-deliver li.locked{ pointer-events:none; }
+  .capstone-card.cap-complete{ border-left-color: var(--amber); }
+  .capstone-card.cap-submitted{ border-left-color: var(--green); }
+  .capstone-card.cap-submitted .cap-done-badge{ display:inline-flex !important; }
+
+  /* ---------- PRACTICE TABS ---------- */
+  .practice-tabs{ max-width:1080px; margin: 24px auto 0; padding: 0 24px; display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--grid); }
+  .practice-tab{ background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:10px 4px 12px; cursor:pointer; margin-right:18px; letter-spacing:0.01em; }
+  .practice-tab:hover{ color:var(--ink); }
+  .practice-tab.active{ color:var(--green); border-bottom-color:var(--green); }
+  .practice-panel{ max-width:1080px; margin:0 auto; padding:24px 24px 0; }
+  .practice-subhead{ font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+
+  /* ---------- TIMED CHALLENGES ---------- */
+  .timed-setup{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px; }
+  .timed-level-picker{ display:flex; gap:6px; flex-wrap:wrap; }
+  .timed-level-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .timed-level-btn.active{ color:var(--bg); background:var(--green); border-color:var(--green); }
+  .timed-best{ font-size:11.5px; color:var(--dim); flex-grow:1; }
+  .timed-start-btn{ background:var(--green); color:#0c1410; border:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:13px; padding:11px 18px; border-radius:7px; cursor:pointer; }
+  .timed-start-btn:hover{ background:var(--green-dim); }
+  .timed-round{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:20px; }
+  .timed-hud{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .timed-hud-item{ font-family:'JetBrains Mono', monospace; }
+  .timed-clock{ color:var(--amber); font-weight:700; font-size:15px; }
+  .timed-clock.low{ color:var(--red); }
+  .timed-question{ font-size:15px; line-height:1.5; margin-bottom:14px; color:var(--ink); }
+  .timed-input{ width:100%; margin-bottom:10px; }
+  .timed-actions{ display:flex; gap:8px; margin-bottom:10px; }
+  .timed-summary{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:24px; text-align:center; }
+  .timed-summary h4{ font-family:'Archivo', sans-serif; font-size:18px; margin-bottom:16px; }
+  .timed-summary-stats{ display:flex; justify-content:center; gap:36px; margin-bottom:16px; }
+  .timed-stat .dvalue{ display:block; font-family:'Archivo', sans-serif; font-size:30px; font-weight:800; color:var(--ink); }
+  .timed-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; }
+  .timed-new-best{ color:var(--green); font-weight:700; font-size:13px; margin-bottom:14px; }
+
+  /* ---------- WEEKLY EXERCISES ---------- */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color, var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--blue); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color, var(--green)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); min-width:34px; flex-shrink:0; padding-top:1px; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* ---------- LEVEL PRACTICE CTA (links out to Practice / Projects) ---------- */
+  .level-continue-btn{
+    display:inline-block;
+    margin:4px 16px 20px;
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#0c1410;
+    background:var(--col-color, var(--green));
+    border:none;
+    border-radius:7px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .level-practice-cta{
+    margin:20px 14px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .level-practice-cta .cta-link{
+    flex:1;
+    min-width:180px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color: var(--col-color, var(--ink));
+    text-decoration:none;
+    padding:12px 14px;
+    border:1px solid var(--grid);
+    border-left:2px solid var(--col-color, var(--grid));
+    border-radius:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .level-practice-cta .cta-link:hover{
+    border-color: var(--col-color, var(--dim));
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+  }
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button">
+  <span class="kicon">⌨</span> Shortcuts
+</button>
+
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head">
+    <h4>Shortcut flash cards</h4>
+    <button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="sp-cat" id="scCat">GENERAL</div>
+  <div class="sp-card" id="scCard">
+    <span class="sp-prompt" id="scPrompt">Save the report</span>
+    <span class="sp-keys" id="scKeys">Ctrl + S</span>
+  </div>
+  <p class="sp-hint">Tap the card to flip it · Outlook for Windows (desktop)</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">← Prev</button>
+    <span class="sp-count" id="scCount">1 / 20</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next →</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">🏠 Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">📚 Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">🧪 Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">📂 Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">📊 Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="sheet-chrome">
+    <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+    <span>Inbox — [email protected]</span>
+  </div>
+
+  <div class="formula-bar">
+    <span class="fx">RULE</span>
+    <span id="formulaText">IF Sender = Procrastination THEN Move to Archive</span>
+    <span class="caret"></span>
+  </div>
+
+  <h1>Stop <span class="accent">drown</span>ing in email.<br>Start <span class="accent2">command</span>ing it.</h1>
+  <p class="hero-sub">
+    A practical route from "I can find New Email" to "I run rules, delegate mailboxes, and
+    automate the busywork for a whole team." Four columns, one skill per row — click any cell
+    for the how-to, then try the practice exercises and capstone projects below.
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">TIME TO NEXT LEVEL<strong>10–14 wks</strong></div>
+    <div class="meta-item">SKILLS TRACKED<strong>28</strong></div>
+    <div class="meta-item">PREREQ<strong>None</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner home-card-slim">
+    <div class="home-top">
+      <div class="home-progress-label"><strong>Pick up where you left off</strong></div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning</button>
+    </div>
+    <div class="home-slim-row">
+      <span class="home-slim-next">Next up: <span id="homeNextLesson">Compose a message and use To vs. Cc vs. Bcc</span></span>
+      <a class="home-analytics-link" href="#analytics">View Progress →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-intro" style="margin-top:60px;">
+  <span class="ref">SNAPSHOT</span>
+  <h2>Current Progress</h2>
+</div>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-progress-row">
+      <div class="home-progress-label">
+        <span id="homeCompletionSub">0 of 0 skills + capstones</span>
+        <span><strong id="homeCompletionVal">0</strong>%</span>
+      </div>
+      <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+    </div>
+    <div class="home-stats" style="margin-top:18px;">
+      <div class="home-stat">
+        <div class="dlabel">Current level</div>
+        <div class="dvalue" id="homeLevelVal">Beginner</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Skills mastered</div>
+        <div class="dvalue" id="homeMasteredVal">0 / 28</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Capstones submitted</div>
+        <div class="dvalue" id="homeProjectsVal">0 / 4</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">A1:D4</span>
+  <h2>The Board</h2>
+</div>
+<p class="section-note">
+  Work left to right. Don't skip a column — each one assumes fluency in the last.
+  <b style="color:var(--ink)">Click a cell</b> to reveal the how-to and a checkable challenge for that skill.
+  Answer a challenge correctly and it's marked mastered — get every skill in a column right to unlock the next one.
+  <span id="skillProgressCount" style="color:var(--green); font-family:'JetBrains Mono',monospace;"></span>
+</p>
+
+<div class="board">
+
+  <!-- ===================== BEGINNER ===================== -->
+  <div class="level-col" data-level="beginner">
+    <div class="level-head">
+      <div class="letter mono">COLUMN A</div>
+      <h3>Beginner</h3>
+      <span class="tag">week 1–2</span>
+    </div>
+
+    <div class="topic-divider">Composing &amp; sending</div>
+    <div class="cell">
+      <div class="addr"><span>A1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Compose a message and use To vs. Cc vs. Bcc correctly</div>
+      <div class="why">Every message starts here, and the recipient fields carry real meaning: To is for people who need to act, Cc is a visible FYI copy, and Bcc hides that address from everyone else on the message.</div>
+      <div class="example">Home → New Email
+To = people who need to respond or act
+Cc = people who just need visibility (everyone can see they're copied)
+Bcc = a hidden copy — the other recipients never see that address was included</div>
+      <div class="challenge" data-id="A1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>A2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Attach files and insert a signature</div>
+      <div class="why">A message with a broken or forgotten attachment is one of the most common (and avoidable) email mistakes. A saved signature means you never retype your sign-off by hand again.</div>
+      <div class="example">Message tab → Attach File → Browse This PC (or Browse Web Locations for a cloud file)
+Insert tab → Signature → set up once under Signatures and pick a default for new messages and replies</div>
+      <div class="challenge" data-id="A2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Staying organized</div>
+    <div class="cell">
+      <div class="addr"><span>A3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Create folders and move mail into them</div>
+      <div class="why">A flat inbox with thousands of messages makes anything hard to find later. Folders (and the drag-and-drop or right-click Move to move mail into them) are the simplest form of organization, and everything more advanced builds on this.</div>
+      <div class="example">Right-click your inbox (or account name) → New Folder
+Drag a message onto a folder in the left pane to file it
+Home tab → Move → pick a folder as a faster alternative to dragging</div>
+      <div class="challenge" data-id="A3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>A4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Flag messages and use Focused Inbox</div>
+      <div class="why">A flag marks something as needing a reply later without you having to remember it. Focused Inbox automatically splits mail you usually engage with from newsletters and bulk mail, so the important stuff doesn't get buried.</div>
+      <div class="example">Click the flag column next to any message to mark it for follow-up
+View tab → Show Focused Inbox toggles the Focused/Other split on or off
+Drag a wrongly-sorted message between the Focused and Other tabs to retrain it</div>
+      <div class="challenge" data-id="A4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Finding your way around</div>
+    <div class="cell">
+      <div class="addr"><span>A5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Know the Ribbon tabs, Conversation view, and switching modules</div>
+      <div class="why">New users often don't know where anything lives. The Ribbon changes tabs depending on what's selected, Conversation view collapses a whole reply thread into one line, and the bottom-left icons switch between Mail, Calendar, People, and Tasks.</div>
+      <div class="example">Bottom-left icons (or Ctrl+1/2/3/4) switch between Mail, Calendar, People, Tasks
+View tab → Show as Conversations groups a thread's replies into one expandable item
+The Ribbon's tabs (Home, Send/Receive, Folder, View) change based on what's selected</div>
+      <div class="challenge" data-id="A5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="beginner" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-beginner" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-beginner">🚀 Beginner project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column A</div>
+  </div>
+
+  <!-- ===================== INTERMEDIATE ===================== -->
+  <div class="level-col" data-level="intermediate">
+    <div class="level-head">
+      <div class="letter mono">COLUMN B</div>
+      <h3>Intermediate</h3>
+      <span class="tag">week 3–5</span>
+    </div>
+
+    <div class="topic-divider">Automating your inbox</div>
+    <div class="cell">
+      <div class="addr"><span>B1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build an inbox rule with the Rules Wizard</div>
+      <div class="why">The single highest-leverage habit in this whole column: instead of manually filing the same kind of email every day, describe the condition once and let Outlook file it forever.</div>
+      <div class="example">Home tab → Rules → Manage Rules &amp; Alerts → New Rule
+Rules Wizard → pick a condition (e.g. from a specific sender) → pick an action (e.g. move to a folder)
+Finish → Apply rule now (optional) to run it on mail already in the inbox</div>
+      <div class="diagram">
+        <div class="diagram-label">Rule flow — condition, then action, in order</div>
+        <svg viewBox="0 0 480 160">
+          <g font-size="12">
+            <rect x="10" y="63" width="120" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="70" y="84" fill="#e9ecf1" text-anchor="middle">Message arrives</text>
+            <rect x="180" y="63" width="130" height="34" rx="4" fill="#1a2029" stroke="#5b9dff"/><text x="245" y="84" fill="#5b9dff" text-anchor="middle">Conditions match?</text>
+            <rect x="360" y="20" width="110" height="34" rx="4" fill="#1f2632" stroke="#3ecf8e"/><text x="415" y="41" fill="#3ecf8e" text-anchor="middle">Run actions</text>
+            <rect x="360" y="106" width="110" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="415" y="127" fill="#8b93a3" text-anchor="middle">Inbox, untouched</text>
+
+            <line x1="130" y1="80" x2="180" y2="80" stroke="#3ecf8e"/>
+            <line x1="310" y1="72" x2="360" y2="45" stroke="#3ecf8e"/>
+            <line x1="310" y1="88" x2="360" y2="115" stroke="#5b6472"/>
+          </g>
+          <text x="335" y="55" fill="#8b93a3" font-size="10" text-anchor="middle">yes</text>
+          <text x="335" y="112" fill="#8b93a3" font-size="10" text-anchor="middle">no</text>
+        </svg>
+      </div>
+      <div class="challenge" data-id="B1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Bundle actions with Quick Steps</div>
+      <div class="why">A rule reacts automatically to incoming mail; a Quick Step is a one-click button you trigger yourself — perfect for a repeated multi-step reply-and-file action you do manually all day.</div>
+      <div class="example">Home tab → Quick Steps gallery → Create New
+Name it, then stack actions like "Move to folder" + "Mark as read" + "Flag for follow-up"
+Optionally assign a keyboard shortcut so it's one keypress instead of one click</div>
+      <div class="challenge" data-id="B2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Calendar &amp; meetings</div>
+    <div class="cell">
+      <div class="addr"><span>B3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Schedule a meeting with the Scheduling Assistant</div>
+      <div class="why">Guessing at a time slot and getting three reschedule replies wastes everyone's time. Scheduling Assistant lays out every invitee's free/busy time side by side so you can pick a slot that actually works.</div>
+      <div class="example">New Meeting → Scheduling Assistant tab
+Add attendees, look for the widest all-clear column across their calendars
+Drag the meeting block to that slot, then switch back to Appointment to send</div>
+      <div class="challenge" data-id="B3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Categorize and color-code with Quick Click</div>
+      <div class="why">Categories turn a flat inbox into something you can visually scan by project or urgency — and Quick Click lets you stamp your most-used category with a single click on the category column, no menu required.</div>
+      <div class="example">Right-click the category column next to any message → Set Quick Click
+Click that column on any message to apply your default category instantly
+View → Arrange By → Categories to group the whole list by color</div>
+      <div class="challenge" data-id="B4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Templates &amp; sharing</div>
+    <div class="cell">
+      <div class="addr"><span>B5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build reusable signatures and message templates (.oft)</div>
+      <div class="why">A signature handles the sign-off automatically on every message. A saved .oft template goes further — the whole body, subject, and formatting of a message you send often, ready to reuse in two clicks instead of retyping.</div>
+      <div class="example">File → Options → Mail → Signatures → create and set defaults per account
+Draft a message → File → Save As → Outlook Template (.oft) to reuse it later
+New Items → More Items → Choose Form → look in User Templates to reopen it</div>
+      <div class="challenge" data-id="B5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Grant delegate access to your mailbox</div>
+      <div class="why">When someone else needs to manage your calendar or send mail on your behalf — an assistant covering meetings while you're out, for example — delegate access is the supported way to hand over exactly that much control.</div>
+      <div class="example">File → Account Settings → Delegate Access → Add
+Pick the delegate and set their permission level per folder (Calendar, Inbox, Tasks)
+Choose whether they see private items, and whether they get meeting request copies</div>
+      <div class="challenge" data-id="B6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="intermediate" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-intermediate" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-intermediate">🚀 Intermediate project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column B</div>
+  </div>
+
+  <!-- ===================== ADVANCED ===================== -->
+  <div class="level-col" data-level="advanced">
+    <div class="level-head">
+      <div class="letter mono">COLUMN C</div>
+      <h3>Advanced</h3>
+      <span class="tag">week 6–9</span>
+    </div>
+
+    <div class="topic-divider">Meetings at scale</div>
+    <div class="cell">
+      <div class="addr"><span>C1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Recurring meetings &amp; Room Finder</div>
+      <div class="why">A weekly standup shouldn't be five separate invites. Recurrence handles the repeating pattern in one invite; Room Finder shows which conference rooms are actually free instead of you guessing and getting double-booked.</div>
+      <div class="example">New Meeting → Recurrence button → set pattern (daily/weekly/monthly) and end date
+Scheduling Assistant → Room Finder pane → pick a free room, it's added as a resource automatically</div>
+      <div class="challenge" data-id="C1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Multi-condition rules &amp; Run Rules Now</div>
+      <div class="why">Real rules usually need more than one condition — from a specific sender AND with an attachment AND over a certain size. Run Rules Now lets a brand-new rule clean up messages that already arrived, instead of only future mail.</div>
+      <div class="example">Rules Wizard → stack multiple "from/with/containing" conditions with AND logic
+Manage Rules &amp; Alerts → Run Rules Now → pick the rule and a folder to apply it to retroactively</div>
+      <div class="challenge" data-id="C2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Bulk communication</div>
+    <div class="cell">
+      <div class="addr"><span>C3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Mail merge from Word using an Outlook contacts list</div>
+      <div class="why">One personalized email to 200 people, each addressed by name, without 200 manual sends — mail merge pulls from an Outlook contact list or Excel sheet and lets Word send them through your Outlook profile.</div>
+      <div class="example">Word → Mailings tab → Select Recipients → Choose from Outlook Contacts
+Insert Merge Fields (like «FirstName») into the message body
+Finish &amp; Merge → Send E-Mail Messages → sends individually through Outlook</div>
+      <div class="challenge" data-id="C3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Automatic Replies with internal/external rules</div>
+      <div class="why">A single generic Out-of-Office reply isn't always right — you often want a warmer, detailed message for coworkers and a shorter, vaguer one for outside senders, and Automatic Replies supports both from one screen.</div>
+      <div class="example">File → Automatic Replies (Out of Office)
+Set separate message text under the "Inside My Organization" and "Outside My Organization" tabs
+Optionally add rules (e.g. auto-forward or flag) that only apply while replies are on</div>
+      <div class="challenge" data-id="C4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Search &amp; security</div>
+    <div class="cell">
+      <div class="addr"><span>C5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Advanced search operators &amp; Search Folders</div>
+      <div class="why">Typing a name into the search box only gets you so far. Operators let you search precisely (attachments, date ranges, unread), and a Search Folder saves that exact query as a live, self-updating virtual folder.</div>
+      <div class="example">Search box: from:boss hasattachments:yes received:lastweek
+Search tab → Search Tools → New Search Folder → base it on a saved query
+A Search Folder shows matching mail from anywhere without moving or duplicating it</div>
+      <div class="challenge" data-id="C5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Recognize and report phishing/junk mail</div>
+      <div class="why">A convincing phishing email can cost real money or credentials. Reporting it (not just deleting it) helps Microsoft's filters catch the same sender for everyone else, and blocking stops repeat offenders from reaching you again.</div>
+      <div class="example">Home tab → Report → Report Phishing / Report Junk
+Home tab → Junk → Block Sender to stop future mail from that address
+Hover, don't click, any suspicious link to preview the real destination URL first</div>
+      <div class="challenge" data-id="C6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Extending Outlook</div>
+    <div class="cell">
+      <div class="addr"><span>C7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Install and manage Store add-ins</div>
+      <div class="why">Add-ins bring outside tools (schedulers, CRMs, e-signature, translation) directly into the Outlook ribbon or reading pane, instead of you copy-pasting between apps all day.</div>
+      <div class="example">Home tab → Get Add-ins (or Apps for Outlook)
+Browse or search the store, click Add for the one you need
+Manage installed add-ins from File → Manage Add-ins if one starts causing problems</div>
+      <div class="challenge" data-id="C7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build and maintain Contact Groups</div>
+      <div class="why">Emailing the same dozen people every week? A Contact Group lets you type one name and reach everyone in it, and updates for the whole team the moment you edit the membership.</div>
+      <div class="example">People (Contacts) → New Contact Group
+Add Members → From Outlook Contacts / Address Book
+Type the group's name in the To field of a new email to reach everyone at once</div>
+      <div class="challenge" data-id="C8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="advanced" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-advanced">🚀 Advanced project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column C</div>
+  </div>
+
+  <!-- ===================== EXPERT ===================== -->
+  <div class="level-col" data-level="expert">
+    <div class="level-head">
+      <div class="letter mono">COLUMN D</div>
+      <h3>Expert</h3>
+      <span class="tag">week 10–14</span>
+    </div>
+
+    <div class="topic-divider">Automation &amp; scripting</div>
+    <div class="cell">
+      <div class="addr"><span>D1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Automate repetitive tasks with VBA macros</div>
+      <div class="why">Anything you do the same way ten times a week — stamping a category, moving a class of messages, formatting a reply — is a candidate for a macro. VBA runs inside Outlook itself, no external tool required.</div>
+      <div class="example">Developer tab → Visual Basic (or Alt+F11) opens the editor
+Insert → Module, then write a Sub that runs against the current mail item
+Assign the macro to a Quick Access Toolbar button or a keyboard shortcut</div>
+      <div class="challenge" data-id="D1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Send As vs. Send on Behalf for shared mailboxes</div>
+      <div class="why">Both let you send from a shared mailbox, but they read differently to the recipient — one hides you entirely, the other visibly credits you as the sender. Getting this wrong on a support or sales mailbox looks unprofessional fast.</div>
+      <div class="example">Exchange admin center → Recipients → Mailboxes → shared mailbox → Delegation
+Send As: message appears to come only from the shared mailbox
+Send on Behalf: message shows "YourName on behalf of SharedMailbox"</div>
+      <div class="challenge" data-id="D2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Data lifecycle</div>
+    <div class="cell">
+      <div class="addr"><span>D3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Retention policies &amp; AutoArchive</div>
+      <div class="why">Mailboxes don't clean themselves. A retention policy moves or deletes items on a schedule you define at the org level; AutoArchive does the same thing locally, sweeping old items into a .pst before your mailbox hits its size limit.</div>
+      <div class="example">File → Options → Advanced → AutoArchive Settings → set the age and destination
+Exchange admin center → Compliance → Retention policies for org-wide rules
+Right-click a folder → Properties → AutoArchive to override the default per folder</div>
+      <div class="challenge" data-id="D3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Server-side vs. client-side rules, and rule limits</div>
+      <div class="why">A rule that depends on an action Outlook itself performs (like a sound alert or moving to a local .pst) only runs while Outlook is open on your machine. A rule Exchange can execute entirely on the server keeps working even when you're logged off.</div>
+      <div class="example">Manage Rules &amp; Alerts → rules with a small gear/warning icon only run client-side
+Mailbox rule storage is capped — too many complex rules can silently stop new ones from saving
+When possible, prefer conditions/actions Exchange can execute server-side</div>
+      <div class="challenge" data-id="D4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Diagnostics &amp; maintenance</div>
+    <div class="cell">
+      <div class="addr"><span>D5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Audit mailbox size with Mailbox Cleanup</div>
+      <div class="why">Before blaming slow sync or a bloated .ost on "Outlook being Outlook," check what's actually taking up space — a handful of huge attachments are almost always the real culprit.</div>
+      <div class="example">File → Tools (or Info) → Mailbox Cleanup
+View Mailbox Size to see folder-by-folder totals
+Find Items Older Than / Find Items Larger Than to target cleanup</div>
+      <div class="challenge" data-id="D5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build a Power Automate flow with the Outlook connector</div>
+      <div class="why">Power Automate reaches beyond what a rule or Quick Step can do — save every attachment to OneDrive, post a Teams message when a VIP emails, or log new messages to a spreadsheet, all without writing code.</div>
+      <div class="example">make.powerautomate.com → Create → Automated cloud flow
+Trigger: "When a new email arrives" (Outlook connector)
+Add actions like "Save attachment to OneDrive" or "Post message in Teams"</div>
+      <div class="challenge" data-id="D6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Platform &amp; administration</div>
+    <div class="cell">
+      <div class="addr"><span>D7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Outlook on the web vs. desktop, and admin center basics</div>
+      <div class="why">Support tickets often hinge on knowing which Outlook someone means. OWA settings, desktop settings, and mobile settings don't always sync automatically, and some admin-level controls only exist in the Microsoft 365 admin center.</div>
+      <div class="example">outlook.office.com signs into Outlook on the web (OWA) — same mailbox, separate settings surface
+Some org-wide controls (retention, mail flow, add-in deployment) only live in the admin center, not in either client
+When troubleshooting, always ask which client reproduces the issue</div>
+      <div class="challenge" data-id="D7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Repair a corrupted profile with the Inbox Repair Tool (ScanPST)</div>
+      <div class="why">A profile that won't open, search that returns nothing, or random crashes often trace back to a corrupted .ost/.pst — and the fix ships with Office, no download required.</div>
+      <div class="example">Find ScanPST.exe (under the Office install path, e.g. Program Files\Microsoft Office\root\OfficeXX)
+Close Outlook, run ScanPST, browse to the .ost/.pst file, click Start
+Back up the file before repairing — the tool offers to, take it up on that</div>
+      <div class="challenge" data-id="D8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Mail flow (transport) rules in the Exchange admin center</div>
+      <div class="why">A personal inbox rule only affects your own mailbox. A transport rule runs on every message flowing through the organization — adding a legal disclaimer, blocking risky attachments, or rerouting mail company-wide.</div>
+      <div class="example">Exchange admin center → Mail flow → Rules → new rule
+Conditions/actions apply org-wide, before mail ever reaches an inbox
+Common uses: append disclaimers, block executable attachments, redirect based on sender domain</div>
+      <div class="challenge" data-id="D9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="expert" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-expert" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-expert">🚀 Expert project →</a>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">Cap!A1</span>
+  <h2>Capstone Projects</h2>
+</div>
+<p class="section-note">One end-to-end build per level. Click a checklist item to mark it done — progress is saved in this browser.</p>
+
+<div class="capstone-overall">
+  <span class="ov-label mono">Overall progress</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+  <span class="ov-count mono" id="capOverallCount">0 / 0</span>
+  <button class="capstone-reset" id="capResetBtn" type="button">Reset</button>
+</div>
+
+<div class="capstone">
+
+  <div class="capstone-card" id="capstone-beginner" data-level="beginner" data-cap="1">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 01</span>
+      <h4>Inbox Zero Setup</h4>
+      <span class="cap-level-tag">Beginner</span>
+      <span class="cap-audience">~2–3 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take a messy, unsorted inbox and turn it into a system you'd actually trust to keep working — folders, flags, Focused Inbox, and a signature you never have to think about again.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Compose &amp; recipients</span>
+        <span class="cap-skill-chip">Folders</span>
+        <span class="cap-skill-chip">Flags</span>
+        <span class="cap-skill-chip">Focused Inbox</span>
+        <span class="cap-skill-chip">Signature</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Create</b> at least three folders that match how you actually think about your mail</li>
+          <li><b>File</b> a batch of existing messages into those folders</li>
+          <li><b>Flag</b> three messages that genuinely need a follow-up</li>
+          <li>Review and correct the <b>Focused Inbox</b> split on a handful of messages</li>
+          <li>Set up a default <b>signature</b> for new messages and replies</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-intermediate" data-level="intermediate" data-cap="2">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 02</span>
+      <h4>Team Meeting &amp; Rules Workflow</h4>
+      <span class="cap-level-tag">Intermediate</span>
+      <span class="cap-audience">~4–5 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Build the automation a busy team lead would actually rely on: mail files itself, a recurring meeting is on the calendar with the right people, and everyone's reachable through one group name.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Rules Wizard</span>
+        <span class="cap-skill-chip">Quick Steps</span>
+        <span class="cap-skill-chip">Scheduling Assistant</span>
+        <span class="cap-skill-chip">Categories</span>
+        <span class="cap-skill-chip">Contact Group</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Write <b>three inbox rules</b> that file mail by sender, subject keyword, and importance</li>
+          <li>Build a <b>Quick Step</b> that combines at least two actions into one click</li>
+          <li>Schedule a <b>recurring team meeting</b> using Scheduling Assistant to pick the time</li>
+          <li>Set up <b>Quick Click</b> and categorize a week's worth of mail</li>
+          <li>Build a <b>Contact Group</b> for the team and send it a test message</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-advanced" data-level="advanced" data-cap="3">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 03</span>
+      <h4>Automated Follow-up System</h4>
+      <span class="cap-level-tag">Advanced</span>
+      <span class="cap-audience">~6–8 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Run a small outbound campaign the way a real ops or sales team would: personalized at scale, backed by a real out-of-office policy, and searchable after the fact.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Mail Merge</span>
+        <span class="cap-skill-chip">Automatic Replies</span>
+        <span class="cap-skill-chip">Search Folders</span>
+        <span class="cap-skill-chip">Room Finder</span>
+        <span class="cap-skill-chip">Report Message</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Run a <b>mail merge</b> from Word to a list of at least 10 contacts</li>
+          <li>Configure <b>Automatic Replies</b> with separate internal and external messages</li>
+          <li>Build a <b>Search Folder</b> that finds all mail matching a saved query</li>
+          <li>Schedule a <b>recurring meeting</b> with a room booked through Room Finder</li>
+          <li>Practice <b>reporting</b> a suspicious message and blocking its sender</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-expert" data-level="expert" data-cap="4">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 04</span>
+      <h4>Mailbox Governance &amp; Automation</h4>
+      <span class="cap-level-tag">Expert</span>
+      <span class="cap-audience">~8–10 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take a mailbox environment and make it production-ready: automated, permissioned correctly, backed by a retention policy, and recoverable when something breaks.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">VBA macros</span>
+        <span class="cap-skill-chip">Shared mailbox permissions</span>
+        <span class="cap-skill-chip">Retention/AutoArchive</span>
+        <span class="cap-skill-chip">Power Automate</span>
+        <span class="cap-skill-chip">ScanPST</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Write a <b>VBA macro</b> that automates a repetitive mailbox task</li>
+          <li>Configure <b>Send As</b> and <b>Send on Behalf</b> permissions on a shared mailbox</li>
+          <li>Set an <b>AutoArchive</b> policy and confirm archived items land where expected</li>
+          <li>Build a <b>Power Automate</b> flow triggered by a new Outlook message</li>
+          <li>Run the <b>Inbox Repair Tool (ScanPST)</b> against a test data file</li>
+          <li>Draft a sample <b>mail flow rule</b> for the Exchange admin center</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/6</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice" style="display:none;">
+<div class="section-intro" id="practice" style="margin-top:100px;">
+  <span class="ref mono">PRACTICE</span>
+  <h2>Practice</h2>
+</div>
+<p class="section-note">Everything hands-on lives here: work a Mini Lab, pull a sample dataset, race the clock, or follow a weekly plan.</p>
+
+<div class="practice-tabs" role="tablist">
+  <button class="practice-tab active" type="button" data-tab="labs" role="tab" aria-selected="true">Mini Labs</button>
+  <button class="practice-tab" type="button" data-tab="datasets" role="tab" aria-selected="false">Sample Data</button>
+  <button class="practice-tab" type="button" data-tab="timed" role="tab" aria-selected="false">Timed Challenges</button>
+  <button class="practice-tab" type="button" data-tab="weekly" role="tab" aria-selected="false">Weekly Exercises</button>
+</div>
+
+<div class="practice-panel" data-panel="labs">
+<p class="section-note" style="padding:0; margin-bottom:16px;">One hands-on task per level. Try it in Outlook against the sample data before checking the solution.</p>
+
+<div class="lab">
+  <div class="lab-card" id="lab-beginner" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Beginner</span></div>
+    <h4>Set up a working inbox structure</h4>
+    <p class="task">Using the sample senders below, create a <b>folder</b> for each department, then <b>flag</b> the message from Finance and set a default <b>signature</b>.</p>
+    <table class="sample">
+      <tr><th>From</th><th>Subject</th><th>Department</th></tr>
+      <tr><td>[email protected]</td><td>Q3 budget review</td><td>Finance</td></tr>
+      <tr><td>[email protected]</td><td>New hire paperwork</td><td>HR</td></tr>
+      <tr><td>[email protected]</td><td>Staging deploy tonight</td><td>Engineering</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Right-click your inbox → New Folder → repeat for Finance, HR, Engineering.<br>
+        Drag each sample message into its matching folder.<br>
+        Click the flag column next to the Finance message to mark it for follow-up.<br>
+        File → Options → Mail → Signatures → create one and set it as default for New messages.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Intermediate</span></div>
+    <h4>Write a rule and a Quick Step</h4>
+    <p class="task">Build a <b>rule</b> that files any message from Newsletter senders into a Newsletters folder, then build a <b>Quick Step</b> that moves a message to Follow Up and flags it in one click.</p>
+    <table class="sample">
+      <tr><th>From</th><th>Subject</th></tr>
+      <tr><td>[email protected]</td><td>This week in product</td></tr>
+      <tr><td>[email protected]</td><td>5 tips for your inbox</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Manage Rules &amp; Alerts → New Rule → "from Newsletter senders" → move to Newsletters folder → Apply rule now.<br>
+        Quick Steps gallery → Create New → name it "Follow Up" → add actions Move to folder + Flag message → Finish.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-advanced" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Advanced</span></div>
+    <h4>Merge a recipient list and send it</h4>
+    <p class="task">Using the sample recipients below, run a <b>mail merge</b> from Word, personalizing the greeting with each recipient's first name.</p>
+    <table class="sample">
+      <tr><th>Name</th><th>Email</th><th>Company</th></tr>
+      <tr><td>Alicia Moore</td><td>[email protected]</td><td>Delta Freight</td></tr>
+      <tr><td>James Chen</td><td>[email protected]</td><td>Novak Studio</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Word → Mailings → Select Recipients → Choose from Outlook Contacts (or Use an Existing List for a CSV).<br>
+        Insert Merge Field → «Name» in the greeting line.<br>
+        Finish &amp; Merge → Send E-Mail Messages → map the To field to Email → Send.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-expert" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Expert</span></div>
+    <h4>Automate a save-attachment workflow</h4>
+    <p class="task">Using a sample message with an attachment, build a <b>Power Automate</b> flow that saves any new attachment from a specific sender straight to OneDrive.</p>
+    <table class="sample">
+      <tr><th>From</th><th>Subject</th><th>Attachment</th></tr>
+      <tr><td>[email protected]</td><td>Signed contract</td><td>contract.pdf</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        make.powerautomate.com → Create → Automated cloud flow → trigger "When a new email arrives" (Outlook).<br>
+        Add a condition: From equals [email protected]<br>
+        Add action "Save attachment to OneDrive" and pick a destination folder.
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: labs -->
+
+<div class="practice-panel" data-panel="datasets" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Download and use as sample data for the exercises above — import a CSV as an Outlook Contacts list, or use it as a mail-merge recipient source in Word.</p>
+
+<div class="datasets-grid">
+  <div class="dataset-card">
+    <h4>Sample Contacts</h4>
+    <p>Name, email, department, and office — practice building Contact Groups and testing rules.</p>
+    <div class="dataset-cols mono">Name, Email, Department, Office</div>
+    <div class="dataset-meta mono">~80 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="contacts">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Meeting Attendees</h4>
+    <p>A roster with role and time zone — good for Scheduling Assistant and recurring-meeting practice.</p>
+    <div class="dataset-cols mono">Name, Email, Role, Timezone</div>
+    <div class="dataset-meta mono">~40 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="attendees">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Rule Test Inbox</h4>
+    <p>Sample sender/subject/date combinations to write and test inbox rules against.</p>
+    <div class="dataset-cols mono">From, Subject, Received, HasAttachment</div>
+    <div class="dataset-meta mono">~120 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="ruletest">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Newsletter Recipients</h4>
+    <p>Company and renewal date included — built for the mail merge and follow-up practice above.</p>
+    <div class="dataset-cols mono">Name, Email, Company, RenewalDate</div>
+    <div class="dataset-meta mono">~100 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="newsletter">Download CSV</button>
+  </div>
+</div>
+</div><!-- /panel: datasets -->
+
+<div class="practice-panel" data-panel="timed" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Five questions pulled at random from a level's Board challenges, a running clock, and no reveal button until time runs out. Best time and score per level are saved in this browser.</p>
+
+<div class="timed-setup">
+  <div class="timed-level-picker" role="tablist">
+    <button class="timed-level-btn active" type="button" data-level="beginner">Beginner</button>
+    <button class="timed-level-btn" type="button" data-level="intermediate">Intermediate</button>
+    <button class="timed-level-btn" type="button" data-level="advanced">Advanced</button>
+    <button class="timed-level-btn" type="button" data-level="expert">Expert</button>
+  </div>
+  <div class="timed-best mono" id="timedBestLine">Best for Beginner: —</div>
+  <button class="timed-start-btn" id="timedStartBtn" type="button">Start Timed Round →</button>
+</div>
+
+<div class="timed-round" id="timedRound" style="display:none;">
+  <div class="timed-hud">
+    <span class="timed-hud-item mono">Question <span id="timedQNum">1</span> / <span id="timedQTotal">5</span></span>
+    <span class="timed-hud-item mono">Score <span id="timedScore">0</span></span>
+    <span class="timed-hud-item mono timed-clock" id="timedClock">0:45</span>
+  </div>
+  <div class="timed-question" id="timedQuestionText"></div>
+  <input type="text" class="ch-input timed-input" id="timedInput" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+  <div class="timed-actions">
+    <button class="ch-btn" id="timedSubmitBtn" type="button">Submit</button>
+    <button class="ch-reveal" id="timedSkipBtn" type="button">Skip</button>
+  </div>
+  <div class="ch-result" id="timedResult"></div>
+</div>
+
+<div class="timed-summary" id="timedSummary" style="display:none;">
+  <h4>Round complete</h4>
+  <div class="timed-summary-stats">
+    <div class="timed-stat"><span class="dvalue" id="timedFinalScore">0</span><span class="dlabel">/ 5 correct</span></div>
+    <div class="timed-stat"><span class="dvalue" id="timedFinalTime">0:00</span><span class="dlabel">total time</span></div>
+  </div>
+  <div id="timedNewBest" class="timed-new-best" style="display:none;">🏆 New best for this level</div>
+  <button class="timed-start-btn" id="timedAgainBtn" type="button">Run again →</button>
+</div>
+</div><!-- /panel: timed -->
+
+<div class="practice-panel" data-panel="weekly" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">A four-week plan, one week per level — short tool days, a lab/capstone day, a rest day. Check off days as you go; progress is saved in this browser and feeds the dashboard above.</p>
+
+<div class="weekly-overall">
+  <span class="ov-label mono">Weeks completed</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+  <span class="ov-count mono" id="weeklyOverallCount">0 / 28 days</span>
+  <button class="capstone-reset" id="weeklyResetBtn" type="button">Reset progress</button>
+</div>
+
+<div class="weekly-grid" id="weeklyGrid"></div>
+</div><!-- /panel: weekly -->
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref">ANALYTICS</span>
+  <h2 id="analytics">Progress</h2>
+</div>
+<p class="section-note">Everything below is computed from what you've actually done in this browser — mastery on the Board, capstones submitted, weekly consistency, timed challenges, and time on task.</p>
+
+<div class="dashboard">
+  <div class="dash-head">
+    <div class="dash-title"><span class="dot g"></span>Current Progress</div>
+    <button class="dash-reset" id="dashResetBtn" type="button">Reset quiz progress</button>
+  </div>
+
+  <div class="dash-progress-row">
+    <div class="dash-progress-label">
+      <span id="dashCompletionSub">0 of 0 skills + capstones</span>
+      <span><strong id="dashCompletionVal">0</strong>%</span>
+    </div>
+    <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="dash-card" data-metric="level">
+      <div class="dlabel">Current level</div>
+      <div class="dvalue" id="dashLevelVal">Beginner</div>
+      <div class="dsub" id="dashLevelSub">0/5 mastered</div>
+    </div>
+    <div class="dash-card" data-metric="mastered">
+      <div class="dlabel">Skills mastered</div>
+      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 28</span></div>
+      <div class="dsub">Answered correctly on the board</div>
+    </div>
+    <div class="dash-card" data-metric="projects">
+      <div class="dlabel">Capstones submitted</div>
+      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 4</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashProjectsFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="accuracy">
+      <div class="dlabel">Quiz accuracy</div>
+      <div class="dvalue"><span id="dashAccuracyVal">—</span><span class="unit" id="dashAccuracyUnit"></span></div>
+      <div class="dsub" id="dashAccuracySub">No attempts yet</div>
+    </div>
+    <div class="dash-card" data-metric="weekly">
+      <div class="dlabel">Weekly activity</div>
+      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 28 days</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashWeeklyFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="timed">
+      <div class="dlabel">Timed challenges</div>
+      <div class="dvalue" id="dashTimedVal">Not played</div>
+      <div class="dsub" id="dashTimedSub">Best score across levels</div>
+    </div>
+    <div class="dash-card" data-metric="timespent">
+      <div class="dlabel">Time spent</div>
+      <div class="dvalue" id="dashTimeSpentVal">0m</div>
+      <div class="dsub">Across all sessions in this browser</div>
+    </div>
+    <div class="dash-card" data-metric="remaining">
+      <div class="dlabel">Skills remaining</div>
+      <div class="dvalue"><span id="dashRemainingVal">28</span></div>
+      <div class="dsub" id="dashRemainingSub">Still unattempted or missed</div>
+    </div>
+  </div>
+
+  <div class="dash-readiness">
+    <div class="rscore"><span id="dashReadinessVal">0</span><span class="unit">/100</span></div>
+    <div class="rtext">
+      <div class="rlabel">Readiness verdict</div>
+      <div class="rverdict" id="dashVerdict">Just getting started</div>
+      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges and check off a capstone deliverable to see your score move.</div>
+    </div>
+  </div>
+
+  <div class="ach-block">
+    <div class="ach-head">
+      <div class="dash-head-title">Achievements</div>
+      <span class="ach-count" id="achCount">0 / 9 unlocked</span>
+    </div>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fcell">SKILLS TRACKED <b id="fSkills">28</b></div>
+  <div class="fcell">CAPSTONES <b>4</b></div>
+  <div class="fcell">DATASETS <b>4</b></div>
+  <div class="fcell">TIMED ROUNDS <b>4 levels</b></div>
+  <div class="fcell">WEEKLY PLAN <b>28 days</b></div>
+  <div class="fcell">ACHIEVEMENTS <b>9</b></div>
+  <div class="fcell">PREREQ <b>None</b></div>
+</footer>
+
+<script>
+  // ---------- Rotating formula bar ----------
+  const formulas = [
+    'IF Sender = Procrastination THEN Move to Archive',
+    'IF Time = 5:01 PM THEN AutomaticReply = "Logging off"',
+    'Rule: Flag(Excuses) → Categories.Remove("Later")',
+    'Sub KeepGoing() Effort = Date - StartDate End Sub'
+  ];
+  let fi = 0;
+  const formulaEl = document.getElementById('formulaText');
+  formulaEl.style.transition = 'opacity 0.25s ease';
+  setInterval(() => {
+    fi = (fi + 1) % formulas.length;
+    formulaEl.style.opacity = 0;
+    setTimeout(() => { formulaEl.textContent = formulas[fi]; formulaEl.style.opacity = 1; }, 250);
+  }, 3800);
+
+  // ---------- Cell open/close ----------
+  document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const wasOpen = cell.classList.contains('open');
+      cell.parentElement.querySelectorAll('.cell.open').forEach(c => {
+        c.classList.remove('open');
+        const exp = c.querySelector('.exp'); if (exp) exp.textContent = 'tap ▸';
+      });
+      if (!wasOpen){
+        cell.classList.add('open');
+        const exp = cell.querySelector('.exp'); if (exp) exp.textContent = 'tap ▾';
+      }
+    });
+  });
+
+  // ---------- Challenge content ----------
+  const CHALLENGES = {
+    A1: { q:'Which recipient field lets you copy someone on a message without any other recipient seeing that they were included?', required:[['BCC']], answer:'Bcc', mistake:'Using Cc for a recipient who should stay hidden, exposing their address to everyone on the thread.' },
+    A2: { q:'Which Insert-tab feature lets you save your sign-off once and have it added automatically to new messages?', required:[['SIGNATURE']], answer:'Signature', mistake:'Retyping a sign-off by hand every time instead of setting up a default signature.' },
+    A3: { q:'What do you right-click your inbox or account name to create, so mail on one topic has a place to live?', required:[['FOLDER']], answer:'A (new) folder', mistake:'Leaving thousands of unrelated messages in one flat inbox instead of filing them into folders.' },
+    A4: { q:'Which Outlook feature automatically splits your inbox into a tab for mail you usually act on and a tab for the rest?', required:[['FOCUSED INBOX']], answer:'Focused Inbox', mistake:'Never retraining Focused Inbox, so it keeps burying mail you actually care about in Other.' },
+    A5: { q:'Which view setting collapses every reply in an email thread into a single expandable item in your message list?', required:[['CONVERSATION']], answer:'Conversation view (Show as Conversations)', mistake:'Scrolling through dozens of separate replies instead of turning on Conversation view.' },
+    B1: { q:'Which wizard, opened from Manage Rules & Alerts → New Rule, walks you through picking a condition and then an action?', required:[['RULES WIZARD']], answer:'The Rules Wizard', mistake:'Manually filing the same recurring type of email every day instead of writing a rule for it once.' },
+    B2: { q:'Which one-click Home-tab feature bundles several actions — like move, mark read, and flag — into a single button?', required:[['QUICK STEPS']], answer:'Quick Steps', mistake:'Repeating the same three-click manual sequence on every message instead of building a Quick Step.' },
+    B3: { q:'Which calendar tab shows every attendee\'s free/busy time side by side so you can pick a slot that actually works?', required:[['SCHEDULING ASSISTANT']], answer:'Scheduling Assistant', mistake:'Guessing at a meeting time and sending three reschedule requests instead of checking free/busy first.' },
+    B4: { q:'Which feature lets you apply your default category to a message with a single click on the category column, no menu required?', required:[['QUICK CLICK']], answer:'Quick Click', mistake:'Opening the full category menu every time instead of setting a Quick Click default.' },
+    B5: { q:'Which file extension do you save a message as when you want a reusable Outlook Template instead of a one-off draft?', required:[['OFT']], answer:'.oft', mistake:'Rebuilding the same message from scratch every week instead of saving it once as a template.' },
+    B6: { q:'Which Outlook feature, granted from Account Settings, lets a colleague manage your calendar or send mail on your behalf?', required:[['DELEGATE']], answer:'Delegate Access', mistake:'Sharing your password with an assistant instead of granting proper delegate access.' },
+    C1: { q:'Which meeting-invite button sets a repeating pattern like weekly or monthly, and which Scheduling Assistant tool suggests a free conference room?', required:[['RECURRENCE'],['ROOM FINDER']], answer:'Recurrence, and Room Finder', mistake:'Sending five separate weekly invites instead of one recurring meeting, and double-booking a room by guessing it\'s free.' },
+    C2: { q:'Which button in Manage Rules & Alerts applies a brand-new rule to messages that already arrived, not just future mail?', required:[['RUN RULES NOW']], answer:'Run Rules Now', mistake:'Writing a great new rule and assuming it will retroactively clean up the backlog already sitting in the inbox.' },
+    C3: { q:'Which Word feature, paired with an Outlook contacts list, sends a personalized bulk email to every recipient in one batch?', required:[['MAIL MERGE']], answer:'Mail Merge', mistake:'Manually copy-pasting and re-sending the same email to 200 people one at a time.' },
+    C4: { q:'Which settings screen lets you set an Out-of-Office message plus separate text for internal vs. external senders?', required:[['AUTOMATIC REPLIES']], answer:'Automatic Replies', mistake:'Sending the same overly detailed out-of-office message to strangers outside the company as to coworkers.' },
+    C5: { q:'Which search operator, typed directly into the search box, narrows results to messages that have attachments?', required:[['HASATTACHMENTS']], answer:'hasattachments:yes', mistake:'Scrolling through search results by eye instead of narrowing them with a search operator first.' },
+    C6: { q:'Which Home-tab button do you use to flag a suspicious message as phishing instead of just deleting it?', required:[['REPORT']], answer:'Report (Report Phishing / Report Junk)', mistake:'Deleting a phishing email instead of reporting it, so the filter never learns to catch it for anyone else.' },
+    C7: { q:'Which Home-tab feature lets you browse and install third-party tools directly into the Outlook ribbon or reading pane?', required:[['ADD-INS']], answer:'Get Add-ins', mistake:'Switching between Outlook and a separate browser tab all day instead of installing the add-in that does it inline.' },
+    C8: { q:'Which People (Contacts) feature lets you save a set of recipients under one name so typing it reaches the whole group?', required:[['CONTACT GROUP']], answer:'Contact Group', mistake:'Manually adding the same dozen names to the To field every week instead of saving them as a Contact Group.' },
+    D1: { q:'Which built-in editor (Alt+F11) lets you write VBA macros that automate repetitive Outlook tasks?', required:[['VISUAL BASIC']], answer:'The Visual Basic Editor', mistake:'Doing the exact same multi-step manual task ten times a week instead of recording it once as a macro.' },
+    D2: { q:'Which shared-mailbox permission makes a message appear to come directly from that mailbox, rather than \'on behalf of\' you?', required:[['SEND AS']], answer:'Send As', mistake:'Granting Send As to someone who only needed Send on Behalf, hiding who actually sent a message.' },
+    D3: { q:'Which feature automatically moves old mail to an Archive folder or .pst on a schedule you define?', required:[['AUTOARCHIVE']], answer:'AutoArchive', mistake:'Letting a mailbox grow until it hits its size limit instead of configuring AutoArchive ahead of time.' },
+    D4: { q:'Which type of rule keeps running on Exchange even when Outlook is closed on your machine — server-side or client-side?', required:[['SERVER']], answer:'Server-side rules', mistake:'Relying on a client-side rule (like one that plays a sound) and wondering why it stops working once Outlook is closed.' },
+    D5: { q:'Which built-in tool shows folder-by-folder mailbox size and helps you find or empty the largest items?', required:[['MAILBOX CLEANUP']], answer:'Mailbox Cleanup', mistake:'Blaming slow sync on \'Outlook being Outlook\' instead of checking Mailbox Cleanup for the real cause.' },
+    D6: { q:'Which Microsoft service lets you build a no-code flow that, say, saves every Outlook attachment straight to OneDrive?', required:[['POWER AUTOMATE']], answer:'Power Automate', mistake:'Manually downloading and re-uploading attachments instead of building a Power Automate flow to do it.' },
+    D7: { q:'Which web-based version of Outlook do you sign into at outlook.office.com when you\'re away from your desktop client?', required:[['OWA']], answer:'Outlook on the web (OWA)', mistake:'Assuming a setting changed in the desktop client will automatically match what a user sees in OWA.' },
+    D8: { q:'Which inbox repair tool (scanpst.exe) do you run to fix a corrupted .ost or .pst file?', required:[['SCANPST']], answer:'The Inbox Repair Tool (ScanPST)', mistake:'Reinstalling Outlook entirely instead of first trying ScanPST on the corrupted data file.' },
+    D9: { q:'Which Exchange admin center feature applies an organization-wide rule to mail flow, like adding a disclaimer to every outbound message?', required:[['TRANSPORT RULES']], answer:'Mail flow (transport) rules', mistake:'Trying to enforce a company-wide policy with a personal inbox rule instead of a transport rule.' }
+  };
+
+  // ---------- Tool notes (per-cell mistakes / practices / avoid) ----------
+  const TOOL_NOTES = {
+    A1: { mistakes:['Using Cc for someone who should be Bcc\'d, exposing their address to the whole thread','Putting everyone in To when only one person actually needs to act'], practices:['Reserve To for people who must respond or act','Use Bcc for a private copy that other recipients shouldn\'t see'], avoid:['Don\'t Bcc a primary stakeholder — they may think they were deliberately hidden from the conversation'] },
+    A2: { mistakes:['Forgetting the attachment after mentioning it in the body','Not setting a default signature for replies, so it\'s missing half the time'], practices:['Attach the file before writing the rest of the message, not after','Set up separate signatures for new messages and replies if they should differ'], avoid:['Don\'t attach a huge file when a cloud link (Browse Web Locations) would sync better for the recipient'] },
+    A3: { mistakes:['Leaving everything in one flat inbox until search is the only way to find anything','Creating too many narrow folders that become their own filing chore'], practices:['Create folders around how you\'ll actually look for things later, not just by sender','Use drag-and-drop or Move for one-off filing; save recurring patterns for a rule'], avoid:['Don\'t build a folder for every single sender — a handful of broad categories usually works better'] },
+    A4: { mistakes:['Never correcting a wrongly-sorted message, so Focused Inbox keeps repeating the mistake','Flagging everything, so flags stop meaning anything'], practices:['Drag a misfiled message between Focused and Other to retrain the split','Reserve flags for things that genuinely need a reply, not every message you open'], avoid:['Don\'t rely on Focused Inbox alone for anything time-sensitive — a rule or flag is more certain'] },
+    A5: { mistakes:['Not knowing where the Ribbon\'s options move when a different item type is selected','Missing replies buried in a thread because Conversation view is off'], practices:['Turn on Show as Conversations for busy threads you follow closely','Learn the Ctrl+1/2/3/4 shortcuts to jump straight to a module'], avoid:['Don\'t use Conversation view for a thread where message order and exact routing matter more than the summary'] },
+    B1: { mistakes:['Building a rule with only one narrow condition that misses most of the mail it should catch','Forgetting to run Apply rule now, so only future mail gets filed'], practices:['Test a new rule against a handful of existing messages before trusting it broadly','Put narrower, more specific rules above broader catch-all rules in the list'], avoid:['Don\'t write a rule to permanently delete mail you haven\'t been sure about for at least a few weeks — move it to a folder first'] },
+    B2: { mistakes:['Building a Quick Step that silently deletes something you\'ll want back later','Not assigning a keyboard shortcut, losing most of the speed benefit'], practices:['Name Quick Steps for what they do, not "Quick Step 1"','Assign a shortcut key to the Quick Steps you use daily'], avoid:['Don\'t use a Quick Step for something that happens automatically every time — that\'s a rule\'s job, not a manual click'] },
+    B3: { mistakes:['Sending a meeting invite without checking Scheduling Assistant first','Booking a room without checking Room Finder, then finding it occupied'], practices:['Always open Scheduling Assistant before picking a time for more than two attendees','Let Room Finder suggest rooms that are actually free instead of guessing'], avoid:['Don\'t over-invite "just in case" — Scheduling Assistant gets harder to read as invitees pile up'] },
+    B4: { mistakes:['Using categories inconsistently, so the same color means different things over time','Never setting a Quick Click default, making categorizing feel like a chore'], practices:['Decide on a small, consistent color scheme before you start categorizing broadly','Set Quick Click to your single most-used category'], avoid:['Don\'t invent a new category for every project — a handful of reusable ones stay easier to scan'] },
+    B5: { mistakes:['Retyping the same message body every week instead of saving it as a template','Forgetting to update an .oft template after the underlying details change'], practices:['Save any message you send more than a couple of times a month as a .oft template','Keep templates in a dedicated folder so they\'re easy to find under Choose Form'], avoid:['Don\'t template a message that needs heavy personalization each time — mail merge fits that case better'] },
+    B6: { mistakes:['Granting a delegate full access when they only needed to manage the calendar','Forgetting to set whether they see private appointment details'], practices:['Scope delegate permissions to exactly the folders they need (Calendar, Inbox, Tasks)','Review delegate access periodically, especially after someone changes roles'], avoid:['Don\'t use delegate access as a substitute for a proper shared mailbox when a whole team needs access'] },
+    C1: { mistakes:['Setting up a recurring meeting without an end date, so it repeats indefinitely','Booking a room manually instead of checking Room Finder, causing a double-booking'], practices:['Set a sensible recurrence end date or occurrence count up front','Let Room Finder pick from rooms it already knows are free'], avoid:['Don\'t set a complex custom recurrence pattern when a simple weekly/monthly one would do — it\'s easier for attendees to predict'] },
+    C2: { mistakes:['Stacking so many conditions a rule becomes hard to read or debug','Forgetting Run Rules Now, so a new rule never touches the existing backlog'], practices:['Keep each rule focused on one clear purpose, even if that means writing two rules instead of one','Test Run Rules Now against a single folder first before applying broadly'], avoid:['Don\'t rely on rule order to fix a logic problem — restructure the conditions instead of stacking exceptions'] },
+    C3: { mistakes:['Forgetting to preview the merge, sending a wrong field to every recipient at once','Using a contact list with stale or duplicate email addresses'], practices:['Always preview a handful of merged messages before hitting Finish & Merge','Clean the recipient list for duplicates and typos before merging'], avoid:['Don\'t mail merge highly sensitive or personalized content that really needs a human read-through per recipient'] },
+    C4: { mistakes:['Writing one generic message for both internal and external senders','Forgetting to turn Automatic Replies off after returning'], practices:['Write a shorter, more general message for external senders than for coworkers','Set an end date/time so replies turn off automatically'], avoid:['Don\'t include sensitive details (like exact travel dates) in a reply that goes out to external senders'] },
+    C5: { mistakes:['Scrolling through hundreds of results instead of narrowing with an operator','Forgetting operators can be combined, like from: and hasattachments: together'], practices:['Learn a handful of core operators (from:, subject:, hasattachments:, received:) well','Save a frequently repeated search as a Search Folder instead of retyping it'], avoid:['Don\'t build a Search Folder for a truly one-off question — a normal search is faster for that'] },
+    C6: { mistakes:['Clicking a link in a suspicious email to "see if it\'s real"','Deleting a phishing attempt instead of reporting it'], practices:['Hover over links to preview the real destination before clicking anything','Report suspicious mail so filters improve for everyone, not just you'], avoid:['Don\'t reply to a suspected phishing message asking "is this really you?" — verify through a separate channel instead'] },
+    C7: { mistakes:['Installing an add-in without checking what data it requests permission for','Leaving unused add-ins installed, cluttering the ribbon and slowing startup'], practices:['Review requested permissions before adding a new Store add-in','Periodically clean out add-ins you no longer use from File → Manage Add-ins'], avoid:['Don\'t install an add-in for something Outlook already does natively — check the built-in feature set first'] },
+    C8: { mistakes:['Letting a Contact Group go stale after people join or leave a team','Building a new group from scratch instead of updating the existing one'], practices:['Assign someone as the owner responsible for keeping group membership current','Name groups clearly enough that others recognize what they\'re for'], avoid:['Don\'t build a Contact Group for a one-time distribution — a normal To/Cc list is simpler for that'] },
+    D1: { mistakes:['Writing a macro with no error handling, so one bad message crashes it silently','Running an untested macro against your entire live mailbox first'], practices:['Test any new macro against a single test message or a copy folder first','Add basic error handling so one edge case doesn\'t kill the whole run'], avoid:['Don\'t reach for VBA for a one-off task — a Quick Step or rule is simpler and safer to maintain'] },
+    D2: { mistakes:['Granting Send As when Send on Behalf was the safer, more transparent option','Not documenting who has delegation rights on a shared mailbox'], practices:['Default to Send on Behalf unless there\'s a clear reason mail must look fully anonymous','Keep a record of who has Send As/Send on Behalf rights and why'], avoid:['Don\'t grant broad Send As rights to a shared support mailbox without a clear accountability trail'] },
+    D3: { mistakes:['Setting an AutoArchive age that sweeps away mail people still need day-to-day','Forgetting AutoArchive runs locally and doesn\'t apply across every device'], practices:['Pair a sensible AutoArchive age with an org-level retention policy for consistency','Check where archived items land (.pst location) so they\'re still findable later'], avoid:['Don\'t rely on AutoArchive alone for legal/compliance retention — that needs an org-level retention policy'] },
+    D4: { mistakes:['Assuming every rule keeps working the same way whether Outlook is open or closed','Building a complex client-side rule for something that needed to run server-side'], practices:['Check the rule icon in Manage Rules & Alerts for the client-side warning symbol','Prefer conditions/actions Exchange can execute server-side when the rule matters while you\'re offline'], avoid:['Don\'t build a client-side rule for anything mission-critical that must run 24/7'] },
+    D5: { mistakes:['Assuming a slow Outlook is a software bug before checking mailbox size','Deleting large items blindly instead of reviewing what they actually are first'], practices:['Run Mailbox Cleanup before escalating a performance complaint','Sort by size to find the handful of large attachments actually causing the bloat'], avoid:['Don\'t permanently delete large items you haven\'t confirmed are safe to lose — archive them first if unsure'] },
+    D6: { mistakes:['Building a flow with no error-handling step, so a single failure goes unnoticed','Granting the flow more permissions than the task actually needs'], practices:['Add a notification step so a failed run doesn\'t go silently unnoticed','Scope connector permissions to only what the flow needs to do'], avoid:['Don\'t build a flow for a task a Quick Step or rule already handles just as well'] },
+    D7: { mistakes:['Assuming a desktop-only setting (like a local rule) also applies in OWA','Troubleshooting without first asking which client reproduces the issue'], practices:['Always confirm which Outlook (desktop, web, mobile) a reported issue happens in','Know which settings live in the admin center rather than either client'], avoid:['Don\'t assume OWA and desktop behave identically — some features and settings differ between them'] },
+    D8: { mistakes:['Skipping the backup step ScanPST offers before repairing a file','Running ScanPST while Outlook is still open, risking further corruption'], practices:['Always close Outlook fully before running ScanPST','Accept the backup prompt so a bad repair doesn\'t cost you the original file'], avoid:['Don\'t reach for a full reinstall or new profile before trying ScanPST on the existing data file first'] },
+    D9: { mistakes:['Writing an overly broad transport rule that catches mail it shouldn\'t','Not testing a new transport rule before rolling it out organization-wide'], practices:['Scope transport rule conditions as narrowly as the policy actually requires','Test in audit/notify mode before switching a new rule to fully enforce'], avoid:['Don\'t use a transport rule for something scoped to just one person — a personal inbox rule is the right tool for that'] }
+  };
+  document.querySelectorAll('.cell').forEach(cell => {
+    const box = cell.querySelector('.challenge');
+    if (!box) return;
+    const id = box.dataset.id;
+    const notes = TOOL_NOTES[id];
+    if (!notes) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'tool-notes';
+    wrap.innerHTML =
+      '<div class="tn-group">' +
+        '<div class="tn-label bad">\u2715 Common mistakes</div>' +
+        '<ul class="tn-list bad">' + notes.mistakes.map(m => '<li>' + m + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label good">\u2713 Best practices</div>' +
+        '<ul class="tn-list good">' + notes.practices.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label avoid">When NOT to use this</div>' +
+        '<ul class="tn-list avoid">' + notes.avoid.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
+      '</div>';
+    cell.insertBefore(wrap, box);
+  });
+
+  function normalize(raw){ return raw.toUpperCase().replace(/\s+/g,' ').trim(); }
+
+  // ---------- Level lock / mastery progress ----------
+  const LEVELS = [
+    { key:'beginner', ids:['A1','A2','A3','A4','A5'] },
+    { key:'intermediate', ids:['B1','B2','B3','B4','B5','B6'] },
+    { key:'advanced', ids:['C1','C2','C3','C4','C5','C6','C7','C8'] },
+    { key:'expert', ids:['D1','D2','D3','D4','D5','D6','D7','D8','D9'] }
+  ];
+  const PROGRESS_KEY = 'outlookRoadmapProgress';
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }catch(e){ progress = {}; }
+  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){} }
+  function isMastered(id){ return !!(progress[id] && progress[id].mastered); }
+  function recordAttempt(id, correct){
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0 };
+    rec.totalAttempts += 1;
+    if (correct){ rec.correctAttempts += 1; rec.mastered = true; }
+    progress[id] = rec;
+    saveProgress();
+  }
+
+  function applyLocks(){
+    let unlocked = true;
+    LEVELS.forEach(level => {
+      const col = document.querySelector('.level-col[data-level="' + level.key + '"]');
+      if (!col) return;
+      col.classList.toggle('section-locked', !unlocked);
+      unlocked = unlocked && level.ids.every(id => isMastered(id));
+    });
+    const total = LEVELS.reduce((n,l)=>n+l.ids.length,0);
+    const done = Object.keys(progress).filter(k => isMastered(k)).length;
+    const el = document.getElementById('skillProgressCount');
+    if (el) el.textContent = '· ' + done + ' / ' + total + ' mastered';
+  }
+
+  function applyBadges(){
+    Object.keys(CHALLENGES).forEach(id => {
+      const box = document.querySelector('.challenge[data-id="' + id + '"]');
+      if (!box) return;
+      box.closest('.cell').classList.toggle('skill-mastered', isMastered(id));
+    });
+  }
+
+  document.querySelectorAll('.challenge').forEach(box => {
+    const id = box.dataset.id;
+    const data = CHALLENGES[id];
+    if (!data) return;
+    const qEl = box.querySelector('.ch-q');
+    const input = box.querySelector('.ch-input');
+    const btn = box.querySelector('.ch-btn');
+    const result = box.querySelector('.ch-result');
+    const reveal = box.querySelector('.ch-reveal');
+    const mistakeEl = box.querySelector('.ch-mistake');
+
+    qEl.innerHTML = '<b>Challenge — ' + id + ':</b> ' + data.q;
+
+    function check(){
+      const raw = input.value;
+      if (!raw.trim()){
+        result.textContent = 'Type an answer first.';
+        result.className = 'ch-result';
+        return;
+      }
+      const norm = normalize(raw);
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      recordAttempt(id, ok);
+      if (ok){
+        result.textContent = '✓ Correct.';
+        result.className = 'ch-result correct';
+        if (mistakeEl) mistakeEl.classList.remove('show');
+        applyLocks();
+        applyBadges();
+      } else {
+        result.textContent = '✗ Not quite — check the key term and try again, or reveal the answer.';
+        result.className = 'ch-result incorrect';
+        if (mistakeEl && data.mistake){
+          mistakeEl.innerHTML = '<b>Common mistake:</b> ' + data.mistake;
+          mistakeEl.classList.add('show');
+        }
+      }
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); check(); });
+    input.addEventListener('click', (e) => e.stopPropagation());
+    input.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') check(); });
+    reveal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      result.textContent = 'Answer: ' + data.answer;
+      result.className = 'ch-result';
+    });
+  });
+
+  applyLocks();
+  applyBadges();
+
+  // ---------- Capstone checklists + submit gating ----------
+  (function(){
+    const STORAGE_KEY = 'outlookRoadmapCapstoneProgress';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ state = {}; }
+
+    const cards = Array.from(document.querySelectorAll('.capstone-card'));
+    const overallFill = document.getElementById('capOverallFill');
+    const overallCount = document.getElementById('capOverallCount');
+    const resetBtn = document.getElementById('capResetBtn');
+
+    function itemKey(capId, idx){ return 'c' + capId + '-' + idx; }
+    function submitKey(capId){ return 'submitted-' + capId; }
+    function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+    function updateCard(card){
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      let done = 0;
+      items.forEach((li, idx) => {
+        const key = itemKey(capId, idx);
+        if (state[key]) { li.classList.add('done'); done++; }
+        else { li.classList.remove('done'); }
+      });
+      const total = items.length;
+      const countEl = card.querySelector('.cap-progress-count');
+      const fillEl = card.querySelector('.cap-progress-bar-fill');
+      if (countEl) countEl.textContent = done + '/' + total;
+      if (fillEl) fillEl.style.width = (total ? (done/total*100) : 0) + '%';
+      const complete = total > 0 && done === total;
+      card.classList.toggle('cap-complete', complete);
+
+      const submitted = !!state[submitKey(capId)];
+      card.classList.toggle('cap-submitted', submitted);
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        if (submitted){
+          submitBtn.textContent = '✓ Submitted';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('submitted');
+        } else {
+          submitBtn.textContent = 'Submit Capstone';
+          submitBtn.classList.remove('submitted');
+          submitBtn.disabled = !complete;
+        }
+      }
+      return { done, total, submitted };
+    }
+
+    function updateOverall(){
+      let done = 0, total = 0;
+      cards.forEach(card => { const r = updateCard(card); done += r.done; total += r.total; });
+      if (overallCount) overallCount.textContent = done + ' / ' + total;
+      if (overallFill) overallFill.style.width = (total ? (done/total*100) : 0) + '%';
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    cards.forEach(card => {
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      items.forEach((li, idx) => {
+        li.addEventListener('click', () => {
+          if (state[submitKey(capId)]) return;
+          const key = itemKey(capId, idx);
+          state[key] = !state[key];
+          save();
+          updateOverall();
+        });
+      });
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        submitBtn.addEventListener('click', () => {
+          if (submitBtn.disabled) return;
+          state[submitKey(capId)] = true;
+          save();
+          updateOverall();
+        });
+      }
+    });
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); updateOverall(); });
+    }
+
+    window.getCapstoneSubmittedCount = function(){
+      return cards.filter(c => !!state[submitKey(c.dataset.cap)]).length;
+    };
+
+    updateOverall();
+  })();
+
+  // ---------- Practice tabs ----------
+  (function(){
+    const tabs = document.querySelectorAll('.practice-tab');
+    const panels = document.querySelectorAll('.practice-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+        const target = tab.dataset.tab;
+        panels.forEach(p => { p.style.display = (p.dataset.panel === target) ? 'block' : 'none'; });
+      });
+    });
+  })();
+
+  // ---------- Weekly exercises ----------
+  (function(){
+    const WEEKLY_KEY = 'outlookRoadmapWeekly';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(WEEKLY_KEY)) || {}; }catch(e){ state = {}; }
+    function save(){ try{ localStorage.setItem(WEEKLY_KEY, JSON.stringify(state)); }catch(e){} }
+
+    const WEEKS = [
+      { level:'beginner', title:'Week 1 — Beginner', sub:'Get organized and ship a working inbox', days:[
+        'Cell A1 — compose a message and use To vs. Cc vs. Bcc',
+        'Cell A2 — attach files and insert a signature',
+        'Cell A3 — create folders and move mail into them',
+        'Cell A4 — flag messages and use Focused Inbox',
+        'Cell A5 — tour the Ribbon, Conversation view, and module switching',
+        'Work the Beginner Mini Lab',
+        'Rest, or start the Inbox Zero Setup capstone'
+      ]},
+      { level:'intermediate', title:'Week 2 — Intermediate', sub:'Automate your inbox and calendar', sub2:'', days:[
+        'Cell B1 — build an inbox rule with the Rules Wizard',
+        'Cell B2 — bundle actions with Quick Steps',
+        'Cell B3 — schedule with the Scheduling Assistant',
+        'Cell B4 — categorize with Quick Click',
+        'Cell B5 — build signatures and .oft templates',
+        'Cell B6 — grant delegate access',
+        'Work the Intermediate Mini Lab, then start the Team Meeting &amp; Rules Workflow capstone'
+      ]},
+      { level:'advanced', title:'Week 3 — Advanced', sub:'Get fluent in bulk communication and search', days:[
+        'Cell C1 — recurring meetings and Room Finder',
+        'Cell C2 — multi-condition rules and Run Rules Now',
+        'Cell C3 — mail merge with Word and Outlook contacts',
+        'Cell C4 — Automatic Replies with internal/external rules',
+        'Cells C5 + C6 — advanced search operators, then phishing/junk reporting',
+        'Cells C7 + C8 — Store add-ins, then Contact Groups',
+        'Work the Advanced Mini Lab, then start the Automated Follow-up System capstone'
+      ]},
+      { level:'expert', title:'Week 4 — Expert', sub:'Make it production-ready', days:[
+        'Cell D1 — automate tasks with VBA macros',
+        'Cell D2 — Send As vs. Send on Behalf for shared mailboxes',
+        'Cell D3 — retention policies and AutoArchive',
+        'Cell D4 — server-side vs. client-side rules',
+        'Cells D5 + D6 — Mailbox Cleanup, then a Power Automate flow',
+        'Cells D7 + D8 — OWA/admin basics, then the Inbox Repair Tool (ScanPST)',
+        'Cell D9 — mail flow rules, then finish the Mailbox Governance &amp; Automation capstone'
+      ]}
+    ];
+
+    const grid = document.getElementById('weeklyGrid');
+    const overallFill = document.getElementById('weeklyOverallFill');
+    const overallCount = document.getElementById('weeklyOverallCount');
+    const resetBtn = document.getElementById('weeklyResetBtn');
+    const TOTAL_DAYS = WEEKS.reduce((n,w)=>n+w.days.length,0);
+
+    function dayKey(wi, di){ return 'w' + wi + '-d' + di; }
+
+    function render(){
+      grid.innerHTML = '';
+      WEEKS.forEach((week, wi) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'weekly-week';
+        wrap.dataset.level = week.level;
+        const head = document.createElement('div');
+        head.className = 'weekly-week-head';
+        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>';
+        wrap.appendChild(head);
+        const daysWrap = document.createElement('div');
+        daysWrap.className = 'weekly-days';
+        week.days.forEach((text, di) => {
+          const key = dayKey(wi, di);
+          const row = document.createElement('label');
+          row.className = 'weekly-day' + (state[key] ? ' done' : '');
+          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Day ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
+          const box = row.querySelector('input');
+          box.addEventListener('change', () => {
+            state[key] = box.checked;
+            row.classList.toggle('done', box.checked);
+            save();
+            updateOverall();
+            if (typeof window.updateDashboard === 'function') window.updateDashboard();
+          });
+          daysWrap.appendChild(row);
+        });
+        wrap.appendChild(daysWrap);
+        grid.appendChild(wrap);
+      });
+    }
+
+    function updateOverall(){
+      const done = Object.values(state).filter(Boolean).length;
+      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' days';
+      overallFill.style.width = (done/TOTAL_DAYS*100) + '%';
+    }
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); render(); updateOverall(); if (typeof window.updateDashboard === 'function') window.updateDashboard(); });
+    }
+
+    window.getWeeklyDoneCount = function(){ return Object.values(state).filter(Boolean).length; };
+
+    render();
+    updateOverall();
+  })();
+
+  // ---------- Timed Challenges ----------
+  (function(){
+    const BEST_KEY = 'outlookRoadmapTimedBest';
+    let best = {};
+    try{ best = JSON.parse(localStorage.getItem(BEST_KEY)) || {}; }catch(e){ best = {}; }
+    function saveBest(){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(best)); }catch(e){} }
+
+    const levelBtns = document.querySelectorAll('.timed-level-btn');
+    const bestLine = document.getElementById('timedBestLine');
+    const startBtn = document.getElementById('timedStartBtn');
+    const setupBox = document.querySelector('.timed-setup');
+    const roundBox = document.getElementById('timedRound');
+    const summaryBox = document.getElementById('timedSummary');
+    const qNumEl = document.getElementById('timedQNum');
+    const qTotalEl = document.getElementById('timedQTotal');
+    const scoreEl = document.getElementById('timedScore');
+    const clockEl = document.getElementById('timedClock');
+    const qTextEl = document.getElementById('timedQuestionText');
+    const inputEl = document.getElementById('timedInput');
+    const submitBtn = document.getElementById('timedSubmitBtn');
+    const skipBtn = document.getElementById('timedSkipBtn');
+    const resultEl = document.getElementById('timedResult');
+    const finalScoreEl = document.getElementById('timedFinalScore');
+    const finalTimeEl = document.getElementById('timedFinalTime');
+    const newBestEl = document.getElementById('timedNewBest');
+    const againBtn = document.getElementById('timedAgainBtn');
+
+    const levelLabels = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    let selectedLevel = 'beginner';
+    let ids = [], idx = 0, score = 0, secondsLeft = 45, timerHandle = null, roundStart = 0;
+
+    function fmtTime(ms){
+      const s = Math.round(ms/1000);
+      const m = Math.floor(s/60), r = s%60;
+      return m + ':' + String(r).padStart(2,'0');
+    }
+
+    function renderBestLine(){
+      const b = best[selectedLevel];
+      bestLine.textContent = 'Best for ' + levelLabels[selectedLevel] + ': ' + (b ? (b.score + '/' + b.total + ' in ' + fmtTime(b.timeMs)) : '—');
+    }
+
+    levelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedLevel = btn.dataset.level;
+        renderBestLine();
+      });
+    });
+    renderBestLine();
+
+    function shuffledIds(level){
+      const src = (window.OUTLOOK_LEVELS.find(l => l.key === level) || {ids:[]}).ids.slice();
+      for (let i = src.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [src[i], src[j]] = [src[j], src[i]];
+      }
+      return src.slice(0, Math.min(5, src.length));
+    }
+
+    function startRound(){
+      ids = shuffledIds(selectedLevel);
+      idx = 0; score = 0; roundStart = Date.now();
+      setupBox.style.display = 'none';
+      summaryBox.style.display = 'none';
+      roundBox.style.display = 'block';
+      qTotalEl.textContent = ids.length;
+      scoreEl.textContent = '0';
+      loadQuestion();
+    }
+
+    function tick(){
+      secondsLeft--;
+      clockEl.textContent = '0:' + String(Math.max(secondsLeft,0)).padStart(2,'0');
+      clockEl.classList.toggle('low', secondsLeft <= 10);
+      if (secondsLeft <= 0){
+        clearInterval(timerHandle);
+        resultEl.textContent = '⏱ Time\'s up.';
+        resultEl.className = 'ch-result incorrect';
+        setTimeout(nextQuestion, 700);
+      }
+    }
+
+    function loadQuestion(){
+      if (idx >= ids.length){ finishRound(); return; }
+      const data = window.OUTLOOK_CHALLENGES[ids[idx]];
+      qNumEl.textContent = idx + 1;
+      qTextEl.innerHTML = '<b>' + ids[idx] + ':</b> ' + data.q;
+      inputEl.value = '';
+      resultEl.textContent = '';
+      resultEl.className = 'ch-result';
+      secondsLeft = 45;
+      clockEl.textContent = '0:45';
+      clockEl.classList.remove('low');
+      clearInterval(timerHandle);
+      timerHandle = setInterval(tick, 1000);
+      inputEl.focus();
+    }
+
+    function submitAnswer(){
+      clearInterval(timerHandle);
+      const id = ids[idx];
+      const data = window.OUTLOOK_CHALLENGES[id];
+      const norm = inputEl.value.toUpperCase().replace(/\s+/g,' ').trim();
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      if (typeof window.recordChallengeAttempt === 'function') window.recordChallengeAttempt(id, ok);
+      if (ok){
+        score++;
+        scoreEl.textContent = score;
+        resultEl.textContent = '✓ Correct.';
+        resultEl.className = 'ch-result correct';
+      } else {
+        resultEl.textContent = '✗ Answer: ' + data.answer;
+        resultEl.className = 'ch-result incorrect';
+      }
+      setTimeout(nextQuestion, 700);
+    }
+
+    function nextQuestion(){ idx++; loadQuestion(); }
+
+    function finishRound(){
+      const elapsed = Date.now() - roundStart;
+      roundBox.style.display = 'none';
+      summaryBox.style.display = 'block';
+      finalScoreEl.textContent = score + '/' + ids.length;
+      finalTimeEl.textContent = fmtTime(elapsed);
+      const prev = best[selectedLevel];
+      const isNewBest = !prev || score > prev.score || (score === prev.score && elapsed < prev.timeMs);
+      if (isNewBest){
+        best[selectedLevel] = { score:score, total:ids.length, timeMs:elapsed };
+        saveBest();
+        newBestEl.style.display = 'block';
+      } else {
+        newBestEl.style.display = 'none';
+      }
+      renderBestLine();
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    startBtn.addEventListener('click', startRound);
+    submitBtn.addEventListener('click', submitAnswer);
+    skipBtn.addEventListener('click', nextQuestion);
+    inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
+    againBtn.addEventListener('click', () => {
+      summaryBox.style.display = 'none';
+      setupBox.style.display = 'flex';
+    });
+
+    window.getTimedBestSummary = function(){
+      let bestLevel = null, bestRec = null;
+      Object.keys(best).forEach(lvl => {
+        const rec = best[lvl];
+        if (!bestRec || rec.score > bestRec.score || (rec.score === bestRec.score && rec.timeMs < bestRec.timeMs)){
+          bestRec = rec; bestLevel = lvl;
+        }
+      });
+      if (!bestRec) return null;
+      return {
+        text: bestRec.score + '/' + bestRec.total + ' in ' + fmtTime(bestRec.timeMs),
+        level: levelLabels[bestLevel] || bestLevel,
+        perfect: bestRec.score === bestRec.total
+      };
+    };
+  })();
+
+  // ---------- Time spent tracker ----------
+  (function(){
+    const KEY = 'outlookRoadmapTimeSpent';
+    setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      let mins = 0;
+      try{ mins = parseInt(localStorage.getItem(KEY) || '0', 10) || 0; }catch(e){}
+      mins += 1;
+      try{ localStorage.setItem(KEY, String(mins)); }catch(e){}
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }, 60000);
+  })();
+
+  // ---------- Dashboard, readiness, and achievements ----------
+  window.OUTLOOK_LEVELS = LEVELS;
+  window.OUTLOOK_CHALLENGES = CHALLENGES;
+  window.recordChallengeAttempt = recordAttempt;
+
+  function updateDashboard(){
+    const totalSkills = Object.keys(CHALLENGES).length;
+    const masteredIds = Object.keys(progress).filter(id => isMastered(id));
+    const masteredCount = masteredIds.length;
+    const remaining = totalSkills - masteredCount;
+
+    const levelNames = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    const currentLevelObj = LEVELS.find(l => !l.ids.every(id => isMastered(id))) || LEVELS[LEVELS.length-1];
+    const curMasteredInLevel = currentLevelObj.ids.filter(id => isMastered(id)).length;
+
+    setText('dashLevelVal', levelNames[currentLevelObj.key]);
+    setText('dashLevelSub', curMasteredInLevel + '/' + currentLevelObj.ids.length + ' mastered');
+    setText('dashMasteredVal', masteredCount);
+    setText('dashRemainingVal', remaining);
+    setText('dashRemainingSub', remaining === 0 ? 'Every skill mastered' : 'Still unattempted or missed');
+
+    let totalCorrect = 0, totalAttempts = 0;
+    Object.values(progress).forEach(rec => { totalCorrect += rec.correctAttempts || 0; totalAttempts += rec.totalAttempts || 0; });
+    const accuracyPct = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
+    setText('dashAccuracyVal', accuracyPct === null ? '—' : accuracyPct);
+    setText('dashAccuracyUnit', accuracyPct === null ? '' : '%');
+    setText('dashAccuracySub', totalAttempts > 0 ? (totalCorrect + ' correct of ' + totalAttempts + ' attempts') : 'No attempts yet');
+
+    const submitted = typeof window.getCapstoneSubmittedCount === 'function' ? window.getCapstoneSubmittedCount() : 0;
+    setText('dashProjectsVal', submitted);
+    setWidth('dashProjectsFill', submitted/4*100);
+
+    const weeklyDone = typeof window.getWeeklyDoneCount === 'function' ? window.getWeeklyDoneCount() : 0;
+    setText('dashWeeklyVal', weeklyDone);
+    setWidth('dashWeeklyFill', weeklyDone/28*100);
+
+    const timedSummary = typeof window.getTimedBestSummary === 'function' ? window.getTimedBestSummary() : null;
+    setText('dashTimedVal', timedSummary ? timedSummary.text : 'Not played');
+    setText('dashTimedSub', timedSummary ? ('Best on ' + timedSummary.level) : 'Best score across levels');
+
+    let mins = 0;
+    try{ mins = parseInt(localStorage.getItem('outlookRoadmapTimeSpent') || '0', 10) || 0; }catch(e){}
+    const h = Math.floor(mins/60), m = mins%60;
+    setText('dashTimeSpentVal', h > 0 ? (h + 'h ' + m + 'm') : (m + 'm'));
+
+    const skillPct = masteredCount/totalSkills*100;
+    const capPct = submitted/4*100;
+    const completionPct = Math.round((skillPct + capPct)/2);
+    setText('dashCompletionVal', completionPct);
+    setWidth('dashCompletionFill', completionPct);
+    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + submitted + ' of 4 capstones');
+
+    const accForReadiness = accuracyPct === null ? 0 : accuracyPct;
+    const readiness = Math.round(skillPct*0.45 + capPct*0.35 + accForReadiness*0.20);
+    setText('dashReadinessVal', readiness);
+    let verdict, detail;
+    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges and check off a capstone deliverable to see your score move.'; }
+    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics — keep working the board and start a capstone if you haven\'t.'; }
+    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Advanced column and get a capstone submitted.'; }
+    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own running a real mailbox and calendar setup. A few more Expert skills and capstones will round this out.'; }
+    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, shipped capstones, and your quiz accuracy backs it up — you\'re ready to run and support a real Outlook environment.'; }
+    setText('dashVerdict', verdict);
+    setText('dashVerdictDetail', detail);
+
+    const beginnerIds = LEVELS[0].ids;
+    const achievements = [
+      { icon:'🚀', name:'First Steps', desc:'Master your first skill on the board', unlocked: masteredCount >= 1 },
+      { icon:'🟢', name:'Beginner Builder', desc:'Master every Beginner skill', unlocked: beginnerIds.every(id => isMastered(id)) },
+      { icon:'📊', name:'Halfway There', desc:'Master 14 of 28 skills', unlocked: masteredCount >= 14 },
+      { icon:'🏆', name:'Board Master', desc:'Master all 28 skills', unlocked: masteredCount >= totalSkills },
+      { icon:'🚢', name:'First Ship', desc:'Submit your first capstone', unlocked: submitted >= 1 },
+      { icon:'📦', name:'Full Portfolio', desc:'Submit all 4 capstones', unlocked: submitted >= 4 },
+      { icon:'🎯', name:'Sharpshooter', desc:'90%+ quiz accuracy over 10+ attempts', unlocked: totalAttempts >= 10 && accuracyPct !== null && accuracyPct >= 90 },
+      { icon:'🔥', name:'Week Warrior', desc:'Check off 7+ weekly exercise days', unlocked: weeklyDone >= 7 },
+      { icon:'⚡', name:'Speed Demon', desc:'Score a perfect round in Timed Challenges', unlocked: !!(timedSummary && timedSummary.perfect) }
+    ];
+    const achGrid = document.getElementById('achGrid');
+    if (achGrid){
+      achGrid.innerHTML = achievements.map(a =>
+        '<div class="ach-badge' + (a.unlocked ? ' unlocked' : '') + '"><span class="ach-icon">' + a.icon + '</span><div><div class="ach-name">' + a.name + '</div><div class="ach-desc">' + a.desc + '</div></div></div>'
+      ).join('');
+    }
+    setText('achCount', achievements.filter(a => a.unlocked).length + ' / ' + achievements.length + ' unlocked');
+  }
+  function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
+  function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
+  window.updateDashboard = updateDashboard;
+
+  const dashResetBtn = document.getElementById('dashResetBtn');
+  if (dashResetBtn){
+    dashResetBtn.addEventListener('click', () => {
+      progress = {};
+      saveProgress();
+      applyLocks();
+      applyBadges();
+      updateDashboard();
+    });
+  }
+
+  updateDashboard();
+
+  // ---------- Keyboard shortcuts flashcards ----------
+  (function(){
+    const SHORTCUTS = [
+      {cat:'General', action:'Create a new email message', keys:'Ctrl + N'},
+      {cat:'General', action:'Send the message you\'re composing', keys:'Alt + S'},
+      {cat:'General', action:'Reply to a message', keys:'Ctrl + R'},
+      {cat:'General', action:'Reply All', keys:'Ctrl + Shift + R'},
+      {cat:'General', action:'Forward a message', keys:'Ctrl + F'},
+      {cat:'General', action:'Send/Receive all folders', keys:'F9'},
+      {cat:'General', action:'Undo', keys:'Ctrl + Z'},
+      {cat:'Navigation', action:'Switch to Mail', keys:'Ctrl + 1'},
+      {cat:'Navigation', action:'Switch to Calendar', keys:'Ctrl + 2'},
+      {cat:'Navigation', action:'Switch to Contacts (People)', keys:'Ctrl + 3'},
+      {cat:'Navigation', action:'Switch to Tasks', keys:'Ctrl + 4'},
+      {cat:'Navigation', action:'Search the current folder', keys:'Ctrl + E'},
+      {cat:'Navigation', action:'Open the Address Book', keys:'Ctrl + Shift + B'},
+      {cat:'Creating items', action:'New email message from anywhere in Outlook', keys:'Ctrl + Shift + M'},
+      {cat:'Creating items', action:'New appointment', keys:'Ctrl + Shift + A'},
+      {cat:'Creating items', action:'New meeting request', keys:'Ctrl + Shift + Q'},
+      {cat:'Creating items', action:'New contact', keys:'Ctrl + Shift + C'},
+      {cat:'Creating items', action:'New task', keys:'Ctrl + Shift + K'},
+      {cat:'Organizing mail', action:'Move a message to a folder', keys:'Ctrl + Shift + V'},
+      {cat:'Organizing mail', action:'Flag a message for follow-up', keys:'Insert'},
+      {cat:'Organizing mail', action:'Mark a message as read/unread', keys:'Ctrl + Q / Ctrl + U'},
+      {cat:'Composing', action:'Check names against the address book', keys:'Ctrl + K'}
+    ];
+
+    let idx = 0;
+    const toggle = document.getElementById('scToggle');
+    const panel = document.getElementById('scPanel');
+    const closeBtn = document.getElementById('scClose');
+    const card = document.getElementById('scCard');
+    const catEl = document.getElementById('scCat');
+    const promptEl = document.getElementById('scPrompt');
+    const keysEl = document.getElementById('scKeys');
+    const countEl = document.getElementById('scCount');
+    const prevBtn = document.getElementById('scPrev');
+    const nextBtn = document.getElementById('scNext');
+    const shuffleBtn = document.getElementById('scShuffle');
+
+    function render(){
+      const s = SHORTCUTS[idx];
+      catEl.textContent = s.cat.toUpperCase();
+      promptEl.textContent = s.action;
+      keysEl.textContent = s.keys;
+      countEl.textContent = (idx+1) + ' / ' + SHORTCUTS.length;
+      card.classList.remove('flipped');
+    }
+    function shuffle(){
+      for (let i = SHORTCUTS.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [SHORTCUTS[i], SHORTCUTS[j]] = [SHORTCUTS[j], SHORTCUTS[i]];
+      }
+      idx = 0; render();
+    }
+
+    toggle.addEventListener('click', () => { panel.classList.toggle('open'); if (panel.classList.contains('open')) render(); });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    prevBtn.addEventListener('click', () => { idx = (idx - 1 + SHORTCUTS.length) % SHORTCUTS.length; render(); });
+    nextBtn.addEventListener('click', () => { idx = (idx + 1) % SHORTCUTS.length; render(); });
+    shuffleBtn.addEventListener('click', shuffle);
+    render();
+  })();
+
+  // ---------- Practice dataset CSV downloads ----------
+  (function(){
+    function toCSV(rows){
+      return rows.map(r => r.map(v => {
+        const s = String(v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+      }).join(',')).join('\r\n');
+    }
+    function download(filename, text){
+      const blob = new Blob([text], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function rnd(min, max){ return Math.random()*(max-min)+min; }
+    function round2(n){ return Math.round(n*100)/100; }
+    function pad(n, len){ return String(n).padStart(len,'0'); }
+    function fmtDate(d){ return d.toISOString().slice(0,10); }
+    function randomDate(y1, y2){
+      const start = new Date(y1,0,1).getTime();
+      const end = new Date(y2,11,31).getTime();
+      return new Date(start + Math.random()*(end-start));
+    }
+    const firstNames = ['Alicia','James','Priya','Marcus','Elena','Tom','Sofia','Noah','Grace','Liam','Maya','Ethan','Chloe','Omar','Nina','Diego','Ivy','Sam','Ruth','Leo'];
+    const lastNames = ['Moore','Chen','Patel','Diaz','Novak','Reid','Kim','Silva','Turner','Boyd','Fischer','Ahmed','Ward','Lopez','Grant','Osei','Kane','Ito','Brown','Fox'];
+    function fullName(){ return pick(firstNames) + ' ' + pick(lastNames); }
+
+    function genContacts(){
+      const depts = ['Sales','Engineering','Marketing','Finance','Operations','Support'];
+      const offices = ['Seattle','Austin','Chicago','Remote','Toronto','Manila'];
+      const rows = [['Name','Email','Department','Office']];
+      for (let i = 1; i <= 80; i++){
+        const name = fullName();
+        rows.push([name, name.toLowerCase().replace(' ','.') + '@contoso.com', pick(depts), pick(offices)]);
+      }
+      return rows;
+    }
+
+    function genAttendees(){
+      const roles = ['Organizer','Required','Optional','Optional','Room resource'];
+      const timezones = ['Pacific Time','Mountain Time','Central Time','Eastern Time','GMT','Philippine Time'];
+      const rows = [['Name','Email','Role','Timezone']];
+      for (let i = 1; i <= 40; i++){
+        const name = fullName();
+        rows.push([name, name.toLowerCase().replace(' ','.') + '@contoso.com', pick(roles), pick(timezones)]);
+      }
+      return rows;
+    }
+
+    function genRuleTest(){
+      const senders = ['[email protected]','[email protected]','[email protected]','[email protected]','[email protected]','[email protected]'];
+      const subjects = ['This week in product','Q3 budget review','Staging deploy tonight','5 tips for your inbox','New hire paperwork','Weekly team sync notes','Invoice attached','Action needed: approval'];
+      const rows = [['From','Subject','Received','HasAttachment']];
+      for (let i = 1; i <= 120; i++){
+        rows.push([pick(senders), pick(subjects), fmtDate(randomDate(2025,2026)), pick(['Yes','No','No'])]);
+      }
+      return rows;
+    }
+
+    function genNewsletter(){
+      const companies = ['Delta Freight','Novak Studio','Fischer & Ward','Osei Consulting','Kane Digital','Reid Analytics'];
+      const rows = [['Name','Email','Company','RenewalDate']];
+      for (let i = 1; i <= 100; i++){
+        const name = fullName();
+        rows.push([name, name.toLowerCase().replace(' ','.') + '@' + pick(companies).toLowerCase().replace(/[^a-z]/g,'') + '.com', pick(companies), fmtDate(randomDate(2026,2027))]);
+      }
+      return rows;
+    }
+
+    const GENERATORS = {
+      contacts: {fn: genContacts, file: 'sample-contacts.csv'},
+      attendees: {fn: genAttendees, file: 'meeting-attendees.csv'},
+      ruletest: {fn: genRuleTest, file: 'rule-test-inbox.csv'},
+      newsletter: {fn: genNewsletter, file: 'newsletter-recipients.csv'}
+    };
+
+    document.querySelectorAll('.dataset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.dataset;
+        const gen = GENERATORS[key];
+        if (!gen) return;
+        const original = btn.textContent;
+        btn.textContent = 'Generating…';
+        setTimeout(() => {
+          download(gen.file, toCSV(gen.fn()));
+          btn.textContent = 'Downloaded ✓';
+          setTimeout(() => { btn.textContent = original; }, 1600);
+        }, 10);
+      });
+    });
+  })();
+</script>
+
+<script>
+(function(){
+  // ---------- PAGE ROUTER ----------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.style.display = (p === pageId) ? '' : 'none';
+    });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem('outlookRoadmapActivePage', pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => {
+        const t = document.getElementById(scrollTargetId);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+        else window.scrollTo(0,0);
+      });
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+
+  window.goToPage = showPage;
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem('outlookRoadmapActivePage') || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.home-analytics-link').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); showPage('progress'); });
+  });
+
+  // ---------- CONTINUE LEARNING ----------
+  const continueBtn = document.getElementById('continueLearningBtn');
+  if (continueBtn){
+    continueBtn.addEventListener('click', () => {
+      const levels = window.OUTLOOK_LEVELS || [];
+      let targetId = null;
+      for (const level of levels){
+        const nextUnmastered = level.ids.find(id => {
+          const box = document.querySelector('.challenge[data-id="' + id + '"]');
+          return box && !box.closest('.cell').classList.contains('skill-mastered');
+        });
+        if (nextUnmastered){ targetId = nextUnmastered; break; }
+      }
+      showPage('learn', targetId ? null : undefined);
+      requestAnimationFrame(() => {
+        if (!targetId) return;
+        const box = document.querySelector('.challenge[data-id="' + targetId + '"]');
+        const cell = box ? box.closest('.cell') : null;
+        if (cell){
+          cell.classList.add('open');
+          cell.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+      });
+    });
+  }
+
+  // ---------- LEVEL PRACTICE CTA (per-column Continue + links to Practice/Projects) ----------
+  function goToNextInLevel(levelKey){
+    showPage('learn');
+    const col = document.querySelector('.level-col[data-level="' + levelKey + '"]');
+    if (!col || col.classList.contains('section-locked')) return;
+    const nextCell = col.querySelector('.cell:not(.skill-mastered)');
+    requestAnimationFrame(() => {
+      if (nextCell){
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== nextCell) c.classList.remove('open'); });
+        nextCell.classList.add('open');
+        nextCell.scrollIntoView({ behavior:'smooth', block:'center' });
+      } else {
+        const cta = col.querySelector('.level-practice-cta');
+        if (cta) cta.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  }
+
+  document.querySelectorAll('.level-continue-btn').forEach(btn => {
+    btn.addEventListener('click', () => goToNextInLevel(btn.dataset.level));
+  });
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('projects', a.getAttribute('href').slice(1));
+    });
+  });
+
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('practice', a.getAttribute('href').slice(1));
+    });
+  });
+
+  // ---------- HOME SNAPSHOT (mirrors the Progress-page dashboard) ----------
+  function refreshHomeSnapshot(){
+    const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const levels = window.OUTLOOK_LEVELS || [];
+    const compVal = document.getElementById('dashCompletionVal');
+    const compSub = document.getElementById('dashCompletionSub');
+    const compFillEl = document.getElementById('dashCompletionFill');
+    if (compVal) set('homeCompletionVal', compVal.textContent);
+    if (compSub) set('homeCompletionSub', compSub.textContent);
+    if (compFillEl){ const homeFill = document.getElementById('homeCompletionFill'); if (homeFill) homeFill.style.width = compFillEl.style.width; }
+    const levelVal = document.getElementById('dashLevelVal');
+    if (levelVal) set('homeLevelVal', levelVal.textContent);
+    const masteredVal = document.getElementById('dashMasteredVal');
+    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 28');
+    const projVal = document.getElementById('dashProjectsVal');
+    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 4');
+
+    let nextLessonText = 'All skills mastered! 🎉';
+    for (const level of levels){
+      const nextUnmastered = level.ids.find(id => {
+        const box = document.querySelector('.challenge[data-id="' + id + '"]');
+        return box && !box.closest('.cell').classList.contains('skill-mastered');
+      });
+      if (nextUnmastered){
+        const box = document.querySelector('.challenge[data-id="' + nextUnmastered + '"]');
+        const skillEl = box ? box.closest('.cell').querySelector('.skill') : null;
+        if (skillEl) nextLessonText = skillEl.textContent;
+        break;
+      }
+    }
+    set('homeNextLesson', nextLessonText);
+  }
+
+  const origUpdateDashboard = window.updateDashboard;
+  if (typeof origUpdateDashboard === 'function'){
+    window.updateDashboard = function(){
+      origUpdateDashboard();
+      refreshHomeSnapshot();
+    };
+  }
+  refreshHomeSnapshot();
+})();
+</script>
+
+</body>
+</html>

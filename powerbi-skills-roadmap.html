@@ -1,0 +1,3194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up: A Power BI Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#3ecf8e;
+    --green-dim:#2a8f63;
+    --blue:#5b9dff;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    background-image:
+      linear-gradient(var(--grid-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size: 64px 32px;
+    background-attachment: fixed;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--green); color:#0c1410; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- APP NAV ---------- */
+  .app-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(26,32,41,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--grid);
+  }
+  .app-nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .app-nav-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--muted);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:14px 12px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+  }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* ---------- HOME / CONTINUE CARD ---------- */
+  .home-card{
+    max-width:1080px;
+    margin:48px auto 0;
+    padding:0 24px;
+  }
+  .home-card-inner{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:12px;
+    padding:26px 26px 22px;
+  }
+  .home-card-slim{ padding:20px 26px 22px; }
+  .home-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .home-card-slim .home-top{ margin-bottom:12px; }
+  .continue-btn{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:#0c1410;
+    background:var(--green);
+    border:none;
+    border-radius:7px;
+    padding:11px 20px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .continue-btn:hover{ background:#35b87e; }
+  .home-slim-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .home-slim-next span{ color:var(--ink); }
+  .home-analytics-link{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .home-analytics-link:hover{ text-decoration:underline; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .home-progress-label strong{
+    font-family:'Archivo', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    text-transform:none;
+  }
+  .home-progress-bar{
+    height:8px;
+    border-radius:5px;
+    background:var(--grid-soft);
+    overflow:hidden;
+  }
+  .home-progress-fill{
+    height:100%;
+    background:var(--green);
+    width:0%;
+    transition:width 0.3s ease;
+  }
+  .home-stats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    margin-bottom:0;
+  }
+  .home-stat .dlabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .home-stat .dvalue{
+    font-family:'Archivo', sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-top:4px;
+    color:var(--ink);
+  }
+  @media (max-width:640px){
+    .home-stats{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding: 76px 24px 64px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .sheet-chrome{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:36px;
+    letter-spacing:0.02em;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--grid);}
+  .dot.g{background:var(--green);}
+
+  .formula-bar{
+    display:flex;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:6px;
+    padding:10px 14px;
+    margin-bottom:44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--green);
+    box-shadow: 0 0 0 1px rgba(62,207,142,0.06), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .formula-bar .fx{
+    color:var(--muted);
+    margin-right:12px;
+    font-style:italic;
+    border-right:1px solid var(--grid);
+    padding-right:12px;
+  }
+  .formula-bar .caret{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--green);
+    margin-left:2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width: 860px;
+  }
+  h1 .accent{ color:var(--green); }
+  h1 .accent2{ color:var(--blue); }
+
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:580px;
+    line-height:1.55;
+  }
+
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .meta-item strong{
+    display:block;
+    font-family:'Archivo', sans-serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-intro{
+    max-width:1080px;
+    margin: 88px auto 28px;
+    padding: 0 24px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-intro .ref{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:13px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .section-intro h2{
+    font-family:'Archivo', sans-serif;
+    font-size:26px;
+    font-weight:700;
+  }
+  .section-note{
+    max-width:1080px;
+    margin: 0 auto 8px;
+    padding: 0 24px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* ---------- GRID OF LEVELS ---------- */
+  .board{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background:var(--grid);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .level-col{
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .level-head{
+    padding:18px 16px 16px;
+    border-bottom:1px solid var(--grid);
+    position:sticky;
+    top:0;
+    background:var(--panel);
+    z-index:2;
+  }
+  .level-head .letter{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--muted));
+    font-weight:600;
+  }
+  .level-head h3{
+    font-family:'Archivo', sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin-top:6px;
+  }
+  .level-head .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    border:1px solid var(--col-color, var(--grid));
+    color: var(--col-color, var(--muted));
+  }
+
+  .topic-divider{
+    margin: 18px 16px 2px;
+    padding-bottom:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color: var(--col-color, var(--muted));
+    border-bottom:1px dashed var(--grid);
+  }
+
+  .cell{
+    position:relative;
+    padding:16px;
+    border-bottom:1px solid var(--grid-soft);
+    cursor:pointer;
+    transition: background 0.15s ease;
+  }
+  .cell:hover{ background: var(--panel-2); }
+  .cell .addr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    opacity:0.7;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:space-between;
+  }
+  .cell .addr .exp{
+    color: var(--col-color, var(--muted));
+    opacity:1;
+    margin-left:auto;
+  }
+  .time-est{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    background:var(--panel-2);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:1px 7px;
+    white-space:nowrap;
+  }
+  .skill-done-badge{
+    display:none;
+    align-items:center;
+    gap:4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--green);
+  }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--green); }
+  .cell.skill-mastered .addr{ color:var(--green); }
+
+  .cell .skill{
+    font-weight:600;
+    font-size:14px;
+    margin-top:5px;
+    line-height:1.3;
+  }
+  .cell .why{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.45;
+  }
+  .cell .example{
+    display:none;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--grid);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--green));
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .cell.open .example{ display:block; }
+  .cell.open{ background: var(--panel-2); }
+
+  .challenge{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--grid);
+  }
+  .cell.open .challenge{ display:block; }
+  .ch-q{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .ch-q b{ color: var(--col-color, var(--green)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{
+    flex:1;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    padding:7px 9px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+  }
+  .ch-input:focus{ outline:none; border-color: var(--col-color, var(--green)); }
+  .ch-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:5px;
+    border:1px solid var(--col-color, var(--green));
+    background: transparent;
+    color: var(--col-color, var(--green));
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .ch-btn:hover{ background: color-mix(in srgb, var(--col-color, var(--green)) 15%, transparent); }
+  .ch-result{
+    margin-top:8px;
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    line-height:1.5;
+    min-height:0;
+  }
+  .ch-result.correct{ color: var(--green); }
+  .ch-result.incorrect{ color: var(--red); }
+  .ch-reveal{
+    margin-top:8px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
+  .ch-reveal:hover{ color:var(--ink); }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--blue); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+
+  .section-lock-banner{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    background:rgba(232,176,75,0.08);
+    border:1px solid rgba(232,176,75,0.3);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:14px 14px 0;
+  }
+  .section-locked .section-lock-banner{ display:flex; }
+  .level-col.section-locked .cell{ opacity:0.35; filter:grayscale(0.4); pointer-events:none; }
+
+  @media (max-width: 880px){
+    .board{ grid-template-columns: 1fr; }
+    .level-head{ position:static; }
+  }
+
+  /* ---------- DIAGRAMS ---------- */
+  .diagram{
+    margin-top:14px;
+    padding:14px 14px 12px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:8px;
+  }
+  .diagram-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:8px;
+  }
+  .diagram svg{ display:block; width:100%; height:auto; }
+  .diagram text{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- PRACTICE LAB ---------- */
+  .lab{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width: 880px){ .lab{ grid-template-columns:1fr; } }
+
+  .lab-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+  }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background: var(--col-color); }
+  .lab-head .lname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color: var(--col-color);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+
+  table.sample{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    margin-bottom:14px;
+    border:1px solid var(--grid);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  table.sample th{
+    background:var(--panel-2);
+    color: var(--col-color);
+    text-align:left;
+    padding:7px 9px;
+    font-weight:600;
+    border-bottom:1px solid var(--grid);
+  }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{
+    padding:9px 12px;
+    cursor:pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color);
+    background:var(--panel-2);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition: transform 0.15s ease; }
+  details.solution[open] summary::before{ transform: rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{
+    display:block;
+    margin:8px 0;
+    padding:8px 10px;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--col-color);
+    font-size:12px;
+    white-space:pre-wrap;
+  }
+
+  /* ---------- CAPSTONE PROJECTS ---------- */
+  .capstone-overall{
+    max-width:1080px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--green), var(--blue), var(--amber), var(--red)); transition: width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{
+    background:none; border:1px solid var(--grid); color:var(--dim);
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;
+  }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+
+  .capstone{ max-width:1080px; margin: 0 auto; padding: 0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-left:3px solid var(--col-color, var(--grid));
+    border-radius:10px;
+    padding:24px 26px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap:24px;
+  }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width: 760px){ .capstone-card{ grid-template-columns: 1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{
+    display:inline-flex; align-self:flex-start;
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px;
+    border:1px solid var(--col-color); color: var(--col-color);
+    text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;
+  }
+  .cap-audience{ font-size:12px; color:var(--dim); font-family:'JetBrains Mono', monospace; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver{ font-size:13px; }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; transition: color 0.15s ease, opacity 0.15s ease; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color: var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration: line-through; text-decoration-color: var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background: var(--col-color); transition: width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color: var(--green); }
+
+  /* ---------- PRACTICE DATASETS ---------- */
+  .datasets-grid{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px 24px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; }
+  .dataset-cols{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); line-height:1.6; margin-bottom:12px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--green); margin-bottom:12px; }
+  .dataset-btn{
+    background:var(--panel-2); border:1px solid var(--green); color:var(--green);
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center;
+  }
+  .dataset-btn:hover{ background:var(--green); color:#0c1410; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* ---------- 30 DAY RHYTHM ---------- */
+  .rhythm{ max-width:1080px; margin: 100px auto 0; padding: 0 24px; }
+  .rhythm-grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; margin-top:24px; }
+  .rhythm-day{ aspect-ratio:1; border-radius:4px; background:var(--panel); border:1px solid var(--grid); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .rhythm-day.active{ background: rgba(62,207,142,0.12); border-color: var(--green); color: var(--green); font-weight:600; }
+  .rhythm-note{ margin-top:18px; font-size:14px; color:var(--muted); max-width:660px; line-height:1.6; }
+  .rhythm-note strong{ color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:1080px; margin: 110px auto 60px; padding: 32px 24px 0; border-top:1px solid var(--grid);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  @media (max-width:600px){
+    .hero-meta{ gap:20px; }
+    .section-intro{ flex-direction:column; align-items:flex-start; gap:6px; }
+  }
+
+  /* ---------- KEYBOARD SHORTCUTS FLASHCARDS ---------- */
+  .shortcuts-toggle{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--grid); color:var(--ink);
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer;
+  }
+  .shortcuts-toggle:hover{ border-color:var(--green); color:var(--green); }
+  .shortcuts-toggle .kicon{ color:var(--green); }
+
+  .shortcuts-panel{
+    position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px);
+    background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5);
+    display:none; flex-direction:column; overflow:hidden;
+  }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-cat{ padding:9px 16px; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.04em; color:var(--green); background:var(--panel-2); border-bottom:1px solid var(--grid-soft); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--green); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--green); color:var(--green); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+
+  /* ---------- INLINE MASTERY INDICATOR ---------- */
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--green); font-weight:700; }
+
+  /* ---------- TOOL NOTES (per-cell do/avoid) ---------- */
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.bad{ color:var(--red); }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.bad li::before{ content:'✕'; position:absolute; left:0; top:0; color:var(--red); font-size:10.5px; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  /* ---------- CHALLENGE MISTAKE CALLOUT ---------- */
+  .ch-mistake{ margin-top:10px; padding:8px 10px; background: rgba(232,176,75,0.08); border-left:2px solid var(--amber); border-radius:3px; font-size:11.5px; color:var(--muted); line-height:1.5; display:none; }
+  .ch-mistake.show{ display:block; }
+  .ch-mistake b{ color:var(--amber); }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard{ max-width:1080px; margin: 40px auto 0; padding: 0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--green); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-bar{ height:4px; border-radius:3px; background:var(--grid-soft); margin-top:11px; overflow:hidden; }
+  .dash-bar-fill{ height:100%; width:0%; background:var(--green); transition:width 0.3s ease; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:18px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--green); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rverdict{ font-family:'Archivo', sans-serif; font-weight:700; font-size:15px; color:var(--ink); }
+  .dash-readiness .rdetail{ font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+  @media (max-width:880px){ .dash-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:560px){ .dash-grid{ grid-template-columns: 1fr; } .dash-readiness{ flex-direction:column; align-items:flex-start; } }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-block{ margin-top:20px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px 20px; }
+  .ach-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .ach-head .dash-head-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; }
+  .ach-count{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted); }
+  .ach-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  @media (max-width:760px){ .ach-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:460px){ .ach-grid{ grid-template-columns:1fr; } }
+  .ach-badge{ display:flex; align-items:flex-start; gap:10px; padding:12px; border:1px solid var(--grid); border-radius:8px; background:var(--panel-2); opacity:0.45; }
+  .ach-badge.unlocked{ opacity:1; border-color:var(--green-dim); background:rgba(62,207,142,0.06); }
+  .ach-badge .ach-icon{ font-size:20px; line-height:1; }
+  .ach-badge .ach-name{ font-family:'Archivo', sans-serif; font-size:13px; font-weight:700; color:var(--ink); }
+  .ach-badge .ach-desc{ font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+
+  /* ---------- CAPSTONE SUBMIT GATING ---------- */
+  .cap-submit-btn{ margin-top:16px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#0c1410; background:var(--col-color, var(--green)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .cap-submit-btn:hover{ filter:brightness(1.08); }
+  .cap-submit-btn:disabled{ background:none; border:1px solid var(--grid); color:var(--dim); cursor:not-allowed; }
+  .cap-submit-btn.submitted{ background:none; border:1px solid var(--green); color:var(--green); cursor:default; }
+  .cap-submit-btn.submitted:hover{ filter:none; }
+  .cap-deliver li.locked{ pointer-events:none; }
+  .capstone-card.cap-complete{ border-left-color: var(--amber); }
+  .capstone-card.cap-submitted{ border-left-color: var(--green); }
+  .capstone-card.cap-submitted .cap-done-badge{ display:inline-flex !important; }
+
+  /* ---------- PRACTICE TABS ---------- */
+  .practice-tabs{ max-width:1080px; margin: 24px auto 0; padding: 0 24px; display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--grid); }
+  .practice-tab{ background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:10px 4px 12px; cursor:pointer; margin-right:18px; letter-spacing:0.01em; }
+  .practice-tab:hover{ color:var(--ink); }
+  .practice-tab.active{ color:var(--green); border-bottom-color:var(--green); }
+  .practice-panel{ max-width:1080px; margin:0 auto; padding:24px 24px 0; }
+  .practice-subhead{ font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+
+  /* ---------- TIMED CHALLENGES ---------- */
+  .timed-setup{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px; }
+  .timed-level-picker{ display:flex; gap:6px; flex-wrap:wrap; }
+  .timed-level-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .timed-level-btn.active{ color:var(--bg); background:var(--green); border-color:var(--green); }
+  .timed-best{ font-size:11.5px; color:var(--dim); flex-grow:1; }
+  .timed-start-btn{ background:var(--green); color:#0c1410; border:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:13px; padding:11px 18px; border-radius:7px; cursor:pointer; }
+  .timed-start-btn:hover{ background:var(--green-dim); }
+  .timed-round{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:20px; }
+  .timed-hud{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .timed-hud-item{ font-family:'JetBrains Mono', monospace; }
+  .timed-clock{ color:var(--amber); font-weight:700; font-size:15px; }
+  .timed-clock.low{ color:var(--red); }
+  .timed-question{ font-size:15px; line-height:1.5; margin-bottom:14px; color:var(--ink); }
+  .timed-input{ width:100%; margin-bottom:10px; }
+  .timed-actions{ display:flex; gap:8px; margin-bottom:10px; }
+  .timed-summary{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:24px; text-align:center; }
+  .timed-summary h4{ font-family:'Archivo', sans-serif; font-size:18px; margin-bottom:16px; }
+  .timed-summary-stats{ display:flex; justify-content:center; gap:36px; margin-bottom:16px; }
+  .timed-stat .dvalue{ display:block; font-family:'Archivo', sans-serif; font-size:30px; font-weight:800; color:var(--ink); }
+  .timed-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; }
+  .timed-new-best{ color:var(--green); font-weight:700; font-size:13px; margin-bottom:14px; }
+
+  /* ---------- WEEKLY EXERCISES ---------- */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color, var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--blue); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color, var(--green)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); min-width:34px; flex-shrink:0; padding-top:1px; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* ---------- LEVEL PRACTICE CTA (links out to Practice / Projects) ---------- */
+  .level-continue-btn{
+    display:inline-block;
+    margin:4px 16px 20px;
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#0c1410;
+    background:var(--col-color, var(--green));
+    border:none;
+    border-radius:7px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .level-practice-cta{
+    margin:20px 14px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .level-practice-cta .cta-link{
+    flex:1;
+    min-width:180px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color: var(--col-color, var(--ink));
+    text-decoration:none;
+    padding:12px 14px;
+    border:1px solid var(--grid);
+    border-left:2px solid var(--col-color, var(--grid));
+    border-radius:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .level-practice-cta .cta-link:hover{
+    border-color: var(--col-color, var(--dim));
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+  }
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button">
+  <span class="kicon">⌨</span> Shortcuts
+</button>
+
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head">
+    <h4>Shortcut flash cards</h4>
+    <button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="sp-cat" id="scCat">GENERAL</div>
+  <div class="sp-card" id="scCard">
+    <span class="sp-prompt" id="scPrompt">Save the report</span>
+    <span class="sp-keys" id="scKeys">Ctrl + S</span>
+  </div>
+  <p class="sp-hint">Tap the card to flip it · Power BI Desktop, Windows (press Shift+? in Desktop for the full list)</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">← Prev</button>
+    <span class="sp-count" id="scCount">1 / 20</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next →</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">🏠 Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">📚 Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">🧪 Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">📂 Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">📊 Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="sheet-chrome">
+    <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+    <span>Report1 — SalesAnalysis.pbix</span>
+  </div>
+
+  <div class="formula-bar">
+    <span class="fx">DAX</span>
+    <span id="formulaText">=CALCULATE([Progress], ALL(Excuses))</span>
+    <span class="caret"></span>
+  </div>
+
+  <h1>Stop <span class="accent">export</span>ing to Excel.<br>Start <span class="accent2">model</span>ing.</h1>
+  <p class="hero-sub">
+    A practical route from "I can drag fields onto a canvas" to "I built the semantic model
+    the whole team queries." Four columns, one skill per row — click any cell for the how-to,
+    then try the practice exercises and capstone projects below.
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">TIME TO NEXT LEVEL<strong>10–14 wks</strong></div>
+    <div class="meta-item">SKILLS TRACKED<strong>28</strong></div>
+    <div class="meta-item">PREREQ<strong>None</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner home-card-slim">
+    <div class="home-top">
+      <div class="home-progress-label"><strong>Pick up where you left off</strong></div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning</button>
+    </div>
+    <div class="home-slim-row">
+      <span class="home-slim-next">Next up: <span id="homeNextLesson">The Field Well &amp; visual basics</span></span>
+      <a class="home-analytics-link" href="#analytics">View Progress →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-intro" style="margin-top:60px;">
+  <span class="ref">SNAPSHOT</span>
+  <h2>Current Progress</h2>
+</div>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-progress-row">
+      <div class="home-progress-label">
+        <span id="homeCompletionSub">0 of 0 skills + capstones</span>
+        <span><strong id="homeCompletionVal">0</strong>%</span>
+      </div>
+      <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+    </div>
+    <div class="home-stats" style="margin-top:18px;">
+      <div class="home-stat">
+        <div class="dlabel">Current level</div>
+        <div class="dvalue" id="homeLevelVal">Beginner</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Skills mastered</div>
+        <div class="dvalue" id="homeMasteredVal">0 / 28</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Capstones submitted</div>
+        <div class="dvalue" id="homeProjectsVal">0 / 4</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">A1:D4</span>
+  <h2>The Board</h2>
+</div>
+<p class="section-note">
+  Work left to right. Don't skip a column — each one assumes fluency in the last.
+  <b style="color:var(--ink)">Click a cell</b> to reveal the how-to and a checkable challenge for that skill.
+  Answer a challenge correctly and it's marked mastered — get every skill in a column right to unlock the next one.
+  <span id="skillProgressCount" style="color:var(--green); font-family:'JetBrains Mono',monospace;"></span>
+</p>
+
+<div class="board">
+
+  <!-- ===================== BEGINNER ===================== -->
+  <div class="level-col" data-level="beginner">
+    <div class="level-head">
+      <div class="letter mono">COLUMN A</div>
+      <h3>Beginner</h3>
+      <span class="tag">week 1–2</span>
+    </div>
+
+    <div class="topic-divider">Getting data in</div>
+    <div class="cell">
+      <div class="addr"><span>A1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Connect to data and reach Power Query before loading</div>
+      <div class="why">Everything starts with getting data in. The one habit that saves you the most rework later: never hit "Load" blindly — go through Power Query first.</div>
+      <div class="example">Home → Get Data → Excel workbook / Text-CSV
+Select the table(s) you need
+Click "Transform Data" (not "Load") to open Power Query Editor first</div>
+      <div class="challenge" data-id="A1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>A2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Shape data in Power Query</div>
+      <div class="why">Clean data upstream saves you DAX headaches downstream — garbage in, garbage dashboard out. Every cleaning step you take is recorded and replayable.</div>
+      <div class="example">Home → Remove Columns (drop what you don't need)
+Select a column → Data Type dropdown → set the right type
+Home → Reduce Rows → Filter Rows
+Every step lands in the Applied Steps pane, top to bottom</div>
+      <div class="challenge" data-id="A2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">First visuals</div>
+    <div class="cell">
+      <div class="addr"><span>A3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build and format your first visuals</div>
+      <div class="why">Cards, bar charts, and tables cover most first drafts. Drag a field into a well, pick a visual type, then move to the Format pane instead of eyeballing defaults.</div>
+      <div class="example">Visualizations pane → pick a chart type
+Drag a numeric field into "Values", a category into "Axis"
+Format pane (paint-roller icon) → colors, data labels, titles</div>
+      <div class="challenge" data-id="A3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>A4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Add slicers and publish to the Power BI service</div>
+      <div class="why">A slicer turns a static chart into something people can actually explore. Publishing is what turns a .pbix file on your laptop into a shared, live report.</div>
+      <div class="example">Insert → Slicer, drag a category field onto it
+Home → Publish → choose a workspace
+Report opens in app.powerbi.com, refreshable on a schedule</div>
+      <div class="challenge" data-id="A4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Finding your way around</div>
+    <div class="cell">
+      <div class="addr"><span>A5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">15 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Know Report, Data, and Model view</div>
+      <div class="why">Without this, beginners often don't know where anything actually lives. Three views, three jobs — mixing them up is the most common early source of confusion.</div>
+      <div class="example">Bottom-left icons switch views:
+Report view — build & format visuals, the canvas
+Data view — browse a table's raw rows, one table at a time
+Model view — see and edit the relationships between tables</div>
+      <div class="challenge" data-id="A5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="beginner" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-beginner" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-beginner">🚀 Beginner project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column A</div>
+  </div>
+
+  <!-- ===================== INTERMEDIATE ===================== -->
+  <div class="level-col" data-level="intermediate">
+    <div class="level-head">
+      <div class="letter mono">COLUMN B</div>
+      <h3>Intermediate</h3>
+      <span class="tag">week 3–5</span>
+    </div>
+
+    <div class="topic-divider">Data modeling</div>
+    <div class="cell">
+      <div class="addr"><span>B1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build relationships and a star schema</div>
+      <div class="why">A real data model — one fact table surrounded by dimension tables — is what lets Power BI slice correctly by any field you throw at it, instead of one flattened Excel export.</div>
+      <div class="example">Model view → drag a key field from the fact table to the matching dimension table
+Set cardinality (usually one-to-many) and cross-filter direction (usually single)</div>
+      <div class="diagram">
+        <div class="diagram-label">Star schema — one fact table, several dimensions</div>
+        <svg viewBox="0 0 480 220">
+          <g font-size="12">
+            <rect x="190" y="90" width="100" height="40" rx="4" fill="#1a2029" stroke="#5b9dff"/><text x="240" y="114" fill="#5b9dff" text-anchor="middle">Sales (fact)</text>
+
+            <rect x="30" y="10" width="100" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="80" y="31" fill="#e9ecf1" text-anchor="middle">Date</text>
+            <rect x="350" y="10" width="100" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="400" y="31" fill="#e9ecf1" text-anchor="middle">Product</text>
+            <rect x="30" y="176" width="100" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="80" y="197" fill="#e9ecf1" text-anchor="middle">Customer</text>
+            <rect x="350" y="176" width="100" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="400" y="197" fill="#e9ecf1" text-anchor="middle">Region</text>
+
+            <line x1="130" y1="27" x2="220" y2="90" stroke="#3ecf8e"/>
+            <line x1="350" y1="27" x2="270" y2="90" stroke="#3ecf8e"/>
+            <line x1="130" y1="193" x2="220" y2="130" stroke="#3ecf8e"/>
+            <line x1="350" y1="193" x2="270" y2="130" stroke="#3ecf8e"/>
+          </g>
+          <text x="240" y="14" fill="#8b93a3" font-size="10" text-anchor="middle">1</text>
+          <text x="240" y="204" fill="#8b93a3" font-size="10" text-anchor="middle">one dimension row → many fact rows</text>
+        </svg>
+      </div>
+      <div class="challenge" data-id="B1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Merge and Append queries in Power Query</div>
+      <div class="why">Merge joins two tables side-by-side on a matching key (like a lookup table). Append stacks tables with the same columns on top of each other. Mixing the two up is the most common Power Query mistake.</div>
+      <div class="example">Home → Merge Queries — pick the matching key column in each table (like a SQL join)
+Home → Append Queries — stacks rows from tables with the same structure (like a SQL union)</div>
+      <div class="challenge" data-id="B2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">First DAX</div>
+    <div class="cell">
+      <div class="addr"><span>B3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Measures vs. calculated columns, and CALCULATE</div>
+      <div class="why">A measure recalculates live for whatever's currently filtered; a calculated column is baked in row-by-row at refresh time. CALCULATE is how you deliberately change the filter context a measure sees.</div>
+      <div class="example">Total Sales = SUM(Sales[Amount])
+Sales in EU = CALCULATE([Total Sales], Geography[Region] = "EU")</div>
+      <div class="challenge" data-id="B3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Matrix, drillthrough pages, and bookmarks</div>
+      <div class="why">A matrix is your pivot-table-style visual. Drillthrough sends users to a detail page filtered to whatever they clicked. Bookmarks save a specific view — filters, visibility, all of it — so you can replay it with one click.</div>
+      <div class="example">Matrix visual → drag fields into Rows, Columns, Values
+Format pane → set a "Drillthrough" target field on the detail page
+View → Bookmarks pane → Add, to capture the current state</div>
+      <div class="challenge" data-id="B4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Dates &amp; relationships</div>
+    <div class="cell">
+      <div class="addr"><span>B5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Build a real Calendar table; turn off Auto Date/Time</div>
+      <div class="why">Auto Date/Time quietly creates a hidden calendar per date column — fine for a demo, but it multiplies hidden tables and breaks the moment you need one shared calendar for time intelligence. This is a common stumbling block right before time intelligence.</div>
+      <div class="example">File → Options → Data Load → uncheck "Auto Date/Time" (do this before building anything)
+New Table:
+Calendar = CALENDAR(DATE(2023,1,1), DATE(2026,12,31))
+Add Year / Month / Quarter columns, then Mark as Date Table</div>
+      <div class="challenge" data-id="B5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Troubleshoot relationships (inactive, many-to-many, ambiguous paths)</div>
+      <div class="why">More than one live path between two tables makes the model ambiguous, so Power BI keeps only one relationship active. Recognizing an inactive relationship, or a many-to-many that needs a bridge table, is what stops numbers from silently coming out wrong.</div>
+      <div class="example">Model view → dashed line = inactive relationship
+USERELATIONSHIP() activates an inactive relationship for just one measure:
+Sales (Ship Date) = CALCULATE([Total Sales], USERELATIONSHIP(Sales[ShipDate], 'Date'[Date]))
+True many-to-many? Add a bridge table with unique keys instead of linking the two tables directly</div>
+      <div class="challenge" data-id="B6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="intermediate" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-intermediate" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-intermediate">🚀 Intermediate project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column B</div>
+  </div>
+
+  <!-- ===================== ADVANCED ===================== -->
+  <div class="level-col" data-level="advanced">
+    <div class="level-head">
+      <div class="letter mono">COLUMN C</div>
+      <h3>Advanced</h3>
+      <span class="tag">week 6–9</span>
+    </div>
+
+    <div class="topic-divider">DAX filter context</div>
+    <div class="cell">
+      <div class="addr"><span>C1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Time intelligence: TOTALYTD, SAMEPERIODLASTYEAR</div>
+      <div class="why">Year-to-date and year-over-year comparisons only work reliably against a proper, contiguous calendar table — marked as an official date table, not just any date column.</div>
+      <div class="example">YTD Sales = TOTALYTD([Total Sales], 'Date'[Date])
+Sales LY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
+Model view → right-click the Date table → Mark as Date Table</div>
+      <div class="diagram">
+        <div class="diagram-label">CALCULATE modifying filter context</div>
+        <svg viewBox="0 0 480 150">
+          <g font-size="12">
+            <rect x="10" y="55" width="140" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="80" y="76" fill="#e9ecf1" text-anchor="middle">Base filters</text>
+            <text x="80" y="46" fill="#8b93a3" font-size="10" text-anchor="middle">Region = "West", Year = 2026</text>
+
+            <text x="170" y="76" fill="#8b93a3" text-anchor="middle">+</text>
+
+            <rect x="190" y="55" width="140" height="34" rx="4" fill="#1a2029" stroke="#e8b04b"/><text x="260" y="76" fill="#e8b04b" text-anchor="middle">CALCULATE(...)</text>
+            <text x="260" y="46" fill="#8b93a3" font-size="10" text-anchor="middle">removes / adds filters</text>
+
+            <text x="350" y="76" fill="#8b93a3" text-anchor="middle">=</text>
+
+            <rect x="370" y="55" width="100" height="34" rx="4" fill="#1a2029" stroke="#3ecf8e"/><text x="420" y="76" fill="#3ecf8e" text-anchor="middle">Result</text>
+          </g>
+          <text x="240" y="120" fill="#8b93a3" font-size="11" text-anchor="middle">every measure evaluates inside whatever filter context reaches it</text>
+        </svg>
+      </div>
+      <div class="challenge" data-id="C1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Filter modifiers: ALL, ALLEXCEPT, ALLSELECTED</div>
+      <div class="why">These control which filters CALCULATE ignores or keeps — the core mechanic behind "% of total" and ranking patterns that don't collapse to 100% on every row.</div>
+      <div class="example">% of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Sales)))
+Keeps Region filter, drops everything else:
+CALCULATE([Total Sales], ALLEXCEPT(Sales, Sales[Region]))</div>
+      <div class="challenge" data-id="C2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Model &amp; security</div>
+    <div class="cell">
+      <div class="addr"><span>C3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">VAR / RETURN for readable DAX</div>
+      <div class="why">Variables stop you repeating the same sub-expression twice, and they make a formula something you can actually debug line by line instead of untangling nested parentheses.</div>
+      <div class="example">YoY % =
+VAR CurYear = [Total Sales]
+VAR PrevYear = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
+RETURN DIVIDE(CurYear - PrevYear, PrevYear)</div>
+      <div class="challenge" data-id="C3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Row-level security (RLS)</div>
+      <div class="why">RLS restricts which rows a signed-in user can see, based on their identity — one report, no duplicated versions per team or region.</div>
+      <div class="example">Modeling → Manage Roles → New role → add a table filter, e.g.:
+[Manager Email] = USERPRINCIPALNAME()
+Modeling → View As → test the role before publishing</div>
+      <div class="challenge" data-id="C4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Context &amp; iterators</div>
+    <div class="cell">
+      <div class="addr"><span>C5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Row context vs. filter context, and context transition</div>
+      <div class="why">Row context is the row DAX is currently "standing on" — inside a calculated column or an iterator. Filter context is the set of filters from slicers, visuals, and CALCULATE. Context transition — CALCULATE turning a row context into an equivalent filter — is the single idea that explains why measures behave differently inside iterators.</div>
+      <div class="example">Calculated column — row context only:
+Line Total = Sales[Qty] * Sales[UnitPrice]
+
+Inside an iterator, CALCULATE converts each row into a one-row filter (context transition):
+Customer Total = SUMX(Customer, CALCULATE([Total Sales]))
+— here CALCULATE filters Sales down to just that customer's rows, per iteration</div>
+      <div class="challenge" data-id="C5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Iterator functions: SUMX, AVERAGEX, and friends</div>
+      <div class="why">Iterators walk a table row by row, evaluating an expression at each row before aggregating — the only way to do row-level math, like quantity × price, that a plain SUM can't express.</div>
+      <div class="example">Total Revenue = SUMX(Sales, Sales[Qty] * Sales[UnitPrice])
+Avg Line Value = AVERAGEX(Sales, Sales[Qty] * Sales[UnitPrice])
+MAXX, MINX, COUNTX follow the same pattern: table first, expression second</div>
+      <div class="challenge" data-id="C6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Performance &amp; governance</div>
+    <div class="cell">
+      <div class="addr"><span>C7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Performance Analyzer &amp; Query Diagnostics</div>
+      <div class="why">Performance Analyzer times every visual on a page — DAX query time vs. visual rendering time — so you know whether a slow report is a bad measure or just a busy canvas. Query Diagnostics goes a layer deeper, tracing what Power Query itself is doing during refresh.</div>
+      <div class="example">View → Performance Analyzer → Start Recording → interact with the page
+Each visual reports DAX query / Visual display / Other time
+Power Query: Tools → Query Diagnostics → Start Diagnostics, then refresh a query</div>
+      <div class="challenge" data-id="C7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Calculation groups <span style="opacity:.6">(optional)</span></div>
+      <div class="why">Without calculation groups, a time-intelligence toolkit — YTD, QTD, prior year, prior period — has to be rebuilt for every single measure. A calculation group applies the same set of DAX transforms across many measures at once.</div>
+      <div class="example">Built and edited in Tabular Editor, not Desktop's own UI
+Calculation group "Time Intelligence" with calculation items:
+YTD → CALCULATE(SELECTEDMEASURE(), TOTALYTD('Date'[Date], ...))
+PY → CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('Date'[Date]))</div>
+      <div class="challenge" data-id="C8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="advanced" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-advanced">🚀 Advanced project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column C</div>
+  </div>
+
+  <!-- ===================== EXPERT ===================== -->
+  <div class="level-col" data-level="expert">
+    <div class="level-head">
+      <div class="letter mono">COLUMN D</div>
+      <h3>Expert</h3>
+      <span class="tag">week 10–14</span>
+    </div>
+
+    <div class="topic-divider">Advanced DAX</div>
+    <div class="cell">
+      <div class="addr"><span>D1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Iterators and ranking: SUMX, RANKX</div>
+      <div class="why">Iterators evaluate an expression row-by-row before aggregating — you need one whenever the math (weighted averages, running totals, custom ranking) can't be expressed as a plain SUM.</div>
+      <div class="example">Weighted Avg = SUMX(Sales, Sales[Qty] * Sales[UnitPrice]) / SUM(Sales[Qty])
+Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)</div>
+      <div class="challenge" data-id="D1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Composite models: Import, DirectQuery, Dual</div>
+      <div class="why">Mixing storage modes per table lets you balance freshness against performance — import the small stable dimensions, DirectQuery the huge fact table that changes every minute.</div>
+      <div class="example">Model view → select a table → Properties pane → Storage mode
+Import: fastest, cached snapshot
+DirectQuery: always live, queries the source
+Dual: can act as either, depending on the query</div>
+      <div class="challenge" data-id="D2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Deploy &amp; operate</div>
+    <div class="cell">
+      <div class="addr"><span>D3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Incremental refresh &amp; deployment pipelines</div>
+      <div class="why">Incremental refresh only reloads recent partitions instead of the entire fact table every night. Deployment pipelines let you promote a report from Dev to Test to Prod without breaking what's live.</div>
+      <div class="example">Desktop → right-click a fact table → Incremental refresh policy → set a date range
+Service → Workspace → Deployment pipelines → assign Dev/Test/Prod stages</div>
+      <div class="challenge" data-id="D3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">External tools: DAX Studio &amp; Tabular Editor</div>
+      <div class="why">Desktop's UI hits a ceiling. DAX Studio shows you query plans and storage-engine timing so you can actually find what's slow; Tabular Editor lets you bulk-edit measures and model metadata far faster than clicking through the pane.</div>
+      <div class="example">External Tools ribbon tab → launches the tool connected live to your open model
+DAX Studio → Query Plan / Server Timings to profile a slow measure
+Tabular Editor → C# scripting to bulk-rename or reformat dozens of measures at once</div>
+      <div class="challenge" data-id="D4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Analysis &amp; scripting</div>
+    <div class="cell">
+      <div class="addr"><span>D5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">VertiPaq Analyzer &amp; the DAX Studio optimization workflow</div>
+      <div class="why">VertiPaq Analyzer shows exactly which columns and tables are eating your model's memory — the first stop before optimizing a slow or oversized model. Pair it with Server Timings to see whether a slow measure is the storage engine or the formula engine.</div>
+      <div class="example">DAX Studio → Advanced → View Metrics (VertiPaq Analyzer)
+Sort by column size to find the worst offenders — usually a high-cardinality text column
+Server Timings tab → run the measure → compare Storage Engine (SE) vs Formula Engine (FE) time</div>
+      <div class="challenge" data-id="D5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D6</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">XMLA endpoint &amp; Tabular Editor scripting</div>
+      <div class="why">The XMLA endpoint exposes a Premium or Fabric-hosted semantic model as a real Analysis Services database — the door that lets Tabular Editor, DAX Studio, and CI/CD pipelines connect and edit it directly, at scale, outside Desktop entirely.</div>
+      <div class="example">Fabric/Premium workspace → Settings → Premium → enable the XMLA endpoint (Read-Write)
+Tabular Editor → File → Open → From DB → paste the XMLA endpoint URL
+C# script to bulk-edit measures:
+foreach (var m in Model.AllMeasures) { m.FormatString = "#,##0"; }</div>
+      <div class="challenge" data-id="D6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Platform &amp; scale</div>
+    <div class="cell">
+      <div class="addr"><span>D7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Fabric integration &amp; Dataflows Gen2</div>
+      <div class="why">Microsoft Fabric puts Power BI on the same OneLake as Data Factory, Synapse, and notebooks. Dataflows Gen2 are Power Query pipelines that land cleaned data into that shared lake, so several reports and tools can reuse the same table instead of each re-cleaning their own copy.</div>
+      <div class="example">Fabric workspace → New → Dataflow Gen2
+Same Power Query experience, but output lands in a Lakehouse/Warehouse in OneLake
+Semantic models and notebooks can both read that same underlying table</div>
+      <div class="challenge" data-id="D7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Paginated reports &amp; the Power BI REST API</div>
+      <div class="why">Paginated reports, built in Report Builder, are for pixel-perfect, print-ready output — invoices, regulatory forms — where a normal canvas won't do. The REST API automates the platform itself: triggering refreshes, managing workspaces, embedding, all from outside the UI.</div>
+      <div class="example">Report Builder (separate app) → RDL-based paginated report → publish to a workspace
+REST API — trigger a dataset refresh:
+POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets/{datasetId}/refreshes</div>
+      <div class="challenge" data-id="D8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>D9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Administration &amp; deployment best practices at scale</div>
+      <div class="why">Once dozens of teams are publishing, someone has to own capacity, tenant settings, and governance — who can publish where, how large a semantic model is allowed to get, and how it refreshes without timing out or starving other workloads.</div>
+      <div class="example">Admin portal → capacity settings, tenant settings, usage metrics
+Large semantic model storage format → needed to go beyond the default 1 GB (Pro) model size limit
+Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
+      <div class="challenge" data-id="D9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="expert" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-expert" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-expert">🚀 Expert project →</a>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">Cap!A1</span>
+  <h2>Capstone Projects</h2>
+</div>
+<p class="section-note">One end-to-end build per level. Click a checklist item to mark it done — progress is saved in this browser.</p>
+
+<div class="capstone-overall">
+  <span class="ov-label mono">Overall progress</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+  <span class="ov-count mono" id="capOverallCount">0 / 0</span>
+  <button class="capstone-reset" id="capResetBtn" type="button">Reset</button>
+</div>
+
+<div class="capstone">
+
+  <div class="capstone-card" id="capstone-beginner" data-level="beginner" data-cap="1">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 01</span>
+      <h4>Sales Dashboard</h4>
+      <span class="cap-level-tag">Beginner</span>
+      <span class="cap-audience">~3–4 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Using the <b>Sales Orders</b> dataset below, build a one-page dashboard you'd actually check weekly: what's selling, where, and how revenue is trending.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Get Data</span>
+        <span class="cap-skill-chip">Power Query cleanup</span>
+        <span class="cap-skill-chip">Cards &amp; bar chart</span>
+        <span class="cap-skill-chip">Slicers</span>
+        <span class="cap-skill-chip">Publish</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Connect</b> to the Sales Orders CSV</li>
+          <li><b>Clean</b> columns and fix data types in Power Query</li>
+          <li>Build <b>4 visuals</b>: a revenue card, a bar chart by category, a line chart by date, and a table</li>
+          <li>Add a <b>slicer</b> for Region and one for Category</li>
+          <li><b>Publish</b> the report to a workspace</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-intermediate" data-level="intermediate" data-cap="2">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 02</span>
+      <h4>HR Dashboard (Star Schema)</h4>
+      <span class="cap-level-tag">Intermediate</span>
+      <span class="cap-audience">~6–8 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take the <b>HR Headcount</b> dataset and, instead of dropping it in as one flat table, split it into a proper <b>star schema</b> — the model your HR team would actually reuse next quarter.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Star schema</span>
+        <span class="cap-skill-chip">Relationships</span>
+        <span class="cap-skill-chip">Core measures</span>
+        <span class="cap-skill-chip">Matrix</span>
+        <span class="cap-skill-chip">Drillthrough</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>In Power Query, split out a <b>Department</b> dimension and a <b>Region</b> dimension from the flat file</li>
+          <li>Set <b>relationships</b> from the Employee fact table to each dimension, with correct cardinality</li>
+          <li>Write measures: <b>headcount</b>, <b>average salary</b>, and <b>active vs. terminated %</b></li>
+          <li>Build a <b>matrix</b> of headcount by department and region</li>
+          <li>Add a <b>drillthrough</b> page to employee-level detail</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-advanced" data-level="advanced" data-cap="3">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 03</span>
+      <h4>Executive KPI Dashboard</h4>
+      <span class="cap-level-tag">Advanced</span>
+      <span class="cap-audience">~8–10 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Build a KPI page an executive could open and immediately read: growth vs. last year, each region's share of total, who's leading, and where momentum is heading — all backed by <b>advanced DAX</b>, not static numbers.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Time intelligence</span>
+        <span class="cap-skill-chip">ALLEXCEPT</span>
+        <span class="cap-skill-chip">Iterators</span>
+        <span class="cap-skill-chip">RANKX</span>
+        <span class="cap-skill-chip">What-if parameter</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Mark</b> a proper Date table</li>
+          <li>Build <b>YTD</b> and <b>YoY %</b> measures using VAR/RETURN</li>
+          <li>Build a <b>% of total</b> measure using ALLEXCEPT</li>
+          <li>Add a <b>ranking</b> measure with RANKX and a <b>running total</b> with an iterator</li>
+          <li>Add a <b>what-if parameter</b> for a target growth rate</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-expert" data-level="expert" data-cap="4">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 04</span>
+      <h4>Enterprise Semantic Model</h4>
+      <span class="cap-level-tag">Expert</span>
+      <span class="cap-audience">~10–14 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take a model with a large fact table and get it production-ready: <b>secured</b> per user, <b>refreshing incrementally</b>, promoted safely through environments, and handed to end users as a clean app.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">RLS</span>
+        <span class="cap-skill-chip">Storage modes</span>
+        <span class="cap-skill-chip">Incremental refresh</span>
+        <span class="cap-skill-chip">Deployment pipelines</span>
+        <span class="cap-skill-chip">DAX Studio</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Configure an <b>RLS role</b> filtering by region or department, and test it with View As</li>
+          <li>Set <b>storage modes</b> per table (Import / DirectQuery)</li>
+          <li>Configure an <b>incremental refresh</b> policy on the fact table</li>
+          <li>Set up a <b>Dev → Test → Prod</b> deployment pipeline</li>
+          <li>Profile a slow measure in <b>DAX Studio</b> / VertiPaq Analyzer</li>
+          <li>Publish as an <b>App</b> with a scheduled refresh</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/6</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice" style="display:none;">
+<div class="section-intro" id="practice" style="margin-top:100px;">
+  <span class="ref mono">PRACTICE</span>
+  <h2>Practice</h2>
+</div>
+<p class="section-note">Everything hands-on lives here: work a Mini Lab, pull a real dataset, race the clock, or follow a weekly plan.</p>
+
+<div class="practice-tabs" role="tablist">
+  <button class="practice-tab active" type="button" data-tab="labs" role="tab" aria-selected="true">Mini Labs</button>
+  <button class="practice-tab" type="button" data-tab="datasets" role="tab" aria-selected="false">Real Datasets</button>
+  <button class="practice-tab" type="button" data-tab="timed" role="tab" aria-selected="false">Timed Challenges</button>
+  <button class="practice-tab" type="button" data-tab="weekly" role="tab" aria-selected="false">Weekly Exercises</button>
+</div>
+
+<div class="practice-panel" data-panel="labs">
+<p class="section-note" style="padding:0; margin-bottom:16px;">One hands-on task per level. Try it in Power BI Desktop against a sample table before checking the solution.</p>
+
+<div class="lab">
+  <div class="lab-card" id="lab-beginner" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Beginner</span></div>
+    <h4>Build a one-page orders overview</h4>
+    <p class="task">Using the sample below, build a <b>Card</b> showing total revenue and a <b>Bar chart</b> of revenue by category, then add a <b>Slicer</b> on Region.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Category</th><th>Region</th><th>Total</th></tr>
+      <tr><td>ORD1001</td><td>Electronics</td><td>West</td><td>129.99</td></tr>
+      <tr><td>ORD1002</td><td>Home</td><td>East</td><td>44.50</td></tr>
+      <tr><td>ORD1003</td><td>Electronics</td><td>South</td><td>89.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Card visual → drag Total into it, it defaults to Sum.<br>
+        Bar chart → Category on Axis, Total on Values.<br>
+        Insert → Slicer → drag Region onto it → resize to sit above the other visuals.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Intermediate</span></div>
+    <h4>Merge a lookup table and add a measure</h4>
+    <p class="task">Merge the <b>Customers</b> dataset into <b>Orders</b> on CustomerID, then write a measure for <b>Average Order Value</b>.</p>
+    <table class="sample">
+      <tr><th>CustomerID</th><th>Name</th><th>Segment</th></tr>
+      <tr><td>C001</td><td>Alicia Moore</td><td>Consumer</td></tr>
+      <tr><td>C002</td><td>Delta Freight LLC</td><td>Corporate</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Power Query → Orders query → Home → Merge Queries → match Orders[CustomerID] to Customers[CustomerID], Left Outer join → expand the Name/Segment columns.<br>
+        DAX measure:
+        <code>Avg Order Value = DIVIDE(SUM(Orders[Total]), DISTINCTCOUNT(Orders[OrderID]))</code>
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-advanced" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Advanced</span></div>
+    <h4>Add YTD and prior-year comparison</h4>
+    <p class="task">Load a Date table, mark it as the official date table, then build <b>YTD Sales</b> and <b>% vs Prior Year</b> measures.</p>
+    <table class="sample">
+      <tr><th>Date</th><th>Total</th></tr>
+      <tr><td>2026-01-05</td><td>412.00</td></tr>
+      <tr><td>2026-01-06</td><td>318.50</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Model view → right-click 'Date' → Mark as Date Table → pick the Date column.<br>
+        <code>YTD Sales = TOTALYTD([Total Sales], 'Date'[Date])</code>
+        <code>YoY % =
+VAR PY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
+RETURN DIVIDE([Total Sales] - PY, PY)</code>
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-expert" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Expert</span></div>
+    <h4>Rank customers with a running total</h4>
+    <p class="task">Build a measure ranking customers by revenue and a running-total measure over time, using an iterator.</p>
+    <table class="sample">
+      <tr><th>Customer</th><th>Date</th><th>Total</th></tr>
+      <tr><td>C001</td><td>2026-02-01</td><td>210.00</td></tr>
+      <tr><td>C002</td><td>2026-02-02</td><td>95.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        <code>Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)</code>
+        <code>Running Total =
+CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))</code>
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: labs -->
+
+<div class="practice-panel" data-panel="datasets" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Download and import into Power BI Desktop via Get Data → Text/CSV. Orders + Customers are built to pair up for the merge and modeling exercises above.</p>
+
+<div class="datasets-grid">
+  <div class="dataset-card">
+    <h4>Sales Orders (fact)</h4>
+    <p>300 rows of order-line transactions across regions, categories, and dates.</p>
+    <div class="dataset-cols mono">OrderID, OrderDate, CustomerID, Product, Category, Region, Qty, UnitPrice, Total</div>
+    <div class="dataset-meta mono">~300 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="orders">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Customers (dimension)</h4>
+    <p>Lookup table keyed by CustomerID — pairs with Sales Orders for merge and relationship practice.</p>
+    <div class="dataset-cols mono">CustomerID, Name, Segment, Country</div>
+    <div class="dataset-meta mono">~80 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="customers">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>HR Headcount</h4>
+    <p>Employee roster with department, region, hire date, and status — good for grouping and DAX practice.</p>
+    <div class="dataset-cols mono">EmployeeID, Name, Department, Region, HireDate, Salary, Status</div>
+    <div class="dataset-meta mono">~150 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="hr">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Marketing Campaigns</h4>
+    <p>Channel-level spend and performance over time — built for time-intelligence and ROI measures.</p>
+    <div class="dataset-cols mono">CampaignID, Channel, StartDate, EndDate, Spend, Impressions, Clicks, Conversions</div>
+    <div class="dataset-meta mono">~120 rows · CSV</div>
+    <button class="dataset-btn" data-dataset="marketing">Download CSV</button>
+  </div>
+</div>
+</div><!-- /panel: datasets -->
+
+<div class="practice-panel" data-panel="timed" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Five questions pulled at random from a level's Board challenges, a running clock, and no reveal button until time runs out. Best time and score per level are saved in this browser.</p>
+
+<div class="timed-setup">
+  <div class="timed-level-picker" role="tablist">
+    <button class="timed-level-btn active" type="button" data-level="beginner">Beginner</button>
+    <button class="timed-level-btn" type="button" data-level="intermediate">Intermediate</button>
+    <button class="timed-level-btn" type="button" data-level="advanced">Advanced</button>
+    <button class="timed-level-btn" type="button" data-level="expert">Expert</button>
+  </div>
+  <div class="timed-best mono" id="timedBestLine">Best for Beginner: —</div>
+  <button class="timed-start-btn" id="timedStartBtn" type="button">Start Timed Round →</button>
+</div>
+
+<div class="timed-round" id="timedRound" style="display:none;">
+  <div class="timed-hud">
+    <span class="timed-hud-item mono">Question <span id="timedQNum">1</span> / <span id="timedQTotal">5</span></span>
+    <span class="timed-hud-item mono">Score <span id="timedScore">0</span></span>
+    <span class="timed-hud-item mono timed-clock" id="timedClock">0:45</span>
+  </div>
+  <div class="timed-question" id="timedQuestionText"></div>
+  <input type="text" class="ch-input timed-input" id="timedInput" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+  <div class="timed-actions">
+    <button class="ch-btn" id="timedSubmitBtn" type="button">Submit</button>
+    <button class="ch-reveal" id="timedSkipBtn" type="button">Skip</button>
+  </div>
+  <div class="ch-result" id="timedResult"></div>
+</div>
+
+<div class="timed-summary" id="timedSummary" style="display:none;">
+  <h4>Round complete</h4>
+  <div class="timed-summary-stats">
+    <div class="timed-stat"><span class="dvalue" id="timedFinalScore">0</span><span class="dlabel">/ 5 correct</span></div>
+    <div class="timed-stat"><span class="dvalue" id="timedFinalTime">0:00</span><span class="dlabel">total time</span></div>
+  </div>
+  <div id="timedNewBest" class="timed-new-best" style="display:none;">🏆 New best for this level</div>
+  <button class="timed-start-btn" id="timedAgainBtn" type="button">Run again →</button>
+</div>
+</div><!-- /panel: timed -->
+
+<div class="practice-panel" data-panel="weekly" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">A four-week plan, one week per level — short tool days, a lab/capstone day, a rest day. Check off days as you go; progress is saved in this browser and feeds the dashboard above.</p>
+
+<div class="weekly-overall">
+  <span class="ov-label mono">Weeks completed</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+  <span class="ov-count mono" id="weeklyOverallCount">0 / 28 days</span>
+  <button class="capstone-reset" id="weeklyResetBtn" type="button">Reset progress</button>
+</div>
+
+<div class="weekly-grid" id="weeklyGrid"></div>
+</div><!-- /panel: weekly -->
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref">ANALYTICS</span>
+  <h2 id="analytics">Progress</h2>
+</div>
+<p class="section-note">Everything below is computed from what you've actually done in this browser — mastery on the Board, capstones submitted, weekly consistency, timed challenges, and time on task.</p>
+
+<div class="dashboard">
+  <div class="dash-head">
+    <div class="dash-title"><span class="dot g"></span>Current Progress</div>
+    <button class="dash-reset" id="dashResetBtn" type="button">Reset quiz progress</button>
+  </div>
+
+  <div class="dash-progress-row">
+    <div class="dash-progress-label">
+      <span id="dashCompletionSub">0 of 0 skills + capstones</span>
+      <span><strong id="dashCompletionVal">0</strong>%</span>
+    </div>
+    <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="dash-card" data-metric="level">
+      <div class="dlabel">Current level</div>
+      <div class="dvalue" id="dashLevelVal">Beginner</div>
+      <div class="dsub" id="dashLevelSub">0/5 mastered</div>
+    </div>
+    <div class="dash-card" data-metric="mastered">
+      <div class="dlabel">Skills mastered</div>
+      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 28</span></div>
+      <div class="dsub">Answered correctly on the board</div>
+    </div>
+    <div class="dash-card" data-metric="projects">
+      <div class="dlabel">Capstones submitted</div>
+      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 4</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashProjectsFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="accuracy">
+      <div class="dlabel">Quiz accuracy</div>
+      <div class="dvalue"><span id="dashAccuracyVal">—</span><span class="unit" id="dashAccuracyUnit"></span></div>
+      <div class="dsub" id="dashAccuracySub">No attempts yet</div>
+    </div>
+    <div class="dash-card" data-metric="weekly">
+      <div class="dlabel">Weekly activity</div>
+      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 28 days</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashWeeklyFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="timed">
+      <div class="dlabel">Timed challenges</div>
+      <div class="dvalue" id="dashTimedVal">Not played</div>
+      <div class="dsub" id="dashTimedSub">Best score across levels</div>
+    </div>
+    <div class="dash-card" data-metric="timespent">
+      <div class="dlabel">Time spent</div>
+      <div class="dvalue" id="dashTimeSpentVal">0m</div>
+      <div class="dsub">Across all sessions in this browser</div>
+    </div>
+    <div class="dash-card" data-metric="remaining">
+      <div class="dlabel">Skills remaining</div>
+      <div class="dvalue"><span id="dashRemainingVal">28</span></div>
+      <div class="dsub" id="dashRemainingSub">Still unattempted or missed</div>
+    </div>
+  </div>
+
+  <div class="dash-readiness">
+    <div class="rscore"><span id="dashReadinessVal">0</span><span class="unit">/100</span></div>
+    <div class="rtext">
+      <div class="rlabel">Readiness verdict</div>
+      <div class="rverdict" id="dashVerdict">Just getting started</div>
+      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges and check off a capstone deliverable to see your score move.</div>
+    </div>
+  </div>
+
+  <div class="ach-block">
+    <div class="ach-head">
+      <div class="dash-head-title">Achievements</div>
+      <span class="ach-count" id="achCount">0 / 9 unlocked</span>
+    </div>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fcell">SKILLS TRACKED <b id="fSkills">28</b></div>
+  <div class="fcell">CAPSTONES <b>4</b></div>
+  <div class="fcell">DATASETS <b>4</b></div>
+  <div class="fcell">TIMED ROUNDS <b>4 levels</b></div>
+  <div class="fcell">WEEKLY PLAN <b>28 days</b></div>
+  <div class="fcell">ACHIEVEMENTS <b>9</b></div>
+  <div class="fcell">PREREQ <b>None</b></div>
+</footer>
+
+<script>
+  // ---------- Rotating formula bar ----------
+  const formulas = [
+    '=CALCULATE([Progress], ALL(Excuses))',
+    'let Result = Table.TransformColumns(you, {"habits","consistent"}) in Result',
+    '=RANKX(ALL(Peers), [Skill], , DESC)',
+    'VAR Effort = TODAY() - StartDate RETURN "keep going"'
+  ];
+  let fi = 0;
+  const formulaEl = document.getElementById('formulaText');
+  formulaEl.style.transition = 'opacity 0.25s ease';
+  setInterval(() => {
+    fi = (fi + 1) % formulas.length;
+    formulaEl.style.opacity = 0;
+    setTimeout(() => { formulaEl.textContent = formulas[fi]; formulaEl.style.opacity = 1; }, 250);
+  }, 3800);
+
+  // ---------- Cell open/close ----------
+  document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const wasOpen = cell.classList.contains('open');
+      cell.parentElement.querySelectorAll('.cell.open').forEach(c => {
+        c.classList.remove('open');
+        const exp = c.querySelector('.exp'); if (exp) exp.textContent = 'tap ▸';
+      });
+      if (!wasOpen){
+        cell.classList.add('open');
+        const exp = cell.querySelector('.exp'); if (exp) exp.textContent = 'tap ▾';
+      }
+    });
+  });
+
+  // ---------- Challenge content ----------
+  const CHALLENGES = {
+    A1: { q:'Which button in the Get Data flow opens Power Query before anything loads onto your canvas?', required:[['TRANSFORM DATA']], answer:'Transform Data', mistake:'Clicking Load and cleaning up afterward instead of going through Transform Data first.' },
+    A2: { q:'Which pane records every cleaning step you take, in order, so you can revisit or reorder them?', required:[['APPLIED STEPS']], answer:'Applied Steps', mistake:'Renaming and retyping columns after visuals are already built, breaking every reference downstream.' },
+    A3: { q:'Which pane lets you choose the chart type and drag fields into wells like Axis and Values?', required:[['VISUALIZATION']], answer:'The Visualizations pane', mistake:'Piling ten fields into one visual instead of splitting the story across two simpler ones.' },
+    A4: { q:'What do you click to send your finished report to the Power BI service?', required:[['PUBLISH']], answer:'Publish', mistake:'Publishing to My Workspace instead of the shared team workspace people actually check.' },
+    A5: { q:'Which view do you switch to in order to see and edit the relationships between tables?', required:[['MODEL']], answer:'Model view', mistake:'Fixing a relationship problem by re-importing data instead of just opening Model view.' },
+    B1: { q:'In a star schema, does the fact table sit at the center or the edge — and is that centered table usually on the "one" or "many" side of its relationships?', required:[['FACT'],['MANY']], answer:'The fact table sits at the center, and it is on the "many" side of each relationship.', mistake:'Building one giant flat table instead of a proper fact + dimension model.' },
+    B2: { q:'Which Power Query operation is the equivalent of a SQL UNION, stacking rows from tables with the same columns — Merge or Append?', required:[['APPEND']], answer:'Append', mistake:'Using Append when the tables actually needed to be joined side-by-side, producing duplicated rows.' },
+    B3: { q:'Which DAX function lets you deliberately change the filter context that another measure evaluates inside?', required:[['CALCULATE']], answer:'CALCULATE', mistake:'Building a calculated column for something that should be a measure, bloating the model.' },
+    B4: { q:'Which pane do you use to save and instantly replay a specific report view — filters, selections, and all?', required:[['BOOKMARK']], answer:'The Bookmarks pane', mistake:'Building a drillthrough page with no back button, stranding users on the detail page.' },
+    B5: { q:'Which built-in Power BI feature creates a hidden calendar table per date column, and is usually the first thing to turn off before building a real one?', required:[['AUTO DATE']], answer:'Auto Date/Time', mistake:'Leaving Auto Date/Time on and ending up with dozens of hidden calendar tables.' },
+    B6: { q:'Which DAX function lets a measure use an otherwise inactive relationship, just for that one calculation?', required:[['USERELATIONSHIP']], answer:'USERELATIONSHIP()', mistake:'Not noticing a dashed (inactive) relationship and wondering why a measure ignores it.' },
+    C1: { q:'What must you mark a calendar table as, in Model view, before time intelligence functions work reliably?', required:[['DATE TABLE']], answer:'Mark it as a Date Table', mistake:'Running TOTALYTD against a table that was never marked as the official Date table.' },
+    C2: { q:'Which ALL-family function removes every filter except the specific column(s) you list?', required:[['ALLEXCEPT']], answer:'ALLEXCEPT', mistake:'Reaching for ALL when ALLSELECTED was needed, so a % of total ignores the user\'s own slicer picks.' },
+    C3: { q:'Which two keywords define a DAX variable and then return its result?', required:[['VAR'],['RETURN']], answer:'VAR ... RETURN', mistake:'Repeating the same CALCULATE expression three times in one measure instead of storing it in a variable.' },
+    C4: { q:'Which DAX function returns the signed-in user\'s login, commonly used to build row-level security rules?', required:[['USERPRINCIPALNAME']], answer:'USERPRINCIPALNAME()', mistake:'Testing RLS by eyeballing the DAX filter instead of actually using View As Roles.' },
+    C5: { q:'What is it called when CALCULATE turns the current row context into an equivalent single-row filter context?', required:[['CONTEXT TRANSITION']], answer:'Context transition', mistake:'Assuming a calculated column can filter another measure the way a CALCULATE-driven measure can.' },
+    C6: { q:'Which iterator function averages an expression evaluated row-by-row across a table, rather than averaging a column directly?', required:[['AVERAGEX']], answer:'AVERAGEX', mistake:'Using plain SUM on a value that actually needs to be calculated per row first, like quantity times price.' },
+    C7: { q:'Which built-in Desktop tool breaks down, per visual, how much time went to the DAX query vs. rendering?', required:[['PERFORMANCE ANALYZER']], answer:'Performance Analyzer', mistake:'Blaming DAX for a slow report when the real bottleneck is actually visual rendering.' },
+    C8: { q:'Calculation groups are built and edited primarily through which external tool, rather than Power BI Desktop\'s own UI?', required:[['TABULAR EDITOR']], answer:'Tabular Editor', mistake:'Building 15 near-duplicate YTD/QTD/PY measures instead of one calculation group.' },
+    D1: { q:'Which DAX function ranks a value against other rows in a table, usually written as RANKX(ALL(...), [Measure], , DESC)?', required:[['RANKX']], answer:'RANKX', mistake:'Nesting RANKX without ALL(), so the rank never actually changes across filter contexts.' },
+    D2: { q:'Which storage mode queries the source live instead of importing a cached copy?', required:[['DIRECTQUERY']], answer:'DirectQuery', mistake:'Setting every table to DirectQuery by default, tanking overall report performance.' },
+    D3: { q:'Which feature only reloads recent partitions of a table instead of the entire fact table on every refresh?', required:[['INCREMENTAL']], answer:'Incremental refresh', mistake:'Setting an incremental refresh range shorter than how far back reports actually need to look.' },
+    D4: { q:'Which external tool is best known for query plans and VertiPaq storage-engine timing analysis?', required:[['DAX STUDIO']], answer:'DAX Studio', mistake:'Editing the live model in Tabular Editor without a backup or version-controlled copy first.' },
+    D5: { q:'Which DAX Studio feature breaks down a model\'s memory usage table-by-table and column-by-column?', required:[['VERTIPAQ']], answer:'VertiPaq Analyzer', mistake:'Optimizing a measure\'s DAX before checking whether the real cost is a bloated column.' },
+    D6: { q:'Which feature exposes a Fabric or Premium semantic model as a real Analysis Services database that external tools can connect to?', required:[['XMLA']], answer:'The XMLA endpoint', mistake:'Forgetting that only Premium/Fabric capacities support XMLA read-write, not Pro.' },
+    D7: { q:'In Microsoft Fabric, which feature uses the Power Query experience to land cleaned data into a shared OneLake table?', required:[['DATAFLOW']], answer:'Dataflows Gen2', mistake:'Rebuilding the same Power Query cleanup in every report instead of one shared Dataflow Gen2.' },
+    D8: { q:'Which report type is built in Report Builder and designed for pixel-perfect, print-ready output like invoices?', required:[['PAGINATED']], answer:'Paginated reports', mistake:'Trying to force a pixel-perfect, invoice-style layout into a normal Power BI canvas.' },
+    D9: { q:'Which admin-portal setting must be enabled on large datasets to go beyond the default 1 GB (Pro) model size limit?', required:[['LARGE'],['MODEL']], answer:'Large semantic model storage format', mistake:'Letting a semantic model grow past the size limit without ever enabling large model storage format.' }
+  };
+
+  // ---------- Tool notes (per-cell mistakes / practices / avoid) ----------
+  const TOOL_NOTES = {
+    A1: { mistakes:['Clicking Load and cleaning up afterward instead of going through Transform Data first', 'Pointing at a personal OneDrive/Desktop path a teammate can\'t open', 'Not checking auto-detected column types before building anything on top of them'], practices:['Always land in Power Query before the first Load', 'Use a shared drive or SharePoint path, not a local folder', 'Scan every column\'s data type in the first minute after connecting'], avoid:['Don\'t use Get Data > Web for a file someone can just export as CSV — it\'s slower and less reliable to refresh', 'Don\'t connect to the same source twice in one file — reference the first query instead'] },
+    A2: { mistakes:['Renaming and retyping columns after visuals are already built, breaking every reference', 'Leaving unused columns in the model instead of removing them', 'Filtering rows with a hardcoded value that will silently go stale'], practices:['Clean and finalize column names/types before building the first visual', 'Remove columns you don\'t need right after the step that created them', 'Use a relative filter (like a parameter) instead of a hardcoded date where possible'], avoid:['Don\'t use Power Query to do row-level math that\'s really a DAX measure — that bloats refresh time for logic that should be live'] },
+    A3: { mistakes:['Piling ten fields into one visual instead of splitting the story across two', 'Leaving default theme colors and unlabeled axes', 'Building a table when a chart would show the trend in one glance'], practices:['One visual, one question it answers', 'Set a consistent color theme early, not per-visual', 'Add data labels or a clear title so a visual stands alone'], avoid:['Don\'t use a pie chart for more than ~5 categories — a bar chart reads faster'] },
+    A4: { mistakes:['Adding a slicer for every field "just in case," cluttering the page', 'Publishing to My Workspace instead of a shared team workspace', 'Forgetting to set a scheduled refresh after publishing'], practices:['Only slice on fields people will actually filter by', 'Publish to the workspace your team actually checks', 'Set the refresh schedule right after publishing, not weeks later'], avoid:['Don\'t add a slicer where clicking the chart itself would already filter the page'] },
+    A5: { mistakes:['Building every visual in Report view without ever checking Data view for what\'s actually in a table', 'Not knowing Model view exists, and "fixing" relationships by re-importing data', 'Confusing Data view (rows) with Model view (structure)'], practices:['Check Data view any time a number looks wrong, before touching a measure', 'Use Model view whenever you touch a relationship, not the Fields list'], avoid:['Don\'t try to edit data values directly in Data view — fix them in Power Query instead'] },
+    B1: { mistakes:['Building one giant flat table instead of a fact + dimension model', 'Setting cross-filter direction to Both by default, causing ambiguous filtering', 'Not checking cardinality before trusting a total'], practices:['Design fact + dimension tables before building any visual', 'Default to single-direction cross-filtering; use Both only when you understand why', 'Confirm cardinality in Model view for every new relationship'], avoid:['Don\'t relate two fact tables directly to each other — route through a shared dimension instead'] },
+    B2: { mistakes:['Using Append when the tables needed to be joined side-by-side, producing duplicated rows', 'Merging on a text key without trimming whitespace or fixing case first', 'Not checking the join kind (Left Outer vs Inner), silently dropping rows'], practices:['Ask "stack or join?" before picking Append vs Merge', 'Clean join keys before merging, not after', 'Preview row counts before and after a merge to catch unexpected drops'], avoid:['Don\'t Merge when a simple relationship in the model would do the same job without duplicating data'] },
+    B3: { mistakes:['Building calculated columns for things that should be measures, bloating the model', 'Hardcoding a filter value inside CALCULATE instead of referencing a field', 'Not testing a new measure against a slicer before trusting it'], practices:['Default to a measure; only use a calculated column when you need the value at the row level', 'Test a new measure with at least two different slicer selections before shipping'], avoid:['Don\'t wrap a measure in CALCULATE with no filter argument at all — it does nothing there'] },
+    B4: { mistakes:['Building drillthrough without a clear back button, stranding users on the detail page', 'Overloading a bookmark with more state than the user expects it to reset', 'Forgetting to lock a bookmark\'s data/display settings, breaking it on reuse'], practices:['Always add a back button on drillthrough pages', 'Name bookmarks for what they show, not "Bookmark 1"'], avoid:['Don\'t use a matrix for a two-column summary a card or bar chart would show more clearly'] },
+    B5: { mistakes:['Leaving Auto Date/Time on and ending up with dozens of hidden calendar tables', 'Building a calendar table that doesn\'t cover the full date range in the fact table', 'Forgetting to Mark as Date Table after building it'], practices:['Turn off Auto Date/Time before importing anything', 'Build the calendar range a year past your latest expected data', 'Mark as Date Table immediately after creating it'], avoid:['Don\'t build a second calendar table when one shared one, joined to every fact table, will do'] },
+    B6: { mistakes:['Not noticing a dashed (inactive) relationship and wondering why a measure ignores it', 'Connecting a true many-to-many relationship directly instead of via a bridge table', 'Assuming ambiguous filter paths will "just work"'], practices:['Check Model view for dashed lines whenever a number looks off', 'Add a bridge table the moment you spot a real many-to-many'], avoid:['Don\'t set a relationship to many-to-many just to make an error go away without understanding why it\'s ambiguous'] },
+    C1: { mistakes:['Running TOTALYTD without a table marked as the official Date table', 'Using a calendar that doesn\'t start on the fiscal year boundary the business reports on', 'Forgetting time intelligence needs a continuous date range, not just dates that appear in the fact table'], practices:['Confirm Mark as Date Table before writing any time-intelligence measure', 'Match the calendar\'s fiscal year settings to how the business actually reports'], avoid:['Don\'t apply TOTALYTD directly to a fact table\'s date column — it needs the marked Date table'] },
+    C2: { mistakes:['Reaching for ALL when ALLSELECTED was needed, so a % of total ignores the user\'s own slicer picks', 'Forgetting ALLEXCEPT still respects filters on columns you didn\'t list', 'Nesting several ALL-family functions instead of stepping back to check which filters actually need removing'], practices:['Ask "total of everything, or total of what\'s currently visible?" before picking ALL vs ALLSELECTED', 'Test a % of total measure against a slicer selection before trusting it'], avoid:['Don\'t use ALL(Table) when you only meant to clear one column — ALL(Table[Column]) is more precise'] },
+    C3: { mistakes:['Repeating the same CALCULATE expression three times in one measure instead of storing it in a variable', 'Naming variables Var1, Var2 instead of something readable', 'Forgetting RETURN, so the measure doesn\'t compile'], practices:['Reach for VAR the moment a sub-expression is used more than once', 'Name variables for what they hold, like CurYear or PrevYear'], avoid:['Don\'t chain more than a handful of VARs in one measure — split into supporting measures once it gets hard to read'] },
+    C4: { mistakes:['Testing RLS by eyeballing the DAX filter instead of using View As Roles', 'Forgetting RLS filters apply to every visual, including ones meant to show org-wide totals', 'Granting a role access to the whole model when only one table needed it'], practices:['Always test a new role with View As Roles before publishing', 'Scope the role\'s filter to exactly the table/column it needs to restrict'], avoid:['Don\'t rely on RLS alone for highly sensitive data without also reviewing workspace-level access'] },
+    C5: { mistakes:['Assuming a calculated column can filter like a measure would', 'Not realizing an iterator triggers context transition on every row', 'Writing a measure that works standalone but breaks once nested inside an iterator'], practices:['Test any measure both standalone and nested inside an iterator before shipping', 'Reach for VAR to capture a value before context transition changes what it means'], avoid:['Don\'t assume row context alone can filter another measure — only CALCULATE triggers that'] },
+    C6: { mistakes:['Using SUM on a column that should be calculated row-by-row first, like quantity times price', 'Forgetting the table argument and only passing the expression', 'Iterating over a huge table when a simpler aggregate would do'], practices:['Reach for SUMX/AVERAGEX any time the math needs to happen per row before aggregating', 'Iterate over the smallest table that has the columns you need'], avoid:['Don\'t use SUMX to just re-sum an existing column — plain SUM is faster for that'] },
+    C7: { mistakes:['Blaming DAX for a slow report when the bottleneck is actually visual rendering', 'Never clearing the cache before recording, so results reflect a warm cache', 'Ignoring Query Diagnostics because refresh "usually works fine"'], practices:['Start every performance investigation with a fresh Performance Analyzer recording', 'Compare DAX query time against visual display time before optimizing the wrong thing'], avoid:['Don\'t optimize a measure Performance Analyzer already shows is fast — look at the slow visual instead'] },
+    C8: { mistakes:['Building 15 near-duplicate measures for YTD/QTD/PY instead of one calculation group', 'Trying to edit calculation items in Desktop\'s UI, which doesn\'t support them directly', 'Forgetting calculation groups can conflict with existing implicit measures'], practices:['Reach for a calculation group once you\'re duplicating the same time-intelligence pattern across many measures', 'Build and test calculation items in Tabular Editor before wiring them into a report'], avoid:['Don\'t add calculation groups to a small model with only a couple of time-intelligence measures — the overhead isn\'t worth it yet'] },
+    D1: { mistakes:['Nesting RANKX inside CALCULATE without ALL(), so rank never changes across rows', 'Forgetting DESC, so "rank 1" ends up being the smallest value instead of the largest', 'Using RANKX over a huge unfiltered table when a filtered context table would be far faster'], practices:['Wrap the ranking table in ALL() so ranks don\'t reset within every filter context', 'Always specify DESC or ASC explicitly rather than relying on the default'], avoid:['Don\'t use RANKX for a simple top-N — a TOPN function or visual-level filter is often simpler'] },
+    D2: { mistakes:['Setting every table to DirectQuery by default, tanking report performance', 'Mixing Import and DirectQuery tables without understanding the extra query limitations that creates', 'Not testing report performance after changing a table\'s storage mode'], practices:['Import dimension tables; reserve DirectQuery for the genuinely huge, fast-changing fact table', 'Re-test report load time after every storage-mode change'], avoid:['Don\'t switch a whole model to DirectQuery just because one table needs live data — use Dual mode selectively instead'] },
+    D3: { mistakes:['Setting an incremental refresh range shorter than how far back reports actually need to look', 'Skipping the Test stage and pushing straight from Dev to Prod', 'Forgetting incremental refresh needs Premium/Fabric capacity in the service to actually run as configured'], practices:['Size the incremental refresh range around real reporting needs, not a guess', 'Always promote through Dev → Test → Prod, never straight to Prod'], avoid:['Don\'t apply incremental refresh to a small, fast-refreshing table — the added complexity isn\'t worth it'] },
+    D4: { mistakes:['Editing the live model in Tabular Editor without a backup or version-controlled copy', 'Running DAX Studio queries directly against a production dataset during business hours', 'Not closing the External Tools connection properly, leaving a model locked'], practices:['Keep a version-controlled copy of the model before bulk-editing in Tabular Editor', 'Test heavy DAX Studio queries against a dev copy first'], avoid:['Don\'t reach for Tabular Editor for a one-off rename — Desktop\'s UI is faster for a single small edit'] },
+    D5: { mistakes:['Optimizing a measure\'s DAX before checking whether the real cost is a bloated column', 'Ignoring high-cardinality text columns as the top memory consumer', 'Comparing Server Timings from a cold cache, giving misleading numbers'], practices:['Run VertiPaq Analyzer first — fix the biggest column before touching any DAX', 'Warm the cache consistently before comparing Server Timings runs'], avoid:['Don\'t chase formula-engine micro-optimizations before confirming storage-engine time isn\'t the real bottleneck'] },
+    D6: { mistakes:['Enabling Read-Write XMLA without a rollback plan for the model', 'Writing a bulk C# script without testing it on a single measure first', 'Forgetting only Premium/Fabric capacities support XMLA read-write, not Pro'], practices:['Test any Tabular Editor script on one object before running it across the whole model', 'Confirm the workspace is on Premium/Fabric capacity before relying on XMLA read-write'], avoid:['Don\'t give broad XMLA write access to a shared workspace without change tracking in place'] },
+    D7: { mistakes:['Rebuilding the same Power Query cleanup in every report instead of a shared Dataflow Gen2', 'Not considering OneLake storage costs when landing large dataflows', 'Treating a Dataflow Gen2 like a report-specific query instead of shared, reusable infrastructure'], practices:['Move any cleanup step reused across multiple reports into a shared Dataflow Gen2', 'Document what a dataflow does and who consumes it, since it\'s now shared infrastructure'], avoid:['Don\'t build a Dataflow Gen2 for a one-off report only you will ever use — a normal Power Query query is simpler'] },
+    D8: { mistakes:['Trying to force a pixel-perfect, invoice-style layout into a normal Power BI canvas', 'Calling the REST API without handling token refresh, so automation silently breaks', 'Not rate-limiting scripted refresh calls, tripping API throttling'], practices:['Reach for Report Builder the moment a layout needs to be pixel-perfect and printable', 'Handle auth token refresh explicitly in any REST API automation'], avoid:['Don\'t use the REST API for something the UI or a scheduled refresh already handles natively'] },
+    D9: { mistakes:['Leaving tenant settings at their defaults instead of reviewing them for the org\'s needs', 'Letting a semantic model grow past the size limit without enabling large model storage format', 'Skipping usage-metrics review, missing reports nobody uses anymore'], practices:['Review tenant settings and capacity usage on a regular cadence, not just once', 'Check usage metrics before deciding what\'s worth optimizing or retiring'], avoid:['Don\'t grant admin-level tenant access broadly — scope it to the people who actually manage capacity and governance'] }
+  };
+  document.querySelectorAll('.cell').forEach(cell => {
+    const box = cell.querySelector('.challenge');
+    if (!box) return;
+    const id = box.dataset.id;
+    const notes = TOOL_NOTES[id];
+    if (!notes) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'tool-notes';
+    wrap.innerHTML =
+      '<div class="tn-group">' +
+        '<div class="tn-label bad">\u2715 Common mistakes</div>' +
+        '<ul class="tn-list bad">' + notes.mistakes.map(m => '<li>' + m + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label good">\u2713 Best practices</div>' +
+        '<ul class="tn-list good">' + notes.practices.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label avoid">When NOT to use this</div>' +
+        '<ul class="tn-list avoid">' + notes.avoid.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
+      '</div>';
+    cell.insertBefore(wrap, box);
+  });
+
+  function normalize(raw){ return raw.toUpperCase().replace(/\s+/g,' ').trim(); }
+
+  // ---------- Level lock / mastery progress ----------
+  const LEVELS = [
+    { key:'beginner', ids:['A1','A2','A3','A4','A5'] },
+    { key:'intermediate', ids:['B1','B2','B3','B4','B5','B6'] },
+    { key:'advanced', ids:['C1','C2','C3','C4','C5','C6','C7','C8'] },
+    { key:'expert', ids:['D1','D2','D3','D4','D5','D6','D7','D8','D9'] }
+  ];
+  const PROGRESS_KEY = 'pbiRoadmapProgress';
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }catch(e){ progress = {}; }
+  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){} }
+  function isMastered(id){ return !!(progress[id] && progress[id].mastered); }
+  function recordAttempt(id, correct){
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0 };
+    rec.totalAttempts += 1;
+    if (correct){ rec.correctAttempts += 1; rec.mastered = true; }
+    progress[id] = rec;
+    saveProgress();
+  }
+
+  function applyLocks(){
+    let unlocked = true;
+    LEVELS.forEach(level => {
+      const col = document.querySelector('.level-col[data-level="' + level.key + '"]');
+      if (!col) return;
+      col.classList.toggle('section-locked', !unlocked);
+      unlocked = unlocked && level.ids.every(id => isMastered(id));
+    });
+    const total = LEVELS.reduce((n,l)=>n+l.ids.length,0);
+    const done = Object.keys(progress).filter(k => isMastered(k)).length;
+    const el = document.getElementById('skillProgressCount');
+    if (el) el.textContent = '· ' + done + ' / ' + total + ' mastered';
+  }
+
+  function applyBadges(){
+    Object.keys(CHALLENGES).forEach(id => {
+      const box = document.querySelector('.challenge[data-id="' + id + '"]');
+      if (!box) return;
+      box.closest('.cell').classList.toggle('skill-mastered', isMastered(id));
+    });
+  }
+
+  document.querySelectorAll('.challenge').forEach(box => {
+    const id = box.dataset.id;
+    const data = CHALLENGES[id];
+    if (!data) return;
+    const qEl = box.querySelector('.ch-q');
+    const input = box.querySelector('.ch-input');
+    const btn = box.querySelector('.ch-btn');
+    const result = box.querySelector('.ch-result');
+    const reveal = box.querySelector('.ch-reveal');
+    const mistakeEl = box.querySelector('.ch-mistake');
+
+    qEl.innerHTML = '<b>Challenge — ' + id + ':</b> ' + data.q;
+
+    function check(){
+      const raw = input.value;
+      if (!raw.trim()){
+        result.textContent = 'Type an answer first.';
+        result.className = 'ch-result';
+        return;
+      }
+      const norm = normalize(raw);
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      recordAttempt(id, ok);
+      if (ok){
+        result.textContent = '✓ Correct.';
+        result.className = 'ch-result correct';
+        if (mistakeEl) mistakeEl.classList.remove('show');
+        applyLocks();
+        applyBadges();
+      } else {
+        result.textContent = '✗ Not quite — check the key term and try again, or reveal the answer.';
+        result.className = 'ch-result incorrect';
+        if (mistakeEl && data.mistake){
+          mistakeEl.innerHTML = '<b>Common mistake:</b> ' + data.mistake;
+          mistakeEl.classList.add('show');
+        }
+      }
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); check(); });
+    input.addEventListener('click', (e) => e.stopPropagation());
+    input.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') check(); });
+    reveal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      result.textContent = 'Answer: ' + data.answer;
+      result.className = 'ch-result';
+    });
+  });
+
+  applyLocks();
+  applyBadges();
+
+  // ---------- Capstone checklists + submit gating ----------
+  (function(){
+    const STORAGE_KEY = 'pbiRoadmapCapstoneProgress';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ state = {}; }
+
+    const cards = Array.from(document.querySelectorAll('.capstone-card'));
+    const overallFill = document.getElementById('capOverallFill');
+    const overallCount = document.getElementById('capOverallCount');
+    const resetBtn = document.getElementById('capResetBtn');
+
+    function itemKey(capId, idx){ return 'c' + capId + '-' + idx; }
+    function submitKey(capId){ return 'submitted-' + capId; }
+    function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+    function updateCard(card){
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      let done = 0;
+      items.forEach((li, idx) => {
+        const key = itemKey(capId, idx);
+        if (state[key]) { li.classList.add('done'); done++; }
+        else { li.classList.remove('done'); }
+      });
+      const total = items.length;
+      const countEl = card.querySelector('.cap-progress-count');
+      const fillEl = card.querySelector('.cap-progress-bar-fill');
+      if (countEl) countEl.textContent = done + '/' + total;
+      if (fillEl) fillEl.style.width = (total ? (done/total*100) : 0) + '%';
+      const complete = total > 0 && done === total;
+      card.classList.toggle('cap-complete', complete);
+
+      const submitted = !!state[submitKey(capId)];
+      card.classList.toggle('cap-submitted', submitted);
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        if (submitted){
+          submitBtn.textContent = '✓ Submitted';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('submitted');
+        } else {
+          submitBtn.textContent = 'Submit Capstone';
+          submitBtn.classList.remove('submitted');
+          submitBtn.disabled = !complete;
+        }
+      }
+      return { done, total, submitted };
+    }
+
+    function updateOverall(){
+      let done = 0, total = 0;
+      cards.forEach(card => { const r = updateCard(card); done += r.done; total += r.total; });
+      if (overallCount) overallCount.textContent = done + ' / ' + total;
+      if (overallFill) overallFill.style.width = (total ? (done/total*100) : 0) + '%';
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    cards.forEach(card => {
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      items.forEach((li, idx) => {
+        li.addEventListener('click', () => {
+          if (state[submitKey(capId)]) return;
+          const key = itemKey(capId, idx);
+          state[key] = !state[key];
+          save();
+          updateOverall();
+        });
+      });
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        submitBtn.addEventListener('click', () => {
+          if (submitBtn.disabled) return;
+          state[submitKey(capId)] = true;
+          save();
+          updateOverall();
+        });
+      }
+    });
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); updateOverall(); });
+    }
+
+    window.getCapstoneSubmittedCount = function(){
+      return cards.filter(c => !!state[submitKey(c.dataset.cap)]).length;
+    };
+
+    updateOverall();
+  })();
+
+  // ---------- Practice tabs ----------
+  (function(){
+    const tabs = document.querySelectorAll('.practice-tab');
+    const panels = document.querySelectorAll('.practice-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+        const target = tab.dataset.tab;
+        panels.forEach(p => { p.style.display = (p.dataset.panel === target) ? 'block' : 'none'; });
+      });
+    });
+  })();
+
+  // ---------- Weekly exercises ----------
+  (function(){
+    const WEEKLY_KEY = 'pbiRoadmapWeekly';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(WEEKLY_KEY)) || {}; }catch(e){ state = {}; }
+    function save(){ try{ localStorage.setItem(WEEKLY_KEY, JSON.stringify(state)); }catch(e){} }
+
+    const WEEKS = [
+      { level:'beginner', title:'Week 1 — Beginner', sub:'Get oriented and ship a first page', days:[
+        'Cell A1 — connect to data and reach Transform Data',
+        'Cell A2 — shape data in Power Query',
+        'Cell A3 — build and format your first visuals',
+        'Cell A4 — add a slicer and publish',
+        'Cell A5 — tour Report, Data, and Model view',
+        'Work the Beginner Mini Lab',
+        'Rest, or start the Sales Dashboard capstone'
+      ]},
+      { level:'intermediate', title:'Week 2 — Intermediate', sub:'Build a real data model', sub2:'', days:[
+        'Cell B1 — relationships and star schema',
+        'Cell B2 — Merge vs. Append queries',
+        'Cell B3 — measures, calculated columns, and CALCULATE',
+        'Cell B4 — matrix, drillthrough, and bookmarks',
+        'Cell B5 — build a real Calendar table',
+        'Cell B6 — troubleshoot relationships',
+        'Work the Intermediate Mini Lab, then start the HR Dashboard capstone'
+      ]},
+      { level:'advanced', title:'Week 3 — Advanced', sub:'Get fluent in DAX filter context', days:[
+        'Cell C1 — time intelligence (TOTALYTD, SAMEPERIODLASTYEAR)',
+        'Cell C2 — ALL, ALLEXCEPT, ALLSELECTED',
+        'Cell C3 — VAR / RETURN',
+        'Cell C4 — row-level security',
+        'Cells C5 + C6 — context transition, then SUMX/AVERAGEX',
+        'Cells C7 + C8 — Performance Analyzer, then calculation groups',
+        'Work the Advanced Mini Lab, then start the Executive KPI Dashboard capstone'
+      ]},
+      { level:'expert', title:'Week 4 — Expert', sub:'Make it production-ready', days:[
+        'Cell D1 — iterators and ranking (SUMX, RANKX)',
+        'Cell D2 — composite models (Import / DirectQuery / Dual)',
+        'Cell D3 — incremental refresh and deployment pipelines',
+        'Cell D4 — external tools (DAX Studio, Tabular Editor)',
+        'Cells D5 + D6 — VertiPaq Analyzer, then the XMLA endpoint',
+        'Cells D7 + D8 — Fabric/Dataflows Gen2, then paginated reports & the REST API',
+        'Cell D9 — administration, then finish the Enterprise Semantic Model capstone'
+      ]}
+    ];
+
+    const grid = document.getElementById('weeklyGrid');
+    const overallFill = document.getElementById('weeklyOverallFill');
+    const overallCount = document.getElementById('weeklyOverallCount');
+    const resetBtn = document.getElementById('weeklyResetBtn');
+    const TOTAL_DAYS = WEEKS.reduce((n,w)=>n+w.days.length,0);
+
+    function dayKey(wi, di){ return 'w' + wi + '-d' + di; }
+
+    function render(){
+      grid.innerHTML = '';
+      WEEKS.forEach((week, wi) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'weekly-week';
+        wrap.dataset.level = week.level;
+        const head = document.createElement('div');
+        head.className = 'weekly-week-head';
+        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>';
+        wrap.appendChild(head);
+        const daysWrap = document.createElement('div');
+        daysWrap.className = 'weekly-days';
+        week.days.forEach((text, di) => {
+          const key = dayKey(wi, di);
+          const row = document.createElement('label');
+          row.className = 'weekly-day' + (state[key] ? ' done' : '');
+          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Day ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
+          const box = row.querySelector('input');
+          box.addEventListener('change', () => {
+            state[key] = box.checked;
+            row.classList.toggle('done', box.checked);
+            save();
+            updateOverall();
+            if (typeof window.updateDashboard === 'function') window.updateDashboard();
+          });
+          daysWrap.appendChild(row);
+        });
+        wrap.appendChild(daysWrap);
+        grid.appendChild(wrap);
+      });
+    }
+
+    function updateOverall(){
+      const done = Object.values(state).filter(Boolean).length;
+      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' days';
+      overallFill.style.width = (done/TOTAL_DAYS*100) + '%';
+    }
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); render(); updateOverall(); if (typeof window.updateDashboard === 'function') window.updateDashboard(); });
+    }
+
+    window.getWeeklyDoneCount = function(){ return Object.values(state).filter(Boolean).length; };
+
+    render();
+    updateOverall();
+  })();
+
+  // ---------- Timed Challenges ----------
+  (function(){
+    const BEST_KEY = 'pbiRoadmapTimedBest';
+    let best = {};
+    try{ best = JSON.parse(localStorage.getItem(BEST_KEY)) || {}; }catch(e){ best = {}; }
+    function saveBest(){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(best)); }catch(e){} }
+
+    const levelBtns = document.querySelectorAll('.timed-level-btn');
+    const bestLine = document.getElementById('timedBestLine');
+    const startBtn = document.getElementById('timedStartBtn');
+    const setupBox = document.querySelector('.timed-setup');
+    const roundBox = document.getElementById('timedRound');
+    const summaryBox = document.getElementById('timedSummary');
+    const qNumEl = document.getElementById('timedQNum');
+    const qTotalEl = document.getElementById('timedQTotal');
+    const scoreEl = document.getElementById('timedScore');
+    const clockEl = document.getElementById('timedClock');
+    const qTextEl = document.getElementById('timedQuestionText');
+    const inputEl = document.getElementById('timedInput');
+    const submitBtn = document.getElementById('timedSubmitBtn');
+    const skipBtn = document.getElementById('timedSkipBtn');
+    const resultEl = document.getElementById('timedResult');
+    const finalScoreEl = document.getElementById('timedFinalScore');
+    const finalTimeEl = document.getElementById('timedFinalTime');
+    const newBestEl = document.getElementById('timedNewBest');
+    const againBtn = document.getElementById('timedAgainBtn');
+
+    const levelLabels = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    let selectedLevel = 'beginner';
+    let ids = [], idx = 0, score = 0, secondsLeft = 45, timerHandle = null, roundStart = 0;
+
+    function fmtTime(ms){
+      const s = Math.round(ms/1000);
+      const m = Math.floor(s/60), r = s%60;
+      return m + ':' + String(r).padStart(2,'0');
+    }
+
+    function renderBestLine(){
+      const b = best[selectedLevel];
+      bestLine.textContent = 'Best for ' + levelLabels[selectedLevel] + ': ' + (b ? (b.score + '/' + b.total + ' in ' + fmtTime(b.timeMs)) : '—');
+    }
+
+    levelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedLevel = btn.dataset.level;
+        renderBestLine();
+      });
+    });
+    renderBestLine();
+
+    function shuffledIds(level){
+      const src = (window.PBI_LEVELS.find(l => l.key === level) || {ids:[]}).ids.slice();
+      for (let i = src.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [src[i], src[j]] = [src[j], src[i]];
+      }
+      return src.slice(0, Math.min(5, src.length));
+    }
+
+    function startRound(){
+      ids = shuffledIds(selectedLevel);
+      idx = 0; score = 0; roundStart = Date.now();
+      setupBox.style.display = 'none';
+      summaryBox.style.display = 'none';
+      roundBox.style.display = 'block';
+      qTotalEl.textContent = ids.length;
+      scoreEl.textContent = '0';
+      loadQuestion();
+    }
+
+    function tick(){
+      secondsLeft--;
+      clockEl.textContent = '0:' + String(Math.max(secondsLeft,0)).padStart(2,'0');
+      clockEl.classList.toggle('low', secondsLeft <= 10);
+      if (secondsLeft <= 0){
+        clearInterval(timerHandle);
+        resultEl.textContent = '⏱ Time\'s up.';
+        resultEl.className = 'ch-result incorrect';
+        setTimeout(nextQuestion, 700);
+      }
+    }
+
+    function loadQuestion(){
+      if (idx >= ids.length){ finishRound(); return; }
+      const data = window.PBI_CHALLENGES[ids[idx]];
+      qNumEl.textContent = idx + 1;
+      qTextEl.innerHTML = '<b>' + ids[idx] + ':</b> ' + data.q;
+      inputEl.value = '';
+      resultEl.textContent = '';
+      resultEl.className = 'ch-result';
+      secondsLeft = 45;
+      clockEl.textContent = '0:45';
+      clockEl.classList.remove('low');
+      clearInterval(timerHandle);
+      timerHandle = setInterval(tick, 1000);
+      inputEl.focus();
+    }
+
+    function submitAnswer(){
+      clearInterval(timerHandle);
+      const id = ids[idx];
+      const data = window.PBI_CHALLENGES[id];
+      const norm = inputEl.value.toUpperCase().replace(/\s+/g,' ').trim();
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      if (typeof window.recordChallengeAttempt === 'function') window.recordChallengeAttempt(id, ok);
+      if (ok){
+        score++;
+        scoreEl.textContent = score;
+        resultEl.textContent = '✓ Correct.';
+        resultEl.className = 'ch-result correct';
+      } else {
+        resultEl.textContent = '✗ Answer: ' + data.answer;
+        resultEl.className = 'ch-result incorrect';
+      }
+      setTimeout(nextQuestion, 700);
+    }
+
+    function nextQuestion(){ idx++; loadQuestion(); }
+
+    function finishRound(){
+      const elapsed = Date.now() - roundStart;
+      roundBox.style.display = 'none';
+      summaryBox.style.display = 'block';
+      finalScoreEl.textContent = score + '/' + ids.length;
+      finalTimeEl.textContent = fmtTime(elapsed);
+      const prev = best[selectedLevel];
+      const isNewBest = !prev || score > prev.score || (score === prev.score && elapsed < prev.timeMs);
+      if (isNewBest){
+        best[selectedLevel] = { score:score, total:ids.length, timeMs:elapsed };
+        saveBest();
+        newBestEl.style.display = 'block';
+      } else {
+        newBestEl.style.display = 'none';
+      }
+      renderBestLine();
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    startBtn.addEventListener('click', startRound);
+    submitBtn.addEventListener('click', submitAnswer);
+    skipBtn.addEventListener('click', nextQuestion);
+    inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
+    againBtn.addEventListener('click', () => {
+      summaryBox.style.display = 'none';
+      setupBox.style.display = 'flex';
+    });
+
+    window.getTimedBestSummary = function(){
+      let bestLevel = null, bestRec = null;
+      Object.keys(best).forEach(lvl => {
+        const rec = best[lvl];
+        if (!bestRec || rec.score > bestRec.score || (rec.score === bestRec.score && rec.timeMs < bestRec.timeMs)){
+          bestRec = rec; bestLevel = lvl;
+        }
+      });
+      if (!bestRec) return null;
+      return {
+        text: bestRec.score + '/' + bestRec.total + ' in ' + fmtTime(bestRec.timeMs),
+        level: levelLabels[bestLevel] || bestLevel,
+        perfect: bestRec.score === bestRec.total
+      };
+    };
+  })();
+
+  // ---------- Time spent tracker ----------
+  (function(){
+    const KEY = 'pbiRoadmapTimeSpent';
+    setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      let mins = 0;
+      try{ mins = parseInt(localStorage.getItem(KEY) || '0', 10) || 0; }catch(e){}
+      mins += 1;
+      try{ localStorage.setItem(KEY, String(mins)); }catch(e){}
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }, 60000);
+  })();
+
+  // ---------- Dashboard, readiness, and achievements ----------
+  window.PBI_LEVELS = LEVELS;
+  window.PBI_CHALLENGES = CHALLENGES;
+  window.recordChallengeAttempt = recordAttempt;
+
+  function updateDashboard(){
+    const totalSkills = Object.keys(CHALLENGES).length;
+    const masteredIds = Object.keys(progress).filter(id => isMastered(id));
+    const masteredCount = masteredIds.length;
+    const remaining = totalSkills - masteredCount;
+
+    const levelNames = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    const currentLevelObj = LEVELS.find(l => !l.ids.every(id => isMastered(id))) || LEVELS[LEVELS.length-1];
+    const curMasteredInLevel = currentLevelObj.ids.filter(id => isMastered(id)).length;
+
+    setText('dashLevelVal', levelNames[currentLevelObj.key]);
+    setText('dashLevelSub', curMasteredInLevel + '/' + currentLevelObj.ids.length + ' mastered');
+    setText('dashMasteredVal', masteredCount);
+    setText('dashRemainingVal', remaining);
+    setText('dashRemainingSub', remaining === 0 ? 'Every skill mastered' : 'Still unattempted or missed');
+
+    let totalCorrect = 0, totalAttempts = 0;
+    Object.values(progress).forEach(rec => { totalCorrect += rec.correctAttempts || 0; totalAttempts += rec.totalAttempts || 0; });
+    const accuracyPct = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
+    setText('dashAccuracyVal', accuracyPct === null ? '—' : accuracyPct);
+    setText('dashAccuracyUnit', accuracyPct === null ? '' : '%');
+    setText('dashAccuracySub', totalAttempts > 0 ? (totalCorrect + ' correct of ' + totalAttempts + ' attempts') : 'No attempts yet');
+
+    const submitted = typeof window.getCapstoneSubmittedCount === 'function' ? window.getCapstoneSubmittedCount() : 0;
+    setText('dashProjectsVal', submitted);
+    setWidth('dashProjectsFill', submitted/4*100);
+
+    const weeklyDone = typeof window.getWeeklyDoneCount === 'function' ? window.getWeeklyDoneCount() : 0;
+    setText('dashWeeklyVal', weeklyDone);
+    setWidth('dashWeeklyFill', weeklyDone/28*100);
+
+    const timedSummary = typeof window.getTimedBestSummary === 'function' ? window.getTimedBestSummary() : null;
+    setText('dashTimedVal', timedSummary ? timedSummary.text : 'Not played');
+    setText('dashTimedSub', timedSummary ? ('Best on ' + timedSummary.level) : 'Best score across levels');
+
+    let mins = 0;
+    try{ mins = parseInt(localStorage.getItem('pbiRoadmapTimeSpent') || '0', 10) || 0; }catch(e){}
+    const h = Math.floor(mins/60), m = mins%60;
+    setText('dashTimeSpentVal', h > 0 ? (h + 'h ' + m + 'm') : (m + 'm'));
+
+    const skillPct = masteredCount/totalSkills*100;
+    const capPct = submitted/4*100;
+    const completionPct = Math.round((skillPct + capPct)/2);
+    setText('dashCompletionVal', completionPct);
+    setWidth('dashCompletionFill', completionPct);
+    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + submitted + ' of 4 capstones');
+
+    const accForReadiness = accuracyPct === null ? 0 : accuracyPct;
+    const readiness = Math.round(skillPct*0.45 + capPct*0.35 + accForReadiness*0.20);
+    setText('dashReadinessVal', readiness);
+    let verdict, detail;
+    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges and check off a capstone deliverable to see your score move.'; }
+    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics — keep working the board and start a capstone if you haven\'t.'; }
+    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Advanced column and get a capstone submitted.'; }
+    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own on a real dashboard build. A few more Expert skills and capstones will round this out.'; }
+    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, shipped capstones, and your quiz accuracy backs it up — you\'re ready for a real Power BI build.'; }
+    setText('dashVerdict', verdict);
+    setText('dashVerdictDetail', detail);
+
+    const beginnerIds = LEVELS[0].ids;
+    const achievements = [
+      { icon:'🚀', name:'First Steps', desc:'Master your first skill on the board', unlocked: masteredCount >= 1 },
+      { icon:'🟢', name:'Beginner Builder', desc:'Master every Beginner skill', unlocked: beginnerIds.every(id => isMastered(id)) },
+      { icon:'📊', name:'Halfway There', desc:'Master 14 of 28 skills', unlocked: masteredCount >= 14 },
+      { icon:'🏆', name:'Board Master', desc:'Master all 28 skills', unlocked: masteredCount >= totalSkills },
+      { icon:'🚢', name:'First Ship', desc:'Submit your first capstone', unlocked: submitted >= 1 },
+      { icon:'📦', name:'Full Portfolio', desc:'Submit all 4 capstones', unlocked: submitted >= 4 },
+      { icon:'🎯', name:'Sharpshooter', desc:'90%+ quiz accuracy over 10+ attempts', unlocked: totalAttempts >= 10 && accuracyPct !== null && accuracyPct >= 90 },
+      { icon:'🔥', name:'Week Warrior', desc:'Check off 7+ weekly exercise days', unlocked: weeklyDone >= 7 },
+      { icon:'⚡', name:'Speed Demon', desc:'Score a perfect round in Timed Challenges', unlocked: !!(timedSummary && timedSummary.perfect) }
+    ];
+    const achGrid = document.getElementById('achGrid');
+    if (achGrid){
+      achGrid.innerHTML = achievements.map(a =>
+        '<div class="ach-badge' + (a.unlocked ? ' unlocked' : '') + '"><span class="ach-icon">' + a.icon + '</span><div><div class="ach-name">' + a.name + '</div><div class="ach-desc">' + a.desc + '</div></div></div>'
+      ).join('');
+    }
+    setText('achCount', achievements.filter(a => a.unlocked).length + ' / ' + achievements.length + ' unlocked');
+  }
+  function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
+  function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
+  window.updateDashboard = updateDashboard;
+
+  const dashResetBtn = document.getElementById('dashResetBtn');
+  if (dashResetBtn){
+    dashResetBtn.addEventListener('click', () => {
+      progress = {};
+      saveProgress();
+      applyLocks();
+      applyBadges();
+      updateDashboard();
+    });
+  }
+
+  updateDashboard();
+
+  // ---------- Keyboard shortcuts flashcards ----------
+  (function(){
+    const SHORTCUTS = [
+      {cat:'General', action:'Save the report', keys:'Ctrl + S'},
+      {cat:'General', action:'Open a report', keys:'Ctrl + O'},
+      {cat:'General', action:'Print the report', keys:'Ctrl + P'},
+      {cat:'General', action:'Undo / Redo', keys:'Ctrl + Z / Ctrl + Y'},
+      {cat:'General', action:'Copy / Paste', keys:'Ctrl + C / Ctrl + V'},
+      {cat:'General', action:'Show all keyboard shortcuts', keys:'Shift + ?'},
+      {cat:'Report view', action:'Open/close the Visualizations pane', keys:'Alt + Shift + 2'},
+      {cat:'Report view', action:'Open/close the Format pane', keys:'Alt + Shift + 3'},
+      {cat:'Report view', action:'Open/close the Model pane', keys:'Alt + Shift + 4'},
+      {cat:'Report view', action:'Focus the menu bar', keys:'Alt + Shift + F'},
+      {cat:'Report view', action:'Close a dialog, dropdown, or menu', keys:'Esc'},
+      {cat:'Visuals', action:'Drill down a level in a visual', keys:'Right Arrow'},
+      {cat:'Visuals', action:'Drill up a level in a visual', keys:'Left Arrow'},
+      {cat:'Data & modeling', action:'Open Transform Data (Power Query editor)', keys:'Ctrl + Alt + T'},
+      {cat:'Data & modeling', action:'Open Manage Relationships', keys:'Ctrl + Alt + M'},
+      {cat:'Data & modeling', action:'Switch to Data view', keys:'Alt + 4'},
+      {cat:'Power Query', action:'Append Queries', keys:'Alt, J, T, A'},
+      {cat:'Power Query', action:'Merge Queries', keys:'Alt, J, T, M'},
+      {cat:'DAX editor', action:'Select all text in the formula bar', keys:'Ctrl + A'},
+      {cat:'DAX editor', action:'Comment / uncomment selected DAX', keys:'Ctrl + /'}
+    ];
+
+    let idx = 0;
+    const toggle = document.getElementById('scToggle');
+    const panel = document.getElementById('scPanel');
+    const closeBtn = document.getElementById('scClose');
+    const card = document.getElementById('scCard');
+    const catEl = document.getElementById('scCat');
+    const promptEl = document.getElementById('scPrompt');
+    const keysEl = document.getElementById('scKeys');
+    const countEl = document.getElementById('scCount');
+    const prevBtn = document.getElementById('scPrev');
+    const nextBtn = document.getElementById('scNext');
+    const shuffleBtn = document.getElementById('scShuffle');
+
+    function render(){
+      const s = SHORTCUTS[idx];
+      catEl.textContent = s.cat.toUpperCase();
+      promptEl.textContent = s.action;
+      keysEl.textContent = s.keys;
+      countEl.textContent = (idx+1) + ' / ' + SHORTCUTS.length;
+      card.classList.remove('flipped');
+    }
+    function shuffle(){
+      for (let i = SHORTCUTS.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [SHORTCUTS[i], SHORTCUTS[j]] = [SHORTCUTS[j], SHORTCUTS[i]];
+      }
+      idx = 0; render();
+    }
+
+    toggle.addEventListener('click', () => { panel.classList.toggle('open'); if (panel.classList.contains('open')) render(); });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    prevBtn.addEventListener('click', () => { idx = (idx - 1 + SHORTCUTS.length) % SHORTCUTS.length; render(); });
+    nextBtn.addEventListener('click', () => { idx = (idx + 1) % SHORTCUTS.length; render(); });
+    shuffleBtn.addEventListener('click', shuffle);
+    render();
+  })();
+
+  // ---------- Practice dataset CSV downloads ----------
+  (function(){
+    function toCSV(rows){
+      return rows.map(r => r.map(v => {
+        const s = String(v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+      }).join(',')).join('\r\n');
+    }
+    function download(filename, text){
+      const blob = new Blob([text], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function rnd(min, max){ return Math.random()*(max-min)+min; }
+    function round2(n){ return Math.round(n*100)/100; }
+    function pad(n, len){ return String(n).padStart(len,'0'); }
+    function fmtDate(d){ return d.toISOString().slice(0,10); }
+    function randomDate(y1, y2){
+      const start = new Date(y1,0,1).getTime();
+      const end = new Date(y2,11,31).getTime();
+      return new Date(start + Math.random()*(end-start));
+    }
+    const firstNames = ['Alicia','James','Priya','Marcus','Elena','Tom','Sofia','Noah','Grace','Liam','Maya','Ethan','Chloe','Omar','Nina','Diego','Ivy','Sam','Ruth','Leo'];
+    const lastNames = ['Moore','Chen','Patel','Diaz','Novak','Reid','Kim','Silva','Turner','Boyd','Fischer','Ahmed','Ward','Lopez','Grant','Osei','Kane','Ito','Brown','Fox'];
+    function fullName(){ return pick(firstNames) + ' ' + pick(lastNames); }
+
+    function genCustomers(){
+      const segments = ['Consumer','Corporate','Small Business'];
+      const countries = ['United States','Canada','United Kingdom','Australia','Germany','France','Mexico'];
+      const rows = [['CustomerID','Name','Segment','Country']];
+      for (let i = 1; i <= 80; i++){
+        rows.push(['C' + pad(i,3), fullName(), pick(segments), pick(countries)]);
+      }
+      return rows;
+    }
+
+    function genOrders(){
+      const categories = {
+        'Electronics': ['Headphones','Laptop Stand','Webcam','USB Hub','Monitor'],
+        'Home': ['Desk Lamp','Storage Bin','Throw Pillow','Candle Set'],
+        'Office': ['Notebook Pack','Stapler','Desk Organizer','Pen Set'],
+        'Outdoor': ['Water Bottle','Backpack','Camping Chair']
+      };
+      const cats = Object.keys(categories);
+      const regions = ['West','East','South','North','Central'];
+      const rows = [['OrderID','OrderDate','CustomerID','Product','Category','Region','Qty','UnitPrice','Total']];
+      for (let i = 1; i <= 300; i++){
+        const cat = pick(cats);
+        const product = pick(categories[cat]);
+        const qty = Math.floor(rnd(1,5));
+        const unitPrice = round2(rnd(8,150));
+        const total = round2(qty*unitPrice);
+        rows.push(['ORD' + pad(1000+i,5), fmtDate(randomDate(2025,2026)), 'C' + pad(Math.floor(rnd(1,81)),3), product, cat, pick(regions), qty, unitPrice, total]);
+      }
+      return rows;
+    }
+
+    function genHR(){
+      const depts = ['Sales','Engineering','Marketing','Finance','Operations','Support'];
+      const regions = ['West','East','South','North','Central'];
+      const statuses = ['Active','Active','Active','On Leave','Terminated'];
+      const rows = [['EmployeeID','Name','Department','Region','HireDate','Salary','Status']];
+      for (let i = 1; i <= 150; i++){
+        rows.push(['E' + pad(i,4), fullName(), pick(depts), pick(regions), fmtDate(randomDate(2018,2026)), Math.round(rnd(45000,135000)), pick(statuses)]);
+      }
+      return rows;
+    }
+
+    function genMarketing(){
+      const channels = ['Email','Paid Search','Social','Display','Affiliate','Organic'];
+      const rows = [['CampaignID','Channel','StartDate','EndDate','Spend','Impressions','Clicks','Conversions']];
+      for (let i = 1; i <= 120; i++){
+        const start = randomDate(2025,2026);
+        const end = new Date(start.getTime() + rnd(3,30)*86400000);
+        const impressions = Math.round(rnd(2000,80000));
+        const clicks = Math.round(impressions * rnd(0.01,0.08));
+        const conversions = Math.round(clicks * rnd(0.02,0.15));
+        rows.push(['CMP' + pad(i,4), pick(channels), fmtDate(start), fmtDate(end), round2(rnd(200,5000)), impressions, clicks, conversions]);
+      }
+      return rows;
+    }
+
+    const GENERATORS = {
+      orders: {fn: genOrders, file: 'sales-orders-practice.csv'},
+      customers: {fn: genCustomers, file: 'customers-practice.csv'},
+      hr: {fn: genHR, file: 'hr-headcount-practice.csv'},
+      marketing: {fn: genMarketing, file: 'marketing-campaigns-practice.csv'}
+    };
+
+    document.querySelectorAll('.dataset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.dataset;
+        const gen = GENERATORS[key];
+        if (!gen) return;
+        const original = btn.textContent;
+        btn.textContent = 'Generating…';
+        setTimeout(() => {
+          download(gen.file, toCSV(gen.fn()));
+          btn.textContent = 'Downloaded ✓';
+          setTimeout(() => { btn.textContent = original; }, 1600);
+        }, 10);
+      });
+    });
+  })();
+</script>
+
+<script>
+(function(){
+  // ---------- PAGE ROUTER ----------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.style.display = (p === pageId) ? '' : 'none';
+    });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem('pbiRoadmapActivePage', pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => {
+        const t = document.getElementById(scrollTargetId);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+        else window.scrollTo(0,0);
+      });
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+
+  window.goToPage = showPage;
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem('pbiRoadmapActivePage') || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.home-analytics-link').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); showPage('progress'); });
+  });
+
+  // ---------- CONTINUE LEARNING ----------
+  const continueBtn = document.getElementById('continueLearningBtn');
+  if (continueBtn){
+    continueBtn.addEventListener('click', () => {
+      const levels = window.PBI_LEVELS || [];
+      let targetId = null;
+      for (const level of levels){
+        const nextUnmastered = level.ids.find(id => {
+          const box = document.querySelector('.challenge[data-id="' + id + '"]');
+          return box && !box.closest('.cell').classList.contains('skill-mastered');
+        });
+        if (nextUnmastered){ targetId = nextUnmastered; break; }
+      }
+      showPage('learn', targetId ? null : undefined);
+      requestAnimationFrame(() => {
+        if (!targetId) return;
+        const box = document.querySelector('.challenge[data-id="' + targetId + '"]');
+        const cell = box ? box.closest('.cell') : null;
+        if (cell){
+          cell.classList.add('open');
+          cell.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+      });
+    });
+  }
+
+  // ---------- LEVEL PRACTICE CTA (per-column Continue + links to Practice/Projects) ----------
+  function goToNextInLevel(levelKey){
+    showPage('learn');
+    const col = document.querySelector('.level-col[data-level="' + levelKey + '"]');
+    if (!col || col.classList.contains('section-locked')) return;
+    const nextCell = col.querySelector('.cell:not(.skill-mastered)');
+    requestAnimationFrame(() => {
+      if (nextCell){
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== nextCell) c.classList.remove('open'); });
+        nextCell.classList.add('open');
+        nextCell.scrollIntoView({ behavior:'smooth', block:'center' });
+      } else {
+        const cta = col.querySelector('.level-practice-cta');
+        if (cta) cta.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  }
+
+  document.querySelectorAll('.level-continue-btn').forEach(btn => {
+    btn.addEventListener('click', () => goToNextInLevel(btn.dataset.level));
+  });
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('projects', a.getAttribute('href').slice(1));
+    });
+  });
+
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('practice', a.getAttribute('href').slice(1));
+    });
+  });
+
+  // ---------- HOME SNAPSHOT (mirrors the Progress-page dashboard) ----------
+  function refreshHomeSnapshot(){
+    const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const levels = window.PBI_LEVELS || [];
+    const compVal = document.getElementById('dashCompletionVal');
+    const compSub = document.getElementById('dashCompletionSub');
+    const compFillEl = document.getElementById('dashCompletionFill');
+    if (compVal) set('homeCompletionVal', compVal.textContent);
+    if (compSub) set('homeCompletionSub', compSub.textContent);
+    if (compFillEl){ const homeFill = document.getElementById('homeCompletionFill'); if (homeFill) homeFill.style.width = compFillEl.style.width; }
+    const levelVal = document.getElementById('dashLevelVal');
+    if (levelVal) set('homeLevelVal', levelVal.textContent);
+    const masteredVal = document.getElementById('dashMasteredVal');
+    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 28');
+    const projVal = document.getElementById('dashProjectsVal');
+    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 4');
+
+    let nextLessonText = 'All skills mastered! 🎉';
+    for (const level of levels){
+      const nextUnmastered = level.ids.find(id => {
+        const box = document.querySelector('.challenge[data-id="' + id + '"]');
+        return box && !box.closest('.cell').classList.contains('skill-mastered');
+      });
+      if (nextUnmastered){
+        const box = document.querySelector('.challenge[data-id="' + nextUnmastered + '"]');
+        const skillEl = box ? box.closest('.cell').querySelector('.skill') : null;
+        if (skillEl) nextLessonText = skillEl.textContent;
+        break;
+      }
+    }
+    set('homeNextLesson', nextLessonText);
+  }
+
+  const origUpdateDashboard = window.updateDashboard;
+  if (typeof origUpdateDashboard === 'function'){
+    window.updateDashboard = function(){
+      origUpdateDashboard();
+      refreshHomeSnapshot();
+    };
+  }
+  refreshHomeSnapshot();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills Deck // Microsoft 365</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090c; --panel:#131519; --panel-hi:#191c22; --border:#262a32; --border-lit:#3c434f;
+  --text:#eef0f3; --muted:#868e9b; --dim:#4d5561;
+  --cyan:#00d9ff; --cyan-dim:rgba(0,217,255,.35);
+  --magenta:#ff2fb0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(ellipse 1100px 650px at 12% -8%, rgba(0,217,255,.10), transparent 60%),
+    radial-gradient(ellipse 900px 600px at 100% 6%, rgba(255,47,176,.08), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family:'Rajdhani',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 30%, transparent 90%);
+}
+.orb{font-family:'Orbitron',sans-serif}
+.mono{font-family:'Share Tech Mono',monospace}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--cyan);color:#020304}
+#root{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+.topbar{
+  background:rgba(8,9,12,.85); backdrop-filter:blur(6px);
+  padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:14px;
+  position:sticky; top:0; z-index:50;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 1px 0 var(--cyan-dim), 0 6px 24px rgba(0,217,255,.05);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .mark{
+  width:32px;height:32px;flex-shrink:0;
+  background:linear-gradient(135deg,#0d1116,#191d24);
+  border:1px solid var(--cyan-dim);
+  clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px);
+  display:flex;align-items:center;justify-content:center;color:var(--cyan);
+  box-shadow:0 0 12px rgba(0,217,255,.25) inset;
+}
+.brand h1{font-size:16px;margin:0;font-weight:800;letter-spacing:2px;color:#fff;text-transform:uppercase}
+.brand .sub{font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase;font-family:'Share Tech Mono',monospace}
+.status{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px}
+.status .led{width:7px;height:7px;border-radius:50%;background:#00ff9d;box-shadow:0 0 8px 2px rgba(0,255,157,.6);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+@media (max-width:600px){ .status{display:none} }
+
+main{flex:1;max-width:1080px;width:100%;margin:0 auto;padding:56px 22px 60px}
+@media (max-width:640px){ main{ padding:36px 16px 50px } }
+
+.hero{text-align:center;margin-bottom:14px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:20px;
+  padding:5px 12px;border:1px solid var(--cyan-dim);
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  background:rgba(0,217,255,.05);
+}
+h2.title{
+  font-family:'Orbitron',sans-serif; font-weight:900;
+  font-size:clamp(34px,6vw,56px); line-height:1.02; letter-spacing:1px;
+  margin:0 0 16px; color:#fff;
+  text-shadow:0 0 22px rgba(0,217,255,.35), 0 0 60px rgba(0,217,255,.12);
+}
+.hero p{font-size:16px;color:var(--muted);max-width:560px;line-height:1.6;margin:0 auto;font-weight:500}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+@media (max-width:640px){ .grid{gap:12px} }
+@media (max-width:420px){ .grid{gap:10px} }
+
+.card{
+  position:relative;
+  background:linear-gradient(165deg,var(--panel-hi),var(--panel) 60%);
+  border:1.5px solid var(--accent);
+  clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+  padding:20px 14px;
+  aspect-ratio:1/1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;
+  box-shadow:0 0 18px -4px var(--accent), inset 0 0 22px -14px var(--accent);
+  transition:box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+}
+@media (max-width:640px){
+  .card{ padding:14px 10px; gap:9px; clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px); }
+  .icon-frame{ width:46px; height:46px; }
+  .icon-frame svg{ width:42px;height:42px; }
+  .name{ font-size:12px; letter-spacing:.2px; }
+  .mission{ font-size:8.5px; letter-spacing:.7px; margin-top:3px; }
+}
+@media (max-width:380px){
+  .card{ padding:11px 6px; gap:7px; }
+  .icon-frame{ width:40px; height:40px; }
+  .icon-frame svg{ width:36px;height:36px; }
+  .name{ font-size:10.5px; }
+  .mission{ font-size:7.5px; }
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 0 1px var(--accent), 0 14px 34px -8px var(--accent), 0 0 46px -6px var(--accent), inset 0 0 26px -12px var(--accent);
+}
+
+.icon-frame{
+  width:56px;height:56px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);
+  filter:drop-shadow(0 0 10px var(--accent));
+}
+.icon-frame svg{ width:52px;height:52px; }
+
+.name{
+  font-family:'Orbitron',sans-serif; font-weight:800; font-size:16px; letter-spacing:.5px;
+  color:#fff; text-transform:uppercase;
+}
+.mission{
+  font-family:'Share Tech Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--accent); margin-bottom:4px;
+}
+
+footer{
+  max-width:1080px;margin:20px auto 0;width:100%;padding:20px 22px 44px;
+  color:var(--dim);font-size:11px;font-family:'Share Tech Mono',monospace;letter-spacing:.5px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--border);
+  text-transform:uppercase;
+}
+</style>
+</head>
+<body>
+<div id="root">
+  <div id="fallback" style="max-width:560px;margin:80px auto;padding:0 24px;font-family:system-ui,sans-serif;color:#868e9b;">
+    Booting deck…
+  </div>
+</div>
+<script>
+  setTimeout(function () {
+    var fb = document.getElementById("fallback");
+    if (!fb) return;
+    var missing = [];
+    if (typeof React === "undefined") missing.push("React");
+    if (typeof ReactDOM === "undefined") missing.push("ReactDOM");
+    if (typeof Babel === "undefined") missing.push("Babel");
+    if (missing.length) {
+      fb.textContent = "Couldn't load: " + missing.join(", ") + ". A script CDN may be blocked on this network — try opening this file directly in a browser instead of the preview.";
+    }
+  }, 3000);
+</script>
+
+<script type="text/babel" data-presets="react">
+const { useState } = React;
+
+/* -- icons (unchanged shapes) -- */
+const Icon = ({ d }) => (
+  <svg viewBox="0 0 24 24" width="52" height="52" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    {d}
+  </svg>
+);
+const ICONS = {
+  word: <Icon d={<>
+    <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+    <path d="M15 2v5h5" />
+    <path d="M8.5 13l1.3 6 1.7-4.5L13.2 19l1.3-6" />
+  </>} />,
+  excel: <Icon d={<>
+    <rect x="3" y="4" width="18" height="16" rx="1.5" />
+    <path d="M3 9h18M3 14h18M9 4v16M15 4v16" />
+  </>} />,
+  ppt: <Icon d={<>
+    <rect x="2.5" y="4" width="19" height="13" rx="1.5" />
+    <path d="M8 21h8M12 17v4" />
+    <path d="M9.5 8l5 2.5-5 2.5v-5z" />
+  </>} />,
+  outlook: <Icon d={<>
+    <rect x="2.5" y="5" width="19" height="14" rx="1.5" />
+    <path d="M3 6.5l9 6.5 9-6.5" />
+  </>} />,
+  teams: <Icon d={<>
+    <path d="M21 12a8.5 6.5 0 0 1-11.7 5.8L4 19l1.3-4.4A8.5 6.5 0 1 1 21 12z" />
+    <circle cx="10" cy="12" r="1" fill="currentColor" stroke="none" />
+    <circle cx="14" cy="12" r="1" fill="currentColor" stroke="none" />
+  </>} />,
+  sharepoint: <Icon d={<>
+    <path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+  </>} />,
+  powerbi: <Icon d={<>
+    <path d="M4 20V10M11 20V4M18 20v-7" />
+    <path d="M2 20h20" />
+  </>} />,
+  alteryx: <Icon d={<>
+    <circle cx="5" cy="6" r="2.4" />
+    <circle cx="5" cy="18" r="2.4" />
+    <circle cx="19" cy="12" r="2.4" />
+    <path d="M7.2 7.2L16.8 10.8M7.2 16.8L16.8 13.2" />
+  </>} />,
+  copilot: <Icon d={<>
+    <path d="M12 3l1.6 4.6L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.4L12 3z" />
+    <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />
+  </>} />,
+};
+
+const MODULES = [
+  { file: "word-skills-roadmap.html",           name: "Word",           mission: "Compose",       icon: ICONS.word,          accent: "#3e8ef7" },
+  { file: "excel-skills-roadmap.html",          name: "Excel",          mission: "Level Up",      icon: ICONS.excel,         accent: "#00e676" },
+  { file: "ppt-skills-roadmap.html",            name: "PowerPoint",     mission: "Present",       icon: ICONS.ppt,           accent: "#ff3b3b" },
+  { file: "outlook-skills-roadmap.html",        name: "Outlook",        mission: "Level Up",      icon: ICONS.outlook,       accent: "#29b6f6" },
+  { file: "teams-skills-roadmap.html",          name: "Teams",          mission: "Level Up",      icon: ICONS.teams,         accent: "#a46bff" },
+  { file: "sharepoint-skills-roadmap.html",     name: "SharePoint",     mission: "Level Up",      icon: ICONS.sharepoint,    accent: "#00e0c6" },
+  { file: "powerbi-skills-roadmap.html",        name: "Power BI",       mission: "Level Up",      icon: ICONS.powerbi,       accent: "#ffd400" },
+  { file: "alteryx-skills-roadmap.html",        name: "Alteryx",        mission: "Level Up",      icon: ICONS.alteryx,       accent: "#ff6a13" },
+  { file: "copilot-skills-roadmap.html",        name: "Copilot",        mission: "Level Up",      icon: ICONS.copilot,       accent: "#ff2fb0" },
+];
+
+function Arrow(){
+  return (
+    <svg width="12" height="12" viewBox="0 0 13 13" fill="none">
+      <path d="M2 11L11 2M11 2H4M11 2V9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function Card({ m }) {
+  return (
+    <a className="card" href={m.file} style={{ "--accent": m.accent }}>
+      <span className="icon-frame">{m.icon}</span>
+      <div>
+        <div className="mission">{m.mission}</div>
+        <div className="name">{m.name}</div>
+      </div>
+    </a>
+  );
+}
+
+function App() {
+  return (
+    <React.Fragment>
+      <div className="topbar">
+        <div className="brand">
+          <span className="mark">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2 2 7v10l10 5 10-5V7z" />
+              <path d="M12 22V12M2 7l10 5 10-5" />
+            </svg>
+          </span>
+          <div>
+            <h1>Skills Deck</h1>
+            <div className="sub">Microsoft 365 // Training</div>
+          </div>
+        </div>
+        <div className="status">
+          <span className="led"></span>9/9 MODULES ARMED
+        </div>
+      </div>
+
+      <main>
+        <div className="hero">
+          <div className="eyebrow">Microsoft 365 // Training Deck</div>
+          <h2 className="title orb">GEAR UP.</h2>
+          <p>
+            Nine self-paced roadmaps — one for every app in the stack. Each
+            module levels you up independently, with progress saved locally
+            on this machine.
+          </p>
+        </div>
+
+        <div className="grid">
+          {MODULES.map((m) => (
+            <Card m={m} key={m.file} />
+          ))}
+        </div>
+      </main>
+
+      <footer>
+        <span>Skills Deck — self-paced Microsoft 365 training.</span>
+        <span>v3.0</span>
+      </footer>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

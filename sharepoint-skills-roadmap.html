@@ -1,0 +1,3134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level Up: A SharePoint Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#2b88d8;
+    --green-dim:#1f6cae;
+    --blue:#00b7c3;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    background-image:
+      linear-gradient(var(--grid-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size: 64px 32px;
+    background-attachment: fixed;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--green); color:#0c1410; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- APP NAV ---------- */
+  .app-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(26,32,41,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--grid);
+  }
+  .app-nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    overflow-x:auto;
+  }
+  .app-nav-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--muted);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:14px 12px 12px;
+    cursor:pointer;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{
+    color:var(--green);
+    border-bottom-color:var(--green);
+  }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* ---------- HOME / CONTINUE CARD ---------- */
+  .home-card{
+    max-width:1080px;
+    margin:48px auto 0;
+    padding:0 24px;
+  }
+  .home-card-inner{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:12px;
+    padding:26px 26px 22px;
+  }
+  .home-card-slim{ padding:20px 26px 22px; }
+  .home-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+  }
+  .home-card-slim .home-top{ margin-bottom:12px; }
+  .continue-btn{
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:#0c1410;
+    background:var(--green);
+    border:none;
+    border-radius:7px;
+    padding:11px 20px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .continue-btn:hover{ background:#35b87e; }
+  .home-slim-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .home-slim-next span{ color:var(--ink); }
+  .home-analytics-link{
+    color:var(--green);
+    text-decoration:none;
+    font-weight:600;
+  }
+  .home-analytics-link:hover{ text-decoration:underline; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{
+    display:flex;
+    justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .home-progress-label strong{
+    font-family:'Archivo', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    text-transform:none;
+  }
+  .home-progress-bar{
+    height:8px;
+    border-radius:5px;
+    background:var(--grid-soft);
+    overflow:hidden;
+  }
+  .home-progress-fill{
+    height:100%;
+    background:var(--green);
+    width:0%;
+    transition:width 0.3s ease;
+  }
+  .home-stats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+    margin-bottom:0;
+  }
+  .home-stat .dlabel{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .home-stat .dvalue{
+    font-family:'Archivo', sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-top:4px;
+    color:var(--ink);
+  }
+  @media (max-width:640px){
+    .home-stats{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding: 76px 24px 64px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .sheet-chrome{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:36px;
+    letter-spacing:0.02em;
+  }
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--grid);}
+  .dot.g{background:var(--green);}
+
+  .formula-bar{
+    display:flex;
+    align-items:center;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:6px;
+    padding:10px 14px;
+    margin-bottom:44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    color:var(--green);
+    box-shadow: 0 0 0 1px rgba(62,207,142,0.06), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .formula-bar .fx{
+    color:var(--muted);
+    margin-right:12px;
+    font-style:italic;
+    border-right:1px solid var(--grid);
+    padding-right:12px;
+  }
+  .formula-bar .caret{
+    display:inline-block;
+    width:8px; height:16px;
+    background:var(--green);
+    margin-left:2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size: clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width: 860px;
+  }
+  h1 .accent{ color:var(--green); }
+  h1 .accent2{ color:var(--blue); }
+
+  .hero-sub{
+    margin-top:22px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:580px;
+    line-height:1.55;
+  }
+
+  .hero-meta{
+    display:flex;
+    gap:28px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .meta-item strong{
+    display:block;
+    font-family:'Archivo', sans-serif;
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:4px;
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-intro{
+    max-width:1080px;
+    margin: 88px auto 28px;
+    padding: 0 24px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .section-intro .ref{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:13px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .section-intro h2{
+    font-family:'Archivo', sans-serif;
+    font-size:26px;
+    font-weight:700;
+  }
+  .section-note{
+    max-width:1080px;
+    margin: 0 auto 8px;
+    padding: 0 24px;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* ---------- GRID OF LEVELS ---------- */
+  .board{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 24px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:1px;
+    background:var(--grid);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .level-col{
+    background:var(--panel);
+    display:flex;
+    flex-direction:column;
+  }
+  .level-head{
+    padding:18px 16px 16px;
+    border-bottom:1px solid var(--grid);
+    position:sticky;
+    top:0;
+    background:var(--panel);
+    z-index:2;
+  }
+  .level-head .letter{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--muted));
+    font-weight:600;
+  }
+  .level-head h3{
+    font-family:'Archivo', sans-serif;
+    font-size:18px;
+    font-weight:700;
+    margin-top:6px;
+  }
+  .level-head .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:20px;
+    border:1px solid var(--col-color, var(--grid));
+    color: var(--col-color, var(--muted));
+  }
+
+  .topic-divider{
+    margin: 18px 16px 2px;
+    padding-bottom:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color: var(--col-color, var(--muted));
+    border-bottom:1px dashed var(--grid);
+  }
+
+  .cell{
+    position:relative;
+    padding:16px;
+    border-bottom:1px solid var(--grid-soft);
+    cursor:pointer;
+    transition: background 0.15s ease;
+  }
+  .cell:hover{ background: var(--panel-2); }
+  .cell .addr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    opacity:0.7;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    justify-content:space-between;
+  }
+  .cell .addr .exp{
+    color: var(--col-color, var(--muted));
+    opacity:1;
+    margin-left:auto;
+  }
+  .time-est{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--muted);
+    background:var(--panel-2);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:1px 7px;
+    white-space:nowrap;
+  }
+  .skill-done-badge{
+    display:none;
+    align-items:center;
+    gap:4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--green);
+  }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--green); }
+  .cell.skill-mastered .addr{ color:var(--green); }
+
+  .cell .skill{
+    font-weight:600;
+    font-size:14px;
+    margin-top:5px;
+    line-height:1.3;
+  }
+  .cell .why{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.45;
+  }
+  .cell .example{
+    display:none;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--grid);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color, var(--green));
+    line-height:1.6;
+    white-space:pre-wrap;
+  }
+  .cell.open .example{ display:block; }
+  .cell.open{ background: var(--panel-2); }
+
+  .challenge{
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed var(--grid);
+  }
+  .cell.open .challenge{ display:block; }
+  .ch-q{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .ch-q b{ color: var(--col-color, var(--green)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{
+    flex:1;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    padding:7px 9px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--ink);
+  }
+  .ch-input:focus{ outline:none; border-color: var(--col-color, var(--green)); }
+  .ch-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:5px;
+    border:1px solid var(--col-color, var(--green));
+    background: transparent;
+    color: var(--col-color, var(--green));
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .ch-btn:hover{ background: color-mix(in srgb, var(--col-color, var(--green)) 15%, transparent); }
+  .ch-result{
+    margin-top:8px;
+    font-size:12px;
+    font-family:'JetBrains Mono', monospace;
+    line-height:1.5;
+    min-height:0;
+  }
+  .ch-result.correct{ color: var(--green); }
+  .ch-result.incorrect{ color: var(--red); }
+  .ch-reveal{
+    margin-top:8px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:0;
+  }
+  .ch-reveal:hover{ color:var(--ink); }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--blue); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+
+  .section-lock-banner{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--amber);
+    background:rgba(232,176,75,0.08);
+    border:1px solid rgba(232,176,75,0.3);
+    border-radius:8px;
+    padding:10px 14px;
+    margin:14px 14px 0;
+  }
+  .section-locked .section-lock-banner{ display:flex; }
+  .level-col.section-locked .cell{ opacity:0.35; filter:grayscale(0.4); pointer-events:none; }
+
+  @media (max-width: 880px){
+    .board{ grid-template-columns: 1fr; }
+    .level-head{ position:static; }
+  }
+
+  /* ---------- DIAGRAMS ---------- */
+  .diagram{
+    margin-top:14px;
+    padding:14px 14px 12px;
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:8px;
+  }
+  .diagram-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:8px;
+  }
+  .diagram svg{ display:block; width:100%; height:auto; }
+  .diagram text{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- PRACTICE LAB ---------- */
+  .lab{
+    max-width:1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width: 880px){ .lab{ grid-template-columns:1fr; } }
+
+  .lab-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-radius:10px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+  }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background: var(--col-color); }
+  .lab-head .lname{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color: var(--col-color);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+  }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+
+  table.sample{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    margin-bottom:14px;
+    border:1px solid var(--grid);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  table.sample th{
+    background:var(--panel-2);
+    color: var(--col-color);
+    text-align:left;
+    padding:7px 9px;
+    font-weight:600;
+    border-bottom:1px solid var(--grid);
+  }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{
+    padding:9px 12px;
+    cursor:pointer;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--col-color);
+    background:var(--panel-2);
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition: transform 0.15s ease; }
+  details.solution[open] summary::before{ transform: rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{
+    display:block;
+    margin:8px 0;
+    padding:8px 10px;
+    background:var(--bg);
+    border:1px solid var(--grid);
+    border-radius:5px;
+    font-family:'JetBrains Mono', monospace;
+    color: var(--col-color);
+    font-size:12px;
+    white-space:pre-wrap;
+  }
+
+  /* ---------- CAPSTONE PROJECTS ---------- */
+  .capstone-overall{
+    max-width:1080px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--green), var(--blue), var(--amber), var(--red)); transition: width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{
+    background:none; border:1px solid var(--grid); color:var(--dim);
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;
+  }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+
+  .capstone{ max-width:1080px; margin: 0 auto; padding: 0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{
+    background:var(--panel);
+    border:1px solid var(--grid);
+    border-left:3px solid var(--col-color, var(--grid));
+    border-radius:10px;
+    padding:24px 26px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap:24px;
+  }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width: 760px){ .capstone-card{ grid-template-columns: 1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{
+    display:inline-flex; align-self:flex-start;
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px;
+    border:1px solid var(--col-color); color: var(--col-color);
+    text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;
+  }
+  .cap-audience{ font-size:12px; color:var(--dim); font-family:'JetBrains Mono', monospace; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver{ font-size:13px; }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; transition: color 0.15s ease, opacity 0.15s ease; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color: var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration: line-through; text-decoration-color: var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background: var(--col-color); transition: width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color: var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color: var(--green); }
+
+  /* ---------- PRACTICE DATASETS ---------- */
+  .datasets-grid{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px 24px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+  }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; }
+  .dataset-cols{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); line-height:1.6; margin-bottom:12px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--green); margin-bottom:12px; }
+  .dataset-btn{
+    background:var(--panel-2); border:1px solid var(--green); color:var(--green);
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center;
+  }
+  .dataset-btn:hover{ background:var(--green); color:#0c1410; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* ---------- 30 DAY RHYTHM ---------- */
+  .rhythm{ max-width:1080px; margin: 100px auto 0; padding: 0 24px; }
+  .rhythm-grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:6px; margin-top:24px; }
+  .rhythm-day{ aspect-ratio:1; border-radius:4px; background:var(--panel); border:1px solid var(--grid); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .rhythm-day.active{ background: rgba(62,207,142,0.12); border-color: var(--green); color: var(--green); font-weight:600; }
+  .rhythm-note{ margin-top:18px; font-size:14px; color:var(--muted); max-width:660px; line-height:1.6; }
+  .rhythm-note strong{ color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:1080px; margin: 110px auto 60px; padding: 32px 24px 0; border-top:1px solid var(--grid);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  @media (max-width:600px){
+    .hero-meta{ gap:20px; }
+    .section-intro{ flex-direction:column; align-items:flex-start; gap:6px; }
+  }
+
+  /* ---------- KEYBOARD SHORTCUTS FLASHCARDS ---------- */
+  .shortcuts-toggle{
+    position:fixed; right:18px; bottom:18px; z-index:50;
+    display:flex; align-items:center; gap:8px;
+    background:var(--panel); border:1px solid var(--grid); color:var(--ink);
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer;
+  }
+  .shortcuts-toggle:hover{ border-color:var(--green); color:var(--green); }
+  .shortcuts-toggle .kicon{ color:var(--green); }
+
+  .shortcuts-panel{
+    position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px);
+    background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5);
+    display:none; flex-direction:column; overflow:hidden;
+  }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-cat{ padding:9px 16px; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.04em; color:var(--green); background:var(--panel-2); border-bottom:1px solid var(--grid-soft); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--green); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--green); color:var(--green); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+
+  /* ---------- INLINE MASTERY INDICATOR ---------- */
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--green); font-weight:700; }
+
+  /* ---------- TOOL NOTES (per-cell do/avoid) ---------- */
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.bad{ color:var(--red); }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.bad li::before{ content:'✕'; position:absolute; left:0; top:0; color:var(--red); font-size:10.5px; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  /* ---------- CHALLENGE MISTAKE CALLOUT ---------- */
+  .ch-mistake{ margin-top:10px; padding:8px 10px; background: rgba(232,176,75,0.08); border-left:2px solid var(--amber); border-radius:3px; font-size:11.5px; color:var(--muted); line-height:1.5; display:none; }
+  .ch-mistake.show{ display:block; }
+  .ch-mistake b{ color:var(--amber); }
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard{ max-width:1080px; margin: 40px auto 0; padding: 0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--green); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-bar{ height:4px; border-radius:3px; background:var(--grid-soft); margin-top:11px; overflow:hidden; }
+  .dash-bar-fill{ height:100%; width:0%; background:var(--green); transition:width 0.3s ease; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:18px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--green); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rverdict{ font-family:'Archivo', sans-serif; font-weight:700; font-size:15px; color:var(--ink); }
+  .dash-readiness .rdetail{ font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+  @media (max-width:880px){ .dash-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width:560px){ .dash-grid{ grid-template-columns: 1fr; } .dash-readiness{ flex-direction:column; align-items:flex-start; } }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-block{ margin-top:20px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px 20px; }
+  .ach-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .ach-head .dash-head-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; }
+  .ach-count{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted); }
+  .ach-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  @media (max-width:760px){ .ach-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:460px){ .ach-grid{ grid-template-columns:1fr; } }
+  .ach-badge{ display:flex; align-items:flex-start; gap:10px; padding:12px; border:1px solid var(--grid); border-radius:8px; background:var(--panel-2); opacity:0.45; }
+  .ach-badge.unlocked{ opacity:1; border-color:var(--green-dim); background:rgba(62,207,142,0.06); }
+  .ach-badge .ach-icon{ font-size:20px; line-height:1; }
+  .ach-badge .ach-name{ font-family:'Archivo', sans-serif; font-size:13px; font-weight:700; color:var(--ink); }
+  .ach-badge .ach-desc{ font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+
+  /* ---------- CAPSTONE SUBMIT GATING ---------- */
+  .cap-submit-btn{ margin-top:16px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#0c1410; background:var(--col-color, var(--green)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .cap-submit-btn:hover{ filter:brightness(1.08); }
+  .cap-submit-btn:disabled{ background:none; border:1px solid var(--grid); color:var(--dim); cursor:not-allowed; }
+  .cap-submit-btn.submitted{ background:none; border:1px solid var(--green); color:var(--green); cursor:default; }
+  .cap-submit-btn.submitted:hover{ filter:none; }
+  .cap-deliver li.locked{ pointer-events:none; }
+  .capstone-card.cap-complete{ border-left-color: var(--amber); }
+  .capstone-card.cap-submitted{ border-left-color: var(--green); }
+  .capstone-card.cap-submitted .cap-done-badge{ display:inline-flex !important; }
+
+  /* ---------- PRACTICE TABS ---------- */
+  .practice-tabs{ max-width:1080px; margin: 24px auto 0; padding: 0 24px; display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--grid); }
+  .practice-tab{ background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:10px 4px 12px; cursor:pointer; margin-right:18px; letter-spacing:0.01em; }
+  .practice-tab:hover{ color:var(--ink); }
+  .practice-tab.active{ color:var(--green); border-bottom-color:var(--green); }
+  .practice-panel{ max-width:1080px; margin:0 auto; padding:24px 24px 0; }
+  .practice-subhead{ font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:8px; }
+
+  /* ---------- TIMED CHALLENGES ---------- */
+  .timed-setup{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px 20px; }
+  .timed-level-picker{ display:flex; gap:6px; flex-wrap:wrap; }
+  .timed-level-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .timed-level-btn.active{ color:var(--bg); background:var(--green); border-color:var(--green); }
+  .timed-best{ font-size:11.5px; color:var(--dim); flex-grow:1; }
+  .timed-start-btn{ background:var(--green); color:#0c1410; border:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:13px; padding:11px 18px; border-radius:7px; cursor:pointer; }
+  .timed-start-btn:hover{ background:var(--green-dim); }
+  .timed-round{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:20px; }
+  .timed-hud{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--muted); margin-bottom:16px; }
+  .timed-hud-item{ font-family:'JetBrains Mono', monospace; }
+  .timed-clock{ color:var(--amber); font-weight:700; font-size:15px; }
+  .timed-clock.low{ color:var(--red); }
+  .timed-question{ font-size:15px; line-height:1.5; margin-bottom:14px; color:var(--ink); }
+  .timed-input{ width:100%; margin-bottom:10px; }
+  .timed-actions{ display:flex; gap:8px; margin-bottom:10px; }
+  .timed-summary{ margin-top:18px; background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:24px; text-align:center; }
+  .timed-summary h4{ font-family:'Archivo', sans-serif; font-size:18px; margin-bottom:16px; }
+  .timed-summary-stats{ display:flex; justify-content:center; gap:36px; margin-bottom:16px; }
+  .timed-stat .dvalue{ display:block; font-family:'Archivo', sans-serif; font-size:30px; font-weight:800; color:var(--ink); }
+  .timed-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; }
+  .timed-new-best{ color:var(--green); font-weight:700; font-size:13px; margin-bottom:14px; }
+
+  /* ---------- WEEKLY EXERCISES ---------- */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color, var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--blue); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color, var(--green)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--dim); min-width:34px; flex-shrink:0; padding-top:1px; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* ---------- LEVEL PRACTICE CTA (links out to Practice / Projects) ---------- */
+  .level-continue-btn{
+    display:inline-block;
+    margin:4px 16px 20px;
+    font-family:'Archivo', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:#0c1410;
+    background:var(--col-color, var(--green));
+    border:none;
+    border-radius:7px;
+    padding:9px 18px;
+    cursor:pointer;
+  }
+  .level-practice-cta{
+    margin:20px 14px 16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .level-practice-cta .cta-link{
+    flex:1;
+    min-width:180px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color: var(--col-color, var(--ink));
+    text-decoration:none;
+    padding:12px 14px;
+    border:1px solid var(--grid);
+    border-left:2px solid var(--col-color, var(--grid));
+    border-radius:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .level-practice-cta .cta-link:hover{
+    border-color: var(--col-color, var(--dim));
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent);
+  }
+</style>
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button">
+  <span class="kicon">&#128209;</span> Glossary
+</button>
+
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head">
+    <h4>Glossary flash cards</h4>
+    <button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="sp-cat" id="scCat">GENERAL</div>
+  <div class="sp-card" id="scCard">
+    <span class="sp-prompt" id="scPrompt">The unified interface for managing SharePoint tenant settings</span>
+    <span class="sp-keys" id="scKeys">SharePoint admin center</span>
+  </div>
+  <p class="sp-hint">Tap the card to flip it &middot; term shown on the back, definition on the front</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">&larr; Prev</button>
+    <span class="sp-count" id="scCount">1 / 21</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next &rarr;</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">&#127968; Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">&#128218; Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">&#129514; Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">&#128193; Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">&#128202; Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="sheet-chrome">
+    <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+    <span>Team Site &mdash; Contoso Marketing</span>
+  </div>
+
+  <div class="formula-bar">
+    <span class="fx">PS</span>
+    <span id="formulaText">Get-PnPList -Identity Excuses | Remove-PnPListItem -All</span>
+    <span class="caret"></span>
+  </div>
+
+  <h1>Stop <span class="accent">email</span>ing attachments.<br>Start <span class="accent2">structur</span>ing your workspace.</h1>
+  <p class="hero-sub">
+    A practical route from "I can find the Shared Documents library" to "I designed the site structure,
+    permissions, and automation the whole team runs on." Four columns, one skill per row &mdash; click any cell
+    for the how-to, then try the practice exercises and capstone projects below.
+  </p>
+
+  <div class="hero-meta">
+    <div class="meta-item">TIME TO NEXT LEVEL<strong>10&ndash;14 wks</strong></div>
+    <div class="meta-item">SKILLS TRACKED<strong>28</strong></div>
+    <div class="meta-item">PREREQ<strong>None</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner home-card-slim">
+    <div class="home-top">
+      <div class="home-progress-label"><strong>Pick up where you left off</strong></div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning</button>
+    </div>
+    <div class="home-slim-row">
+      <span class="home-slim-next">Next up: <span id="homeNextLesson">Navigate a site and understand hub sites</span></span>
+      <a class="home-analytics-link" href="#analytics">View Progress &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="section-intro" style="margin-top:60px;">
+  <span class="ref">SNAPSHOT</span>
+  <h2>Current Progress</h2>
+</div>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-progress-row">
+      <div class="home-progress-label">
+        <span id="homeCompletionSub">0 of 0 skills + capstones</span>
+        <span><strong id="homeCompletionVal">0</strong>%</span>
+      </div>
+      <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+    </div>
+    <div class="home-stats" style="margin-top:18px;">
+      <div class="home-stat">
+        <div class="dlabel">Current level</div>
+        <div class="dvalue" id="homeLevelVal">Beginner</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Skills mastered</div>
+        <div class="dvalue" id="homeMasteredVal">0 / 28</div>
+      </div>
+      <div class="home-stat">
+        <div class="dlabel">Capstones submitted</div>
+        <div class="dvalue" id="homeProjectsVal">0 / 4</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">A1:D4</span>
+  <h2>The Board</h2>
+</div>
+<p class="section-note">
+  Work left to right. Don't skip a column &mdash; each one assumes fluency in the last.
+  <b style="color:var(--ink)">Click a cell</b> to reveal the how-to and a checkable challenge for that skill.
+  Answer a challenge correctly and it's marked mastered &mdash; get every skill in a column right to unlock the next one.
+  <span id="skillProgressCount" style="color:var(--green); font-family:'JetBrains Mono',monospace;"></span>
+</p>
+
+<div class="board">
+
+  <div class="level-col" data-level="beginner">
+    <div class="level-head">
+      <div class="letter mono">COLUMN A</div>
+      <h3>Beginner</h3>
+      <span class="tag">week 1-2</span>
+    </div>
+
+    <div class="topic-divider">Sites & navigation</div>
+    <div class="cell">
+      <div class="addr"><span>A1</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">15 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Navigate a site and understand hub sites vs. site collections</div>
+      <div class="why">Every SharePoint site lives in a hierarchy — hub sites group related sites together for shared navigation and branding, while each site itself is still its own permission and storage boundary. Knowing which one you're in changes where content and permissions actually live.</div>
+      <div class="example">Site contents (gear icon) → see lists, libraries, and pages in this site
+Site information → check if this site is associated with a hub
+Hub site nav bar at the top links out to associated sites</div>
+      <div class="challenge" data-id="A1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>A2</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">20 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Create a document library and upload, organize files</div>
+      <div class="why">A document library is where files live with metadata, version history, and permissions attached &mdash; not just a folder in an email attachment. Getting comfortable with drag-and-drop upload, folders vs. metadata, and the library ribbon is the foundation for everything else.</div>
+      <div class="example">New → Document Library, name it
+Drag files from File Explorer straight into the library
+Use columns (metadata) instead of nested folders to organize when possible</div>
+      <div class="challenge" data-id="A2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Lists, libraries & sharing</div>
+    <div class="cell">
+      <div class="addr"><span>A3</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">20 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Create a custom list and add columns</div>
+      <div class="why">A list is SharePoint's structured-data building block &mdash; think of it as a lightweight, shareable spreadsheet with real column types (choice, person, date, lookup) instead of just text in cells.</div>
+      <div class="example">New → List → Blank list, name it
+Add column → pick a type: Single line of text, Choice, Person, Date
+Use Quick Edit (grid view) to fill in rows fast, like Excel</div>
+      <div class="challenge" data-id="A3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>A4</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">15 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Sort, filter, and group with views</div>
+      <div class="why">A view is a saved way of looking at the same list or library &mdash; filtered to what matters, sorted the way you read it, grouped so related rows sit together. Different people can have different views of the same data without duplicating it.</div>
+      <div class="example">List/library toolbar → Add view, name it (e.g. 'My open items')
+Filter by column (e.g. Status = Open)
+Group by → e.g. group by Assigned To</div>
+      <div class="challenge" data-id="A4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>A5</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">15 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Share a file or folder with the right permission level</div>
+      <div class="why">Sharing decides who can get in, but the permission level decides what they can do once inside. Handing out Edit access by default, when someone only needed to view a file, is the most common oversharing mistake.</div>
+      <div class="example">Select a file → Share → enter names or 'Anyone with the link'
+Click the pencil next to the link to choose Can edit / Can view
+Check existing access anytime via Manage access</div>
+      <div class="challenge" data-id="A5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="intermediate" type="button">Continue &rarr;</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-beginner" data-goto-tab="labs">&#129514; Practice this stage &rarr;</a>
+      <a class="cta-link" href="#capstone-beginner">&#128640; Beginner project &rarr;</a>
+    </div>
+
+    <div class="section-lock-banner">&#128274; Unlocks after Column A</div>
+  </div>
+
+  <div class="level-col" data-level="intermediate">
+    <div class="level-head">
+      <div class="letter mono">COLUMN B</div>
+      <h3>Intermediate</h3>
+      <span class="tag">week 3-5</span>
+    </div>
+
+    <div class="topic-divider">Structure & customization</div>
+    <div class="cell">
+      <div class="addr"><span>B1</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Site structure: subsites vs. hub associations</div>
+      <div class="why">Subsites nest inside a parent site and inherit some of its structure; hub associations instead link independent, flat sites together under shared navigation. Microsoft now recommends flat sites joined via hubs over deep subsite trees, because subsites are harder to move, secure, and migrate later.</div>
+      <div class="example">Recommended: create a flat site → SharePoint admin center → Hub sites → associate it to the right hub
+Legacy pattern (avoid for new builds): Site contents → New → Subsite</div>
+      <div class="challenge" data-id="B1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B2</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Content types and site columns for consistent metadata</div>
+      <div class="why">A site column is a reusable field definition; a content type bundles several site columns (plus behavior, like a template) into a reusable 'kind of item' &mdash; like Contract or Invoice &mdash; that stays consistent across every library it's attached to.</div>
+      <div class="example">Site settings → Site columns → New column, define it once
+Site settings → Content types → New → add the site columns you built
+Library settings → Add from existing content types → attach it</div>
+      <div class="challenge" data-id="B2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B3</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">20 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Library settings: versioning, check-out, and alerts</div>
+      <div class="why">Versioning keeps every prior copy of a file recoverable; check-out locks a file so only one person edits it at a time; alerts notify people when something changes &mdash; three separate safety nets that prevent overwritten work and missed updates.</div>
+      <div class="example">Library settings → Versioning settings → turn on major/minor versions
+Library settings → Require check-out
+Library/list → ... → Alert me → choose when to be notified</div>
+      <div class="challenge" data-id="B3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B4</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Format views and columns with column formatting (JSON)</div>
+      <div class="why">Column formatting lets you change how a column renders &mdash; color-coded status pills, icons, conditional highlighting &mdash; without touching the underlying data, using a small JSON snippet applied through the column settings.</div>
+      <div class="example">Column header dropdown → Column settings → Format this column
+Paste JSON with an elmType and conditional style rules
+Preview updates live before you save</div>
+      <div class="diagram">
+        <div class="diagram-label">Column formatting pipeline</div>
+        <svg viewBox="0 0 480 150">
+          <g font-size="12">
+            <rect x="10" y="55" width="120" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="70" y="76" fill="#e9ecf1" text-anchor="middle">Column value</text>
+            <text x="190" y="76" fill="#8b93a3" text-anchor="middle">+</text>
+            <rect x="210" y="55" width="120" height="34" rx="4" fill="#1a2029" stroke="#e8b04b"/><text x="270" y="76" fill="#e8b04b" text-anchor="middle">JSON rules</text>
+            <text x="350" y="76" fill="#8b93a3" text-anchor="middle">=</text>
+            <rect x="370" y="55" width="100" height="34" rx="4" fill="#1a2029" stroke="#2b88d8"/><text x="420" y="76" fill="#2b88d8" text-anchor="middle">Rendered pill</text>
+          </g>
+          <text x="240" y="120" fill="#8b93a3" font-size="11" text-anchor="middle">the underlying data never changes &mdash; only how it displays</text>
+        </svg>
+      </div>
+      <div class="challenge" data-id="B4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Access & automation</div>
+    <div class="cell">
+      <div class="addr"><span>B5</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Permission levels, SharePoint groups, and breaking inheritance</div>
+      <div class="why">By default, everything inside a site inherits its permissions from the site itself. Breaking inheritance on a specific library or item gives it its own independent permission set &mdash; powerful, but it's also how permission sprawl and confusing access starts.</div>
+      <div class="example">Library/item → ... → Manage access → Stop Inheriting Permissions
+Add people through a SharePoint group (e.g. 'Marketing Members'), not individual names
+Site permissions page shows every group and its permission level at a glance</div>
+      <div class="challenge" data-id="B5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>B6</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Build a basic Power Automate flow from a list</div>
+      <div class="why">Power Automate connects a trigger &mdash; like a new list item &mdash; to actions like sending an email or starting an approval, without writing code. Most first flows automate the notification or approval step people were doing manually.</div>
+      <div class="example">List → Automate → Power Automate → Create a flow
+Pick a trigger: 'When an item is created'
+Add an action: 'Send an email' or 'Start an approval'</div>
+      <div class="challenge" data-id="B6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="advanced" type="button">Continue &rarr;</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-intermediate" data-goto-tab="labs">&#129514; Practice this stage &rarr;</a>
+      <a class="cta-link" href="#capstone-intermediate">&#128640; Intermediate project &rarr;</a>
+    </div>
+
+    <div class="section-lock-banner">&#128274; Unlocks after Column B</div>
+  </div>
+
+  <div class="level-col" data-level="advanced">
+    <div class="level-head">
+      <div class="letter mono">COLUMN C</div>
+      <h3>Advanced</h3>
+      <span class="tag">week 6-9</span>
+    </div>
+
+    <div class="topic-divider">Power Platform</div>
+    <div class="cell">
+      <div class="addr"><span>C1</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">35 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Customize a list form with Power Apps</div>
+      <div class="why">The default SharePoint list form is generic; Power Apps lets you replace it with a fully custom layout &mdash; conditional fields, validation, better grouping &mdash; without leaving the list.</div>
+      <div class="example">List → Integrate → Power Apps → Customize forms
+Select a control (e.g. a data card) → change its Visible property with a formula
+Publish to SharePoint to replace the default form</div>
+      <div class="challenge" data-id="C1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C2</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">35 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Multi-step Power Automate flows with approvals and conditions</div>
+      <div class="why">Real business processes branch &mdash; approve or reject, notify different people depending on a value. Conditions and the Approvals connector are what let a flow make decisions instead of running the same steps every time.</div>
+      <div class="example">Add a Condition action: If [Amount] is greater than 1000 → branch
+Start and wait for an approval → assign an approver
+Use the approval outcome to branch the next actions</div>
+      <div class="diagram">
+        <div class="diagram-label">Flow branching on a condition</div>
+        <svg viewBox="0 0 480 170">
+          <g font-size="12">
+            <rect x="190" y="10" width="100" height="32" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="240" y="31" fill="#e9ecf1" text-anchor="middle">Trigger</text>
+            <rect x="190" y="66" width="100" height="32" rx="4" fill="#1a2029" stroke="#e8b04b"/><text x="240" y="87" fill="#e8b04b" text-anchor="middle">Condition</text>
+            <rect x="60" y="122" width="120" height="32" rx="4" fill="#1a2029" stroke="#2b88d8"/><text x="120" y="143" fill="#2b88d8" text-anchor="middle">Approve path</text>
+            <rect x="300" y="122" width="120" height="32" rx="4" fill="#1a2029" stroke="#e86a6a"/><text x="360" y="143" fill="#e86a6a" text-anchor="middle">Reject path</text>
+            <line x1="240" y1="42" x2="240" y2="66" stroke="#5b6472"/>
+            <line x1="240" y1="98" x2="120" y2="122" stroke="#5b6472"/>
+            <line x1="240" y1="98" x2="360" y2="122" stroke="#5b6472"/>
+          </g>
+        </svg>
+      </div>
+      <div class="challenge" data-id="C2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Governance & search</div>
+    <div class="cell">
+      <div class="addr"><span>C3</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Managed metadata and the term store</div>
+      <div class="why">The term store is a centrally managed, hierarchical vocabulary &mdash; like a company-wide list of approved department names or product lines &mdash; that keeps tagging consistent across every site, instead of everyone typing their own variations.</div>
+      <div class="example">SharePoint admin center → Content services → Term store
+Create a term set, e.g. 'Departments' → add terms: Finance, Marketing, Operations
+On a library, add a Managed Metadata column pointing at that term set</div>
+      <div class="challenge" data-id="C3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C4</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Search: managed properties, refiners, and promoted results</div>
+      <div class="why">Search results are built from crawled properties mapped to managed properties &mdash; the fields you can actually search, sort, and filter by. Refiners expose those as filter panels, and promoted results pin a specific answer to the top for a given query.</div>
+      <div class="example">SharePoint admin center → Search → Manage search schema
+Map a crawled property to a managed property, mark it Refinable
+Search results page → add a promoted result for a common query, like 'benefits' → HR portal</div>
+      <div class="challenge" data-id="C4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C5</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Automate document processing with SharePoint Syntex</div>
+      <div class="why">Syntex uses AI models to read incoming documents &mdash; invoices, contracts, forms &mdash; and automatically extract metadata or classify them, replacing manual tagging for high-volume, repetitive document types.</div>
+      <div class="example">SharePoint admin center → Syntex → create a content center
+Train a model on sample documents (e.g. invoices) and the fields to extract
+Apply the model to a library so new uploads get classified and tagged automatically</div>
+      <div class="challenge" data-id="C5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C6</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Provision and manage sites with PnP PowerShell</div>
+      <div class="why">PnP PowerShell is the community-maintained toolkit for scripting SharePoint administration &mdash; creating sites, applying templates, bulk-updating settings &mdash; anything that's tedious or error-prone to click through by hand.</div>
+      <div class="example">Connect-PnPOnline -Url https://contoso.sharepoint.com/sites/team -Interactive
+New-PnPSite -Type TeamSite -Title 'Project Falcon' -Alias projectfalcon
+Get-PnPList | Where-Object Hidden -eq $false</div>
+      <div class="challenge" data-id="C6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Compliance & scale</div>
+    <div class="cell">
+      <div class="addr"><span>C7</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Retention labels and records management</div>
+      <div class="why">A retention label tells SharePoint how long to keep content and what to do afterward &mdash; delete, review, or keep as a record &mdash; which is how organizations meet legal and compliance requirements without relying on people remembering to clean up manually.</div>
+      <div class="example">Microsoft Purview compliance portal → Records management → Retention labels
+Create a label: retain 7 years, then delete
+Publish the label to a library, or auto-apply it based on content type or keywords</div>
+      <div class="challenge" data-id="C7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>C8</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Hub sites and information architecture at scale</div>
+      <div class="why">As an organization grows past a handful of sites, hub sites become the backbone of navigation and branding &mdash; rolling up news, search, and nav across dozens of associated sites so people don't need to know the exact URL of every team site.</div>
+      <div class="example">SharePoint admin center → Hub sites → Register a hub site
+Sites → Site information → Associate with a hub
+Hub navigation → configure the shared nav links every associated site inherits</div>
+      <div class="challenge" data-id="C8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="expert" type="button">Continue &rarr;</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">&#129514; Practice this stage &rarr;</a>
+      <a class="cta-link" href="#capstone-advanced">&#128640; Advanced project &rarr;</a>
+    </div>
+
+    <div class="section-lock-banner">&#128274; Unlocks after Column C</div>
+  </div>
+
+  <div class="level-col" data-level="expert">
+    <div class="level-head">
+      <div class="letter mono">COLUMN D</div>
+      <h3>Expert</h3>
+      <span class="tag">week 10-14</span>
+    </div>
+
+    <div class="topic-divider">Development</div>
+    <div class="cell">
+      <div class="addr"><span>D1</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">45 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Build and deploy a custom web part with the SPFx</div>
+      <div class="why">The SharePoint Framework (SPFx) is the modern way to build custom, client-side web parts using standard web tools like TypeScript and React, packaged and deployed through the app catalog to any site.</div>
+      <div class="example">yo @microsoft/sharepoint (Yeoman generator) → scaffold a new web part
+gulp bundle --ship && gulp package-solution --ship
+Upload the .sppkg to the tenant or site App Catalog</div>
+      <div class="challenge" data-id="D1">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D2</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Tenant sharing and access settings in the SharePoint admin center</div>
+      <div class="why">Tenant-level sharing settings set the ceiling for what's possible anywhere in the organization &mdash; if external sharing is off at the tenant level, no individual site can turn it on. Getting this wrong either locks out legitimate collaboration or opens the door too wide.</div>
+      <div class="example">SharePoint admin center → Policies → Sharing
+Set external sharing level: Anyone / New and existing guests / Existing guests / Only people in your organization
+Conditional Access policies layer additional device/location restrictions on top</div>
+      <div class="diagram">
+        <div class="diagram-label">Sharing ceiling: tenant vs. site</div>
+        <svg viewBox="0 0 480 150">
+          <g font-size="12">
+            <rect x="140" y="14" width="200" height="36" rx="4" fill="#1a2029" stroke="#2b88d8"/><text x="240" y="37" fill="#2b88d8" text-anchor="middle">Tenant sharing setting</text>
+            <text x="240" y="66" fill="#8b93a3" font-size="10" text-anchor="middle">sets the absolute ceiling</text>
+            <rect x="40" y="86" width="150" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="115" y="107" fill="#e9ecf1" text-anchor="middle">Site A (restricted)</text>
+            <rect x="290" y="86" width="150" height="34" rx="4" fill="#1f2632" stroke="#2a3240"/><text x="365" y="107" fill="#e9ecf1" text-anchor="middle">Site B (restricted)</text>
+            <line x1="220" y1="50" x2="115" y2="86" stroke="#5b6472"/>
+            <line x1="260" y1="50" x2="365" y2="86" stroke="#5b6472"/>
+          </g>
+        </svg>
+      </div>
+      <div class="challenge" data-id="D2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D3</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">35 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Automate SharePoint with the Microsoft Graph API</div>
+      <div class="why">Microsoft Graph is the unified REST API across Microsoft 365 &mdash; sites, lists, files, permissions &mdash; letting you automate and integrate SharePoint from any external application, not just PowerShell or Power Automate.</div>
+      <div class="example">GET https://graph.microsoft.com/v1.0/sites/{site-id}/lists
+Authenticate via an Azure AD app registration with the right Sites.* permission scope
+Use delta queries to sync only what's changed since the last check</div>
+      <div class="challenge" data-id="D3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Compliance & migration</div>
+    <div class="cell">
+      <div class="addr"><span>D4</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Sensitivity labels and DLP policies</div>
+      <div class="why">Sensitivity labels classify and protect content &mdash; encrypting it or restricting sharing, based on how sensitive it is &mdash; while Data Loss Prevention (DLP) policies actively detect and block sensitive data (like credit card numbers) from leaving in the first place.</div>
+      <div class="example">Microsoft Purview compliance portal → Information protection → Labels → create a 'Confidential' label with encryption
+Data loss prevention → Policies → create a rule detecting patterns like credit card numbers
+Publish the label policy to the SharePoint sites that need it</div>
+      <div class="challenge" data-id="D4">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D5</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">35 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Provision sites at scale with PnP templates and site scripts</div>
+      <div class="why">A PnP site template captures a site's structure &mdash; lists, libraries, columns, permissions &mdash; as reusable XML/JSON so new sites can be provisioned consistently instead of rebuilt by hand every time. Site scripts do something similar natively, tied to site designs in the UI.</div>
+      <div class="example">Get-PnPSiteTemplate -Out template.xml (capture an existing, well-built site)
+Invoke-PnPSiteTemplate -Path template.xml (apply it to new sites)
+Or: register a native Site Script + Site Design for self-service provisioning in the UI</div>
+      <div class="challenge" data-id="D5">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D6</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">40 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Plan and execute a content migration</div>
+      <div class="why">A migration isn't just moving files &mdash; it's mapping permissions, metadata, and version history from a source (file shares, another platform, another tenant) into SharePoint's structure, ideally without users noticing the seams.</div>
+      <div class="example">Inventory the source: file counts, path depth, permission complexity
+SharePoint Migration Tool (or a third-party tool) for the bulk file/metadata move
+Run a pilot migration on a small folder first, validate, then scale up</div>
+      <div class="challenge" data-id="D6">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="topic-divider">Enterprise administration</div>
+    <div class="cell">
+      <div class="addr"><span>D7</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Multi-geo and performance considerations at scale</div>
+      <div class="why">Large or regulated organizations sometimes need data to physically reside in specific geographic regions &mdash; multi-geo lets a single tenant span satellite locations while keeping each geography's data resident there, which also affects latency and performance for users far from the primary region.</div>
+      <div class="example">Microsoft 365 admin center → Multi-Geo → configure satellite geo locations
+Assign users to a Preferred Data Location (PDL) attribute
+Monitor performance/latency separately per geo, not just tenant-wide</div>
+      <div class="challenge" data-id="D7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D8</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">30 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Write a governance plan: naming, lifecycle, ownership</div>
+      <div class="why">Without a governance plan, site sprawl happens by default &mdash; inconsistent naming, no clear owner, sites that outlive their purpose. A written plan sets the naming conventions, who approves new sites, and what happens when a site goes stale.</div>
+      <div class="example">Define a naming convention (e.g. [Dept]-[ProjectName]) enforced via a site design/script
+Assign a required Owner for every new site, checked at creation
+Set an inactive-site policy: flag sites with no activity in 12 months for review</div>
+      <div class="challenge" data-id="D8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="addr"><span>D9</span><span class="skill-done-badge">&check; mastered</span><span class="time-est">25 min</span><span class="exp">tap &#9656;</span></div>
+      <div class="skill">Monitor usage and troubleshoot with admin reports and logs</div>
+      <div class="why">Usage reports show what's actually being used (or ignored), while sign-in and audit logs are what you reach for when something goes wrong &mdash; a permission that mysteriously changed, a site that suddenly stopped syncing.</div>
+      <div class="example">Microsoft 365 admin center → Reports → SharePoint site usage
+Microsoft Purview → Audit → search for a specific user/file/date range event
+Microsoft Entra sign-in logs → check for blocked or conditional-access-denied sign-ins</div>
+      <div class="challenge" data-id="D9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-expert" data-goto-tab="labs">&#129514; Practice this stage &rarr;</a>
+      <a class="cta-link" href="#capstone-expert">&#128640; Expert project &rarr;</a>
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref mono">PROJECTS</span>
+  <h2>Capstone Projects</h2>
+</div>
+<p class="section-note">One project per level &mdash; a realistic build, not a toy exercise. Check off each deliverable as you finish it; the Submit button unlocks once every item is checked. Overall progress feeds the dashboard.</p>
+
+<div class="capstone-overall">
+  <span class="ov-label mono">Capstone deliverables</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+  <span class="ov-count mono" id="capOverallCount">0 / 20</span>
+  <button class="capstone-reset" id="capResetBtn" type="button">Reset progress</button>
+</div>
+
+<div class="capstone">
+
+  <div class="capstone-card" id="capstone-beginner" data-level="beginner" data-cap="1">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 01</span>
+      <h4>Team Project Site</h4>
+      <span class="cap-level-tag">Beginner</span>
+      <span class="cap-audience">~3&ndash;4 hrs</span>
+      <span class="cap-done-badge">&check; submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Using a blank site, set up a working project site a small team would actually use on day one.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Sites & libraries</span>
+        <span class="cap-skill-chip">Custom list</span>
+        <span class="cap-skill-chip">Views</span>
+        <span class="cap-skill-chip">Sharing</span>
+        
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Create</b> a team site and set the right title and description</li>
+          <li><b>Build</b> a document library with at least 2 metadata columns</li>
+          <li><b>Create</b> a task list with a Choice column and a Person column</li>
+          <li><b>Add</b> a filtered/grouped view for "My open tasks"</li>
+          <li><b>Share</b> the site with the right permission level for two different roles</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-intermediate" data-level="intermediate" data-cap="2">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 02</span>
+      <h4>Departmental Hub</h4>
+      <span class="cap-level-tag">Intermediate</span>
+      <span class="cap-audience">~6&ndash;8 hrs</span>
+      <span class="cap-done-badge">&check; submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Instead of a single flat site, build a departmental structure that would hold up as the team grows &mdash; a real hub with consistent metadata.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Site structure</span>
+        <span class="cap-skill-chip">Content types</span>
+        <span class="cap-skill-chip">Term store</span>
+        <span class="cap-skill-chip">Permissions</span>
+        <span class="cap-skill-chip">Power Automate</span>
+        
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Associate</b> a site to a hub with shared navigation</li>
+          <li><b>Create</b> a content type with at least 2 custom site columns</li>
+          <li><b>Apply</b> a managed metadata column to a library from a term set</li>
+          <li><b>Set</b> unique permissions via groups on one sensitive library</li>
+          <li><b>Build</b> a Power Automate flow that emails an owner when a new item needs approval</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-advanced" data-level="advanced" data-cap="3">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 03</span>
+      <h4>Governed Intake Process</h4>
+      <span class="cap-level-tag">Advanced</span>
+      <span class="cap-audience">~8&ndash;10 hrs</span>
+      <span class="cap-done-badge">&check; submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Build an intake workflow a real department would use: someone submits a request, it's approved, tracked, and easy to find in search.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Power Apps form</span>
+        <span class="cap-skill-chip">Multi-step flow</span>
+        <span class="cap-skill-chip">Search refiners</span>
+        <span class="cap-skill-chip">Retention label</span>
+        
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Customize</b> the intake list's form with Power Apps</li>
+          <li><b>Build</b> a multi-step Power Automate flow with a condition and an approval</li>
+          <li><b>Configure</b> a managed property and refiner so requests are filterable in search</li>
+          <li><b>Apply</b> a retention label to the intake list's items</li>
+          <li><b>Document</b> the process for a new team member in one page</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-expert" data-level="expert" data-cap="4">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 04</span>
+      <h4>Enterprise Rollout Package</h4>
+      <span class="cap-level-tag">Expert</span>
+      <span class="cap-audience">~10&ndash;14 hrs</span>
+      <span class="cap-done-badge">&check; submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Package everything into something IT could actually hand to 50 new sites: a reusable template, a governance plan, and a monitoring habit.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">SPFx web part</span>
+        <span class="cap-skill-chip">PnP template</span>
+        <span class="cap-skill-chip">Governance plan</span>
+        <span class="cap-skill-chip">Admin reports</span>
+        
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li><b>Build</b> a small SPFx web part (e.g. a styled announcement banner) and deploy it to a site</li>
+          <li><b>Capture</b> a working site as a reusable PnP site template</li>
+          <li><b>Write</b> a one-page governance plan covering naming, ownership, and lifecycle</li>
+          <li><b>Configure</b> a DLP or sensitivity label policy relevant to the rollout</li>
+          <li><b>Set up</b> a recurring check of usage reports and the audit log for the rolled-out sites</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice" style="display:none;">
+<div class="section-intro" id="practice" style="margin-top:100px;">
+  <span class="ref mono">PRACTICE</span>
+  <h2>Practice</h2>
+</div>
+<p class="section-note">Everything hands-on lives here: work a Mini Lab, pull sample list data, race the clock, or follow a weekly plan.</p>
+
+<div class="practice-tabs" role="tablist">
+  <button class="practice-tab active" type="button" data-tab="labs" role="tab" aria-selected="true">Mini Labs</button>
+  <button class="practice-tab" type="button" data-tab="datasets" role="tab" aria-selected="false">Sample Data</button>
+  <button class="practice-tab" type="button" data-tab="timed" role="tab" aria-selected="false">Timed Challenges</button>
+  <button class="practice-tab" type="button" data-tab="weekly" role="tab" aria-selected="false">Weekly Exercises</button>
+</div>
+
+<div class="practice-panel" data-panel="labs">
+<p class="section-note" style="padding:0; margin-bottom:16px;">One hands-on task per level. Try it in a real (or trial) SharePoint site against a sample list before checking the solution.</p>
+
+<div class="lab">
+  <div class="lab-card" id="lab-beginner" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Beginner</span></div>
+    <h4>Build a working project task list</h4>
+    <p class="task">Using the sample below, build a custom <b>list</b> with a <b>Choice</b> column for Status and a <b>Person</b> column for Owner, then add a <b>view</b> filtered to open tasks.</p>
+    <table class="sample">
+      <tr><th>Task</th><th>Status</th><th>Owner</th><th>Due</th></tr>
+      <tr><td>Draft brief</td><td>Open</td><td>A. Chen</td><td>2026-08-14</td></tr>
+      <tr><td>Vendor call</td><td>In Progress</td><td>J. Reyes</td><td>2026-08-10</td></tr>
+      <tr><td>Kickoff deck</td><td>Done</td><td>A. Chen</td><td>2026-08-05</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        New → List → Blank list, name it "Project Tasks".<br>
+        Add column → Choice → values: Open, In Progress, Done.<br>
+        Add column → Person → default to the current user.<br>
+        Add view → filter Status is not equal to Done → save as "Open tasks".
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Intermediate</span></div>
+    <h4>Attach a content type and tag with managed metadata</h4>
+    <p class="task">Create a content type called <b>Client Contract</b>, add a site column for Contract Value, then tag a sample document with a term from a <b>Departments</b> term set.</p>
+    <table class="sample">
+      <tr><th>File</th><th>Department</th><th>ContractValue</th></tr>
+      <tr><td>MSA-Contoso.docx</td><td>Legal</td><td>48000</td></tr>
+      <tr><td>SOW-Fabrikam.docx</td><td>Sales</td><td>12500</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Site settings → Site columns → New → "Contract Value" (Currency).<br>
+        Site settings → Content types → New → "Client Contract" → Add from existing site columns → Contract Value.<br>
+        Library settings → Advanced settings → allow management of content types → Add "Client Contract".<br>
+        Add a Managed Metadata column pointing at the "Departments" term set, then tag the sample file.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-advanced" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Advanced</span></div>
+    <h4>Automate an approval with a condition</h4>
+    <p class="task">Build a Power Automate flow that starts an approval when a new item is added to a Requests list, then branches on whether the request amount is over $1,000.</p>
+    <table class="sample">
+      <tr><th>Request</th><th>Amount</th><th>Requestor</th></tr>
+      <tr><td>New laptop</td><td>1450</td><td>M. Ortiz</td></tr>
+      <tr><td>Software license</td><td>300</td><td>D. Park</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Trigger: "When an item is created" on the Requests list.<br>
+        Add a Condition: Amount is greater than 1000.<br>
+        Yes branch → Start and wait for an approval, assign to a manager.<br>
+        No branch → auto-approve and send a confirmation email.
+      </div>
+    </details>
+  </div>
+
+  <div class="lab-card" id="lab-expert" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Expert</span></div>
+    <h4>Script a new site with PnP PowerShell</h4>
+    <p class="task">Write a short PnP PowerShell script that creates a new team site, then applies a captured site template to it.</p>
+    <table class="sample">
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Site Title</td><td>Project Falcon</td></tr>
+      <tr><td>Alias</td><td>projectfalcon</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        <code>Connect-PnPOnline -Url https://contoso.sharepoint.com -Interactive</code>
+        <code>New-PnPSite -Type TeamSite -Title "Project Falcon" -Alias projectfalcon</code>
+        <code>Connect-PnPOnline -Url https://contoso.sharepoint.com/sites/projectfalcon -Interactive
+Invoke-PnPSiteTemplate -Path template.xml</code>
+      </div>
+    </details>
+  </div>
+</div>
+</div><!-- /panel: labs -->
+
+<div class="practice-panel" data-panel="datasets" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Download as CSV and import into a SharePoint list via "Add columns" → "From spreadsheet" or Power Automate. Project Tasks + Team Directory pair up for lookup/relationship practice.</p>
+
+<div class="datasets-grid">
+  <div class="dataset-card">
+    <h4>Project Tasks</h4>
+    <p>Task-level rows across owners, statuses, and due dates &mdash; good for views, filters, and Power Automate triggers.</p>
+    <div class="dataset-cols mono">TaskID, Title, Status, AssignedTo, DueDate, Priority</div>
+    <div class="dataset-meta mono">~250 rows &middot; CSV</div>
+    <button class="dataset-btn" data-dataset="tasks">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Team Directory</h4>
+    <p>Lookup list keyed by PersonID &mdash; pairs with Project Tasks for Person-column and lookup practice.</p>
+    <div class="dataset-cols mono">PersonID, Name, Department, Site, Role</div>
+    <div class="dataset-meta mono">~60 rows &middot; CSV</div>
+    <button class="dataset-btn" data-dataset="directory">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Document Register</h4>
+    <p>Document metadata roster with content type and review dates &mdash; good for content type and retention-label practice.</p>
+    <div class="dataset-cols mono">DocID, Title, ContentType, Department, ReviewDate, Status</div>
+    <div class="dataset-meta mono">~140 rows &middot; CSV</div>
+    <button class="dataset-btn" data-dataset="documents">Download CSV</button>
+  </div>
+  <div class="dataset-card">
+    <h4>Helpdesk Tickets</h4>
+    <p>Ticket queue with category, priority, and status &mdash; built for Power Automate routing and reporting exercises.</p>
+    <div class="dataset-cols mono">TicketID, Category, Submitted, AssignedTo, Status, Priority</div>
+    <div class="dataset-meta mono">~180 rows &middot; CSV</div>
+    <button class="dataset-btn" data-dataset="tickets">Download CSV</button>
+  </div>
+</div>
+</div><!-- /panel: datasets -->
+
+<div class="practice-panel" data-panel="timed" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">Five questions pulled at random from a level's Board challenges, a running clock, and no reveal button until time runs out. Best time and score per level are saved in this browser.</p>
+
+<div class="timed-setup">
+  <div class="timed-level-picker" role="tablist">
+    <button class="timed-level-btn active" type="button" data-level="beginner">Beginner</button>
+    <button class="timed-level-btn" type="button" data-level="intermediate">Intermediate</button>
+    <button class="timed-level-btn" type="button" data-level="advanced">Advanced</button>
+    <button class="timed-level-btn" type="button" data-level="expert">Expert</button>
+  </div>
+  <div class="timed-best mono" id="timedBestLine">Best for Beginner: &mdash;</div>
+  <button class="timed-start-btn" id="timedStartBtn" type="button">Start Timed Round &rarr;</button>
+</div>
+
+<div class="timed-round" id="timedRound" style="display:none;">
+  <div class="timed-hud">
+    <span class="timed-hud-item mono">Question <span id="timedQNum">1</span> / <span id="timedQTotal">5</span></span>
+    <span class="timed-hud-item mono">Score <span id="timedScore">0</span></span>
+    <span class="timed-hud-item mono timed-clock" id="timedClock">0:45</span>
+  </div>
+  <div class="timed-question" id="timedQuestionText"></div>
+  <input type="text" class="ch-input timed-input" id="timedInput" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+  <div class="timed-actions">
+    <button class="ch-btn" id="timedSubmitBtn" type="button">Submit</button>
+    <button class="ch-reveal" id="timedSkipBtn" type="button">Skip</button>
+  </div>
+  <div class="ch-result" id="timedResult"></div>
+</div>
+
+<div class="timed-summary" id="timedSummary" style="display:none;">
+  <h4>Round complete</h4>
+  <div class="timed-summary-stats">
+    <div class="timed-stat"><span class="dvalue" id="timedFinalScore">0</span><span class="dlabel">/ 5 correct</span></div>
+    <div class="timed-stat"><span class="dvalue" id="timedFinalTime">0:00</span><span class="dlabel">total time</span></div>
+  </div>
+  <div id="timedNewBest" class="timed-new-best" style="display:none;">&#127942; New best for this level</div>
+  <button class="timed-start-btn" id="timedAgainBtn" type="button">Run again &rarr;</button>
+</div>
+</div><!-- /panel: timed -->
+
+<div class="practice-panel" data-panel="weekly" style="display:none;">
+<p class="section-note" style="padding:0; margin-bottom:16px;">A four-week plan, one week per level &mdash; short tool days, a lab/capstone day, a rest day. Check off days as you go; progress is saved in this browser and feeds the dashboard above.</p>
+
+<div class="weekly-overall">
+  <span class="ov-label mono">Weeks completed</span>
+  <div class="ov-bar"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+  <span class="ov-count mono" id="weeklyOverallCount">0 / 28 days</span>
+  <button class="capstone-reset" id="weeklyResetBtn" type="button">Reset progress</button>
+</div>
+
+<div class="weekly-grid" id="weeklyGrid"></div>
+</div><!-- /panel: weekly -->
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress" style="display:none;">
+<div class="section-intro" style="margin-top:100px;">
+  <span class="ref">ANALYTICS</span>
+  <h2 id="analytics">Progress</h2>
+</div>
+<p class="section-note">Everything below is computed from what you've actually done in this browser &mdash; mastery on the Board, capstones submitted, weekly consistency, timed challenges, and time on task.</p>
+
+<div class="dashboard">
+  <div class="dash-head">
+    <div class="dash-title"><span class="dot g"></span>Current Progress</div>
+    <button class="dash-reset" id="dashResetBtn" type="button">Reset quiz progress</button>
+  </div>
+
+  <div class="dash-progress-row">
+    <div class="dash-progress-label">
+      <span id="dashCompletionSub">0 of 0 skills + capstones</span>
+      <span><strong id="dashCompletionVal">0</strong>%</span>
+    </div>
+    <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="dash-card" data-metric="level">
+      <div class="dlabel">Current level</div>
+      <div class="dvalue" id="dashLevelVal">Beginner</div>
+      <div class="dsub" id="dashLevelSub">0/5 mastered</div>
+    </div>
+    <div class="dash-card" data-metric="mastered">
+      <div class="dlabel">Skills mastered</div>
+      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 28</span></div>
+      <div class="dsub">Answered correctly on the board</div>
+    </div>
+    <div class="dash-card" data-metric="projects">
+      <div class="dlabel">Capstones submitted</div>
+      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 4</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashProjectsFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="accuracy">
+      <div class="dlabel">Quiz accuracy</div>
+      <div class="dvalue"><span id="dashAccuracyVal">&mdash;</span><span class="unit" id="dashAccuracyUnit"></span></div>
+      <div class="dsub" id="dashAccuracySub">No attempts yet</div>
+    </div>
+    <div class="dash-card" data-metric="weekly">
+      <div class="dlabel">Weekly activity</div>
+      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 28 days</span></div>
+      <div class="dash-bar"><div class="dash-bar-fill" id="dashWeeklyFill"></div></div>
+    </div>
+    <div class="dash-card" data-metric="timed">
+      <div class="dlabel">Timed challenges</div>
+      <div class="dvalue" id="dashTimedVal">Not played</div>
+      <div class="dsub" id="dashTimedSub">Best score across levels</div>
+    </div>
+    <div class="dash-card" data-metric="timespent">
+      <div class="dlabel">Time spent</div>
+      <div class="dvalue" id="dashTimeSpentVal">0m</div>
+      <div class="dsub">Across all sessions in this browser</div>
+    </div>
+    <div class="dash-card" data-metric="remaining">
+      <div class="dlabel">Skills remaining</div>
+      <div class="dvalue"><span id="dashRemainingVal">28</span></div>
+      <div class="dsub" id="dashRemainingSub">Still unattempted or missed</div>
+    </div>
+  </div>
+
+  <div class="dash-readiness">
+    <div class="rscore"><span id="dashReadinessVal">0</span><span class="unit">/100</span></div>
+    <div class="rtext">
+      <div class="rlabel">Readiness verdict</div>
+      <div class="rverdict" id="dashVerdict">Just getting started</div>
+      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges and check off a capstone deliverable to see your score move.</div>
+    </div>
+  </div>
+
+  <div class="ach-block">
+    <div class="ach-head">
+      <div class="dash-head-title">Achievements</div>
+      <span class="ach-count" id="achCount">0 / 9 unlocked</span>
+    </div>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="fcell">SKILLS TRACKED <b id="fSkills">28</b></div>
+  <div class="fcell">CAPSTONES <b>4</b></div>
+  <div class="fcell">SAMPLE DATA <b>4</b></div>
+  <div class="fcell">TIMED ROUNDS <b>4 levels</b></div>
+  <div class="fcell">WEEKLY PLAN <b>28 days</b></div>
+  <div class="fcell">ACHIEVEMENTS <b>9</b></div>
+  <div class="fcell">PREREQ <b>None</b></div>
+</footer>
+
+<script>
+  // ---------- Rotating command bar ----------
+  const formulas = [
+    'Get-PnPList -Identity Excuses | Remove-PnPListItem -All',
+    "New-PnPSite -Type TeamSite -Title 'Consistency'",
+    "$progress = Get-PnPListItem -List Habits | Where Status -eq 'Done'",
+    "Set-PnPSite -SharingCapability Disabled # for Excuses"
+  ];
+  let fi = 0;
+  const formulaEl = document.getElementById('formulaText');
+  formulaEl.style.transition = 'opacity 0.25s ease';
+  setInterval(() => {
+    fi = (fi + 1) % formulas.length;
+    formulaEl.style.opacity = 0;
+    setTimeout(() => { formulaEl.textContent = formulas[fi]; formulaEl.style.opacity = 1; }, 250);
+  }, 3800);
+
+  // ---------- Challenge data ----------
+  const CHALLENGES = {
+    A1: { q:'What do you call a site that groups several related SharePoint sites under shared navigation and branding?', required:[['HUB']], answer:'A hub site', mistake:'Assuming a hub site and its associated sites share one set of permissions &mdash; each associated site keeps its own.' },
+    A2: { q:'What\'s the name for the SharePoint feature that stores files along with metadata and version history?', required:[['DOCUMENT LIBRARY','LIBRARY']], answer:'A document library', mistake:'Nesting files five folders deep instead of tagging them with metadata columns that let you filter and sort instantly.' },
+    A3: { q:'Which column type lets you pick a value from a fixed set of options, like \'Open / In Progress / Done\'?', required:[['CHOICE']], answer:'A Choice column', mistake:'Using a single-line-text column for status values, so every entry gets typed slightly differently and can\'t be filtered cleanly.' },
+    A4: { q:'What\'s it called when you save a specific filter, sort, and grouping combination so you can switch back to it any time?', required:[['VIEW']], answer:'A view', mistake:'Editing the default \'All Items\' view for personal filtering, which changes what everyone else sees too.' },
+    A5: { q:'Which two broad permission levels do you choose between when sharing a file &mdash; one lets people change it, the other only lets them look?', required:[['EDIT'],['VIEW']], answer:'Can edit and Can view', mistake:'Defaulting to \'Anyone with the link can edit\' for something that only needed to be viewed.' },
+    B1: { q:'Which structural pattern does Microsoft recommend today: nesting subsites under a parent, or associating flat sites to a hub?', required:[['HUB']], answer:'Flat sites associated to a hub', mistake:'Building a deep subsite tree for a new project instead of a flat site associated to a hub.' },
+    B2: { q:'What do you call a reusable field definition, like \'Department\' or \'Due Date\', that can be added to multiple lists and libraries?', required:[['SITE COLUMN']], answer:'A site column', mistake:'Recreating the same column separately in five libraries instead of defining one site column and reusing it.' },
+    B3: { q:'Which library setting locks a file so only one person can edit it while everyone else can view but not save changes?', required:[['CHECK OUT','CHECK-OUT','CHECKOUT']], answer:'Check-out (require check-out)', mistake:'Turning on versioning after the fact and assuming it recovered history that was never being tracked.' },
+    B4: { q:'What format do you write to customize how a SharePoint column visually renders, like color-coded status pills?', required:[['JSON']], answer:'JSON (column formatting)', mistake:'Editing the underlying data to force a color, instead of formatting the column\'s display with JSON.' },
+    B5: { q:'What\'s it called when you give a specific item or library its own permissions instead of inheriting them from the site?', required:[['BREAK','STOP INHERIT']], answer:'Breaking (stopping) inheritance', mistake:'Adding individual people directly to unique permissions on dozens of items instead of managing access through a group.' },
+    B6: { q:'What\'s the event that kicks off a Power Automate flow called?', required:[['TRIGGER']], answer:'A trigger', mistake:'Building a flow that triggers on every list update, including changes the flow itself made, causing an infinite loop.' },
+    C1: { q:'Which Microsoft Power Platform tool do you use to replace a SharePoint list\'s default form with a fully custom layout?', required:[['POWER APPS']], answer:'Power Apps', mistake:'Publishing a customized form without testing every field\'s validation, breaking data entry for other users.' },
+    C2: { q:'Which Power Automate action lets a flow branch its logic based on a value, like an amount being over a threshold?', required:[['CONDITION']], answer:'A Condition action', mistake:'Building one flow to handle every possible case instead of splitting complex branches into clearer, smaller conditions.' },
+    C3: { q:'What\'s the name for the centrally managed, shared vocabulary of terms used for consistent tagging across SharePoint?', required:[['TERM STORE','MANAGED METADATA']], answer:'The term store (managed metadata)', mistake:'Letting every site build its own free-text \'Department\' column instead of pointing at one shared term set.' },
+    C4: { q:'What\'s the name for a search field you can actually query, sort, or filter results by, mapped from an underlying crawled property?', required:[['MANAGED PROPERTY','MANAGED PROPERTIES']], answer:'A managed property', mistake:'Expecting a newly added column to be searchable immediately, without mapping and marking it as a managed property first.' },
+    C5: { q:'Which Microsoft 365 service uses AI models to automatically classify and extract metadata from documents as they\'re uploaded?', required:[['SYNTEX']], answer:'SharePoint Syntex', mistake:'Training a Syntex model on too few sample documents, producing unreliable extraction once real files arrive.' },
+    C6: { q:'What\'s the name of the community-maintained PowerShell module widely used to script SharePoint site provisioning and admin tasks?', required:[['PNP']], answer:'PnP PowerShell', mistake:'Running a bulk update script against production without testing it on one site first.' },
+    C7: { q:'What\'s applied to content in SharePoint to control how long it\'s retained and what happens to it afterward?', required:[['RETENTION LABEL','RETENTION']], answer:'A retention label', mistake:'Publishing a retention label to every library by default instead of scoping it to where it\'s actually needed.' },
+    C8: { q:'What rolls up shared navigation, branding, news, and search across many associated SharePoint sites?', required:[['HUB SITE','HUB']], answer:'A hub site', mistake:'Registering a new hub for every department instead of a small number of hubs mapped to how the organization actually navigates.' },
+    D1: { q:'What\'s the name of the modern client-side development model used to build custom SharePoint web parts?', required:[['SPFX']], answer:'The SharePoint Framework (SPFx)', mistake:'Deploying an untested web part straight to the tenant App Catalog instead of a site-scoped catalog first.' },
+    D2: { q:'At which level do sharing settings set the absolute ceiling that no individual site can override?', required:[['TENANT']], answer:'The tenant level', mistake:'Setting a permissive tenant-wide sharing default and expecting individual site owners to self-restrict it consistently.' },
+    D3: { q:'What\'s the name of the unified Microsoft REST API used to programmatically access SharePoint sites, lists, and files?', required:[['GRAPH']], answer:'The Microsoft Graph API', mistake:'Requesting broad, tenant-wide Sites.FullControl.All permissions when a narrower, site-specific scope would do.' },
+    D4: { q:'Which type of policy actively detects and blocks sensitive data, like credit card numbers, from being shared inappropriately?', required:[['DLP','DATA LOSS PREVENTION']], answer:'A DLP (Data Loss Prevention) policy', mistake:'Publishing an overly aggressive DLP policy that blocks legitimate business sharing, without first running it in test/audit mode.' },
+    D5: { q:'What do you call a captured, reusable definition of a site\'s structure used to provision new sites consistently?', required:[['SITE TEMPLATE','SITE SCRIPT']], answer:'A site template (or site script)', mistake:'Rebuilding the same site structure by hand every time instead of capturing it once as a reusable template.' },
+    D6: { q:'What should you always run on a small subset of content before migrating everything, to catch problems early?', required:[['PILOT']], answer:'A pilot migration', mistake:'Migrating the entire source in one pass without a pilot, discovering path-length or permission issues only after it\'s done.' },
+    D7: { q:'What\'s the Microsoft 365 capability that lets a single tenant keep data resident in multiple geographic regions?', required:[['MULTI-GEO','MULTI GEO','MULTIGEO']], answer:'Multi-Geo', mistake:'Assuming a single-region performance baseline applies evenly to users physically located far from the tenant\'s primary region.' },
+    D8: { q:'What\'s the term for a written set of rules covering naming conventions, ownership, and lifecycle for sites across an organization?', required:[['GOVERNANCE']], answer:'A governance plan', mistake:'Writing a governance plan once and never revisiting it as the organization\'s needs and scale change.' },
+    D9: { q:'Which report would you check to see who changed a specific file\'s permissions and when?', required:[['AUDIT']], answer:'The audit log', mistake:'Assuming a sync or access problem is a SharePoint bug before checking the audit and sign-in logs for what actually happened.' }
+  };
+
+  // ---------- Tool notes (per-cell mistakes / practices / avoid) ----------
+  const TOOL_NOTES = {
+    A1: { mistakes:['Assuming hub association also merges permissions between sites','Creating a new site for every small project instead of a library or folder inside an existing one','Not checking Site Information before hunting for content in the wrong site'], practices:['Check Site Information first when you land somewhere unfamiliar','Reserve a new site for a genuinely separate team, project, or audience'], avoid:['Don\'t create a new site collection for a single document set &mdash; a library inside an existing site is usually enough'] },
+    A2: { mistakes:['Recreating a deep folder structure instead of using metadata columns','Uploading files one at a time instead of drag-and-drop or Explorer sync','Renaming a file locally after it\'s already synced, creating a duplicate'], practices:['Add 2&ndash;3 metadata columns before you start uploading, not after','Drag-and-drop or sync a folder for bulk uploads'], avoid:['Don\'t build folders more than 2 levels deep &mdash; long paths break sync and exports on some systems'] },
+    A3: { mistakes:['Using free text where a Choice or Person column would keep data consistent','Adding a lookup column pointing at a list that gets deleted later','Not setting required fields, so rows end up half-filled'], practices:['Match the column type to the data &mdash; Person for people, Date for dates, Choice for fixed options','Mark the columns you actually need filled as required'], avoid:['Don\'t use a list for what\'s really a document &mdash; that belongs in a library'] },
+    A4: { mistakes:['Editing the shared default view instead of creating a personal one','Filtering manually every visit instead of saving a view','Grouping by a column with too many unique values, making the list harder to scan'], practices:['Create a new named view for anything you\'ll filter more than once','Group by a column with a small number of distinct values'], avoid:['Don\'t rely on a personal view for something the whole team needs to see the same way &mdash; make it a shared, named view instead'] },
+    A5: { mistakes:['Sharing with \'Anyone with the link\' when a specific set of people was actually intended','Granting Edit by default instead of checking what access is really needed','Never revisiting Manage access to remove people who no longer need it'], practices:['Pick the narrowest audience and permission level that gets the job done','Periodically check Manage access on sensitive files and clean up stale access'], avoid:['Don\'t use anonymous \'Anyone\' links for anything containing sensitive or regulated data'] },
+    B1: { mistakes:['Building new subsites for a modern intranet instead of flat hub-associated sites','Not planning navigation before creating sites, leading to a maze','Associating a site to the wrong hub, inheriting the wrong nav and branding'], practices:['Default to flat, hub-associated sites for any new structure','Sketch the navigation and audience for a hub before creating child sites'], avoid:['Don\'t create subsites for new projects &mdash; they\'re still supported but harder to secure, move, and migrate independently'] },
+    B2: { mistakes:['Defining the same metadata column separately in every library instead of once as a site column','Skipping content types and relying only on folders to distinguish document kinds','Changing a site column\'s type after it\'s already used, breaking existing data'], practices:['Build a site column once, reuse it everywhere it applies','Group related columns into a content type when a \'kind of item\' repeats across libraries'], avoid:['Don\'t create a content type for a one-off list that will never be reused elsewhere'] },
+    B3: { mistakes:['Assuming version history existed before versioning was actually turned on','Requiring check-out on a library where many people co-edit the same file live','Setting up alerts for every single change, causing notification fatigue'], practices:['Turn on versioning the day a library is created, not after a problem','Reserve required check-out for files that genuinely need single-editor control'], avoid:['Don\'t require check-out on a library people co-author in real time &mdash; it blocks the simultaneous editing Office apps are built for'] },
+    B4: { mistakes:['Trying to force a visual effect by changing the actual data value instead of formatting the display','Copy-pasting complex JSON without understanding what each rule does, then being unable to debug it','Applying heavy formatting to a column used across many views, slowing them all down'], practices:['Start from a template in the format panel and modify it incrementally','Test formatting changes in one view before rolling them out everywhere'], avoid:['Don\'t use column formatting for something a simple Choice-column color already handles out of the box'] },
+    B5: { mistakes:['Adding individuals directly instead of through a SharePoint group','Breaking inheritance on many individual items instead of restructuring into a subfolder or library','Losing track of which items have unique permissions after years of ad hoc changes'], practices:['Manage access through groups, not individual names, wherever possible','Periodically audit which items have broken inheritance and why'], avoid:['Don\'t break inheritance item-by-item across a whole library &mdash; if that many items need different access, they probably belong in separate libraries'] },
+    B6: { mistakes:['Triggering a flow on item update without excluding changes the flow itself makes, causing loops','Hardcoding an email address instead of referencing a Person column','Not testing a flow on a single test item before running it against a live list'], practices:['Use \'Configure run after\' or a condition to prevent flows from re-triggering themselves','Test on one item, check the run history, then roll out broadly'], avoid:['Don\'t build a full multi-approver flow for something a simple alert would solve just as well'] },
+    C1: { mistakes:['Publishing a customized form without testing all validation rules first','Renaming or deleting the underlying SharePoint columns the form still references','Building overly complex formulas when a simpler control setting would work'], practices:['Test a customized form with a colleague before publishing broadly','Keep a mental (or written) map of which columns the form depends on'], avoid:['Don\'t reach for a custom Power Apps form for a simple list that the default form already handles fine'] },
+    C2: { mistakes:['Nesting conditions many levels deep instead of simplifying the branching logic','Not handling the \'rejected\' branch of an approval, leaving it a dead end','Assigning approvals to a person by name instead of by role, breaking when that person changes roles'], practices:['Keep condition logic shallow &mdash; refactor into child flows once it gets deep','Always build both the approve and reject paths explicitly'], avoid:['Don\'t build a multi-step approval flow for a decision only one person will ever make &mdash; a simple notification is enough'] },
+    C3: { mistakes:['Letting each site define its own free-text version of a value that should be centrally managed','Deleting a term that\'s already tagged on hundreds of items, orphaning that metadata','Building an overly deep term hierarchy that\'s hard for people to navigate when tagging'], practices:['Centralize any value used consistently across multiple sites into a term set','Deprecate terms instead of deleting them once they\'re in use'], avoid:['Don\'t use managed metadata for a value that\'s genuinely local to one site and will never need to match elsewhere'] },
+    C4: { mistakes:['Assuming a new column is instantly searchable without mapping it to a managed property','Marking too many properties as refinable, cluttering the results page','Forgetting search needs a re-crawl before schema changes show up in results'], practices:['Map and mark properties refinable only for fields people will actually filter by','Trigger a re-crawl (or wait for the schedule) after schema changes and verify in results'], avoid:['Don\'t create a promoted result for a query that\'s only relevant to a handful of people &mdash; reserve it for genuinely common searches'] },
+    C5: { mistakes:['Training a model on too few or too similar sample documents','Applying a model to a library with wildly inconsistent document formats','Not reviewing extracted metadata for accuracy before trusting it downstream'], practices:['Train with a genuinely varied sample set that reflects real incoming documents','Spot-check extracted metadata regularly, especially right after launch'], avoid:['Don\'t reach for Syntex for a handful of documents a person could tag manually in minutes'] },
+    C6: { mistakes:['Running an untested bulk script directly against production sites','Hardcoding credentials in a script instead of using interactive or app-only auth properly','Not checking module version compatibility before running community scripts'], practices:['Test any script against a single site or a sandbox tenant before running it broadly','Keep scripts in source control so changes are tracked and reviewable'], avoid:['Don\'t reach for a script for a one-time change to a single site &mdash; the admin UI is faster for that'] },
+    C7: { mistakes:['Applying an overly broad retention label to content it wasn\'t designed for','Declaring something a record and then still trying to edit it','Not testing a label\'s disposition action before it applies to real content'], practices:['Scope retention labels narrowly to the content types or libraries they actually apply to','Understand the disposition review step before content is auto-deleted'], avoid:['Don\'t mark routine working documents as records &mdash; that locks them from edits meant for reference-only or regulated content'] },
+    C8: { mistakes:['Registering too many hubs, fragmenting navigation instead of unifying it','Associating a site to a hub without configuring shared nav, so it feels disconnected anyway','Not planning hub structure before sites already exist, creating a costly reorg later'], practices:['Design the hub structure around how people actually search for things, not the org chart','Plan hub associations before large-scale site creation, not after'], avoid:['Don\'t create a hub for fewer than a handful of related sites &mdash; it adds overhead without a real navigation benefit'] },
+    D1: { mistakes:['Deploying straight to the tenant App Catalog before testing in a site-scoped catalog','Bundling with debug settings left on, hurting real-world performance','Not versioning the solution, making rollbacks harder after a bad deploy'], practices:['Test new web parts in a site collection app catalog before a tenant-wide rollout','Bump the solution version on every meaningful release'], avoid:['Don\'t build a custom SPFx web part when an out-of-the-box web part or Power Apps already covers the need'] },
+    D2: { mistakes:['Assuming a restrictive site-level setting can override a permissive tenant-level one &mdash; it can\'t, only tighten within it','Changing tenant sharing settings without communicating the impact to site owners','Not pairing sharing settings with Conditional Access for sensitive tenants'], practices:['Set the tenant ceiling deliberately, then let sites restrict further as needed','Review sharing settings on a regular governance cadence, not just at rollout'], avoid:['Don\'t leave tenant sharing at \'Anyone\' by default for an org handling regulated or sensitive data'] },
+    D3: { mistakes:['Requesting overly broad API permission scopes instead of the narrowest one that works','Polling for changes on a schedule instead of using delta queries or webhooks','Not handling token expiration/refresh, causing silent automation failures'], practices:['Scope app registrations to the narrowest permission that accomplishes the task','Use delta queries or webhooks for anything that needs to react to changes'], avoid:['Don\'t reach for raw Graph API calls when Power Automate\'s SharePoint connector already covers the scenario more simply'] },
+    D4: { mistakes:['Publishing a DLP policy in enforce mode without first testing it in audit mode','Applying the most restrictive sensitivity label everywhere, frustrating normal collaboration','Not training end users on what a label actually restricts once applied'], practices:['Always pilot a new DLP policy in audit-only mode before enforcing it','Match label restrictiveness to the actual sensitivity of the content, not the maximum available'], avoid:['Don\'t apply encryption-heavy sensitivity labels to content that\'s meant to be broadly and easily shared internally'] },
+    D5: { mistakes:['Rebuilding a well-designed site from scratch each time instead of capturing a reusable template','Applying a template to a live site without testing on a sandbox site first','Letting a template drift out of date as governance requirements change'], practices:['Capture a proven site structure once it stabilizes, and reuse it going forward','Version and review templates periodically as standards evolve'], avoid:['Don\'t over-engineer a template for a structure that\'s only ever going to be built once'] },
+    D6: { mistakes:['Skipping a pilot migration and finding path-length or permission problems only after a full run','Ignoring version history and metadata mapping, losing context in the move','Not communicating a migration cutover date, causing edits to happen on both old and new locations'], practices:['Always pilot-migrate a representative sample before the full run','Map metadata and permissions deliberately rather than accepting tool defaults blindly'], avoid:['Don\'t attempt a large migration without a rollback or validation plan if something goes wrong mid-way'] },
+    D7: { mistakes:['Assuming one performance baseline applies to all users regardless of physical location','Migrating a multi-geo tenant without correctly setting each user\'s Preferred Data Location','Underestimating the added administrative complexity multi-geo introduces'], practices:['Set Preferred Data Location deliberately per user or group, based on real residency needs','Benchmark performance per geography, not just tenant-wide'], avoid:['Don\'t adopt multi-geo unless there\'s a genuine data residency or regulatory requirement driving it &mdash; it adds real complexity'] },
+    D8: { mistakes:['Treating a governance plan as a one-time document instead of something reviewed regularly','Enforcing naming conventions only informally instead of through templates or scripts','Not defining what happens to a site once its owner leaves or the project ends'], practices:['Enforce naming and structure through site designs/scripts, not just a written policy people may skip','Review and update the governance plan on a set cadence'], avoid:['Don\'t write an overly rigid governance plan for a small organization &mdash; lightweight rules that are actually followed beat a thorough one that gets ignored'] },
+    D9: { mistakes:['Assuming a reported problem is a bug before checking the audit log for what actually happened','Reviewing usage reports only when there\'s a complaint instead of on a regular cadence','Ignoring sign-in logs when troubleshooting access issues that are really identity/Conditional Access related'], practices:['Make usage report review a regular governance habit, not just a reactive one','Check the audit log and sign-in logs early in any access troubleshooting'], avoid:['Don\'t skip straight to rebuilding a site or permission set before the logs have told you what actually happened'] }
+  };
+  document.querySelectorAll('.cell').forEach(cell => {
+    const box = cell.querySelector('.challenge');
+    if (!box) return;
+    const id = box.dataset.id;
+    const notes = TOOL_NOTES[id];
+    if (!notes) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'tool-notes';
+    wrap.innerHTML =
+      '<div class="tn-group">' +
+        '<div class="tn-label bad">\u2715 Common mistakes</div>' +
+        '<ul class="tn-list bad">' + notes.mistakes.map(m => '<li>' + m + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label good">\u2713 Best practices</div>' +
+        '<ul class="tn-list good">' + notes.practices.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+      '</div>' +
+      '<div class="tn-group">' +
+        '<div class="tn-label avoid">When NOT to use this</div>' +
+        '<ul class="tn-list avoid">' + notes.avoid.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
+      '</div>';
+    cell.insertBefore(wrap, box);
+  });
+
+  function normalize(raw){ return raw.toUpperCase().replace(/\s+/g,' ').trim(); }
+
+  // ---------- Level lock / mastery progress ----------
+  const LEVELS = [
+    { key:'beginner', ids:['A1','A2','A3','A4','A5'] },
+    { key:'intermediate', ids:['B1','B2','B3','B4','B5','B6'] },
+    { key:'advanced', ids:['C1','C2','C3','C4','C5','C6','C7','C8'] },
+    { key:'expert', ids:['D1','D2','D3','D4','D5','D6','D7','D8','D9'] }
+  ];
+  const PROGRESS_KEY = 'spRoadmapProgress';
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; }catch(e){ progress = {}; }
+  function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){} }
+  function isMastered(id){ return !!(progress[id] && progress[id].mastered); }
+  function recordAttempt(id, correct){
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0 };
+    rec.totalAttempts += 1;
+    if (correct){ rec.correctAttempts += 1; rec.mastered = true; }
+    progress[id] = rec;
+    saveProgress();
+  }
+
+  function applyLocks(){
+    let unlocked = true;
+    LEVELS.forEach(level => {
+      const col = document.querySelector('.level-col[data-level="' + level.key + '"]');
+      if (!col) return;
+      col.classList.toggle('section-locked', !unlocked);
+      unlocked = unlocked && level.ids.every(id => isMastered(id));
+    });
+    const total = LEVELS.reduce((n,l)=>n+l.ids.length,0);
+    const done = Object.keys(progress).filter(k => isMastered(k)).length;
+    const el = document.getElementById('skillProgressCount');
+    if (el) el.textContent = '\u00b7 ' + done + ' / ' + total + ' mastered';
+  }
+
+  function applyBadges(){
+    Object.keys(CHALLENGES).forEach(id => {
+      const box = document.querySelector('.challenge[data-id="' + id + '"]');
+      if (!box) return;
+      box.closest('.cell').classList.toggle('skill-mastered', isMastered(id));
+    });
+  }
+
+  document.querySelectorAll('.challenge').forEach(box => {
+    const id = box.dataset.id;
+    const data = CHALLENGES[id];
+    if (!data) return;
+    const qEl = box.querySelector('.ch-q');
+    const input = box.querySelector('.ch-input');
+    const btn = box.querySelector('.ch-btn');
+    const result = box.querySelector('.ch-result');
+    const reveal = box.querySelector('.ch-reveal');
+    const mistakeEl = box.querySelector('.ch-mistake');
+
+    qEl.innerHTML = '<b>Challenge \u2014 ' + id + ':</b> ' + data.q;
+
+    function check(){
+      const raw = input.value;
+      if (!raw.trim()){
+        result.textContent = 'Type an answer first.';
+        result.className = 'ch-result';
+        return;
+      }
+      const norm = normalize(raw);
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      recordAttempt(id, ok);
+      if (ok){
+        result.textContent = '\u2713 Correct.';
+        result.className = 'ch-result correct';
+        if (mistakeEl) mistakeEl.classList.remove('show');
+        applyLocks();
+        applyBadges();
+      } else {
+        result.textContent = '\u2717 Not quite \u2014 check the key term and try again, or reveal the answer.';
+        result.className = 'ch-result incorrect';
+        if (mistakeEl && data.mistake){
+          mistakeEl.innerHTML = '<b>Common mistake:</b> ' + data.mistake;
+          mistakeEl.classList.add('show');
+        }
+      }
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    btn.addEventListener('click', (e) => { e.stopPropagation(); check(); });
+    input.addEventListener('click', (e) => e.stopPropagation());
+    input.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') check(); });
+    reveal.addEventListener('click', (e) => {
+      e.stopPropagation();
+      result.textContent = 'Answer: ' + data.answer;
+      result.className = 'ch-result';
+    });
+  });
+
+  applyLocks();
+  applyBadges();
+
+  // ---------- Capstone checklists + submit gating ----------
+  (function(){
+    const STORAGE_KEY = 'spRoadmapCapstoneProgress';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ state = {}; }
+
+    const cards = Array.from(document.querySelectorAll('.capstone-card'));
+    const overallFill = document.getElementById('capOverallFill');
+    const overallCount = document.getElementById('capOverallCount');
+    const resetBtn = document.getElementById('capResetBtn');
+
+    function itemKey(capId, idx){ return 'c' + capId + '-' + idx; }
+    function submitKey(capId){ return 'submitted-' + capId; }
+    function save(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){} }
+
+    function updateCard(card){
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      let done = 0;
+      items.forEach((li, idx) => {
+        const key = itemKey(capId, idx);
+        if (state[key]) { li.classList.add('done'); done++; }
+        else { li.classList.remove('done'); }
+      });
+      const total = items.length;
+      const countEl = card.querySelector('.cap-progress-count');
+      const fillEl = card.querySelector('.cap-progress-bar-fill');
+      if (countEl) countEl.textContent = done + '/' + total;
+      if (fillEl) fillEl.style.width = (total ? (done/total*100) : 0) + '%';
+      const complete = total > 0 && done === total;
+      card.classList.toggle('cap-complete', complete);
+
+      const submitted = !!state[submitKey(capId)];
+      card.classList.toggle('cap-submitted', submitted);
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        if (submitted){
+          submitBtn.textContent = '\u2713 Submitted';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('submitted');
+        } else {
+          submitBtn.textContent = 'Submit Capstone';
+          submitBtn.classList.remove('submitted');
+          submitBtn.disabled = !complete;
+        }
+      }
+      return { done, total, submitted };
+    }
+
+    function updateOverall(){
+      let done = 0, total = 0;
+      cards.forEach(card => { const r = updateCard(card); done += r.done; total += r.total; });
+      if (overallCount) overallCount.textContent = done + ' / ' + total;
+      if (overallFill) overallFill.style.width = (total ? (done/total*100) : 0) + '%';
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    cards.forEach(card => {
+      const capId = card.dataset.cap;
+      const items = Array.from(card.querySelectorAll('.cap-deliver li'));
+      items.forEach((li, idx) => {
+        li.addEventListener('click', () => {
+          if (state[submitKey(capId)]) return;
+          const key = itemKey(capId, idx);
+          state[key] = !state[key];
+          save();
+          updateOverall();
+        });
+      });
+      const submitBtn = card.querySelector('.cap-submit-btn');
+      if (submitBtn){
+        submitBtn.addEventListener('click', () => {
+          if (submitBtn.disabled) return;
+          state[submitKey(capId)] = true;
+          save();
+          updateOverall();
+        });
+      }
+    });
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); updateOverall(); });
+    }
+
+    window.getCapstoneSubmittedCount = function(){
+      return cards.filter(c => !!state[submitKey(c.dataset.cap)]).length;
+    };
+
+    updateOverall();
+  })();
+
+  // ---------- Practice tabs ----------
+  (function(){
+    const tabs = document.querySelectorAll('.practice-tab');
+    const panels = document.querySelectorAll('.practice-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+        const target = tab.dataset.tab;
+        panels.forEach(p => { p.style.display = (p.dataset.panel === target) ? 'block' : 'none'; });
+      });
+    });
+  })();
+
+  // ---------- Weekly exercises ----------
+  (function(){
+    const WEEKLY_KEY = 'spRoadmapWeekly';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(WEEKLY_KEY)) || {}; }catch(e){ state = {}; }
+    function save(){ try{ localStorage.setItem(WEEKLY_KEY, JSON.stringify(state)); }catch(e){} }
+
+    const WEEKS = [
+      { level:'beginner', title:'Week 1 \u2014 Beginner', sub:'Get oriented and set up a real project site', days:[
+        'Cell A1 \u2014 navigate a site and understand hub sites',
+        'Cell A2 \u2014 create a document library and organize files',
+        'Cell A3 \u2014 create a custom list and add columns',
+        'Cell A4 \u2014 sort, filter, and group with views',
+        'Cell A5 \u2014 share a file with the right permission level',
+        'Work the Beginner Mini Lab',
+        'Rest, or start the Team Project Site capstone'
+      ]},
+      { level:'intermediate', title:'Week 2 \u2014 Intermediate', sub:'Build a structure that scales', days:[
+        'Cell B1 \u2014 site structure: subsites vs. hub associations',
+        'Cell B2 \u2014 content types and site columns',
+        'Cell B3 \u2014 library settings: versioning, check-out, alerts',
+        'Cell B4 \u2014 column formatting (JSON)',
+        'Cell B5 \u2014 permission levels, groups, and breaking inheritance',
+        'Cell B6 \u2014 build a basic Power Automate flow',
+        'Work the Intermediate Mini Lab, then start the Departmental Hub capstone'
+      ]},
+      { level:'advanced', title:'Week 3 \u2014 Advanced', sub:'Get fluent in the Power Platform and governance basics', days:[
+        'Cell C1 \u2014 customize a list form with Power Apps',
+        'Cell C2 \u2014 multi-step flows with approvals and conditions',
+        'Cell C3 \u2014 managed metadata and the term store',
+        'Cell C4 \u2014 search: managed properties and refiners',
+        'Cells C5 + C6 \u2014 SharePoint Syntex, then PnP PowerShell',
+        'Cells C7 + C8 \u2014 retention labels, then hub sites at scale',
+        'Work the Advanced Mini Lab, then start the Governed Intake Process capstone'
+      ]},
+      { level:'expert', title:'Week 4 \u2014 Expert', sub:'Make it production-ready', days:[
+        'Cell D1 \u2014 build and deploy an SPFx web part',
+        'Cell D2 \u2014 tenant sharing settings in the admin center',
+        'Cell D3 \u2014 automate with the Microsoft Graph API',
+        'Cell D4 \u2014 sensitivity labels and DLP policies',
+        'Cells D5 + D6 \u2014 PnP templates, then migration planning',
+        'Cells D7 + D8 \u2014 multi-geo, then a governance plan',
+        'Cell D9 \u2014 admin reports, then finish the Enterprise Rollout Package capstone'
+      ]}
+    ];
+
+    const grid = document.getElementById('weeklyGrid');
+    const overallFill = document.getElementById('weeklyOverallFill');
+    const overallCount = document.getElementById('weeklyOverallCount');
+    const resetBtn = document.getElementById('weeklyResetBtn');
+    const TOTAL_DAYS = WEEKS.reduce((n,w)=>n+w.days.length,0);
+
+    function dayKey(wi, di){ return 'w' + wi + '-d' + di; }
+
+    function render(){
+      grid.innerHTML = '';
+      WEEKS.forEach((week, wi) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'weekly-week';
+        wrap.dataset.level = week.level;
+        const head = document.createElement('div');
+        head.className = 'weekly-week-head';
+        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>';
+        wrap.appendChild(head);
+        const daysWrap = document.createElement('div');
+        daysWrap.className = 'weekly-days';
+        week.days.forEach((text, di) => {
+          const key = dayKey(wi, di);
+          const row = document.createElement('label');
+          row.className = 'weekly-day' + (state[key] ? ' done' : '');
+          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Day ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
+          const box = row.querySelector('input');
+          box.addEventListener('change', () => {
+            state[key] = box.checked;
+            row.classList.toggle('done', box.checked);
+            save();
+            updateOverall();
+            if (typeof window.updateDashboard === 'function') window.updateDashboard();
+          });
+          daysWrap.appendChild(row);
+        });
+        wrap.appendChild(daysWrap);
+        grid.appendChild(wrap);
+      });
+    }
+
+    function updateOverall(){
+      const done = Object.values(state).filter(Boolean).length;
+      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' days';
+      overallFill.style.width = (done/TOTAL_DAYS*100) + '%';
+    }
+
+    if (resetBtn){
+      resetBtn.addEventListener('click', () => { state = {}; save(); render(); updateOverall(); if (typeof window.updateDashboard === 'function') window.updateDashboard(); });
+    }
+
+    window.getWeeklyDoneCount = function(){ return Object.values(state).filter(Boolean).length; };
+
+    render();
+    updateOverall();
+  })();
+
+  // ---------- Timed Challenges ----------
+  (function(){
+    const BEST_KEY = 'spRoadmapTimedBest';
+    let best = {};
+    try{ best = JSON.parse(localStorage.getItem(BEST_KEY)) || {}; }catch(e){ best = {}; }
+    function saveBest(){ try{ localStorage.setItem(BEST_KEY, JSON.stringify(best)); }catch(e){} }
+
+    const levelBtns = document.querySelectorAll('.timed-level-btn');
+    const bestLine = document.getElementById('timedBestLine');
+    const startBtn = document.getElementById('timedStartBtn');
+    const setupBox = document.querySelector('.timed-setup');
+    const roundBox = document.getElementById('timedRound');
+    const summaryBox = document.getElementById('timedSummary');
+    const qNumEl = document.getElementById('timedQNum');
+    const qTotalEl = document.getElementById('timedQTotal');
+    const scoreEl = document.getElementById('timedScore');
+    const clockEl = document.getElementById('timedClock');
+    const qTextEl = document.getElementById('timedQuestionText');
+    const inputEl = document.getElementById('timedInput');
+    const submitBtn = document.getElementById('timedSubmitBtn');
+    const skipBtn = document.getElementById('timedSkipBtn');
+    const resultEl = document.getElementById('timedResult');
+    const finalScoreEl = document.getElementById('timedFinalScore');
+    const finalTimeEl = document.getElementById('timedFinalTime');
+    const newBestEl = document.getElementById('timedNewBest');
+    const againBtn = document.getElementById('timedAgainBtn');
+
+    const levelLabels = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    let selectedLevel = 'beginner';
+    let ids = [], idx = 0, score = 0, secondsLeft = 45, timerHandle = null, roundStart = 0;
+
+    function fmtTime(ms){
+      const s = Math.round(ms/1000);
+      const m = Math.floor(s/60), r = s%60;
+      return m + ':' + String(r).padStart(2,'0');
+    }
+
+    function renderBestLine(){
+      const b = best[selectedLevel];
+      bestLine.textContent = 'Best for ' + levelLabels[selectedLevel] + ': ' + (b ? (b.score + '/' + b.total + ' in ' + fmtTime(b.timeMs)) : '\u2014');
+    }
+
+    levelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedLevel = btn.dataset.level;
+        renderBestLine();
+      });
+    });
+    renderBestLine();
+
+    function shuffledIds(level){
+      const src = (window.SP_LEVELS.find(l => l.key === level) || {ids:[]}).ids.slice();
+      for (let i = src.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [src[i], src[j]] = [src[j], src[i]];
+      }
+      return src.slice(0, Math.min(5, src.length));
+    }
+
+    function startRound(){
+      ids = shuffledIds(selectedLevel);
+      idx = 0; score = 0; roundStart = Date.now();
+      setupBox.style.display = 'none';
+      summaryBox.style.display = 'none';
+      roundBox.style.display = 'block';
+      qTotalEl.textContent = ids.length;
+      scoreEl.textContent = '0';
+      loadQuestion();
+    }
+
+    function tick(){
+      secondsLeft--;
+      clockEl.textContent = '0:' + String(Math.max(secondsLeft,0)).padStart(2,'0');
+      clockEl.classList.toggle('low', secondsLeft <= 10);
+      if (secondsLeft <= 0){
+        clearInterval(timerHandle);
+        resultEl.textContent = '\u23f1 Time\'s up.';
+        resultEl.className = 'ch-result incorrect';
+        setTimeout(nextQuestion, 700);
+      }
+    }
+
+    function loadQuestion(){
+      if (idx >= ids.length){ finishRound(); return; }
+      const data = window.SP_CHALLENGES[ids[idx]];
+      qNumEl.textContent = idx + 1;
+      qTextEl.innerHTML = '<b>' + ids[idx] + ':</b> ' + data.q;
+      inputEl.value = '';
+      resultEl.textContent = '';
+      resultEl.className = 'ch-result';
+      secondsLeft = 45;
+      clockEl.textContent = '0:45';
+      clockEl.classList.remove('low');
+      clearInterval(timerHandle);
+      timerHandle = setInterval(tick, 1000);
+      inputEl.focus();
+    }
+
+    function submitAnswer(){
+      clearInterval(timerHandle);
+      const id = ids[idx];
+      const data = window.SP_CHALLENGES[id];
+      const norm = inputEl.value.toUpperCase().replace(/\s+/g,' ').trim();
+      const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
+      if (typeof window.recordChallengeAttempt === 'function') window.recordChallengeAttempt(id, ok);
+      if (ok){
+        score++;
+        scoreEl.textContent = score;
+        resultEl.textContent = '\u2713 Correct.';
+        resultEl.className = 'ch-result correct';
+      } else {
+        resultEl.textContent = '\u2717 Answer: ' + data.answer;
+        resultEl.className = 'ch-result incorrect';
+      }
+      setTimeout(nextQuestion, 700);
+    }
+
+    function nextQuestion(){ idx++; loadQuestion(); }
+
+    function finishRound(){
+      const elapsed = Date.now() - roundStart;
+      roundBox.style.display = 'none';
+      summaryBox.style.display = 'block';
+      finalScoreEl.textContent = score + '/' + ids.length;
+      finalTimeEl.textContent = fmtTime(elapsed);
+      const prev = best[selectedLevel];
+      const isNewBest = !prev || score > prev.score || (score === prev.score && elapsed < prev.timeMs);
+      if (isNewBest){
+        best[selectedLevel] = { score:score, total:ids.length, timeMs:elapsed };
+        saveBest();
+        newBestEl.style.display = 'block';
+      } else {
+        newBestEl.style.display = 'none';
+      }
+      renderBestLine();
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }
+
+    startBtn.addEventListener('click', startRound);
+    submitBtn.addEventListener('click', submitAnswer);
+    skipBtn.addEventListener('click', nextQuestion);
+    inputEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAnswer(); });
+    againBtn.addEventListener('click', () => {
+      summaryBox.style.display = 'none';
+      setupBox.style.display = 'flex';
+    });
+
+    window.getTimedBestSummary = function(){
+      let bestLevel = null, bestRec = null;
+      Object.keys(best).forEach(lvl => {
+        const rec = best[lvl];
+        if (!bestRec || rec.score > bestRec.score || (rec.score === bestRec.score && rec.timeMs < bestRec.timeMs)){
+          bestRec = rec; bestLevel = lvl;
+        }
+      });
+      if (!bestRec) return null;
+      return {
+        text: bestRec.score + '/' + bestRec.total + ' in ' + fmtTime(bestRec.timeMs),
+        level: levelLabels[bestLevel] || bestLevel,
+        perfect: bestRec.score === bestRec.total
+      };
+    };
+  })();
+
+  // ---------- Time spent tracker ----------
+  (function(){
+    const KEY = 'spRoadmapTimeSpent';
+    setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      let mins = 0;
+      try{ mins = parseInt(localStorage.getItem(KEY) || '0', 10) || 0; }catch(e){}
+      mins += 1;
+      try{ localStorage.setItem(KEY, String(mins)); }catch(e){}
+      if (typeof window.updateDashboard === 'function') window.updateDashboard();
+    }, 60000);
+  })();
+
+  // ---------- Dashboard, readiness, and achievements ----------
+  window.SP_LEVELS = LEVELS;
+  window.SP_CHALLENGES = CHALLENGES;
+  window.recordChallengeAttempt = recordAttempt;
+
+  function updateDashboard(){
+    const totalSkills = Object.keys(CHALLENGES).length;
+    const masteredIds = Object.keys(progress).filter(id => isMastered(id));
+    const masteredCount = masteredIds.length;
+    const remaining = totalSkills - masteredCount;
+
+    const levelNames = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    const currentLevelObj = LEVELS.find(l => !l.ids.every(id => isMastered(id))) || LEVELS[LEVELS.length-1];
+    const curMasteredInLevel = currentLevelObj.ids.filter(id => isMastered(id)).length;
+
+    setText('dashLevelVal', levelNames[currentLevelObj.key]);
+    setText('dashLevelSub', curMasteredInLevel + '/' + currentLevelObj.ids.length + ' mastered');
+    setText('dashMasteredVal', masteredCount);
+    setText('dashRemainingVal', remaining);
+    setText('dashRemainingSub', remaining === 0 ? 'Every skill mastered' : 'Still unattempted or missed');
+
+    let totalCorrect = 0, totalAttempts = 0;
+    Object.values(progress).forEach(rec => { totalCorrect += rec.correctAttempts || 0; totalAttempts += rec.totalAttempts || 0; });
+    const accuracyPct = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
+    setText('dashAccuracyVal', accuracyPct === null ? '\u2014' : accuracyPct);
+    setText('dashAccuracyUnit', accuracyPct === null ? '' : '%');
+    setText('dashAccuracySub', totalAttempts > 0 ? (totalCorrect + ' correct of ' + totalAttempts + ' attempts') : 'No attempts yet');
+
+    const submitted = typeof window.getCapstoneSubmittedCount === 'function' ? window.getCapstoneSubmittedCount() : 0;
+    setText('dashProjectsVal', submitted);
+    setWidth('dashProjectsFill', submitted/4*100);
+
+    const weeklyDone = typeof window.getWeeklyDoneCount === 'function' ? window.getWeeklyDoneCount() : 0;
+    setText('dashWeeklyVal', weeklyDone);
+    setWidth('dashWeeklyFill', weeklyDone/28*100);
+
+    const timedSummary = typeof window.getTimedBestSummary === 'function' ? window.getTimedBestSummary() : null;
+    setText('dashTimedVal', timedSummary ? timedSummary.text : 'Not played');
+    setText('dashTimedSub', timedSummary ? ('Best on ' + timedSummary.level) : 'Best score across levels');
+
+    let mins = 0;
+    try{ mins = parseInt(localStorage.getItem('spRoadmapTimeSpent') || '0', 10) || 0; }catch(e){}
+    const h = Math.floor(mins/60), m = mins%60;
+    setText('dashTimeSpentVal', h > 0 ? (h + 'h ' + m + 'm') : (m + 'm'));
+
+    const skillPct = masteredCount/totalSkills*100;
+    const capPct = submitted/4*100;
+    const completionPct = Math.round((skillPct + capPct)/2);
+    setText('dashCompletionVal', completionPct);
+    setWidth('dashCompletionFill', completionPct);
+    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + submitted + ' of 4 capstones');
+
+    const accForReadiness = accuracyPct === null ? 0 : accuracyPct;
+    const readiness = Math.round(skillPct*0.45 + capPct*0.35 + accForReadiness*0.20);
+    setText('dashReadinessVal', readiness);
+    let verdict, detail;
+    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges and check off a capstone deliverable to see your score move.'; }
+    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics \u2014 keep working the board and start a capstone if you haven\'t.'; }
+    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Advanced column and get a capstone submitted.'; }
+    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own administering a real SharePoint environment. A few more Expert skills and capstones will round this out.'; }
+    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, shipped capstones, and your quiz accuracy backs it up \u2014 you\'re ready for a real SharePoint rollout.'; }
+    setText('dashVerdict', verdict);
+    setText('dashVerdictDetail', detail);
+
+    const beginnerIds = LEVELS[0].ids;
+    const achievements = [
+      { icon:'\ud83d\ude80', name:'First Steps', desc:'Master your first skill on the board', unlocked: masteredCount >= 1 },
+      { icon:'\ud83d\udfe6', name:'Beginner Builder', desc:'Master every Beginner skill', unlocked: beginnerIds.every(id => isMastered(id)) },
+      { icon:'\ud83d\udcca', name:'Halfway There', desc:'Master 14 of 28 skills', unlocked: masteredCount >= 14 },
+      { icon:'\ud83c\udfc6', name:'Board Master', desc:'Master all 28 skills', unlocked: masteredCount >= totalSkills },
+      { icon:'\ud83d\udea2', name:'First Ship', desc:'Submit your first capstone', unlocked: submitted >= 1 },
+      { icon:'\ud83d\udce6', name:'Full Portfolio', desc:'Submit all 4 capstones', unlocked: submitted >= 4 },
+      { icon:'\ud83c\udfaf', name:'Sharpshooter', desc:'90%+ quiz accuracy over 10+ attempts', unlocked: totalAttempts >= 10 && accuracyPct !== null && accuracyPct >= 90 },
+      { icon:'\ud83d\udd25', name:'Week Warrior', desc:'Check off 7+ weekly exercise days', unlocked: weeklyDone >= 7 },
+      { icon:'\u26a1', name:'Speed Demon', desc:'Score a perfect round in Timed Challenges', unlocked: !!(timedSummary && timedSummary.perfect) }
+    ];
+    const achGrid = document.getElementById('achGrid');
+    if (achGrid){
+      achGrid.innerHTML = achievements.map(a =>
+        '<div class="ach-badge' + (a.unlocked ? ' unlocked' : '') + '"><span class="ach-icon">' + a.icon + '</span><div><div class="ach-name">' + a.name + '</div><div class="ach-desc">' + a.desc + '</div></div></div>'
+      ).join('');
+    }
+    setText('achCount', achievements.filter(a => a.unlocked).length + ' / ' + achievements.length + ' unlocked');
+  }
+  function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
+  function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
+  window.updateDashboard = updateDashboard;
+
+  const dashResetBtn = document.getElementById('dashResetBtn');
+  if (dashResetBtn){
+    dashResetBtn.addEventListener('click', () => {
+      progress = {};
+      saveProgress();
+      applyLocks();
+      applyBadges();
+      updateDashboard();
+    });
+  }
+
+  updateDashboard();
+
+  // ---------- Glossary flash cards ----------
+  (function(){
+    const CONCEPTS = [
+      {cat:'General', action:'The unified interface for managing SharePoint tenant settings', keys:'SharePoint admin center'},
+      {cat:'General', action:'The service that syncs a SharePoint library to your local computer', keys:'OneDrive sync'},
+      {cat:'General', action:'A modern intranet homepage aggregating news and links across sites', keys:'Home site'},
+      {cat:'General', action:'The compliance portal used for retention, DLP, and sensitivity labels', keys:'Microsoft Purview'},
+      {cat:'Sites', action:'A site that groups related sites under shared navigation and branding', keys:'Hub site'},
+      {cat:'Sites', action:"The independent security and storage boundary every SharePoint site has", keys:'Site collection'},
+      {cat:'Sites', action:'A site created for a Microsoft 365 Group, usually tied to Teams', keys:'Team site'},
+      {cat:'Sites', action:'A site meant for broadcasting content to a wide audience, not collaboration', keys:'Communication site'},
+      {cat:'Lists & libraries', action:'Where files are stored with metadata, versions, and permissions attached', keys:'Document library'},
+      {cat:'Lists & libraries', action:"SharePoint's structured, spreadsheet-like data store with typed columns", keys:'List'},
+      {cat:'Lists & libraries', action:'A reusable field definition that can be added to multiple lists/libraries', keys:'Site column'},
+      {cat:'Lists & libraries', action:"A bundle of site columns plus behavior that defines a reusable 'kind of item'", keys:'Content type'},
+      {cat:'Lists & libraries', action:'A saved combination of filter, sort, and grouping for a list or library', keys:'View'},
+      {cat:'Lists & libraries', action:'The centrally managed, shared vocabulary used for consistent tagging', keys:'Term store'},
+      {cat:'Permissions', action:'The default state where an item takes its permissions from its parent site', keys:'Inheritance'},
+      {cat:'Permissions', action:'Giving an item or library its own, independent permission set', keys:'Breaking inheritance'},
+      {cat:'Permissions', action:'A named set of people used to manage access instead of adding individuals', keys:'SharePoint group'},
+      {cat:'Permissions', action:'A label that encrypts or restricts sharing of content based on sensitivity', keys:'Sensitivity label'},
+      {cat:'Automation & dev', action:'The no-code tool used to build flows triggered by list events', keys:'Power Automate'},
+      {cat:'Automation & dev', action:"The tool used to replace a list's default form with a custom layout", keys:'Power Apps'},
+      {cat:'Automation & dev', action:'The modern client-side development model for custom web parts', keys:'SharePoint Framework (SPFx)'},
+      {cat:'Automation & dev', action:'The unified REST API for accessing Microsoft 365 data, including SharePoint', keys:'Microsoft Graph'},
+      {cat:'Automation & dev', action:'The community PowerShell module for scripting SharePoint administration', keys:'PnP PowerShell'}
+    ];
+
+    let idx = 0;
+    const toggle = document.getElementById('scToggle');
+    const panel = document.getElementById('scPanel');
+    const closeBtn = document.getElementById('scClose');
+    const card = document.getElementById('scCard');
+    const catEl = document.getElementById('scCat');
+    const promptEl = document.getElementById('scPrompt');
+    const keysEl = document.getElementById('scKeys');
+    const countEl = document.getElementById('scCount');
+    const prevBtn = document.getElementById('scPrev');
+    const nextBtn = document.getElementById('scNext');
+    const shuffleBtn = document.getElementById('scShuffle');
+
+    function render(){
+      const s = CONCEPTS[idx];
+      catEl.textContent = s.cat.toUpperCase();
+      promptEl.textContent = s.action;
+      keysEl.textContent = s.keys;
+      countEl.textContent = (idx+1) + ' / ' + CONCEPTS.length;
+      card.classList.remove('flipped');
+    }
+    function shuffle(){
+      for (let i = CONCEPTS.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [CONCEPTS[i], CONCEPTS[j]] = [CONCEPTS[j], CONCEPTS[i]];
+      }
+      idx = 0; render();
+    }
+
+    toggle.addEventListener('click', () => { panel.classList.toggle('open'); if (panel.classList.contains('open')) render(); });
+    closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    prevBtn.addEventListener('click', () => { idx = (idx - 1 + CONCEPTS.length) % CONCEPTS.length; render(); });
+    nextBtn.addEventListener('click', () => { idx = (idx + 1) % CONCEPTS.length; render(); });
+    shuffleBtn.addEventListener('click', shuffle);
+    render();
+  })();
+
+  // ---------- Sample data CSV downloads ----------
+  (function(){
+    function toCSV(rows){
+      return rows.map(r => r.map(v => {
+        const s = String(v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s;
+      }).join(',')).join('\r\n');
+    }
+    function download(filename, text){
+      const blob = new Blob([text], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+    function rnd(min, max){ return Math.random()*(max-min)+min; }
+    function pad(n, len){ return String(n).padStart(len,'0'); }
+    function fmtDate(d){ return d.toISOString().slice(0,10); }
+    function randomDate(y1, y2){
+      const start = new Date(y1,0,1).getTime();
+      const end = new Date(y2,11,31).getTime();
+      return new Date(start + Math.random()*(end-start));
+    }
+    const firstNames = ['Alicia','James','Priya','Marcus','Elena','Tom','Sofia','Noah','Grace','Liam','Maya','Ethan','Chloe','Omar','Nina','Diego','Ivy','Sam','Ruth','Leo'];
+    const lastNames = ['Moore','Chen','Patel','Diaz','Novak','Reid','Kim','Silva','Turner','Boyd','Fischer','Ahmed','Ward','Lopez','Grant','Osei','Kane','Ito','Brown','Fox'];
+    function fullName(){ return pick(firstNames) + ' ' + pick(lastNames); }
+
+    function genDirectory(){
+      const depts = ['Marketing','Finance','Operations','Sales','IT','HR'];
+      const sites = ['Team Site - Marketing','Team Site - Finance','Team Site - Ops','Team Site - Sales','Team Site - IT','Team Site - HR'];
+      const roles = ['Member','Owner','Visitor'];
+      const rows = [['PersonID','Name','Department','Site','Role']];
+      for (let i = 1; i <= 60; i++){
+        rows.push(['P' + pad(i,3), fullName(), pick(depts), pick(sites), pick(roles)]);
+      }
+      return rows;
+    }
+
+    function genTasks(){
+      const statuses = ['Open','In Progress','Done','Blocked'];
+      const priorities = ['Low','Medium','High'];
+      const titles = ['Draft brief','Vendor call','Kickoff deck','Review contract','Update roadmap','Client demo','Budget review','Site audit','Training session','Status report'];
+      const rows = [['TaskID','Title','Status','AssignedTo','DueDate','Priority']];
+      for (let i = 1; i <= 250; i++){
+        rows.push(['T' + pad(1000+i,5), pick(titles), pick(statuses), 'P' + pad(Math.floor(rnd(1,61)),3), fmtDate(randomDate(2025,2026)), pick(priorities)]);
+      }
+      return rows;
+    }
+
+    function genDocuments(){
+      const contentTypes = ['Client Contract','Invoice','Policy Document','Meeting Notes','Proposal'];
+      const depts = ['Legal','Sales','Finance','Marketing','Operations'];
+      const statuses = ['Draft','In Review','Approved','Archived'];
+      const rows = [['DocID','Title','ContentType','Department','ReviewDate','Status']];
+      for (let i = 1; i <= 140; i++){
+        rows.push(['DOC' + pad(i,4), pick(contentTypes) + ' ' + pad(i,3) + '.docx', pick(contentTypes), pick(depts), fmtDate(randomDate(2025,2027)), pick(statuses)]);
+      }
+      return rows;
+    }
+
+    function genTickets(){
+      const categories = ['Access request','Password reset','Site provisioning','Permissions issue','Sync error','Feature request'];
+      const statuses = ['New','Assigned','In Progress','Resolved','Closed'];
+      const priorities = ['Low','Medium','High','Urgent'];
+      const rows = [['TicketID','Category','Submitted','AssignedTo','Status','Priority']];
+      for (let i = 1; i <= 180; i++){
+        rows.push(['TCK' + pad(2000+i,5), pick(categories), fmtDate(randomDate(2025,2026)), 'P' + pad(Math.floor(rnd(1,61)),3), pick(statuses), pick(priorities)]);
+      }
+      return rows;
+    }
+
+    const GENERATORS = {
+      tasks: {fn: genTasks, file: 'project-tasks-practice.csv'},
+      directory: {fn: genDirectory, file: 'team-directory-practice.csv'},
+      documents: {fn: genDocuments, file: 'document-register-practice.csv'},
+      tickets: {fn: genTickets, file: 'helpdesk-tickets-practice.csv'}
+    };
+
+    document.querySelectorAll('.dataset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.dataset;
+        const gen = GENERATORS[key];
+        if (!gen) return;
+        const original = btn.textContent;
+        btn.textContent = 'Generating\u2026';
+        setTimeout(() => {
+          download(gen.file, toCSV(gen.fn()));
+          btn.textContent = 'Downloaded \u2713';
+          setTimeout(() => { btn.textContent = original; }, 1600);
+        }, 10);
+      });
+    });
+  })();
+</script>
+
+<script>
+(function(){
+  // ---------- PAGE ROUTER ----------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.style.display = (p === pageId) ? '' : 'none';
+    });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem('spRoadmapActivePage', pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => {
+        const t = document.getElementById(scrollTargetId);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+        else window.scrollTo(0,0);
+      });
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+
+  window.goToPage = showPage;
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem('spRoadmapActivePage') || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.home-analytics-link').forEach(a => {
+    a.addEventListener('click', (e) => { e.preventDefault(); showPage('progress'); });
+  });
+
+  // ---------- CONTINUE LEARNING ----------
+  const continueBtn = document.getElementById('continueLearningBtn');
+  if (continueBtn){
+    continueBtn.addEventListener('click', () => {
+      const levels = window.SP_LEVELS || [];
+      let targetId = null;
+      for (const level of levels){
+        const nextUnmastered = level.ids.find(id => {
+          const box = document.querySelector('.challenge[data-id="' + id + '"]');
+          return box && !box.closest('.cell').classList.contains('skill-mastered');
+        });
+        if (nextUnmastered){ targetId = nextUnmastered; break; }
+      }
+      showPage('learn', targetId ? null : undefined);
+      requestAnimationFrame(() => {
+        if (!targetId) return;
+        const box = document.querySelector('.challenge[data-id="' + targetId + '"]');
+        const cell = box ? box.closest('.cell') : null;
+        if (cell){
+          cell.classList.add('open');
+          cell.scrollIntoView({ behavior:'smooth', block:'center' });
+        }
+      });
+    });
+  }
+
+  // ---------- LEVEL PRACTICE CTA (per-column Continue + links to Practice/Projects) ----------
+  function goToNextInLevel(levelKey){
+    showPage('learn');
+    const col = document.querySelector('.level-col[data-level="' + levelKey + '"]');
+    if (!col || col.classList.contains('section-locked')) return;
+    const nextCell = col.querySelector('.cell:not(.skill-mastered)');
+    requestAnimationFrame(() => {
+      if (nextCell){
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== nextCell) c.classList.remove('open'); });
+        nextCell.classList.add('open');
+        nextCell.scrollIntoView({ behavior:'smooth', block:'center' });
+      } else {
+        const cta = col.querySelector('.level-practice-cta');
+        if (cta) cta.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  }
+
+  document.querySelectorAll('.level-continue-btn').forEach(btn => {
+    btn.addEventListener('click', () => goToNextInLevel(btn.dataset.level));
+  });
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('projects', a.getAttribute('href').slice(1));
+    });
+  });
+
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('practice', a.getAttribute('href').slice(1));
+    });
+  });
+
+  // ---------- HOME SNAPSHOT (mirrors the Progress-page dashboard) ----------
+  function refreshHomeSnapshot(){
+    const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const levels = window.SP_LEVELS || [];
+    const compVal = document.getElementById('dashCompletionVal');
+    const compSub = document.getElementById('dashCompletionSub');
+    const compFillEl = document.getElementById('dashCompletionFill');
+    if (compVal) set('homeCompletionVal', compVal.textContent);
+    if (compSub) set('homeCompletionSub', compSub.textContent);
+    if (compFillEl){ const homeFill = document.getElementById('homeCompletionFill'); if (homeFill) homeFill.style.width = compFillEl.style.width; }
+    const levelVal = document.getElementById('dashLevelVal');
+    if (levelVal) set('homeLevelVal', levelVal.textContent);
+    const masteredVal = document.getElementById('dashMasteredVal');
+    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 28');
+    const projVal = document.getElementById('dashProjectsVal');
+    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 4');
+
+    let nextLessonText = 'All skills mastered! \ud83c\udf89';
+    for (const level of levels){
+      const nextUnmastered = level.ids.find(id => {
+        const box = document.querySelector('.challenge[data-id="' + id + '"]');
+        return box && !box.closest('.cell').classList.contains('skill-mastered');
+      });
+      if (nextUnmastered){
+        const box = document.querySelector('.challenge[data-id="' + nextUnmastered + '"]');
+        const skillEl = box ? box.closest('.cell').querySelector('.skill') : null;
+        if (skillEl) nextLessonText = skillEl.textContent;
+        break;
+      }
+    }
+    set('homeNextLesson', nextLessonText);
+  }
+
+  const origUpdateDashboard = window.updateDashboard;
+  if (typeof origUpdateDashboard === 'function'){
+    window.updateDashboard = function(){
+      origUpdateDashboard();
+      refreshHomeSnapshot();
+    };
+  }
+  refreshHomeSnapshot();
+})();
+</script>
+
+</body>
+</html>
