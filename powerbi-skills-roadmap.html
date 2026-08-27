@@ -258,6 +258,18 @@
     margin-top:44px;
     flex-wrap:wrap;
   }
+  .hero-time-note{
+    margin-top:20px;
+    max-width:640px;
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--muted);
+    padding:10px 14px;
+    background:var(--panel-2);
+    border:1px solid var(--grid);
+    border-radius:6px;
+  }
+  .hero-time-note b{ color:var(--ink); }
   .meta-item{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -523,6 +535,60 @@
     .level-head{ position:static; }
   }
 
+  /* ---------- DESKTOP STAGE TABS (>880px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width: 881px){
+    .stage-tabs{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      max-width:1080px;
+      margin:24px auto 0;
+      padding:0 24px;
+      flex-wrap:wrap;
+    }
+    .stage-tab{
+      font-family:'JetBrains Mono', monospace;
+      font-size:12.5px;
+      font-weight:600;
+      color:var(--muted);
+      background:var(--panel);
+      border:1px solid var(--grid);
+      border-bottom:none;
+      border-radius:8px 8px 0 0;
+      padding:10px 16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{
+      color:var(--tab-color, var(--green));
+      background:var(--panel-2);
+      box-shadow: inset 0 2px 0 var(--tab-color, var(--green));
+    }
+    .stage-tab-lock{ color:var(--amber); font-size:11px; }
+
+    .board{
+      grid-template-columns: 1fr;
+      border-radius:0 10px 10px 10px;
+    }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{
+      padding-left:24px;
+      padding-right:24px;
+    }
+    .level-col.tab-active .cell,
+    .level-col.tab-active .topic-divider,
+    .level-col.tab-active .section-lock-banner{
+      padding-left:24px;
+      padding-right:24px;
+    }
+  }
+
   /* ---------- DIAGRAMS ---------- */
   .diagram{
     margin-top:14px;
@@ -577,6 +643,10 @@
   }
   .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
   .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-done-check{ display:flex; align-items:center; gap:7px; margin-top:14px; font-size:12px; color:var(--muted); cursor:pointer; }
+  .lab-done-check input{ cursor:pointer; }
+  .lab-card.lab-complete{ border-color: var(--green); }
+  .lab-card.lab-complete .lab-done-check{ color:var(--green); }
   .lab-card .task b{ color:var(--ink); }
 
   table.sample{
@@ -799,6 +869,13 @@
   .ch-mistake.show{ display:block; }
   .ch-mistake b{ color:var(--amber); }
 
+  /* ---------- APPLY IT (build task) ---------- */
+  .ch-apply{ margin-top:10px; padding:10px 10px; background: rgba(62,207,142,0.06); border-left:2px solid var(--green); border-radius:3px; }
+  .ch-apply-label{ font-size:11.5px; color:var(--muted); line-height:1.5; margin-bottom:8px; }
+  .ch-apply-label b{ color:var(--green); }
+  .ch-apply-check{ display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ink); cursor:pointer; }
+  .ch-apply-check input{ cursor:pointer; }
+
   /* ---------- DASHBOARD ---------- */
   .dashboard{ max-width:1080px; margin: 40px auto 0; padding: 0 24px; }
   .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
@@ -826,6 +903,7 @@
   .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
   .dash-readiness .rverdict{ font-family:'Archivo', sans-serif; font-weight:700; font-size:15px; color:var(--ink); }
   .dash-readiness .rdetail{ font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+  .dash-readiness .rformula{ font-size:10.5px; color:var(--dim); margin-top:8px; line-height:1.5; }
   @media (max-width:880px){ .dash-grid{ grid-template-columns: repeat(2, 1fr); } }
   @media (max-width:560px){ .dash-grid{ grid-template-columns: 1fr; } .dash-readiness{ flex-direction:column; align-items:flex-start; } }
 
@@ -896,6 +974,7 @@
   .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
   .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
   .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-week-head .wk-pace{ font-size:11.5px; color:var(--dim); margin-top:4px; line-height:1.5; }
   .weekly-days{ display:flex; flex-direction:column; gap:6px; }
   .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
   .weekly-day:hover{ background:var(--panel-2); }
@@ -1002,10 +1081,11 @@
   </p>
 
   <div class="hero-meta">
-    <div class="meta-item">TIME TO NEXT LEVEL<strong>10–14 wks</strong></div>
-    <div class="meta-item">SKILLS TRACKED<strong>28</strong></div>
+    <div class="meta-item">FULL PATH<strong>14 wks</strong></div>
+    <div class="meta-item">SKILLS TRACKED<strong>44</strong></div>
     <div class="meta-item">PREREQ<strong>None</strong></div>
   </div>
+  <p class="hero-time-note">⏱ The time shown on each skill card is <b>focused learning time only</b> — reading the "why," working the example, passing the challenge. Real fluency needs practice time on top: budget <b>60–90 min per Mini Lab</b> and <b>4–8 hrs per capstone project</b>. The 14-week pacing above assumes both, not just the learning time.</p>
 </header>
 
 <div class="home-card">
@@ -1038,15 +1118,15 @@
     <div class="home-stats" style="margin-top:18px;">
       <div class="home-stat">
         <div class="dlabel">Current level</div>
-        <div class="dvalue" id="homeLevelVal">Beginner</div>
+        <div class="dvalue" id="homeLevelVal">Foundation</div>
       </div>
       <div class="home-stat">
         <div class="dlabel">Skills mastered</div>
-        <div class="dvalue" id="homeMasteredVal">0 / 28</div>
+        <div class="dvalue" id="homeMasteredVal">0 / 44</div>
       </div>
       <div class="home-stat">
         <div class="dlabel">Capstones submitted</div>
-        <div class="dvalue" id="homeProjectsVal">0 / 4</div>
+        <div class="dvalue" id="homeProjectsVal">0 / 5</div>
       </div>
     </div>
   </div>
@@ -1071,7 +1151,7 @@
   <div class="level-col" data-level="beginner">
     <div class="level-head">
       <div class="letter mono">COLUMN A</div>
-      <h3>Beginner</h3>
+      <h3>Foundation</h3>
       <span class="tag">week 1–2</span>
     </div>
 
@@ -1119,10 +1199,10 @@ Every step lands in the Applied Steps pane, top to bottom</div>
     <div class="cell">
       <div class="addr"><span>A3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Build and format your first visuals</div>
-      <div class="why">Cards, bar charts, and tables cover most first drafts. Drag a field into a well, pick a visual type, then move to the Format pane instead of eyeballing defaults.</div>
-      <div class="example">Visualizations pane → pick a chart type
-Drag a numeric field into "Values", a category into "Axis"
-Format pane (paint-roller icon) → colors, data labels, titles</div>
+      <div class="why">Power BI's newer on-object experience lets you build and format a visual right on the canvas — click an empty canvas or an existing visual and a "Build" / "Format" popup appears there instead of only in side panes. Your version may show the classic side panes (Visualizations + Format) instead, or both — the concept is the same either way: pick a visual type, drag fields into its wells (Axis, Values…), then format it instead of leaving default colors and unlabeled axes.</div>
+      <div class="example">On-object: click empty canvas → "Build visual" popup, or click a visual → floating Build/Format icons on its border
+Classic panes: Visualizations pane → pick a chart type; Format pane (paint-roller icon) → colors, data labels, titles
+Either way: drag a numeric field into "Values", a category into "Axis"</div>
       <div class="challenge" data-id="A3">
         <div class="ch-q"></div>
         <div class="ch-row">
@@ -1179,7 +1259,7 @@ Model view — see and edit the relationships between tables</div>
 
     <div class="level-practice-cta">
       <a class="cta-link" href="#lab-beginner" data-goto-tab="labs">🧪 Practice this stage →</a>
-      <a class="cta-link" href="#capstone-beginner">🚀 Beginner project →</a>
+      <a class="cta-link" href="#capstone-beginner">🚀 Foundation project →</a>
     </div>
 
     <div class="section-lock-banner">🔒 Unlocks after Column A</div>
@@ -1189,16 +1269,17 @@ Model view — see and edit the relationships between tables</div>
   <div class="level-col" data-level="intermediate">
     <div class="level-head">
       <div class="letter mono">COLUMN B</div>
-      <h3>Intermediate</h3>
-      <span class="tag">week 3–5</span>
+      <h3>Analyst</h3>
+      <span class="tag">week 3–6</span>
     </div>
 
     <div class="topic-divider">Data modeling</div>
     <div class="cell">
       <div class="addr"><span>B1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Build relationships and a star schema</div>
-      <div class="why">A real data model — one fact table surrounded by dimension tables — is what lets Power BI slice correctly by any field you throw at it, instead of one flattened Excel export.</div>
-      <div class="example">Model view → drag a key field from the fact table to the matching dimension table
+      <div class="why">Before you drag a single relationship, answer one question: "what does one row in this fact table represent?" That's the table's grain — one sale line, one shipment, one login. Get the grain wrong and every measure built on top inherits the mistake. Once the grain is clear, keys and cardinality follow naturally, and a real data model — one fact table surrounded by dimension tables — is what lets Power BI slice correctly by any field you throw at it, instead of one flattened Excel export.</div>
+      <div class="example">Ask first: "one row = ?" (e.g. one row = one order line, not one order)
+Model view → drag a key field from the fact table to the matching dimension table
 Set cardinality (usually one-to-many) and cross-filter direction (usually single)</div>
       <div class="diagram">
         <div class="diagram-label">Star schema — one fact table, several dimensions</div>
@@ -1250,11 +1331,105 @@ Home → Append Queries — stacks rows from tables with the same structure (lik
       </div>
     </div>
 
+    <div class="topic-divider">Power Query deep dive</div>
+    <div class="cell">
+      <div class="addr"><span>B7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Data types, and clean shaping (rename, reorder, remove)</div>
+      <div class="why">Every downstream step — date math, sorting, aggregation, a merge on a key — assumes the column's data type is right. Fixing type, name, and column order early, right after connecting, is what keeps later steps from silently breaking.</div>
+      <div class="example">Column header icon (ABC / 123 / calendar) → Change Type
+Right-click a column → Rename, Remove, or Move → to reorder without dragging</div>
+      <div class="challenge" data-id="B7">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Conditional columns, custom columns, and Group By</div>
+      <div class="why">A Conditional Column builds if/then/else logic through a dialog — faster and less error-prone than hand-written M for simple branching. A Custom Column is for real M expressions. Group By collapses rows into per-category summaries, the Power Query equivalent of a SQL GROUP BY.</div>
+      <div class="example">Add Column → Conditional Column — if/then/else, no M required
+Add Column → Custom Column — for anything a dialog can't express
+Transform → Group By — pick a key column, then an aggregation (Sum, Count, Average…)</div>
+      <div class="challenge" data-id="B8">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Unpivot/Pivot and query parameters</div>
+      <div class="why">Source data often arrives wide — one column per month or category — when Power BI wants it long, one row per observation. Unpivot fixes that shape in a couple of clicks. Parameters let you swap a hardcoded value (a file path, a date, an environment) for a variable other queries can reference, so one file can point at dev or prod without editing every step.</div>
+      <div class="example">Select the category columns → Transform → Unpivot Columns (wide → long)
+Manage Parameters → New Parameter → reference it inside a query's Source step</div>
+      <div class="challenge" data-id="B9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>B10</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Query dependencies, references, and error handling</div>
+      <div class="why">Referencing one query from another (instead of duplicating it) means a single upstream fix flows everywhere — but only if you can see who depends on whom before you rename or delete something. Try/otherwise and error-aware steps stop one bad row from failing an entire refresh.</div>
+      <div class="example">View → Query Dependencies — see the full reference tree before changing a shared query
+Right-click a query → Reference (not Duplicate) to build on it without copying its steps
+try [Column] otherwise null — catch a row-level error instead of failing the whole query</div>
+      <div class="challenge" data-id="B10">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
     <div class="topic-divider">First DAX</div>
+    <div class="cell">
+      <div class="addr"><span>B11</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Implicit vs. explicit measures, and DIVIDE</div>
+      <div class="why">Dragging a raw numeric field into a visual and letting Power BI auto-sum it creates an implicit measure — it works, but it's invisible, uneditable as its own object, and breaks field parameters later. An explicit measure — one you name and write yourself — is the professional default. DIVIDE is the other habit to build immediately: a plain a/b expression errors or shows an ugly infinity the moment the denominator is zero or blank; DIVIDE handles that gracefully with a fallback.</div>
+      <div class="example">Implicit (avoid as a habit): dragging Sales[Amount] straight into a card, auto-summed
+Explicit (prefer): Total Sales = SUM(Sales[Amount])
+Avg Order Value = DIVIDE([Total Sales], [Order Count], 0) — returns 0 instead of an error when Order Count is 0</div>
+      <div class="challenge" data-id="B11">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
     <div class="cell">
       <div class="addr"><span>B3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Measures vs. calculated columns, and CALCULATE</div>
-      <div class="why">A measure recalculates live for whatever's currently filtered; a calculated column is baked in row-by-row at refresh time. CALCULATE is how you deliberately change the filter context a measure sees.</div>
+      <div class="why">A measure recalculates live for whatever's currently filtered; a calculated column is baked in row-by-row at refresh time. Once you're writing explicit measures, CALCULATE is the next step: it's how you deliberately change the filter context a measure sees, rather than accepting whatever's already on the page.</div>
       <div class="example">Total Sales = SUM(Sales[Amount])
 Sales in EU = CALCULATE([Total Sales], Geography[Region] = "EU")</div>
       <div class="challenge" data-id="B3">
@@ -1333,7 +1508,7 @@ True many-to-many? Add a bridge table with unique keys instead of linking the tw
 
     <div class="level-practice-cta">
       <a class="cta-link" href="#lab-intermediate" data-goto-tab="labs">🧪 Practice this stage →</a>
-      <a class="cta-link" href="#capstone-intermediate">🚀 Intermediate project →</a>
+      <a class="cta-link" href="#capstone-intermediate">🚀 Analyst project →</a>
     </div>
 
     <div class="section-lock-banner">🔒 Unlocks after Column B</div>
@@ -1343,14 +1518,53 @@ True many-to-many? Add a bridge table with unique keys instead of linking the tw
   <div class="level-col" data-level="advanced">
     <div class="level-head">
       <div class="letter mono">COLUMN C</div>
-      <h3>Advanced</h3>
-      <span class="tag">week 6–9</span>
+      <h3>Developer</h3>
+      <span class="tag">week 7–11</span>
     </div>
 
-    <div class="topic-divider">DAX filter context</div>
+    <div class="topic-divider">DAX: filter context &amp; variables</div>
+    <div class="cell">
+      <div class="addr"><span>C3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">VAR / RETURN for readable DAX</div>
+      <div class="why">Variables stop you repeating the same sub-expression twice, and they make a formula something you can actually debug line by line instead of untangling nested parentheses. Reach for VAR/RETURN the moment a measure needs more than one step.</div>
+      <div class="example">Avg Line Value =
+VAR TotalAmt = SUM(Sales[Amount])
+VAR TotalQty = SUM(Sales[Qty])
+RETURN DIVIDE(TotalAmt, TotalQty)</div>
+      <div class="challenge" data-id="C3">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Filter modifiers: ALL, ALLEXCEPT, ALLSELECTED</div>
+      <div class="why">These control which filters CALCULATE ignores or keeps — the core mechanic behind "% of total" and the ranking patterns you'll build later.</div>
+      <div class="example">% of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Sales)))
+Keeps Region filter, drops everything else:
+CALCULATE([Total Sales], ALLEXCEPT(Sales, Sales[Region]))</div>
+      <div class="challenge" data-id="C2">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
     <div class="cell">
       <div class="addr"><span>C1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
-      <div class="skill">Time intelligence: TOTALYTD, SAMEPERIODLASTYEAR</div>
+      <div class="skill">Date intelligence: TOTALYTD, SAMEPERIODLASTYEAR</div>
       <div class="why">Year-to-date and year-over-year comparisons only work reliably against a proper, contiguous calendar table — marked as an official date table, not just any date column.</div>
       <div class="example">YTD Sales = TOTALYTD([Total Sales], 'Date'[Date])
 Sales LY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
@@ -1386,46 +1600,7 @@ Model view → right-click the Date table → Mark as Date Table</div>
       </div>
     </div>
 
-    <div class="cell">
-      <div class="addr"><span>C2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
-      <div class="skill">Filter modifiers: ALL, ALLEXCEPT, ALLSELECTED</div>
-      <div class="why">These control which filters CALCULATE ignores or keeps — the core mechanic behind "% of total" and ranking patterns that don't collapse to 100% on every row.</div>
-      <div class="example">% of Total = DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Sales)))
-Keeps Region filter, drops everything else:
-CALCULATE([Total Sales], ALLEXCEPT(Sales, Sales[Region]))</div>
-      <div class="challenge" data-id="C2">
-        <div class="ch-q"></div>
-        <div class="ch-row">
-          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
-          <button class="ch-btn" type="button">Check</button>
-        </div>
-        <div class="ch-result"></div>
-        <button class="ch-reveal" type="button">Show answer</button>
-        <div class="ch-mistake"></div>
-      </div>
-    </div>
-
     <div class="topic-divider">Model &amp; security</div>
-    <div class="cell">
-      <div class="addr"><span>C3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
-      <div class="skill">VAR / RETURN for readable DAX</div>
-      <div class="why">Variables stop you repeating the same sub-expression twice, and they make a formula something you can actually debug line by line instead of untangling nested parentheses.</div>
-      <div class="example">YoY % =
-VAR CurYear = [Total Sales]
-VAR PrevYear = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
-RETURN DIVIDE(CurYear - PrevYear, PrevYear)</div>
-      <div class="challenge" data-id="C3">
-        <div class="ch-q"></div>
-        <div class="ch-row">
-          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
-          <button class="ch-btn" type="button">Check</button>
-        </div>
-        <div class="ch-result"></div>
-        <button class="ch-reveal" type="button">Show answer</button>
-        <div class="ch-mistake"></div>
-      </div>
-    </div>
-
     <div class="cell">
       <div class="addr"><span>C4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Row-level security (RLS)</div>
@@ -1445,7 +1620,7 @@ Modeling → View As → test the role before publishing</div>
       </div>
     </div>
 
-    <div class="topic-divider">Context &amp; iterators</div>
+    <div class="topic-divider">Context, iteration &amp; virtual tables</div>
     <div class="cell">
       <div class="addr"><span>C5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Row context vs. filter context, and context transition</div>
@@ -1487,6 +1662,79 @@ MAXX, MINX, COUNTX follow the same pattern: table first, expression second</div>
       </div>
     </div>
 
+    <div class="cell">
+      <div class="addr"><span>C11</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">FILTER, REMOVEFILTERS, and KEEPFILTERS</div>
+      <div class="why">FILTER builds a virtual table by testing a condition row by row — the tool for filter logic ALLEXCEPT can't express. REMOVEFILTERS says exactly which filters to clear, in plain language — reach for it before ALL() when the goal is simply "ignore this filter," since ALL() also strips context in ways that surprise people using it for the first time. KEEPFILTERS does the opposite: it stops CALCULATE's default behavior of overwriting an existing filter, so a new condition narrows instead of replaces.</div>
+      <div class="example">High Value Orders = CALCULATE([Order Count], FILTER(Sales, Sales[Amount] > 1000))
+% of All Products = DIVIDE([Sales], CALCULATE([Sales], REMOVEFILTERS('Product')))
+CALCULATE([Sales], KEEPFILTERS('Product'[Category] = "Bikes")) — narrows within the existing filter instead of replacing it</div>
+      <div class="challenge" data-id="C11">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C10</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">SELECTEDVALUE and VALUES — reading the current selection</div>
+      <div class="why">SELECTEDVALUE is one of the most common functions in real Power BI work: it returns a value only when a filter narrows a column to exactly one, and a fallback otherwise — perfect for a card title or a what-if input that should show "(multiple)" instead of guessing. VALUES returns the distinct values currently visible in the filter context as a one-column table, the building block underneath a lot of dynamic DAX.</div>
+      <div class="example">Selected Product = SELECTEDVALUE('Product'[Name], "Multiple products")
+COUNTROWS(VALUES('Product'[Category])) — how many distinct categories are in view right now</div>
+      <div class="challenge" data-id="C10">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C12</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Virtual tables: SUMMARIZE and SUMMARIZECOLUMNS</div>
+      <div class="why">Most real DAX beyond a simple measure involves building a table in memory — grouped rows with aggregates attached — and then doing something with it (ranking it, filtering it, iterating it). SUMMARIZECOLUMNS is the modern, faster way to do this; SUMMARIZE still shows up constantly in existing models and needs to be readable even if you default to SUMMARIZECOLUMNS in new work.</div>
+      <div class="example">SUMMARIZECOLUMNS('Product'[Category], "Total Sales", [Sales], "Order Count", [Order Count])
+SUMMARIZE(Sales, 'Product'[Category], "Total Sales", SUM(Sales[Amount])) — older pattern, still common in legacy models</div>
+      <div class="challenge" data-id="C12">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C15</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Ranking patterns: RANKX</div>
+      <div class="why">RANKX puts every earlier Level 3 idea to work at once — it ranks a value against other rows in a virtual table, and that ranking table almost always needs ALL() wrapped around it so the rank doesn't reset inside every filter context (a row context / context transition issue) the moment it's dropped into a matrix.</div>
+      <div class="example">Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)
+Rank within Region = RANKX(ALLEXCEPT(Customer, Customer[Region]), [Total Sales], , DESC) — ranks within each region instead of globally</div>
+      <div class="challenge" data-id="C15">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
     <div class="topic-divider">Performance &amp; governance</div>
     <div class="cell">
       <div class="addr"><span>C7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
@@ -1508,10 +1756,29 @@ Power Query: Tools → Query Diagnostics → Start Diagnostics, then refresh a q
     </div>
 
     <div class="cell">
+      <div class="addr"><span>C9</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Query folding</div>
+      <div class="why">When your source supports it (most databases), Power Query can push your transformation steps back to the source as a generated query — a filter, a group by, a join — instead of pulling every row first and processing it locally. One step that can't fold (a custom column with an unsupported function, an early Table.Buffer) breaks folding for every step after it, silently turning a fast server-side query into a slow local one.</div>
+      <div class="example">Right-click any step → "View Native Query" — greyed out means folding already broke upstream
+Keep filters, renames, and type changes near the top of a query; put custom M logic as late as possible</div>
+      <div class="challenge" data-id="C9">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
       <div class="addr"><span>C8</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Calculation groups <span style="opacity:.6">(optional)</span></div>
-      <div class="why">Without calculation groups, a time-intelligence toolkit — YTD, QTD, prior year, prior period — has to be rebuilt for every single measure. A calculation group applies the same set of DAX transforms across many measures at once.</div>
-      <div class="example">Built and edited in Tabular Editor, not Desktop's own UI
+      <div class="why">Without calculation groups, a time-intelligence toolkit — YTD, QTD, prior year, prior period — has to be rebuilt for every single measure. A calculation group applies the same set of DAX transforms across many measures at once. Calculation groups can now be created natively in Power BI Desktop's Model view — Tabular Editor is no longer required to get started, though it's still the faster tool for bulk edits, scripting, and advanced automation.</div>
+      <div class="example">Model view → Calculation group button (ribbon) → creates the group natively in Desktop
+Tabular Editor remains useful for bulk-editing many calculation items at once, or scripting them
 Calculation group "Time Intelligence" with calculation items:
 YTD → CALCULATE(SELECTEDMEASURE(), TOTALYTD('Date'[Date], ...))
 PY → CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('Date'[Date]))</div>
@@ -1527,32 +1794,15 @@ PY → CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('Date'[Date]))</div>
       </div>
     </div>
 
-    <button class="level-continue-btn" data-level="advanced" type="button">Continue →</button>
-
-    <div class="level-practice-cta">
-      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">🧪 Practice this stage →</a>
-      <a class="cta-link" href="#capstone-advanced">🚀 Advanced project →</a>
-    </div>
-
-    <div class="section-lock-banner">🔒 Unlocks after Column C</div>
-  </div>
-
-  <!-- ===================== EXPERT ===================== -->
-  <div class="level-col" data-level="expert">
-    <div class="level-head">
-      <div class="letter mono">COLUMN D</div>
-      <h3>Expert</h3>
-      <span class="tag">week 10–14</span>
-    </div>
-
-    <div class="topic-divider">Advanced DAX</div>
+    <div class="topic-divider">Interactive report design</div>
     <div class="cell">
-      <div class="addr"><span>D1</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
-      <div class="skill">Iterators and ranking: SUMX, RANKX</div>
-      <div class="why">Iterators evaluate an expression row-by-row before aggregating — you need one whenever the math (weighted averages, running totals, custom ranking) can't be expressed as a plain SUM.</div>
-      <div class="example">Weighted Avg = SUMX(Sales, Sales[Qty] * Sales[UnitPrice]) / SUM(Sales[Qty])
-Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)</div>
-      <div class="challenge" data-id="D1">
+      <div class="addr"><span>C13</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Field parameters</div>
+      <div class="why">A field parameter lets a report viewer swap which measure or dimension a visual shows — "Sales vs. Profit vs. Quantity" as a slicer choice on the same chart — instead of you building a separate visual for every combination. It behaves like a small table of its own, so it interacts with explicit measures, drillthrough, and tooltips slightly differently than a normal field; test those before shipping one.</div>
+      <div class="example">Modeling → New Parameter → Fields — pick the measures/columns viewers can switch between
+Drop the resulting field onto a chart's axis or a slicer, exactly like a normal field
+Check drillthrough and tooltip pages still work correctly once a field parameter drives the visual</div>
+      <div class="challenge" data-id="C13">
         <div class="ch-q"></div>
         <div class="ch-row">
           <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
@@ -1564,6 +1814,123 @@ Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)</div>
       </div>
     </div>
 
+    <div class="cell">
+      <div class="addr"><span>C14</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Design an interactive report experience</div>
+      <div class="why">A dashboard people can actually navigate — not just look at once — needs more than a matrix and a bookmark. Buttons and page navigators give structure; report-page tooltips add context without leaving the page; conditional formatting and dynamic titles make a report respond to what's selected; and checking the layout at a smaller width catches a report that only works on your monitor.</div>
+      <div class="example">Insert → Buttons → Back/Bookmark/Page navigation — wire a button to a bookmark or another page
+Format a tooltip page at a small canvas size, then set it as another visual's tooltip in Format → Tooltip
+Conditional formatting → Format by rules or a measure (e.g. red under target, green over)
+Dynamic title = "Sales — " & SELECTEDVALUE('Date'[Year], "All years")
+File → Options → Mobile layout — arrange visuals for a phone view separately from the desktop canvas</div>
+      <div class="challenge" data-id="C14">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Business thinking</div>
+    <div class="cell">
+      <div class="addr"><span>C16</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Requirements gathering: audience, decisions, and grain</div>
+      <div class="why">The most expensive rework in Power BI is rarely a bad DAX formula — it's building the wrong report because nobody asked who it's for and what they'll actually do with it. Before opening Power BI, get clear answers on: who's the audience, what decision(s) will they make, which KPIs matter, what's the required grain, which filters are truly needed, and how fresh does the data need to be.</div>
+      <div class="example">Audience: who opens this report, and how often?
+Decision: what will they do differently because of this number?
+Grain, filters, and refresh cadence: confirm all three before the first visual gets built</div>
+      <div class="challenge" data-id="C16">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C17</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">KPI design: definition, numerator/denominator, and exceptions</div>
+      <div class="why">A KPI isn't real until you can state its numerator, its denominator, and every business rule and exception that changes what counts — a return that shouldn't count against on-time delivery, a trial account that shouldn't count as a paying customer. Agree on the definition, the target, and the exceptions with the business before writing a single measure.</div>
+      <div class="example">On-Time % → numerator: orders delivered by promised date; denominator: all orders; exception: customer-requested reschedules excluded
+Write the definition down somewhere the business can see and challenge it, before building the DAX</div>
+      <div class="challenge" data-id="C17">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C18</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Data validation and reconciliation</div>
+      <div class="why">A dashboard that "looks about right" isn't validated. Before shipping, reconcile totals against the source system, check for duplicate rows introduced by a merge or relationship, and account for missing or null data instead of letting it silently vanish from a sum.</div>
+      <div class="example">Compare the report's grand total against a source-system export or SQL query for the same period
+COUNTROWS(table) before vs. after a merge — catch duplication early
+Check a null/blank category doesn't just disappear from a bar chart's total</div>
+      <div class="challenge" data-id="C18">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="addr"><span>C19</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">20 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Storytelling: executive summary → diagnostic → detail → action</div>
+      <div class="why">A report a viewer can navigate is not the same as a report that tells them something. Structure pages in layers: an executive summary that answers the main question in five seconds, a diagnostic layer for "why," a detail layer for the row-level data, and a clear next action — not just a wall of charts in whatever order you built them.</div>
+      <div class="example">Page 1 — Executive summary: the 3–5 numbers that matter, headline-first
+Page 2 — Diagnostic: breakdowns and trends that explain the headline
+Page 3 — Detail: the underlying table for anyone who needs to drill in
+Every page should end with an implied or explicit "so what do I do about it?"</div>
+      <div class="challenge" data-id="C19">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <button class="level-continue-btn" data-level="advanced" type="button">Continue →</button>
+
+    <div class="level-practice-cta">
+      <a class="cta-link" href="#lab-advanced" data-goto-tab="labs">🧪 Practice this stage →</a>
+      <a class="cta-link" href="#capstone-advanced">🚀 Developer project →</a>
+    </div>
+
+    <div class="section-lock-banner">🔒 Unlocks after Column C</div>
+  </div>
+
+  <!-- ===================== EXPERT ===================== -->
+  <div class="level-col" data-level="expert">
+    <div class="level-head">
+      <div class="letter mono">COLUMN D</div>
+      <h3>Senior &amp; Production</h3>
+      <span class="tag">week 12–14</span>
+    </div>
+
+    <div class="topic-divider">Core production skills</div>
     <div class="cell">
       <div class="addr"><span>D2</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Composite models: Import, DirectQuery, Dual</div>
@@ -1584,13 +1951,12 @@ Dual: can act as either, depending on the query</div>
       </div>
     </div>
 
-    <div class="topic-divider">Deploy &amp; operate</div>
     <div class="cell">
       <div class="addr"><span>D3</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
-      <div class="skill">Incremental refresh &amp; deployment pipelines</div>
-      <div class="why">Incremental refresh only reloads recent partitions instead of the entire fact table every night. Deployment pipelines let you promote a report from Dev to Test to Prod without breaking what's live.</div>
+      <div class="skill">Incremental refresh</div>
+      <div class="why">Incremental refresh only reloads recent partitions instead of the entire fact table every night — a huge win for refresh time and source load once a fact table gets into the millions of rows.</div>
       <div class="example">Desktop → right-click a fact table → Incremental refresh policy → set a date range
-Service → Workspace → Deployment pipelines → assign Dev/Test/Prod stages</div>
+Requires Premium, PPU, or Fabric capacity in the service to actually run as configured on a schedule</div>
       <div class="challenge" data-id="D3">
         <div class="ch-q"></div>
         <div class="ch-row">
@@ -1603,6 +1969,26 @@ Service → Workspace → Deployment pipelines → assign Dev/Test/Prod stages</
       </div>
     </div>
 
+    <div class="cell">
+      <div class="addr"><span>D10</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">25 min</span><span class="exp">tap ▸</span></div>
+      <div class="skill">Deployment pipelines &amp; ALM</div>
+      <div class="why">Incremental refresh is a model/refresh optimization; deployment pipelines are a separate discipline — application lifecycle management (ALM) — promoting a report through Dev → Test → Prod without breaking what's live for people already using it. It requires Premium, PPU, or Fabric capacity; it isn't available on plain Pro.</div>
+      <div class="example">Service → Workspace → Deployment pipelines → assign Dev/Test/Prod stages
+Deployment rules swap a data source or parameter automatically per stage
+Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
+      <div class="challenge" data-id="D10">
+        <div class="ch-q"></div>
+        <div class="ch-row">
+          <input type="text" class="ch-input" placeholder="Type your answer" autocomplete="off" spellcheck="false">
+          <button class="ch-btn" type="button">Check</button>
+        </div>
+        <div class="ch-result"></div>
+        <button class="ch-reveal" type="button">Show answer</button>
+        <div class="ch-mistake"></div>
+      </div>
+    </div>
+
+    <div class="topic-divider">Production &amp; Platform Specialization <span style="opacity:.55; font-weight:400;">— optional, not the required endpoint</span></div>
     <div class="cell">
       <div class="addr"><span>D4</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">External tools: DAX Studio &amp; Tabular Editor</div>
@@ -1622,7 +2008,6 @@ Tabular Editor → C# scripting to bulk-rename or reformat dozens of measures at
       </div>
     </div>
 
-    <div class="topic-divider">Analysis &amp; scripting</div>
     <div class="cell">
       <div class="addr"><span>D5</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">35 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">VertiPaq Analyzer &amp; the DAX Studio optimization workflow</div>
@@ -1662,7 +2047,6 @@ foreach (var m in Model.AllMeasures) { m.FormatString = "#,##0"; }</div>
       </div>
     </div>
 
-    <div class="topic-divider">Platform &amp; scale</div>
     <div class="cell">
       <div class="addr"><span>D7</span><span class="skill-done-badge">✓ mastered</span><span class="time-est">30 min</span><span class="exp">tap ▸</span></div>
       <div class="skill">Fabric integration &amp; Dataflows Gen2</div>
@@ -1706,8 +2090,8 @@ POST https://api.powerbi.com/v1.0/myorg/groups/{groupId}/datasets/{datasetId}/re
       <div class="skill">Administration &amp; deployment best practices at scale</div>
       <div class="why">Once dozens of teams are publishing, someone has to own capacity, tenant settings, and governance — who can publish where, how large a semantic model is allowed to get, and how it refreshes without timing out or starving other workloads.</div>
       <div class="example">Admin portal → capacity settings, tenant settings, usage metrics
-Large semantic model storage format → needed to go beyond the default 1 GB (Pro) model size limit
-Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
+Large semantic model storage format → lets a model exceed the default 1 GB limit; exact limits depend on your workspace's license/capacity (Pro, PPU, or Fabric SKU) — check current limits rather than assuming 1 GB is a hard ceiling for everyone
+Deployment pipelines require Premium, PPU, or Fabric capacity — not available on plain Pro</div>
       <div class="challenge" data-id="D9">
         <div class="ch-q"></div>
         <div class="ch-row">
@@ -1724,7 +2108,8 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
 
     <div class="level-practice-cta">
       <a class="cta-link" href="#lab-expert" data-goto-tab="labs">🧪 Practice this stage →</a>
-      <a class="cta-link" href="#capstone-expert">🚀 Expert project →</a>
+      <a class="cta-link" href="#capstone-expert">🚀 Semantic model project →</a>
+      <a class="cta-link" href="#capstone-production">🚀 Deploy &amp; govern project →</a>
     </div>
   </div>
 
@@ -1751,7 +2136,7 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
     <div class="cap-side">
       <span class="cap-num mono">CAPSTONE 01</span>
       <h4>Sales Dashboard</h4>
-      <span class="cap-level-tag">Beginner</span>
+      <span class="cap-level-tag">Foundation</span>
       <span class="cap-audience">~3–4 hrs</span>
       <span class="cap-done-badge">✓ submitted</span>
     </div>
@@ -1786,7 +2171,7 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
     <div class="cap-side">
       <span class="cap-num mono">CAPSTONE 02</span>
       <h4>HR Dashboard (Star Schema)</h4>
-      <span class="cap-level-tag">Intermediate</span>
+      <span class="cap-level-tag">Analyst</span>
       <span class="cap-audience">~6–8 hrs</span>
       <span class="cap-done-badge">✓ submitted</span>
     </div>
@@ -1821,7 +2206,7 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
     <div class="cap-side">
       <span class="cap-num mono">CAPSTONE 03</span>
       <h4>Executive KPI Dashboard</h4>
-      <span class="cap-level-tag">Advanced</span>
+      <span class="cap-level-tag">Developer</span>
       <span class="cap-audience">~8–10 hrs</span>
       <span class="cap-done-badge">✓ submitted</span>
     </div>
@@ -1855,29 +2240,64 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
   <div class="capstone-card" id="capstone-expert" data-level="expert" data-cap="4">
     <div class="cap-side">
       <span class="cap-num mono">CAPSTONE 04</span>
-      <h4>Enterprise Semantic Model</h4>
-      <span class="cap-level-tag">Expert</span>
-      <span class="cap-audience">~10–14 hrs</span>
+      <h4>Production Semantic Model</h4>
+      <span class="cap-level-tag">Senior &amp; Production</span>
+      <span class="cap-audience">~6–8 hrs</span>
       <span class="cap-done-badge">✓ submitted</span>
     </div>
     <div>
-      <p class="cap-scenario">Take a model with a large fact table and get it production-ready: <b>secured</b> per user, <b>refreshing incrementally</b>, promoted safely through environments, and handed to end users as a clean app.</p>
+      <p class="cap-scenario">Take a model with a large fact table and get the <b>data layer</b> production-ready: properly modeled, secured, performant, and refreshing efficiently — before anyone touches deployment or the audience it's shipped to.</p>
       <div class="cap-skills">
+        <span class="cap-skill-chip">Star schema</span>
+        <span class="cap-skill-chip">Advanced DAX</span>
         <span class="cap-skill-chip">RLS</span>
-        <span class="cap-skill-chip">Storage modes</span>
+        <span class="cap-skill-chip">Performance optimization</span>
         <span class="cap-skill-chip">Incremental refresh</span>
-        <span class="cap-skill-chip">Deployment pipelines</span>
-        <span class="cap-skill-chip">DAX Studio</span>
       </div>
       <div class="cap-deliver">
         <div class="cap-deliver-label mono">Checklist</div>
         <ul>
+          <li>Confirm the model is a proper <b>star schema</b> with a clear fact-table grain</li>
+          <li>Write at least two measures using <b>advanced DAX</b> (VAR/RETURN, an iterator, or context transition)</li>
           <li>Configure an <b>RLS role</b> filtering by region or department, and test it with View As</li>
-          <li>Set <b>storage modes</b> per table (Import / DirectQuery)</li>
+          <li>Profile a slow measure in <b>Performance Analyzer</b> or DAX Studio and fix the bottleneck</li>
           <li>Configure an <b>incremental refresh</b> policy on the fact table</li>
-          <li>Set up a <b>Dev → Test → Prod</b> deployment pipeline</li>
-          <li>Profile a slow measure in <b>DAX Studio</b> / VertiPaq Analyzer</li>
-          <li>Publish as an <b>App</b> with a scheduled refresh</li>
+        </ul>
+        <div class="cap-progress-row">
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+          <span class="cap-progress-count mono">0/5</span>
+        </div>
+        <button class="cap-submit-btn" type="button" disabled>Submit Capstone</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capstone-card" id="capstone-production" data-level="expert" data-cap="5">
+    <div class="cap-side">
+      <span class="cap-num mono">CAPSTONE 05</span>
+      <h4>Deploy &amp; Govern</h4>
+      <span class="cap-level-tag">Senior &amp; Production</span>
+      <span class="cap-audience">~4–6 hrs</span>
+      <span class="cap-done-badge">✓ submitted</span>
+    </div>
+    <div>
+      <p class="cap-scenario">Take the semantic model from Capstone 04 and get it in front of real users the right way: promoted safely through environments, permissioned correctly, refreshing on a schedule, and documented so someone else could maintain it.</p>
+      <div class="cap-skills">
+        <span class="cap-skill-chip">Workspace</span>
+        <span class="cap-skill-chip">App</span>
+        <span class="cap-skill-chip">Deployment pipeline</span>
+        <span class="cap-skill-chip">Permissions</span>
+        <span class="cap-skill-chip">Governance</span>
+      </div>
+      <div class="cap-deliver">
+        <div class="cap-deliver-label mono">Checklist</div>
+        <ul>
+          <li>Organize the report and model into a properly named <b>workspace</b></li>
+          <li>Publish it to end users as an <b>App</b>, not a raw workspace link</li>
+          <li>Set up a <b>Dev → Test → Prod deployment pipeline</b> and promote through all three stages</li>
+          <li>Configure <b>permissions</b> — workspace roles for builders, App audience for viewers</li>
+          <li>Confirm <b>scheduled refresh</b> is active and has actually succeeded at least once</li>
+          <li>Write basic <b>documentation</b>: a short data dictionary or measure list, and any known limitations</li>
         </ul>
         <div class="cap-progress-row">
           <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
@@ -1906,12 +2326,33 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
 </div>
 
 <div class="practice-panel" data-panel="labs">
-<p class="section-note" style="padding:0; margin-bottom:16px;">One hands-on task per level. Try it in Power BI Desktop against a sample table before checking the solution.</p>
+<p class="section-note" style="padding:0; margin-bottom:16px;">2–3 hands-on tasks per level. Try each in Power BI Desktop against a sample table before checking the solution.</p>
 
 <div class="lab">
+  <div class="lab-card" id="lab-beginner-clean" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Foundation</span></div>
+    <h4>Clean and visualize</h4>
+    <p class="task">In Power Query, fix the data type on <b>Total</b>, remove any column you won't use, then build a bar chart of revenue by category from the cleaned table.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Category</th><th>Region</th><th>Total</th><th>Notes</th></tr>
+      <tr><td>ORD1001</td><td>Electronics</td><td>West</td><td>129.99</td><td></td></tr>
+      <tr><td>ORD1002</td><td>Home</td><td>East</td><td>44.50</td><td></td></tr>
+      <tr><td>ORD1003</td><td>Electronics</td><td>South</td><td>89.00</td><td></td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Column header (Total) → click the type icon → Decimal Number.<br>
+        Right-click "Notes" → Remove (it's empty).<br>
+        Bar chart → Category on Axis, Total on Values.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
   <div class="lab-card" id="lab-beginner" data-level="beginner">
-    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Beginner</span></div>
-    <h4>Build a one-page orders overview</h4>
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Foundation</span></div>
+    <h4>Build a small dashboard</h4>
     <p class="task">Using the sample below, build a <b>Card</b> showing total revenue and a <b>Bar chart</b> of revenue by category, then add a <b>Slicer</b> on Region.</p>
     <table class="sample">
       <tr><th>OrderID</th><th>Category</th><th>Region</th><th>Total</th></tr>
@@ -1927,12 +2368,72 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
         Insert → Slicer → drag Region onto it → resize to sit above the other visuals.
       </div>
     </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-beginner-publish" data-level="beginner">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Foundation</span></div>
+    <h4>Publish and refresh</h4>
+    <p class="task">Publish your dashboard from the previous lab to the Power BI service, then set up a scheduled refresh so it doesn't stay stuck on today's data forever.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Category</th><th>Region</th><th>Total</th></tr>
+      <tr><td>ORD1004</td><td>Home</td><td>West</td><td>67.20</td></tr>
+      <tr><td>ORD1005</td><td>Electronics</td><td>East</td><td>210.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Desktop → Home → Publish → choose a workspace.<br>
+        Service → open the dataset → Settings → Scheduled refresh → turn it on and pick a time.<br>
+        If your source is a local file, you'll need the On-premises Data Gateway installed first — refresh will fail silently without it.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate-star" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Analyst</span></div>
+    <h4>Star schema</h4>
+    <p class="task">Split the flat table below into a fact table (Orders) and two dimension tables (Customers, Products), then relate them. Write down the grain of the fact table first.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>CustomerID</th><th>CustomerName</th><th>ProductID</th><th>ProductName</th><th>Qty</th><th>Price</th></tr>
+      <tr><td>1</td><td>C001</td><td>Alicia Moore</td><td>P10</td><td>Desk Lamp</td><td>2</td><td>19.99</td></tr>
+      <tr><td>2</td><td>C002</td><td>Delta Freight LLC</td><td>P11</td><td>Office Chair</td><td>1</td><td>149.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Grain: one row = one order line (OrderID + ProductID).<br>
+        Split into Orders (OrderID, CustomerID, ProductID, Qty, Price), Customers (CustomerID, CustomerName), Products (ProductID, ProductName).<br>
+        Model view → drag CustomerID from Customers to Orders, and ProductID from Products to Orders — both one-to-many, single direction.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-intermediate-debug" data-level="intermediate">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Analyst</span></div>
+    <h4>Relationship debugging</h4>
+    <p class="task">Using your star schema from the previous lab, add a "Ship Date" column to a second Date table and relate it to Orders — it'll conflict with an existing Date relationship. Fix the ambiguity.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>OrderDate</th><th>ShipDate</th></tr>
+      <tr><td>1</td><td>2026-03-01</td><td>2026-03-03</td></tr>
+      <tr><td>2</td><td>2026-03-02</td><td>2026-03-05</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Relating both OrderDate and ShipDate to the same Date table creates a second relationship, which Power BI marks inactive (dashed line).<br>
+        Use <code>CALCULATE([Total Sales], USERELATIONSHIP('Date'[Date], Orders[ShipDate]))</code> to activate the inactive one only inside that measure.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
   </div>
 
   <div class="lab-card" id="lab-intermediate" data-level="intermediate">
-    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Intermediate</span></div>
-    <h4>Merge a lookup table and add a measure</h4>
-    <p class="task">Merge the <b>Customers</b> dataset into <b>Orders</b> on CustomerID, then write a measure for <b>Average Order Value</b>.</p>
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Analyst</span></div>
+    <h4>Measures + drillthrough</h4>
+    <p class="task">Merge the <b>Customers</b> dataset into <b>Orders</b> on CustomerID, write a measure for <b>Average Order Value</b>, then build a drillthrough page filtered to a single customer.</p>
     <table class="sample">
       <tr><th>CustomerID</th><th>Name</th><th>Segment</th></tr>
       <tr><td>C001</td><td>Alicia Moore</td><td>Consumer</td></tr>
@@ -1944,13 +2445,15 @@ Deployment pipelines + XMLA read-write together give you a real CI/CD flow</div>
         Power Query → Orders query → Home → Merge Queries → match Orders[CustomerID] to Customers[CustomerID], Left Outer join → expand the Name/Segment columns.<br>
         DAX measure:
         <code>Avg Order Value = DIVIDE(SUM(Orders[Total]), DISTINCTCOUNT(Orders[OrderID]))</code>
+        New page → drag CustomerID into the Drillthrough well → right-click a customer on the summary page → Drillthrough.
       </div>
     </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
   </div>
 
   <div class="lab-card" id="lab-advanced" data-level="advanced">
-    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Advanced</span></div>
-    <h4>Add YTD and prior-year comparison</h4>
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Developer</span></div>
+    <h4>Time intelligence</h4>
     <p class="task">Load a Date table, mark it as the official date table, then build <b>YTD Sales</b> and <b>% vs Prior Year</b> measures.</p>
     <table class="sample">
       <tr><th>Date</th><th>Total</th></tr>
@@ -1967,25 +2470,107 @@ VAR PY = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('Date'[Date]))
 RETURN DIVIDE([Total Sales] - PY, PY)</code>
       </div>
     </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
   </div>
 
-  <div class="lab-card" id="lab-expert" data-level="expert">
-    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Expert</span></div>
-    <h4>Rank customers with a running total</h4>
-    <p class="task">Build a measure ranking customers by revenue and a running-total measure over time, using an iterator.</p>
+  <div class="lab-card" id="lab-advanced-kpi" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Developer</span></div>
+    <h4>Dynamic KPI analysis</h4>
+    <p class="task">Build a field parameter that lets a viewer switch a single chart between <b>Total Sales</b>, <b>Order Count</b>, and <b>Average Order Value</b> — no separate visual per metric.</p>
     <table class="sample">
-      <tr><th>Customer</th><th>Date</th><th>Total</th></tr>
-      <tr><td>C001</td><td>2026-02-01</td><td>210.00</td></tr>
-      <tr><td>C002</td><td>2026-02-02</td><td>95.00</td></tr>
+      <tr><th>OrderID</th><th>Category</th><th>Total</th></tr>
+      <tr><td>ORD2001</td><td>Electronics</td><td>145.00</td></tr>
+      <tr><td>ORD2002</td><td>Home</td><td>62.30</td></tr>
     </table>
     <details class="solution">
       <summary>Show solution steps</summary>
       <div class="sol-body">
-        <code>Customer Rank = RANKX(ALL(Customer), [Total Sales], , DESC)</code>
-        <code>Running Total =
-CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))</code>
+        Modeling → New Parameter → Fields → add all three explicit measures.<br>
+        Drop the resulting field onto a bar chart's Values well, and the field parameter table's Value column onto a slicer.<br>
+        Test that switching the slicer actually changes the chart's aggregation, not just its label.
       </div>
     </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-advanced-rls" data-level="advanced">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Developer</span></div>
+    <h4>RLS + validation</h4>
+    <p class="task">Set up a role that restricts <b>Orders</b> to a single region based on a Manager Email column, then validate it with View As before publishing.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Region</th><th>ManagerEmail</th></tr>
+      <tr><td>ORD3001</td><td>West</td><td>jsmith@company.com</td></tr>
+      <tr><td>ORD3002</td><td>East</td><td>rlee@company.com</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Modeling → Manage Roles → New role → table filter: <code>[ManagerEmail] = USERPRINCIPALNAME()</code><br>
+        Modeling → View As → enter a test email → confirm only that manager's region shows.<br>
+        Validation step: check the grand total under the role is smaller than the unrestricted total — if it's identical, the filter isn't actually applying.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-expert-perf" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Senior &amp; Production</span></div>
+    <h4>Performance investigation</h4>
+    <p class="task">Run Performance Analyzer on a report page with at least one slow visual, then determine whether the bottleneck is DAX query time or visual rendering.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Date</th><th>Total</th></tr>
+      <tr><td>ORD4001</td><td>2026-04-01</td><td>310.00</td></tr>
+      <tr><td>ORD4002</td><td>2026-04-02</td><td>88.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        View → Performance Analyzer → Start Recording → interact with the page (clear cache first if comparing runs).<br>
+        Expand a slow visual's entry — a large "DAX query" time points to the measure; a large "Visual display" time points to rendering/formatting.<br>
+        Copy the DAX query into DAX Studio for a slow measure and check Server Timings for storage-engine vs. formula-engine time.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-expert" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Senior &amp; Production</span></div>
+    <h4>Incremental refresh</h4>
+    <p class="task">Configure an incremental refresh policy on the sample fact table below, storing 2 years of history but only refreshing the last 7 days on each run.</p>
+    <table class="sample">
+      <tr><th>OrderID</th><th>Date</th><th>Total</th></tr>
+      <tr><td>ORD5001</td><td>2026-05-01</td><td>210.00</td></tr>
+      <tr><td>ORD5002</td><td>2026-05-02</td><td>95.00</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Desktop → right-click the fact table → Incremental refresh → set "Store rows in the last" to 2 Years, "Refresh rows in the last" to 7 Days.<br>
+        Publish, then in the service check the refresh history shows only the recent partitions reprocessing, not the full table.<br>
+        Remember this only runs on the configured schedule with Premium/PPU/Fabric capacity — Desktop refresh always reprocesses everything.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
+  </div>
+
+  <div class="lab-card" id="lab-expert-deploy" data-level="expert">
+    <div class="lab-head"><span class="swatch"></span><span class="lname mono">Senior &amp; Production</span></div>
+    <h4>Deployment &amp; governance scenario</h4>
+    <p class="task">Set up a Dev → Test → Prod deployment pipeline for a workspace, configure one deployment rule (e.g. swap a parameter), and promote a change through all three stages.</p>
+    <table class="sample">
+      <tr><th>Stage</th><th>DataSourceParam</th></tr>
+      <tr><td>Dev</td><td>dev-db.company.com</td></tr>
+      <tr><td>Prod</td><td>prod-db.company.com</td></tr>
+    </table>
+    <details class="solution">
+      <summary>Show solution steps</summary>
+      <div class="sol-body">
+        Service → Workspace → Deployment pipelines → create a pipeline, assign your workspace to Dev.<br>
+        Set a deployment rule on the Test/Prod stage so the data-source parameter swaps automatically on promotion — don't just copy the Dev connection forward.<br>
+        Promote Dev → Test, verify it points at the right source, then promote Test → Prod. Requires Premium, PPU, or Fabric capacity.
+      </div>
+    </details>
+    <label class="lab-done-check"><input type="checkbox" class="lab-done-input"> Mark this lab complete</label>
   </div>
 </div>
 </div><!-- /panel: labs -->
@@ -2030,10 +2615,10 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 
 <div class="timed-setup">
   <div class="timed-level-picker" role="tablist">
-    <button class="timed-level-btn active" type="button" data-level="beginner">Beginner</button>
-    <button class="timed-level-btn" type="button" data-level="intermediate">Intermediate</button>
-    <button class="timed-level-btn" type="button" data-level="advanced">Advanced</button>
-    <button class="timed-level-btn" type="button" data-level="expert">Expert</button>
+    <button class="timed-level-btn active" type="button" data-level="beginner">Foundation</button>
+    <button class="timed-level-btn" type="button" data-level="intermediate">Analyst</button>
+    <button class="timed-level-btn" type="button" data-level="advanced">Developer</button>
+    <button class="timed-level-btn" type="button" data-level="expert">Senior &amp; Production</button>
   </div>
   <div class="timed-best mono" id="timedBestLine">Best for Beginner: —</div>
   <button class="timed-start-btn" id="timedStartBtn" type="button">Start Timed Round →</button>
@@ -2071,7 +2656,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 <div class="weekly-overall">
   <span class="ov-label mono">Weeks completed</span>
   <div class="ov-bar"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
-  <span class="ov-count mono" id="weeklyOverallCount">0 / 28 days</span>
+  <span class="ov-count mono" id="weeklyOverallCount">0 / 38 steps</span>
   <button class="capstone-reset" id="weeklyResetBtn" type="button">Reset progress</button>
 </div>
 
@@ -2103,17 +2688,17 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
   <div class="dash-grid">
     <div class="dash-card" data-metric="level">
       <div class="dlabel">Current level</div>
-      <div class="dvalue" id="dashLevelVal">Beginner</div>
+      <div class="dvalue" id="dashLevelVal">Foundation</div>
       <div class="dsub" id="dashLevelSub">0/5 mastered</div>
     </div>
     <div class="dash-card" data-metric="mastered">
       <div class="dlabel">Skills mastered</div>
-      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 28</span></div>
+      <div class="dvalue"><span id="dashMasteredVal">0</span><span class="unit">/ 44</span></div>
       <div class="dsub">Answered correctly on the board</div>
     </div>
     <div class="dash-card" data-metric="projects">
       <div class="dlabel">Capstones submitted</div>
-      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 4</span></div>
+      <div class="dvalue"><span id="dashProjectsVal">0</span><span class="unit">/ 5</span></div>
       <div class="dash-bar"><div class="dash-bar-fill" id="dashProjectsFill"></div></div>
     </div>
     <div class="dash-card" data-metric="accuracy">
@@ -2123,7 +2708,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     </div>
     <div class="dash-card" data-metric="weekly">
       <div class="dlabel">Weekly activity</div>
-      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 28 days</span></div>
+      <div class="dvalue"><span id="dashWeeklyVal">0</span><span class="unit">/ 38 steps</span></div>
       <div class="dash-bar"><div class="dash-bar-fill" id="dashWeeklyFill"></div></div>
     </div>
     <div class="dash-card" data-metric="timed">
@@ -2138,7 +2723,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     </div>
     <div class="dash-card" data-metric="remaining">
       <div class="dlabel">Skills remaining</div>
-      <div class="dvalue"><span id="dashRemainingVal">28</span></div>
+      <div class="dvalue"><span id="dashRemainingVal">44</span></div>
       <div class="dsub" id="dashRemainingSub">Still unattempted or missed</div>
     </div>
   </div>
@@ -2148,7 +2733,8 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     <div class="rtext">
       <div class="rlabel">Readiness verdict</div>
       <div class="rverdict" id="dashVerdict">Just getting started</div>
-      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges and check off a capstone deliverable to see your score move.</div>
+      <div class="rdetail" id="dashVerdictDetail">Answer a few board challenges, work a Mini Lab, and check off a capstone deliverable to see your score move.</div>
+      <div class="rformula">Quiz accuracy 20% · Skills mastered 30% · Labs done 20% · Capstones submitted 30% — self-reported like any checklist, but a perfect quiz alone can't carry the score.</div>
     </div>
   </div>
 
@@ -2163,11 +2749,11 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 </section>
 
 <footer>
-  <div class="fcell">SKILLS TRACKED <b id="fSkills">28</b></div>
+  <div class="fcell">SKILLS TRACKED <b id="fSkills">44</b></div>
   <div class="fcell">CAPSTONES <b>4</b></div>
   <div class="fcell">DATASETS <b>4</b></div>
   <div class="fcell">TIMED ROUNDS <b>4 levels</b></div>
-  <div class="fcell">WEEKLY PLAN <b>28 days</b></div>
+  <div class="fcell">14-WEEK PLAN <b>38 steps</b></div>
   <div class="fcell">ACHIEVEMENTS <b>9</b></div>
   <div class="fcell">PREREQ <b>None</b></div>
 </footer>
@@ -2205,6 +2791,53 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
   });
 
   // ---------- Challenge content ----------
+const BUILD_TASKS = {
+    A1: 'Connect Power BI Desktop to a real file or sample dataset and open the Power Query editor before hitting Load.',
+    A2: 'Shape one query: fix a data type, remove a column you don\'t need, and rename a header, then load it.',
+    A3: 'Build a card, a bar chart, and a table from the same table, formatting at least one with the Format pane or on-object controls.',
+    A4: 'Add a slicer to your report, publish it to the Power BI service, and confirm the published version opens correctly.',
+    A5: 'Open Report, Data, and Model view in the same file and identify one thing you can only do in each.',
+    B1: 'Build a star schema with at least one fact and two dimension tables, and write down the grain of the fact table before connecting anything.',
+    B2: 'Combine two real tables once with Append and once with Merge, and check the resulting row count matches what you expect.',
+    B7: 'Take a raw imported table, fix every column\'s data type, remove at least one unused column, and rename the rest to final names.',
+    B8: 'Build one Conditional Column and one Group By on the same table, and compare the row count before and after grouping.',
+    B9: 'Unpivot a wide table into long format, and create one query parameter that swaps a file path or date.',
+    B10: 'Check Query Dependencies for a query with at least one reference, then wrap one step in try/otherwise.',
+    B11: 'Rewrite one drag-and-drop implicit measure as an explicit named measure, and replace a plain division with DIVIDE.',
+    B3: 'Write one explicit measure and one calculated column doing similar math, then use CALCULATE to filter the measure to a single category.',
+    B4: 'Build a matrix, set up a drillthrough page, and save a bookmark that captures a specific filter state.',
+    B5: 'Build a Calendar table with CALENDAR() or CALENDARAUTO(), mark it as the date table, and turn off Auto Date/Time in options.',
+    B6: 'Deliberately create a many-to-many or inactive relationship, then use USERELATIONSHIP or fix the model to resolve it.',
+    C3: 'Rewrite a nested measure using VAR/RETURN and confirm it returns the same result as the original.',
+    C2: 'Build a % of Total measure with ALL, then a version with ALLEXCEPT that keeps one filter, and compare the outputs in a matrix.',
+    C1: 'Build TOTALYTD and SAMEPERIODLASTYEAR measures against your marked date table and check they respond correctly when you filter to a single month.',
+    C4: 'Set up an RLS role filtering by an email or region column, then use View As to confirm it actually restricts the right rows.',
+    C5: 'Build a calculated column that uses row context only, then a measure using CALCULATE inside SUMX that demonstrates context transition on the same table.',
+    C6: 'Write a SUMX measure doing row-level math a plain SUM can\'t express, and check it against a manually calculated example row.',
+    C11: 'Build one measure with FILTER, one with REMOVEFILTERS, and one with KEEPFILTERS, and confirm each behaves differently in a matrix with a slicer applied.',
+    C10: 'Build a card using SELECTEDVALUE with a fallback string, and test it with zero, one, and multiple items selected in a slicer.',
+    C12: 'Build the same grouped table once with SUMMARIZECOLUMNS and once with SUMMARIZE, and confirm they return matching results.',
+    C15: 'Build a RANKX measure wrapped in ALL, then swap in ALLEXCEPT and confirm the ranking changes to reset per group instead of globally.',
+    C7: 'Run Performance Analyzer on a real page, identify the slowest visual, and determine whether the bottleneck is DAX or rendering.',
+    C9: 'Check View Native Query on a foldable source query, then add a step that breaks folding and confirm the query view greys out.',
+    C8: 'Create a calculation group natively in Model view with at least two calculation items (e.g. YTD and PY), and apply it to an existing measure.',
+    C13: 'Build a field parameter that switches between at least two measures on the same chart, and confirm drillthrough still resolves correctly.',
+    C14: 'Add a button wired to a bookmark, a report-page tooltip, and one conditional formatting rule to a single report page.',
+    C16: 'Write down the audience, the decision, the grain, and the refresh cadence for a report before building a single visual for it.',
+    C17: 'Pick one real ratio KPI and write its numerator, denominator, and at least one business-rule exception before writing the DAX.',
+    C18: 'Reconcile a report\'s grand total against a source export or query for the same period, and note any discrepancy you find.',
+    C19: 'Restructure one report into an executive summary page and a detail page, instead of one page with everything on it.',
+    D2: 'Set at least one table to DirectQuery and another to Import in the same composite model, and confirm the report still performs acceptably.',
+    D3: 'Configure an incremental refresh policy on a real fact table with a defined date range, and confirm only recent partitions reprocess on refresh.',
+    D10: 'Set up a Dev → Test → Prod deployment pipeline for a workspace and promote a change through all three stages.',
+    D4: 'Open a model in DAX Studio, capture Server Timings for a slow measure, then open the same model in Tabular Editor and bulk-rename a set of measures.',
+    D5: 'Run VertiPaq Analyzer against a real model and identify the single largest column by memory, then explain why it\'s large.',
+    D6: 'Connect to a published semantic model via the XMLA endpoint from Tabular Editor and make one metadata change through it.',
+    D7: 'Build a Dataflow Gen2 for a transformation that\'s reused across at least two reports, and point both at the shared dataflow.',
+    D8: 'Call one Power BI REST API endpoint (e.g. list datasets in a workspace) and get back a real response with a working auth token.',
+    D9: 'Review your tenant\'s usage metrics for a real workspace and identify one report or dataset that looks unused.',
+  };
+
   const CHALLENGES = {
     A1: { q:'Which button in the Get Data flow opens Power Query before anything loads onto your canvas?', required:[['TRANSFORM DATA']], answer:'Transform Data', mistake:'Clicking Load and cleaning up afterward instead of going through Transform Data first.' },
     A2: { q:'Which pane records every cleaning step you take, in order, so you can revisit or reorder them?', required:[['APPLIED STEPS']], answer:'Applied Steps', mistake:'Renaming and retyping columns after visuals are already built, breaking every reference downstream.' },
@@ -2213,6 +2846,11 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     A5: { q:'Which view do you switch to in order to see and edit the relationships between tables?', required:[['MODEL']], answer:'Model view', mistake:'Fixing a relationship problem by re-importing data instead of just opening Model view.' },
     B1: { q:'In a star schema, does the fact table sit at the center or the edge — and is that centered table usually on the "one" or "many" side of its relationships?', required:[['FACT'],['MANY']], answer:'The fact table sits at the center, and it is on the "many" side of each relationship.', mistake:'Building one giant flat table instead of a proper fact + dimension model.' },
     B2: { q:'Which Power Query operation is the equivalent of a SQL UNION, stacking rows from tables with the same columns — Merge or Append?', required:[['APPEND']], answer:'Append', mistake:'Using Append when the tables actually needed to be joined side-by-side, producing duplicated rows.' },
+    B11: { q:'Which DAX function divides two numbers but returns a safe fallback instead of an error when the denominator is zero or blank?', required:[['DIVIDE']], answer:'DIVIDE', mistake:'Writing a plain a/b expression that errors or shows infinity the moment a real-world denominator hits zero.' },
+    B7: { q:'Which column-header icon do you click in Power Query to open the "Change Type" menu?', required:[['CHANGE TYPE']], answer:'The data type icon — opens the "Change Type" menu', mistake:'Leaving columns on auto-detected types and finding date math or sorting break later.' },
+    B8: { q:'Which Power Query feature builds if/then/else logic through a dialog instead of hand-written M?', required:[['CONDITIONAL COLUMN']], answer:'Conditional Column', mistake:'Writing a nested custom-column IF when Conditional Column\'s dialog would be clearer and less error-prone.' },
+    B9: { q:'Which Power Query transformation turns wide, one-column-per-category data into long, one-row-per-observation data?', required:[['UNPIVOT']], answer:'Unpivot Columns', mistake:'Unpivoting a table that already had one row per observation, creating duplicate rows instead of fixing the shape.' },
+    B10: { q:'Which Power Query view visually maps how queries reference and depend on each other?', required:[['DEPENDENC']], answer:'Query Dependencies view', mistake:'Deleting or renaming a query without checking Query Dependencies first, silently breaking every query that referenced it.' },
     B3: { q:'Which DAX function lets you deliberately change the filter context that another measure evaluates inside?', required:[['CALCULATE']], answer:'CALCULATE', mistake:'Building a calculated column for something that should be a measure, bloating the model.' },
     B4: { q:'Which pane do you use to save and instantly replay a specific report view — filters, selections, and all?', required:[['BOOKMARK']], answer:'The Bookmarks pane', mistake:'Building a drillthrough page with no back button, stranding users on the detail page.' },
     B5: { q:'Which built-in Power BI feature creates a hidden calendar table per date column, and is usually the first thing to turn off before building a real one?', required:[['AUTO DATE']], answer:'Auto Date/Time', mistake:'Leaving Auto Date/Time on and ending up with dozens of hidden calendar tables.' },
@@ -2223,17 +2861,28 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     C4: { q:'Which DAX function returns the signed-in user\'s login, commonly used to build row-level security rules?', required:[['USERPRINCIPALNAME']], answer:'USERPRINCIPALNAME()', mistake:'Testing RLS by eyeballing the DAX filter instead of actually using View As Roles.' },
     C5: { q:'What is it called when CALCULATE turns the current row context into an equivalent single-row filter context?', required:[['CONTEXT TRANSITION']], answer:'Context transition', mistake:'Assuming a calculated column can filter another measure the way a CALCULATE-driven measure can.' },
     C6: { q:'Which iterator function averages an expression evaluated row-by-row across a table, rather than averaging a column directly?', required:[['AVERAGEX']], answer:'AVERAGEX', mistake:'Using plain SUM on a value that actually needs to be calculated per row first, like quantity times price.' },
+    C10: { q:'Which function returns a value only when a filter has narrowed a column to exactly one value, with a fallback otherwise?', required:[['SELECTEDVALUE']], answer:'SELECTEDVALUE', mistake:'Using MAX or MIN to fake "the selected value," which silently returns a wrong number the moment more than one value is in filter context.' },
+    C11: { q:'Which function clears specific filters by name instead of using ALL(), making the intent explicit in the DAX itself?', required:[['REMOVEFILTERS']], answer:'REMOVEFILTERS', mistake:'Defaulting to ALL() to clear a filter without realizing it can also strip relationships and row context in ways REMOVEFILTERS makes more explicit and readable.' },
+    C12: { q:'Which modern function builds a grouped virtual table with aggregates attached, generally preferred today over the older SUMMARIZE?', required:[['SUMMARIZECOLUMNS']], answer:'SUMMARIZECOLUMNS', mistake:'Nesting CALCULATE-based aggregates inside old-style SUMMARIZE when SUMMARIZECOLUMNS would be faster and easier to read.' },
+    C15: { q:'Which DAX function ranks a value against other rows in a table, usually written as RANKX(ALL(...), [Measure], , DESC)?', required:[['RANKX']], answer:'RANKX', mistake:'Nesting RANKX without ALL() (or ALLEXCEPT), so the rank never actually changes across filter contexts.' },
+    C13: { q:'Which Power BI feature lets a report viewer swap which measure or dimension a single visual displays, without you building a separate visual for each?', required:[['FIELD PARAMETER']], answer:'A field parameter', mistake:'Shipping a field parameter without testing that drillthrough and tooltip pages still resolve correctly once it drives the visual.' },
+    C14: { q:'Which report feature shows a small, formatted detail page when a viewer hovers over a data point, without navigating away?', required:[['TOOLTIP']], answer:'A report-page tooltip', mistake:'Cramming every possible detail onto the main page instead of moving secondary context into a tooltip or a drillthrough page.' },
+    C16: { q:'Before opening Power BI, which single question should drive every other requirement — what decision will the audience make with this report?', required:[['DECISION']], answer:'What decision will they make with it', mistake:'Jumping straight to "what data do we have" instead of "what decision is this supposed to support."' },
+    C17: { q:'Which two components should you always be able to name separately before building any ratio-based KPI?', required:[['NUMERATOR'],['DENOMINATOR']], answer:'The numerator and the denominator', mistake:'Building a ratio measure before agreeing with the business what counts in the numerator vs. the denominator.' },
+    C18: { q:'Before shipping a new report, what should its grand total always be checked against?', required:[['SOURCE']], answer:'The original source system\'s totals (reconciliation)', mistake:'Shipping a dashboard whose grand total was never checked against the source system — it just "looked about right."' },
+    C19: { q:'In a well-structured report, which layer should a viewer see first?', required:[['EXECUTIVE SUMMARY']], answer:'The executive summary', mistake:'Opening the report on the most detailed row-level table instead of a one-page summary that answers the main question first.' },
     C7: { q:'Which built-in Desktop tool breaks down, per visual, how much time went to the DAX query vs. rendering?', required:[['PERFORMANCE ANALYZER']], answer:'Performance Analyzer', mistake:'Blaming DAX for a slow report when the real bottleneck is actually visual rendering.' },
-    C8: { q:'Calculation groups are built and edited primarily through which external tool, rather than Power BI Desktop\'s own UI?', required:[['TABULAR EDITOR']], answer:'Tabular Editor', mistake:'Building 15 near-duplicate YTD/QTD/PY measures instead of one calculation group.' },
-    D1: { q:'Which DAX function ranks a value against other rows in a table, usually written as RANKX(ALL(...), [Measure], , DESC)?', required:[['RANKX']], answer:'RANKX', mistake:'Nesting RANKX without ALL(), so the rank never actually changes across filter contexts.' },
+    C8: { q:'Where can you now create a calculation group directly, without needing an external tool?', required:[['MODEL VIEW']], answer:'Power BI Desktop\'s Model view — via the Calculation group ribbon button', mistake:'Assuming calculation groups still require Tabular Editor and skipping the native Model view "Calculation group" button.' },
+    C9: { q:'What term describes Power Query pushing your transformation steps back to the source (like a generated SQL query) instead of pulling all rows first and processing locally?', required:[['FOLDING']], answer:'Query folding', mistake:'Adding a step that breaks folding early in the query (an unsupported custom column, an early Table.Buffer), forcing every later step to run locally on the full dataset instead of at the source.' },
     D2: { q:'Which storage mode queries the source live instead of importing a cached copy?', required:[['DIRECTQUERY']], answer:'DirectQuery', mistake:'Setting every table to DirectQuery by default, tanking overall report performance.' },
     D3: { q:'Which feature only reloads recent partitions of a table instead of the entire fact table on every refresh?', required:[['INCREMENTAL']], answer:'Incremental refresh', mistake:'Setting an incremental refresh range shorter than how far back reports actually need to look.' },
+    D10: { q:'Which capacity tiers are required to use deployment pipelines — Pro alone, or Premium/PPU/Fabric?', required:[['PREMIUM','PPU','FABRIC']], answer:'Premium, PPU, or Fabric capacity — not available on plain Pro', mistake:'Assuming Pro is enough to use deployment pipelines, then discovering the feature is unavailable at the workspace\'s current license tier.' },
     D4: { q:'Which external tool is best known for query plans and VertiPaq storage-engine timing analysis?', required:[['DAX STUDIO']], answer:'DAX Studio', mistake:'Editing the live model in Tabular Editor without a backup or version-controlled copy first.' },
     D5: { q:'Which DAX Studio feature breaks down a model\'s memory usage table-by-table and column-by-column?', required:[['VERTIPAQ']], answer:'VertiPaq Analyzer', mistake:'Optimizing a measure\'s DAX before checking whether the real cost is a bloated column.' },
     D6: { q:'Which feature exposes a Fabric or Premium semantic model as a real Analysis Services database that external tools can connect to?', required:[['XMLA']], answer:'The XMLA endpoint', mistake:'Forgetting that only Premium/Fabric capacities support XMLA read-write, not Pro.' },
     D7: { q:'In Microsoft Fabric, which feature uses the Power Query experience to land cleaned data into a shared OneLake table?', required:[['DATAFLOW']], answer:'Dataflows Gen2', mistake:'Rebuilding the same Power Query cleanup in every report instead of one shared Dataflow Gen2.' },
     D8: { q:'Which report type is built in Report Builder and designed for pixel-perfect, print-ready output like invoices?', required:[['PAGINATED']], answer:'Paginated reports', mistake:'Trying to force a pixel-perfect, invoice-style layout into a normal Power BI canvas.' },
-    D9: { q:'Which admin-portal setting must be enabled on large datasets to go beyond the default 1 GB (Pro) model size limit?', required:[['LARGE'],['MODEL']], answer:'Large semantic model storage format', mistake:'Letting a semantic model grow past the size limit without ever enabling large model storage format.' }
+    D9: { q:'Which storage-format setting lets a semantic model exceed the default 1 GB size limit, subject to your workspace\'s license/capacity?', required:[['LARGE'],['MODEL']], answer:'Large semantic model storage format', mistake:'Assuming 1 GB is a hard ceiling for every license instead of checking what the current workspace's capacity actually allows.' }
   };
 
   // ---------- Tool notes (per-cell mistakes / practices / avoid) ----------
@@ -2243,8 +2892,13 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     A3: { mistakes:['Piling ten fields into one visual instead of splitting the story across two', 'Leaving default theme colors and unlabeled axes', 'Building a table when a chart would show the trend in one glance'], practices:['One visual, one question it answers', 'Set a consistent color theme early, not per-visual', 'Add data labels or a clear title so a visual stands alone'], avoid:['Don\'t use a pie chart for more than ~5 categories — a bar chart reads faster'] },
     A4: { mistakes:['Adding a slicer for every field "just in case," cluttering the page', 'Publishing to My Workspace instead of a shared team workspace', 'Forgetting to set a scheduled refresh after publishing'], practices:['Only slice on fields people will actually filter by', 'Publish to the workspace your team actually checks', 'Set the refresh schedule right after publishing, not weeks later'], avoid:['Don\'t add a slicer where clicking the chart itself would already filter the page'] },
     A5: { mistakes:['Building every visual in Report view without ever checking Data view for what\'s actually in a table', 'Not knowing Model view exists, and "fixing" relationships by re-importing data', 'Confusing Data view (rows) with Model view (structure)'], practices:['Check Data view any time a number looks wrong, before touching a measure', 'Use Model view whenever you touch a relationship, not the Fields list'], avoid:['Don\'t try to edit data values directly in Data view — fix them in Power Query instead'] },
-    B1: { mistakes:['Building one giant flat table instead of a fact + dimension model', 'Setting cross-filter direction to Both by default, causing ambiguous filtering', 'Not checking cardinality before trusting a total'], practices:['Design fact + dimension tables before building any visual', 'Default to single-direction cross-filtering; use Both only when you understand why', 'Confirm cardinality in Model view for every new relationship'], avoid:['Don\'t relate two fact tables directly to each other — route through a shared dimension instead'] },
+    B1: { mistakes:['Designing tables before answering "what does one row represent?" (the grain)', 'Building one giant flat table instead of a fact + dimension model', 'Setting cross-filter direction to Both by default, causing ambiguous filtering', 'Not checking cardinality before trusting a total'], practices:['Write down the grain of every fact table before adding a single relationship', 'Design fact + dimension tables before building any visual', 'Default to single-direction cross-filtering; use Both only when you understand why', 'Confirm cardinality in Model view for every new relationship'], avoid:['Don\'t relate two fact tables directly to each other — route through a shared dimension instead'] },
     B2: { mistakes:['Using Append when the tables needed to be joined side-by-side, producing duplicated rows', 'Merging on a text key without trimming whitespace or fixing case first', 'Not checking the join kind (Left Outer vs Inner), silently dropping rows'], practices:['Ask "stack or join?" before picking Append vs Merge', 'Clean join keys before merging, not after', 'Preview row counts before and after a merge to catch unexpected drops'], avoid:['Don\'t Merge when a simple relationship in the model would do the same job without duplicating data'] },
+    B11: { mistakes:['Relying on implicit (drag-and-drop auto-sum) measures instead of naming and writing them explicitly', 'Writing plain a/b division that errors the first time a real denominator is zero or blank', 'Not giving DIVIDE a fallback value, so a broken calculation just shows blank with no explanation'], practices:['Write every measure explicitly and name it, even a simple SUM, rather than relying on drag-and-drop auto-aggregation', 'Default to DIVIDE over the / operator for any calculation a real-world zero or blank could reach'], avoid:['Don\'t use an implicit measure inside anything that will later need a field parameter — field parameters need real named measures'] },
+    B7: { mistakes:['Leaving columns on auto-detected types and finding date math or sorting break later', 'Renaming columns after visuals are already built, breaking every downstream reference', 'Leaving unused or duplicate columns in the model instead of removing them early'], practices:['Set correct types and final names right after connecting, before building anything', 'Remove a column the moment you know it won\'t be used, not at the end of the project'], avoid:['Don\'t reorder columns purely for cosmetic reasons late in a query — it adds noisy steps with no functional benefit'] },
+    B8: { mistakes:['Writing a nested custom-column IF when Conditional Column\'s dialog would be clearer', 'Using Group By when a DAX measure with a filter would be more flexible for reporting', 'Forgetting Group By replaces the original rows — you lose row-level detail once grouped'], practices:['Reach for Conditional Column first for simple branching; drop to Custom Column only for real M logic', 'Duplicate a query before an aggressive Group By if you might need the row-level detail again'], avoid:['Don\'t Group By in Power Query for something a DAX measure could compute live and more flexibly'] },
+    B9: { mistakes:['Unpivoting a table that already had one row per observation, creating duplicate rows', 'Unpivoting before removing helper/total columns, dragging junk rows into the long format', 'Hardcoding a parameter\'s value instead of actually referencing the Parameter in the Source step'], practices:['Check the current shape (wide vs long) before reaching for Unpivot', 'Remove non-data columns (subtotals, notes) before unpivoting', 'Use Manage Parameters for anything that changes between dev/test/prod, like a file path or date'], avoid:['Don\'t unpivot an entire table blindly — select only the category columns that should become rows'] },
+    B10: { mistakes:['Deleting or renaming a shared query without checking Query Dependencies first', 'Using Duplicate when Reference was needed, silently forking logic that should stay in sync', 'Letting one bad row fail an entire refresh instead of handling the error inline'], practices:['Check Query Dependencies before touching any query other queries might rely on', 'Use Reference (not Duplicate) when a query should inherit future upstream fixes', 'Wrap risky steps in try/otherwise so one bad row doesn\'t block the whole refresh'], avoid:['Don\'t reference a query six layers deep for a one-off transform — it makes the dependency tree hard to follow'] },
     B3: { mistakes:['Building calculated columns for things that should be measures, bloating the model', 'Hardcoding a filter value inside CALCULATE instead of referencing a field', 'Not testing a new measure against a slicer before trusting it'], practices:['Default to a measure; only use a calculated column when you need the value at the row level', 'Test a new measure with at least two different slicer selections before shipping'], avoid:['Don\'t wrap a measure in CALCULATE with no filter argument at all — it does nothing there'] },
     B4: { mistakes:['Building drillthrough without a clear back button, stranding users on the detail page', 'Overloading a bookmark with more state than the user expects it to reset', 'Forgetting to lock a bookmark\'s data/display settings, breaking it on reuse'], practices:['Always add a back button on drillthrough pages', 'Name bookmarks for what they show, not "Bookmark 1"'], avoid:['Don\'t use a matrix for a two-column summary a card or bar chart would show more clearly'] },
     B5: { mistakes:['Leaving Auto Date/Time on and ending up with dozens of hidden calendar tables', 'Building a calendar table that doesn\'t cover the full date range in the fact table', 'Forgetting to Mark as Date Table after building it'], practices:['Turn off Auto Date/Time before importing anything', 'Build the calendar range a year past your latest expected data', 'Mark as Date Table immediately after creating it'], avoid:['Don\'t build a second calendar table when one shared one, joined to every fact table, will do'] },
@@ -2255,11 +2909,22 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     C4: { mistakes:['Testing RLS by eyeballing the DAX filter instead of using View As Roles', 'Forgetting RLS filters apply to every visual, including ones meant to show org-wide totals', 'Granting a role access to the whole model when only one table needed it'], practices:['Always test a new role with View As Roles before publishing', 'Scope the role\'s filter to exactly the table/column it needs to restrict'], avoid:['Don\'t rely on RLS alone for highly sensitive data without also reviewing workspace-level access'] },
     C5: { mistakes:['Assuming a calculated column can filter like a measure would', 'Not realizing an iterator triggers context transition on every row', 'Writing a measure that works standalone but breaks once nested inside an iterator'], practices:['Test any measure both standalone and nested inside an iterator before shipping', 'Reach for VAR to capture a value before context transition changes what it means'], avoid:['Don\'t assume row context alone can filter another measure — only CALCULATE triggers that'] },
     C6: { mistakes:['Using SUM on a column that should be calculated row-by-row first, like quantity times price', 'Forgetting the table argument and only passing the expression', 'Iterating over a huge table when a simpler aggregate would do'], practices:['Reach for SUMX/AVERAGEX any time the math needs to happen per row before aggregating', 'Iterate over the smallest table that has the columns you need'], avoid:['Don\'t use SUMX to just re-sum an existing column — plain SUM is faster for that'] },
+    C10: { mistakes:['Using MAX/MIN as a stand-in for "the selected value," which returns a wrong number once multiple values are in context', 'Forgetting the fallback argument, so a multi-select shows blank instead of something readable', 'Wrapping SELECTEDVALUE in extra CALCULATE layers it doesn\'t need'], practices:['Always supply a fallback string for SELECTEDVALUE so a multi-select reads cleanly, not blank', 'Reach for COUNTROWS(VALUES(...)) to test how many distinct values are actually in context before branching logic on it'], avoid:['Don\'t use SELECTEDVALUE for a column with thousands of distinct values where a fallback will show almost every time — a slicer selection is probably the better UX'] },
+    C11: { mistakes:['Defaulting to ALL() to clear one filter when REMOVEFILTERS on that specific column would be clearer and safer', 'Using FILTER over an entire fact table when a simpler measure-level condition would be faster', 'Forgetting KEEPFILTERS, so a new condition replaces an existing filter instead of narrowing it'], practices:['Reach for REMOVEFILTERS first when the goal is "ignore this specific filter," and name exactly which columns', 'Use KEEPFILTERS whenever a CALCULATE condition should narrow inside the visual\'s existing filter, not override it'], avoid:['Don\'t use FILTER(ALL(Table), ...) as a default habit — it silently clears every other filter on that table too'] },
+    C12: { mistakes:['Reaching for old-style SUMMARIZE with nested CALCULATE columns when SUMMARIZECOLUMNS is faster and more readable', 'Building a virtual table when a simple visual-level aggregation would already do the job', 'Not testing a virtual-table measure with a slicer applied, missing filter-context bugs'], practices:['Default to SUMMARIZECOLUMNS for new virtual tables; recognize SUMMARIZE when reading existing models', 'Test any measure built on a virtual table against at least one active slicer selection'], avoid:['Don\'t build a virtual table inside a measure just to count distinct values — DISTINCTCOUNT is simpler and faster'] },
+    C15: { mistakes:['Nesting RANKX inside CALCULATE without ALL(), so rank never changes across rows', 'Forgetting DESC, so "rank 1" ends up being the smallest value instead of the largest', 'Using RANKX over a huge unfiltered table when a filtered context table would be far faster'], practices:['Wrap the ranking table in ALL() so ranks don\'t reset within every filter context', 'Swap in ALLEXCEPT instead of ALL when the rank should reset per group (e.g. per region) rather than globally', 'Always specify DESC or ASC explicitly rather than relying on the default'], avoid:['Don\'t use RANKX for a simple top-N — a TOPN function or visual-level filter is often simpler'] },
+    C13: { mistakes:['Shipping a field parameter without checking that drillthrough and tooltips still resolve correctly', 'Mixing explicit and implicit measures inside the same field parameter, causing inconsistent totals', 'Using a field parameter where a simple slicer on an existing field would have been enough'], practices:['Test every downstream drillthrough and tooltip page after wiring a field parameter into a visual', 'Keep a field parameter\'s options to explicit measures only, to avoid total/aggregation inconsistencies'], avoid:['Don\'t use a field parameter just to switch between two static columns — a normal slicer is simpler'] },
+    C14: { mistakes:['Cramming every metric onto the main page instead of moving detail into a tooltip or drillthrough page', 'Adding buttons with no clear destination or state, confusing rather than guiding navigation', 'Never checking the report at a smaller width, shipping something that only works on a wide monitor'], practices:['Move secondary detail into report-page tooltips or drillthrough instead of the main canvas', 'Design and test a mobile layout separately once the desktop version is stable'], avoid:['Don\'t add a button or bookmark for every possible state — a handful of clear ones beats a wall of options'] },
+    C16: { mistakes:['Starting a build before anyone has agreed who the audience is or what decision the report supports', 'Assuming the grain, filters, and refresh cadence instead of confirming them with the requester', 'Treating the first draft as final instead of a working assumption to validate with the audience'], practices:['Write down audience, decision, and grain before opening Power BI, not after the first draft', 'Confirm refresh cadence and filter needs explicitly — don\'t infer them from what the source happens to provide'], avoid:['Don\'t skip requirements gathering for a "quick" report — quick reports are the ones most often rebuilt from scratch'] },
+    C17: { mistakes:['Building a ratio measure before agreeing what counts in the numerator vs. denominator', 'Leaving business-rule exceptions undocumented, so two people compute "the same" KPI differently', 'Setting a target with no one able to explain where the number came from'], practices:['Write the KPI definition, including exceptions, somewhere the business can see and challenge it', 'Revisit KPI definitions when a business rule changes, instead of letting the DAX silently drift from reality'], avoid:['Don\'t let a KPI ship with a definition that only exists inside the DAX formula — write it down separately too'] },
+    C18: { mistakes:['Shipping a grand total that was never checked against the source system', 'Not testing row counts before and after a merge, missing duplication', 'Letting null or missing data silently vanish from a total instead of surfacing it'], practices:['Reconcile new report totals against a source export or query for the same period before shipping', 'Add a data-quality check (row counts, null counts) as a standing step, not a one-time favor'], avoid:['Don\'t treat "the numbers look plausible" as validation — plausible and correct are different things'] },
+    C19: { mistakes:['Opening a report on the most detailed table instead of a summary that answers the main question first', 'Building pages in whatever order they were created instead of a deliberate summary → diagnostic → detail flow', 'Ending a report on a chart with no implied next action'], practices:['Lead with a one-page executive summary; put row-level detail on a later page for people who need to drill in', 'Ask "so what should the viewer do differently" for every page, not just the whole report'], avoid:['Don\'t treat storytelling structure as decoration — a report with 12 unordered charts asks more of the reader than it should'] },
     C7: { mistakes:['Blaming DAX for a slow report when the bottleneck is actually visual rendering', 'Never clearing the cache before recording, so results reflect a warm cache', 'Ignoring Query Diagnostics because refresh "usually works fine"'], practices:['Start every performance investigation with a fresh Performance Analyzer recording', 'Compare DAX query time against visual display time before optimizing the wrong thing'], avoid:['Don\'t optimize a measure Performance Analyzer already shows is fast — look at the slow visual instead'] },
-    C8: { mistakes:['Building 15 near-duplicate measures for YTD/QTD/PY instead of one calculation group', 'Trying to edit calculation items in Desktop\'s UI, which doesn\'t support them directly', 'Forgetting calculation groups can conflict with existing implicit measures'], practices:['Reach for a calculation group once you\'re duplicating the same time-intelligence pattern across many measures', 'Build and test calculation items in Tabular Editor before wiring them into a report'], avoid:['Don\'t add calculation groups to a small model with only a couple of time-intelligence measures — the overhead isn\'t worth it yet'] },
-    D1: { mistakes:['Nesting RANKX inside CALCULATE without ALL(), so rank never changes across rows', 'Forgetting DESC, so "rank 1" ends up being the smallest value instead of the largest', 'Using RANKX over a huge unfiltered table when a filtered context table would be far faster'], practices:['Wrap the ranking table in ALL() so ranks don\'t reset within every filter context', 'Always specify DESC or ASC explicitly rather than relying on the default'], avoid:['Don\'t use RANKX for a simple top-N — a TOPN function or visual-level filter is often simpler'] },
+    C9: { mistakes:['Adding a custom column with an unsupported function early, breaking folding for every later step', 'Never checking "View Native Query" and assuming a query is fast because it "looks simple"', 'Buffering a table (Table.Buffer) before filtering, forcing everything after it to run locally'], practices:['Check "View Native Query" after adding any new step on a foldable source', 'Order steps so filters, type changes, and renames happen before custom M logic', 'Treat a greyed-out "View Native Query" as a signal to move that step later or simplify it'], avoid:['Don\'t chase folding for sources that never fold anyway, like flat files or web APIs — optimize row count and column pruning there instead'] },
+    C8: { mistakes:['Building 15 near-duplicate measures for YTD/QTD/PY instead of one calculation group', 'Assuming calculation groups still require Tabular Editor and never trying the native Model view button', 'Forgetting calculation groups can conflict with existing implicit measures'], practices:['Reach for a calculation group once you\'re duplicating the same time-intelligence pattern across many measures', 'Start in Desktop\'s Model view; switch to Tabular Editor only when you need bulk edits or scripting'], avoid:['Don\'t add calculation groups to a small model with only a couple of time-intelligence measures — the overhead isn\'t worth it yet'] },
     D2: { mistakes:['Setting every table to DirectQuery by default, tanking report performance', 'Mixing Import and DirectQuery tables without understanding the extra query limitations that creates', 'Not testing report performance after changing a table\'s storage mode'], practices:['Import dimension tables; reserve DirectQuery for the genuinely huge, fast-changing fact table', 'Re-test report load time after every storage-mode change'], avoid:['Don\'t switch a whole model to DirectQuery just because one table needs live data — use Dual mode selectively instead'] },
-    D3: { mistakes:['Setting an incremental refresh range shorter than how far back reports actually need to look', 'Skipping the Test stage and pushing straight from Dev to Prod', 'Forgetting incremental refresh needs Premium/Fabric capacity in the service to actually run as configured'], practices:['Size the incremental refresh range around real reporting needs, not a guess', 'Always promote through Dev → Test → Prod, never straight to Prod'], avoid:['Don\'t apply incremental refresh to a small, fast-refreshing table — the added complexity isn\'t worth it'] },
+    D3: { mistakes:['Setting an incremental refresh range shorter than how far back reports actually need to look', 'Forgetting incremental refresh needs Premium/PPU/Fabric capacity in the service to actually run as configured', 'Not archiving old partitions, so the model keeps growing even though refresh got faster'], practices:['Size the incremental refresh range around real reporting needs, not a guess', 'Confirm the workspace has the capacity tier incremental refresh needs before configuring it'], avoid:['Don\'t apply incremental refresh to a small, fast-refreshing table — the added complexity isn\'t worth it'] },
+    D10: { mistakes:['Assuming Pro alone supports deployment pipelines instead of confirming Premium/PPU/Fabric', 'Skipping the Test stage and pushing straight from Dev to Prod', 'Not setting deployment rules, so a data source or parameter meant for Prod points at Dev after promotion'], practices:['Always promote through Dev → Test → Prod, never straight to Prod', 'Set deployment rules per stage so connections and parameters swap automatically on promotion'], avoid:['Don\'t use deployment pipelines for a single-person, single-workspace project — Git/PBIP source control alone may be simpler'] },
     D4: { mistakes:['Editing the live model in Tabular Editor without a backup or version-controlled copy', 'Running DAX Studio queries directly against a production dataset during business hours', 'Not closing the External Tools connection properly, leaving a model locked'], practices:['Keep a version-controlled copy of the model before bulk-editing in Tabular Editor', 'Test heavy DAX Studio queries against a dev copy first'], avoid:['Don\'t reach for Tabular Editor for a one-off rename — Desktop\'s UI is faster for a single small edit'] },
     D5: { mistakes:['Optimizing a measure\'s DAX before checking whether the real cost is a bloated column', 'Ignoring high-cardinality text columns as the top memory consumer', 'Comparing Server Timings from a cold cache, giving misleading numbers'], practices:['Run VertiPaq Analyzer first — fix the biggest column before touching any DAX', 'Warm the cache consistently before comparing Server Timings runs'], avoid:['Don\'t chase formula-engine micro-optimizations before confirming storage-engine time isn\'t the real bottleneck'] },
     D6: { mistakes:['Enabling Read-Write XMLA without a rollback plan for the model', 'Writing a bulk C# script without testing it on a single measure first', 'Forgetting only Premium/Fabric capacities support XMLA read-write, not Pro'], practices:['Test any Tabular Editor script on one object before running it across the whole model', 'Confirm the workspace is on Premium/Fabric capacity before relying on XMLA read-write'], avoid:['Don\'t give broad XMLA write access to a shared workspace without change tracking in place'] },
@@ -2296,9 +2961,9 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
   // ---------- Level lock / mastery progress ----------
   const LEVELS = [
     { key:'beginner', ids:['A1','A2','A3','A4','A5'] },
-    { key:'intermediate', ids:['B1','B2','B3','B4','B5','B6'] },
-    { key:'advanced', ids:['C1','C2','C3','C4','C5','C6','C7','C8'] },
-    { key:'expert', ids:['D1','D2','D3','D4','D5','D6','D7','D8','D9'] }
+    { key:'intermediate', ids:['B1','B2','B7','B8','B9','B10','B11','B3','B4','B5','B6'] },
+    { key:'advanced', ids:['C3','C2','C1','C4','C5','C6','C11','C10','C12','C15','C7','C9','C8','C13','C14','C16','C17','C18','C19'] },
+    { key:'expert', ids:['D2','D3','D10','D4','D5','D6','D7','D8','D9'] }
   ];
   const PROGRESS_KEY = 'pbiRoadmapProgress';
   let progress = {};
@@ -2306,12 +2971,22 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
   function saveProgress(){ try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }catch(e){} }
   function isMastered(id){ return !!(progress[id] && progress[id].mastered); }
   function recordAttempt(id, correct){
-    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0 };
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0, knowledgeOk:false, applied:false };
     rec.totalAttempts += 1;
-    if (correct){ rec.correctAttempts += 1; rec.mastered = true; }
+    if (correct){ rec.correctAttempts += 1; rec.knowledgeOk = true; }
+    rec.mastered = !!(rec.knowledgeOk && rec.applied);
     progress[id] = rec;
     saveProgress();
   }
+  function recordApplied(id, applied){
+    const rec = progress[id] || { mastered:false, correctAttempts:0, totalAttempts:0, knowledgeOk:false, applied:false };
+    rec.applied = applied;
+    rec.mastered = !!(rec.knowledgeOk && rec.applied);
+    progress[id] = rec;
+    saveProgress();
+  }
+  function knowledgeOk(id){ return !!(progress[id] && progress[id].knowledgeOk); }
+  function isApplied(id){ return !!(progress[id] && progress[id].applied); }
 
   function applyLocks(){
     let unlocked = true;
@@ -2348,6 +3023,28 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 
     qEl.innerHTML = '<b>Challenge — ' + id + ':</b> ' + data.q;
 
+    // "Apply it" build-task step — required alongside the knowledge check for mastery
+    const task = BUILD_TASKS[id];
+    let applyWrap = null, applyCheckbox = null;
+    if (task){
+      applyWrap = document.createElement('div');
+      applyWrap.className = 'ch-apply';
+      applyWrap.style.display = knowledgeOk(id) ? 'block' : 'none';
+      applyWrap.innerHTML =
+        '<div class="ch-apply-label"><b>Apply it (required for mastery):</b> ' + task + '</div>' +
+        '<label class="ch-apply-check"><input type="checkbox" class="ch-apply-input"> I built this in Power BI and checked the result</label>';
+      box.appendChild(applyWrap);
+      applyCheckbox = applyWrap.querySelector('.ch-apply-input');
+      applyCheckbox.checked = isApplied(id);
+      applyCheckbox.addEventListener('click', (e) => e.stopPropagation());
+      applyCheckbox.addEventListener('change', () => {
+        recordApplied(id, applyCheckbox.checked);
+        applyLocks();
+        applyBadges();
+        if (typeof window.updateDashboard === 'function') window.updateDashboard();
+      });
+    }
+
     function check(){
       const raw = input.value;
       if (!raw.trim()){
@@ -2359,9 +3056,10 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
       const ok = data.required.every(altGroup => altGroup.some(alt => norm.includes(alt)));
       recordAttempt(id, ok);
       if (ok){
-        result.textContent = '✓ Correct.';
+        result.textContent = task ? '✓ Correct. Now do the "Apply it" task below to finish mastering this skill.' : '✓ Correct.';
         result.className = 'ch-result correct';
         if (mistakeEl) mistakeEl.classList.remove('show');
+        if (applyWrap) applyWrap.style.display = 'block';
         applyLocks();
         applyBadges();
       } else {
@@ -2479,6 +3177,32 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     updateOverall();
   })();
 
+  // ---------- Lab completion tracking ----------
+  (function(){
+    const LAB_KEY = 'pbiRoadmapLabProgress';
+    let state = {};
+    try{ state = JSON.parse(localStorage.getItem(LAB_KEY)) || {}; }catch(e){ state = {}; }
+    function save(){ try{ localStorage.setItem(LAB_KEY, JSON.stringify(state)); }catch(e){} }
+
+    const labCards = Array.from(document.querySelectorAll('.lab-card'));
+    labCards.forEach(card => {
+      const id = card.id;
+      const box = card.querySelector('.lab-done-input');
+      if (!box) return;
+      box.checked = !!state[id];
+      card.classList.toggle('lab-complete', !!state[id]);
+      box.addEventListener('change', () => {
+        state[id] = box.checked;
+        card.classList.toggle('lab-complete', box.checked);
+        save();
+        if (typeof window.updateDashboard === 'function') window.updateDashboard();
+      });
+    });
+
+    window.getLabDoneCount = function(){ return labCards.filter(c => !!state[c.id]).length; };
+    window.getLabTotalCount = function(){ return labCards.length; };
+  })();
+
   // ---------- Practice tabs ----------
   (function(){
     const tabs = document.querySelectorAll('.practice-tab');
@@ -2501,41 +3225,51 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     function save(){ try{ localStorage.setItem(WEEKLY_KEY, JSON.stringify(state)); }catch(e){} }
 
     const WEEKS = [
-      { level:'beginner', title:'Week 1 — Beginner', sub:'Get oriented and ship a first page', days:[
+      { level:'beginner', title:'Weeks 1–2 — Foundation', sub:'Get oriented and ship a first page', pace:'~5 skills across 2 weeks — leaves room for the 3 Foundation labs and first capstone attempt.', days:[
         'Cell A1 — connect to data and reach Transform Data',
         'Cell A2 — shape data in Power Query',
         'Cell A3 — build and format your first visuals',
         'Cell A4 — add a slicer and publish',
         'Cell A5 — tour Report, Data, and Model view',
-        'Work the Beginner Mini Lab',
-        'Rest, or start the Sales Dashboard capstone'
+        'Work all 3 Foundation Mini Labs (clean+visualize, dashboard, publish+refresh)',
+        'Start the Sales Dashboard capstone'
       ]},
-      { level:'intermediate', title:'Week 2 — Intermediate', sub:'Build a real data model', sub2:'', days:[
-        'Cell B1 — relationships and star schema',
+      { level:'intermediate', title:'Weeks 3–6 — Analyst', sub:'Build a real data model', pace:'~11 skills across 4 weeks — about 2–3 a week, with the 3 Analyst labs and HR Dashboard capstone worked in alongside.', sub2:'', days:[
+        'Cell B1 — relationships and star schema (start with grain)',
         'Cell B2 — Merge vs. Append queries',
+        'Cells B7 + B8 — data types & shaping, then conditional columns/Group By',
+        'Cells B9 + B10 — Unpivot & parameters, then query dependencies & error handling',
+        'Cell B11 — implicit vs. explicit measures, and DIVIDE',
         'Cell B3 — measures, calculated columns, and CALCULATE',
         'Cell B4 — matrix, drillthrough, and bookmarks',
         'Cell B5 — build a real Calendar table',
         'Cell B6 — troubleshoot relationships',
-        'Work the Intermediate Mini Lab, then start the HR Dashboard capstone'
+        'Work the 3 Analyst Mini Labs (star schema, relationship debugging, measures+drillthrough)',
+        'Finish the HR Dashboard capstone'
       ]},
-      { level:'advanced', title:'Week 3 — Advanced', sub:'Get fluent in DAX filter context', days:[
-        'Cell C1 — time intelligence (TOTALYTD, SAMEPERIODLASTYEAR)',
-        'Cell C2 — ALL, ALLEXCEPT, ALLSELECTED',
+      { level:'advanced', title:'Weeks 7–11 — Developer', sub:'Get fluent in DAX filter context, then design and think like a practitioner', pace:'~19 skills across 5 weeks — roughly 4 a week. This is the densest column; don\'t rush the DAX portion.', days:[
         'Cell C3 — VAR / RETURN',
+        'Cells C2 + C1 — ALL/ALLEXCEPT/ALLSELECTED, then date intelligence (TOTALYTD, SAMEPERIODLASTYEAR)',
         'Cell C4 — row-level security',
-        'Cells C5 + C6 — context transition, then SUMX/AVERAGEX',
-        'Cells C7 + C8 — Performance Analyzer, then calculation groups',
-        'Work the Advanced Mini Lab, then start the Executive KPI Dashboard capstone'
+        'Cells C5 + C6 — row/filter context & context transition, then SUMX/AVERAGEX',
+        'Cells C11 + C10 + C12 — FILTER/REMOVEFILTERS/KEEPFILTERS, SELECTEDVALUE/VALUES, then SUMMARIZECOLUMNS',
+        'Cell C15 — ranking patterns with RANKX',
+        'Cells C7 + C9 + C8 — Performance Analyzer, query folding, then calculation groups (optional)',
+        'Cells C13 + C14 — field parameters, then interactive report design',
+        'Cells C16–C19 — requirements gathering, KPI design, data validation, and storytelling',
+        'Work the 3 Developer Mini Labs (time intelligence, dynamic KPI, RLS+validation)',
+        'Finish the Executive KPI Dashboard capstone'
       ]},
-      { level:'expert', title:'Week 4 — Expert', sub:'Make it production-ready', days:[
-        'Cell D1 — iterators and ranking (SUMX, RANKX)',
+      { level:'expert', title:'Weeks 12–14 — Senior & Production', sub:'Make it production-ready, then ship it properly', pace:'~9 skills across 3 weeks — the 6 platform-specialization skills (D4–D9) are optional; the 3 core ones (D2, D3, D10) aren\'t.', days:[
         'Cell D2 — composite models (Import / DirectQuery / Dual)',
-        'Cell D3 — incremental refresh and deployment pipelines',
-        'Cell D4 — external tools (DAX Studio, Tabular Editor)',
-        'Cells D5 + D6 — VertiPaq Analyzer, then the XMLA endpoint',
-        'Cells D7 + D8 — Fabric/Dataflows Gen2, then paginated reports & the REST API',
-        'Cell D9 — administration, then finish the Enterprise Semantic Model capstone'
+        'Cells D3 + D10 — incremental refresh, then deployment pipelines & ALM',
+        'Work the Performance investigation and Incremental refresh Production labs',
+        'Finish the Production Semantic Model capstone',
+        'Optional specialization: Cell D4 — external tools (DAX Studio, Tabular Editor)',
+        'Optional specialization: Cells D5 + D6 — VertiPaq Analyzer, then the XMLA endpoint',
+        'Optional specialization: Cells D7 + D8 — Fabric/Dataflows Gen2, then paginated reports & the REST API',
+        'Optional specialization: Cell D9 — administration',
+        'Work the Deploy & Governance Production lab, then finish the Deploy & Govern capstone'
       ]}
     ];
 
@@ -2555,7 +3289,8 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
         wrap.dataset.level = week.level;
         const head = document.createElement('div');
         head.className = 'weekly-week-head';
-        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>';
+        const paceLine = week.pace ? '<div class="wk-pace">' + week.pace + '</div>' : '';
+        head.innerHTML = '<h4>' + week.title + '</h4><span class="wk-sub">' + week.sub + '</span>' + paceLine;
         wrap.appendChild(head);
         const daysWrap = document.createElement('div');
         daysWrap.className = 'weekly-days';
@@ -2563,7 +3298,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
           const key = dayKey(wi, di);
           const row = document.createElement('label');
           row.className = 'weekly-day' + (state[key] ? ' done' : '');
-          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Day ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
+          row.innerHTML = '<input type="checkbox" ' + (state[key] ? 'checked' : '') + '><span class="wd-label mono">Step ' + (di+1) + '</span><span class="wd-text">' + text + '</span>';
           const box = row.querySelector('input');
           box.addEventListener('change', () => {
             state[key] = box.checked;
@@ -2581,7 +3316,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 
     function updateOverall(){
       const done = Object.values(state).filter(Boolean).length;
-      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' days';
+      overallCount.textContent = done + ' / ' + TOTAL_DAYS + ' steps';
       overallFill.style.width = (done/TOTAL_DAYS*100) + '%';
     }
 
@@ -2785,7 +3520,7 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     const masteredCount = masteredIds.length;
     const remaining = totalSkills - masteredCount;
 
-    const levelNames = { beginner:'Beginner', intermediate:'Intermediate', advanced:'Advanced', expert:'Expert' };
+    const levelNames = { beginner:'Foundation', intermediate:'Analyst', advanced:'Developer', expert:'Senior & Production' };
     const currentLevelObj = LEVELS.find(l => !l.ids.every(id => isMastered(id))) || LEVELS[LEVELS.length-1];
     const curMasteredInLevel = currentLevelObj.ids.filter(id => isMastered(id)).length;
 
@@ -2804,11 +3539,11 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
 
     const submitted = typeof window.getCapstoneSubmittedCount === 'function' ? window.getCapstoneSubmittedCount() : 0;
     setText('dashProjectsVal', submitted);
-    setWidth('dashProjectsFill', submitted/4*100);
+    setWidth('dashProjectsFill', submitted/5*100);
 
     const weeklyDone = typeof window.getWeeklyDoneCount === 'function' ? window.getWeeklyDoneCount() : 0;
     setText('dashWeeklyVal', weeklyDone);
-    setWidth('dashWeeklyFill', weeklyDone/28*100);
+    setWidth('dashWeeklyFill', weeklyDone/38*100);
 
     const timedSummary = typeof window.getTimedBestSummary === 'function' ? window.getTimedBestSummary() : null;
     setText('dashTimedVal', timedSummary ? timedSummary.text : 'Not played');
@@ -2820,30 +3555,39 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     setText('dashTimeSpentVal', h > 0 ? (h + 'h ' + m + 'm') : (m + 'm'));
 
     const skillPct = masteredCount/totalSkills*100;
-    const capPct = submitted/4*100;
-    const completionPct = Math.round((skillPct + capPct)/2);
+    const capPct = submitted/5*100;
+    const labTotal = typeof window.getLabTotalCount === 'function' ? window.getLabTotalCount() : 12;
+    const labDone = typeof window.getLabDoneCount === 'function' ? window.getLabDoneCount() : 0;
+    const labPct = labTotal ? (labDone/labTotal*100) : 0;
+    const completionPct = Math.round((skillPct + labPct + capPct)/3);
     setText('dashCompletionVal', completionPct);
     setWidth('dashCompletionFill', completionPct);
-    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + submitted + ' of 4 capstones');
+    setText('dashCompletionSub', masteredCount + ' of ' + totalSkills + ' skills, ' + labDone + ' of ' + labTotal + ' labs, ' + submitted + ' of 5 capstones');
 
+    // Readiness = Knowledge 20% + Skills 30% + Labs 20% + Capstones 30%.
+    // Deliberately NOT just quiz accuracy — a perfect quiz score with zero labs and zero
+    // capstones should not read as "ready." Skills already requires both a correct answer
+    // AND a self-certified build task (see BUILD_TASKS), so this isn't pure self-report stacked
+    // on self-report — Knowledge is the raw quiz-accuracy signal on its own, kept separate and
+    // capped at 20% specifically so it can't dominate the score.
     const accForReadiness = accuracyPct === null ? 0 : accuracyPct;
-    const readiness = Math.round(skillPct*0.45 + capPct*0.35 + accForReadiness*0.20);
+    const readiness = Math.round(accForReadiness*0.20 + skillPct*0.30 + labPct*0.20 + capPct*0.30);
     setText('dashReadinessVal', readiness);
     let verdict, detail;
-    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges and check off a capstone deliverable to see your score move.'; }
-    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics — keep working the board and start a capstone if you haven\'t.'; }
-    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Advanced column and get a capstone submitted.'; }
-    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own on a real dashboard build. A few more Expert skills and capstones will round this out.'; }
-    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, shipped capstones, and your quiz accuracy backs it up — you\'re ready for a real Power BI build.'; }
+    if (readiness < 20){ verdict = 'Just getting started'; detail = 'Answer a few board challenges, work a Mini Lab, and check off a capstone deliverable to see your score move.'; }
+    else if (readiness < 45){ verdict = 'Building momentum'; detail = 'You\'re through the basics — keep working the board, mark labs complete as you finish them, and start a capstone if you haven\'t.'; }
+    else if (readiness < 70){ verdict = 'Getting there'; detail = 'Solid foundation. Push through the Developer column, finish more labs, and get a capstone submitted.'; }
+    else if (readiness < 90){ verdict = 'Nearly ready'; detail = 'You could hold your own on a real dashboard build. A few more Senior & Production skills, labs, and capstones will round this out.'; }
+    else { verdict = 'Ready'; detail = 'You\'ve mastered the board, worked the labs, shipped capstones, and your quiz accuracy backs it up — you\'re ready for a real Power BI build.'; }
     setText('dashVerdict', verdict);
     setText('dashVerdictDetail', detail);
 
     const beginnerIds = LEVELS[0].ids;
     const achievements = [
       { icon:'🚀', name:'First Steps', desc:'Master your first skill on the board', unlocked: masteredCount >= 1 },
-      { icon:'🟢', name:'Beginner Builder', desc:'Master every Beginner skill', unlocked: beginnerIds.every(id => isMastered(id)) },
-      { icon:'📊', name:'Halfway There', desc:'Master 14 of 28 skills', unlocked: masteredCount >= 14 },
-      { icon:'🏆', name:'Board Master', desc:'Master all 28 skills', unlocked: masteredCount >= totalSkills },
+      { icon:'🟢', name:'Foundation Builder', desc:'Master every Foundation skill', unlocked: beginnerIds.every(id => isMastered(id)) },
+      { icon:'📊', name:'Halfway There', desc:'Master 22 of 44 skills', unlocked: masteredCount >= 22 },
+      { icon:'🏆', name:'Board Master', desc:'Master all 44 skills', unlocked: masteredCount >= totalSkills },
       { icon:'🚢', name:'First Ship', desc:'Submit your first capstone', unlocked: submitted >= 1 },
       { icon:'📦', name:'Full Portfolio', desc:'Submit all 4 capstones', unlocked: submitted >= 4 },
       { icon:'🎯', name:'Sharpshooter', desc:'90%+ quiz accuracy over 10+ attempts', unlocked: totalAttempts >= 10 && accuracyPct !== null && accuracyPct >= 90 },
@@ -2861,6 +3605,80 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
   function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
   function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
   window.updateDashboard = updateDashboard;
+
+  // ---------- DESKTOP STAGE TABS (>880px) ----------
+  // On desktop the board used to show all stages side by side at once, so
+  // any expanded topic made the whole board tall and narrow. This adds a
+  // tab bar so only one stage renders at a time, full width.
+  (function(){
+    const LEVEL_META = {
+      beginner:     { num: 0, name: 'Beginner', color: 'var(--green)' },
+      intermediate: { num: 1, name: 'Intermediate', color: 'var(--blue)' },
+      advanced:     { num: 2, name: 'Advanced', color: 'var(--amber)' },
+      expert:       { num: 3, name: 'Expert', color: 'var(--red)' }
+    };
+    const LEVEL_ORDER = ['beginner', 'intermediate', 'advanced', 'expert'];
+    const TAB_KEY = 'pbiRoadmapStageTab';
+
+    const board = document.querySelector('.board');
+    if (!board) return;
+
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_ORDER.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    board.parentElement.insertBefore(tabBar, board);
+
+    function currentProgressLevel(){
+      const found = LEVELS.find(l => !l.ids.every(id => isMastered(id)));
+      return found ? found.key : LEVEL_ORDER[LEVEL_ORDER.length - 1];
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_ORDER.forEach(k => {
+        const col = document.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVEL_ORDER.forEach(key => {
+      const meta = LEVEL_META[key];
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = key;
+      btn.style.setProperty('--tab-color', meta.color);
+      btn.innerHTML = '<span>Stage ' + meta.num + ' \u00b7 ' + meta.name + '</span><span class="stage-tab-lock" style="display:none;">\ud83d\udd12</span>';
+      btn.addEventListener('click', () => setActiveTab(key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){
+      LEVEL_ORDER.forEach(key => {
+        const col = document.querySelector('.level-col[data-level="' + key + '"]');
+        const locked = col && col.classList.contains('section-locked');
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + key + '"]');
+        const lockEl = btn ? btn.querySelector('.stage-tab-lock') : null;
+        if (lockEl) lockEl.style.display = locked ? '' : 'none';
+      });
+      setActiveTab(manualTab || currentProgressLevel(), false);
+    }
+
+    update();
+    window.updateDashboard = (function(orig){
+      return function(){ if (orig) orig(); update(); };
+    })(window.updateDashboard);
+  })();
+
 
   const dashResetBtn = document.getElementById('dashResetBtn');
   if (dashResetBtn){
@@ -3159,9 +3977,9 @@ CALCULATE([Total Sales], FILTER(ALL('Date'), 'Date'[Date] <= MAX('Date'[Date])))
     const levelVal = document.getElementById('dashLevelVal');
     if (levelVal) set('homeLevelVal', levelVal.textContent);
     const masteredVal = document.getElementById('dashMasteredVal');
-    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 28');
+    if (masteredVal) set('homeMasteredVal', masteredVal.textContent + ' / 44');
     const projVal = document.getElementById('dashProjectsVal');
-    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 4');
+    if (projVal) set('homeProjectsVal', projVal.textContent + ' / 5');
 
     let nextLessonText = 'All skills mastered! 🎉';
     for (const level of levels){
