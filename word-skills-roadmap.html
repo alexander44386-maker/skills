@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compose: A Microsoft Word Skills Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161d;
+    --panel:#1a2029;
+    --panel-2:#1f2632;
+    --grid:#2a3240;
+    --grid-soft:#232a36;
+    --ink:#e9ecf1;
+    --muted:#8b93a3;
+    --dim:#5b6472;
+    --green:#3ecf8e;
+    --blue:#4f8ff0;
+    --amber:#e8b04b;
+    --red:#e86a6a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:'Inter', sans-serif;
+    background-image:linear-gradient(var(--grid-soft) 1px, transparent 1px), linear-gradient(90deg, var(--grid-soft) 1px, transparent 1px);
+    background-size:64px 32px; background-attachment:fixed; min-height:100vh;
+  }
+  ::selection{ background:var(--blue); color:#0c1420; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* NAV */
+  .app-nav{ position:sticky; top:0; z-index:50; background:rgba(26,32,41,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--grid); }
+  .app-nav-inner{ max-width:1080px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:6px; overflow-x:auto; }
+  .app-nav-link{ font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; color:var(--muted); background:none; border:none; border-bottom:2px solid transparent; padding:14px 12px 12px; cursor:pointer; white-space:nowrap; display:flex; align-items:center; gap:6px; }
+  .app-nav-link:hover{ color:var(--ink); }
+  .app-nav-link.active{ color:var(--blue); border-bottom-color:var(--blue); }
+  .app-page{ animation:pagefade 0.15s ease; }
+  @keyframes pagefade{ from{ opacity:0; } to{ opacity:1; } }
+
+  /* HOME CARD */
+  .home-card{ max-width:1080px; margin:48px auto 0; padding:0 24px; }
+  .home-card-inner{ background:var(--panel); border:1px solid var(--grid); border-radius:12px; padding:26px 26px 22px; }
+  .home-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+  .continue-btn{ font-family:'Archivo', sans-serif; font-weight:700; font-size:14px; color:#0c1420; background:var(--blue); border:none; border-radius:7px; padding:11px 20px; cursor:pointer; white-space:nowrap; }
+  .continue-btn:hover{ background:#3f79d8; }
+  .home-progress-row{ margin-bottom:18px; }
+  .home-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .home-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .home-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .home-progress-fill{ height:100%; background:var(--blue); width:0%; transition:width 0.3s ease; }
+  .home-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .home-stat .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .home-stat .dvalue{ font-family:'Archivo', sans-serif; font-size:20px; font-weight:800; margin-top:4px; color:var(--ink); }
+  @media (max-width:640px){ .home-stats{ grid-template-columns:repeat(2,1fr); } }
+
+  /* HERO */
+  header.hero{ position:relative; padding:76px 24px 64px; max-width:1080px; margin:0 auto; }
+  .doc-chrome{ display:flex; align-items:center; gap:10px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); margin-bottom:36px; letter-spacing:0.02em; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:var(--grid); }
+  .dot.b{ background:var(--blue); }
+  .field-bar{ display:flex; align-items:center; background:var(--panel); border:1px solid var(--grid); border-radius:6px; padding:10px 14px; margin-bottom:44px; font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--blue); box-shadow:0 0 0 1px rgba(79,143,240,0.06), 0 8px 24px rgba(0,0,0,0.3); }
+  .field-bar .fx{ color:var(--muted); margin-right:12px; font-style:italic; border-right:1px solid var(--grid); padding-right:12px; }
+  .field-bar .caret{ display:inline-block; width:8px; height:16px; background:var(--blue); margin-left:2px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  h1{ font-family:'Archivo', sans-serif; font-weight:800; font-size:clamp(38px,6vw,64px); line-height:1.05; letter-spacing:-0.02em; max-width:860px; }
+  h1 .accent{ color:var(--blue); }
+  h1 .accent2{ color:var(--green); }
+  .hero-sub{ margin-top:22px; font-size:18px; color:var(--muted); max-width:580px; line-height:1.55; }
+  .hero-meta{ display:flex; gap:28px; margin-top:44px; flex-wrap:wrap; }
+  .meta-item{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  .meta-item strong{ display:block; font-family:'Archivo', sans-serif; font-size:22px; font-weight:700; color:var(--ink); margin-top:4px; }
+
+  /* SECTION LABEL */
+  .section-intro{ max-width:1080px; margin:88px auto 28px; padding:0 24px; display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .section-intro .ref{ font-family:'JetBrains Mono', monospace; color:var(--muted); font-size:13px; background:var(--panel); border:1px solid var(--grid); padding:3px 8px; border-radius:4px; }
+  .section-intro h2{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:700; }
+  .section-note{ max-width:1080px; margin:0 auto 8px; padding:0 24px; color:var(--muted); font-size:15px; }
+
+  /* BOARD */
+  .board{ max-width:1080px; margin:0 auto; padding:24px; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px; overflow:hidden; }
+  .level-col{ background:var(--panel); display:flex; flex-direction:column; }
+  .level-head{ padding:18px 16px 16px; border-bottom:1px solid var(--grid); position:sticky; top:0; background:var(--panel); z-index:2; }
+  .level-head .letter{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color,var(--muted)); font-weight:600; }
+  .level-head h3{ font-family:'Archivo', sans-serif; font-size:18px; font-weight:700; margin-top:6px; }
+  .level-head .tag{ display:inline-block; margin-top:10px; font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--col-color,var(--grid)); color:var(--col-color,var(--muted)); }
+  .cell{ position:relative; padding:16px; border-bottom:1px solid var(--grid-soft); cursor:pointer; transition:background 0.15s ease; }
+  .cell:hover{ background:var(--panel-2); }
+  .cell .addr{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--muted); opacity:0.7; display:flex; align-items:center; gap:8px; justify-content:space-between; }
+  .cell .addr::before{ content:'○ '; color:var(--dim); }
+  .cell.skill-mastered .addr::before{ content:'✓ '; color:var(--blue); font-weight:700; }
+  .cell .addr .exp{ color:var(--col-color,var(--muted)); opacity:1; margin-left:auto; }
+  .time-est{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--muted); background:var(--panel-2); border:1px solid var(--grid); border-radius:10px; padding:1px 7px; white-space:nowrap; }
+  .skill-done-badge{ display:none; align-items:center; gap:4px; font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--blue); }
+  .cell.skill-mastered .skill-done-badge{ display:inline-flex; }
+  .cell.skill-mastered{ border-left:2px solid var(--blue); }
+  .cell.skill-mastered .addr{ color:var(--blue); }
+  .cell .skill{ font-weight:600; font-size:14px; margin-top:5px; line-height:1.3; }
+  .cell .why{ font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.45; }
+  .cell .example{ display:none; margin-top:10px; padding-top:10px; border-top:1px dashed var(--grid); font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color,var(--blue)); line-height:1.6; white-space:pre-wrap; }
+  .cell.open .example{ display:block; }
+  .cell.open{ background:var(--panel-2); }
+  .challenge{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .challenge{ display:block; }
+  .ch-q{ font-size:12.5px; color:var(--ink); line-height:1.5; margin-bottom:8px; }
+  .ch-q b{ color:var(--col-color,var(--blue)); }
+  .ch-row{ display:flex; gap:6px; }
+  .ch-input{ flex:1; min-width:0; background:var(--bg); border:1px solid var(--grid); border-radius:5px; padding:7px 9px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); }
+  .ch-input:focus{ outline:none; border-color:var(--col-color,var(--blue)); }
+  .ch-btn{ font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600; padding:7px 12px; border-radius:5px; border:1px solid var(--col-color,var(--blue)); background:transparent; color:var(--col-color,var(--blue)); cursor:pointer; white-space:nowrap; }
+  .ch-btn:hover{ background:color-mix(in srgb, var(--col-color,var(--blue)) 15%, transparent); }
+  .ch-result{ margin-top:8px; font-size:12px; font-family:'JetBrains Mono', monospace; line-height:1.5; min-height:0; }
+  .ch-result.correct{ color:var(--green); }
+  .ch-result.incorrect{ color:var(--red); }
+  .ch-reveal{ margin-top:8px; background:none; border:none; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:11px; text-decoration:underline; cursor:pointer; padding:0; }
+  .ch-reveal:hover{ color:var(--ink); }
+  .tool-notes{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--grid); }
+  .cell.open .tool-notes{ display:block; }
+  .tn-group{ margin-bottom:12px; }
+  .tn-group:last-child{ margin-bottom:0; }
+  .tn-label{ font-family:'JetBrains Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px; font-weight:600; }
+  .tn-label.good{ color:var(--green); }
+  .tn-label.avoid{ color:var(--amber); }
+  .tn-list{ list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .tn-list li{ font-size:12px; color:var(--muted); line-height:1.45; padding-left:16px; position:relative; }
+  .tn-list.good li::before{ content:'✓'; position:absolute; left:0; top:0; color:var(--green); font-size:10.5px; }
+  .tn-list.avoid li::before{ content:'→'; position:absolute; left:0; top:0; color:var(--amber); font-size:10.5px; }
+
+  .level-col[data-level="beginner"]{ --col-color: var(--green); }
+  .level-col[data-level="intermediate"]{ --col-color: var(--blue); }
+  .level-col[data-level="advanced"]{ --col-color: var(--amber); }
+  .level-col[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width:880px){ .board{ grid-template-columns:1fr; } .level-head{ position:static; } }
+
+  /* ---------- DESKTOP STAGE TABS (>880px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width:881px){
+    .stage-tabs{ display:flex; align-items:flex-end; gap:4px; max-width:1080px; margin:24px auto 0; padding:0 24px; flex-wrap:wrap; }
+    .stage-tab{ font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; color:var(--muted); background:var(--panel); border:1px solid var(--grid); border-bottom:none; border-radius:8px 8px 0 0; padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:background 0.15s ease, color 0.15s ease; }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{ color:var(--tab-color,var(--green)); background:var(--panel-2); box-shadow:inset 0 2px 0 var(--tab-color,var(--green)); }
+    .board{ grid-template-columns:1fr; border-radius:0 10px 10px 10px; }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{ padding-left:24px; padding-right:24px; }
+    .level-col.tab-active .cell{ padding-left:24px; padding-right:24px; }
+  }
+
+  .level-continue-btn{ display:inline-block; margin:4px 16px 20px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#0c1420; background:var(--col-color,var(--blue)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
+  .level-practice-cta{ margin:0 14px 20px; display:flex; gap:10px; flex-wrap:wrap; }
+  .level-practice-cta .cta-link{ flex:1; min-width:130px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600; color:var(--col-color,var(--ink)); text-decoration:none; padding:10px 12px; border:1px solid var(--grid); border-left:2px solid var(--col-color,var(--grid)); border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
+  .level-practice-cta .cta-link:hover{ border-color:var(--col-color,var(--dim)); background:linear-gradient(180deg, rgba(255,255,255,0.05), transparent); }
+
+  /* PRACTICE LAB */
+  .lab{ max-width:1080px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:880px){ .lab{ grid-template-columns:1fr; } }
+  .lab-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:22px; display:flex; flex-direction:column; }
+  .lab-card[data-level="beginner"]{ --col-color: var(--green); }
+  .lab-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .lab-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .lab-card[data-level="expert"]{ --col-color: var(--red); }
+  .lab-head{ display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .lab-head .swatch{ width:10px; height:10px; border-radius:2px; background:var(--col-color); }
+  .lab-head .lname{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--col-color); text-transform:uppercase; letter-spacing:0.05em; }
+  .lab-card h4{ font-family:'Archivo', sans-serif; font-size:17px; font-weight:700; margin-bottom:10px; }
+  .lab-card .task{ font-size:13.5px; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+  .lab-card .task b{ color:var(--ink); }
+  table.sample{ width:100%; border-collapse:collapse; font-family:'JetBrains Mono', monospace; font-size:11.5px; margin-bottom:14px; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  table.sample th{ background:var(--panel-2); color:var(--col-color); text-align:left; padding:7px 9px; font-weight:600; border-bottom:1px solid var(--grid); }
+  table.sample td{ padding:7px 9px; border-bottom:1px solid var(--grid-soft); color:var(--ink); }
+  table.sample tr:last-child td{ border-bottom:none; }
+  details.solution{ margin-top:auto; border:1px solid var(--grid); border-radius:6px; overflow:hidden; }
+  details.solution summary{ padding:9px 12px; cursor:pointer; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--col-color); background:var(--panel-2); list-style:none; display:flex; align-items:center; gap:8px; }
+  details.solution summary::-webkit-details-marker{ display:none; }
+  details.solution summary::before{ content:"▸"; transition:transform 0.15s ease; }
+  details.solution[open] summary::before{ transform:rotate(90deg); }
+  details.solution .sol-body{ padding:12px; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  details.solution .sol-body code{ display:block; margin:8px 0; padding:8px 10px; background:var(--bg); border:1px solid var(--grid); border-radius:5px; font-family:'JetBrains Mono', monospace; color:var(--col-color); font-size:12px; white-space:pre-wrap; }
+
+  /* PRACTICE FILES */
+  .datasets-grid{ max-width:1080px; margin:0 auto; padding:0 24px 24px; display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  @media (max-width:920px){ .datasets-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .datasets-grid{ grid-template-columns:1fr; } }
+  .dataset-card{ background:var(--panel); border:1px solid var(--grid); border-radius:10px; padding:18px; display:flex; flex-direction:column; }
+  .dataset-card h4{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+  .dataset-card p{ font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:10px; flex-grow:1; }
+  .dataset-meta{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--blue); margin-bottom:12px; }
+  .dataset-btn{ background:var(--panel-2); border:1px solid var(--blue); color:var(--blue); font-family:'JetBrains Mono', monospace; font-weight:600; font-size:12px; padding:9px 14px; border-radius:6px; cursor:pointer; text-align:center; }
+  .dataset-btn:hover{ background:var(--blue); color:#0c1420; }
+  .dataset-btn:active{ transform:scale(0.98); }
+
+  /* CAPSTONES */
+  .capstone-overall{ max-width:1080px; margin:0 auto 24px; padding:0 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .capstone-overall .ov-label{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+  .capstone-overall .ov-bar{ flex:1; min-width:120px; height:6px; border-radius:4px; background:var(--grid-soft); border:1px solid var(--grid); overflow:hidden; }
+  .capstone-overall .ov-bar-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--green), var(--blue), var(--amber), var(--red)); transition:width 0.3s ease; }
+  .capstone-overall .ov-count{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink); white-space:nowrap; }
+  .capstone-reset{ background:none; border:1px solid var(--grid); color:var(--dim); font-family:'JetBrains Mono', monospace; font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; white-space:nowrap; }
+  .capstone-reset:hover{ color:var(--ink); border-color:var(--muted); }
+  .capstone{ max-width:1080px; margin:0 auto; padding:0 24px; display:flex; flex-direction:column; gap:18px; }
+  .capstone-card{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color,var(--grid)); border-radius:10px; padding:24px 26px; display:grid; grid-template-columns:220px 1fr; gap:24px; }
+  .capstone-card[data-level="beginner"]{ --col-color: var(--green); }
+  .capstone-card[data-level="intermediate"]{ --col-color: var(--blue); }
+  .capstone-card[data-level="advanced"]{ --col-color: var(--amber); }
+  .capstone-card[data-level="expert"]{ --col-color: var(--red); }
+  @media (max-width:760px){ .capstone-card{ grid-template-columns:1fr; gap:14px; } }
+  .cap-side{ display:flex; flex-direction:column; gap:8px; }
+  .cap-num{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--col-color); letter-spacing:0.05em; }
+  .cap-side h4{ font-family:'Archivo', sans-serif; font-size:19px; font-weight:700; line-height:1.2; }
+  .cap-level-tag{ display:inline-flex; align-self:flex-start; font-family:'JetBrains Mono', monospace; font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--col-color); color:var(--col-color); text-transform:uppercase; letter-spacing:0.05em; margin-top:4px; }
+  .cap-scenario{ font-size:14px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+  .cap-scenario b{ color:var(--ink); }
+  .cap-skills{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .cap-skill-chip{ font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:5px; background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); }
+  .cap-deliver-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .cap-deliver ul{ list-style:none; display:flex; flex-direction:column; gap:6px; }
+  .cap-deliver li{ color:var(--muted); font-size:13.5px; line-height:1.5; padding-left:18px; position:relative; cursor:pointer; user-select:none; }
+  .cap-deliver li::before{ content:"☐"; position:absolute; left:0; color:var(--col-color); }
+  .cap-deliver li b{ color:var(--ink); font-weight:600; }
+  .cap-deliver li:hover{ color:var(--ink); }
+  .cap-deliver li.done{ color:var(--dim); opacity:0.7; text-decoration:line-through; text-decoration-color:var(--dim); }
+  .cap-deliver li.done b{ color:var(--dim); }
+  .cap-deliver li.done::before{ content:"☑"; }
+  .cap-progress-row{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+  .cap-progress-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--dim); }
+  .cap-progress-bar{ flex:1; height:4px; border-radius:3px; background:var(--grid-soft); overflow:hidden; max-width:70px; }
+  .cap-progress-bar-fill{ height:100%; width:0%; background:var(--col-color); transition:width 0.25s ease; }
+  .cap-side .cap-done-badge{ display:none; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--green); letter-spacing:0.02em; }
+  .capstone-card.cap-complete .cap-done-badge{ display:inline-flex; align-items:center; gap:4px; }
+  .capstone-card.cap-complete{ border-left-color:var(--green); }
+
+  /* DASHBOARD */
+  .dashboard{ max-width:1080px; margin:40px auto 0; padding:0 24px; }
+  .dash-head{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+  .dash-head .dash-title{ font-family:'Archivo', sans-serif; font-size:15px; font-weight:700; display:flex; align-items:center; gap:10px; }
+  .dash-reset{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); background:none; border:1px solid var(--grid); border-radius:5px; padding:5px 10px; cursor:pointer; }
+  .dash-reset:hover{ color:var(--ink); border-color:var(--dim); }
+  .dash-progress-row{ margin-bottom:18px; }
+  .dash-progress-label{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:8px; }
+  .dash-progress-label strong{ font-family:'Archivo', sans-serif; font-size:15px; color:var(--ink); text-transform:none; }
+  .dash-progress-bar{ height:8px; border-radius:5px; background:var(--grid-soft); overflow:hidden; }
+  .dash-progress-fill{ height:100%; background:var(--blue); width:0%; transition:width 0.3s ease; }
+  .dash-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--grid); border:1px solid var(--grid); border-radius:10px 10px 0 0; overflow:hidden; margin-top:18px; }
+  @media (max-width:700px){ .dash-grid{ grid-template-columns:repeat(2,1fr); } }
+  .dash-card{ background:var(--panel); padding:16px 16px 18px; }
+  .dash-card .dlabel{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.03em; text-transform:uppercase; color:var(--muted); }
+  .dash-card .dvalue{ font-family:'Archivo', sans-serif; font-size:26px; font-weight:800; margin-top:8px; color:var(--ink); line-height:1; }
+  .dash-card .dvalue .unit{ font-size:13px; color:var(--muted); font-weight:600; margin-left:2px; }
+  .dash-card .dsub{ font-size:11px; color:var(--dim); margin-top:6px; line-height:1.4; }
+  .dash-card[data-metric="level"] .dvalue{ font-size:16px; }
+  .dash-readiness{ background:var(--panel-2); border:1px solid var(--grid); border-top:none; border-radius:0 0 10px 10px; padding:18px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .dash-readiness .rscore{ font-family:'Archivo', sans-serif; font-weight:800; font-size:32px; color:var(--blue); flex-shrink:0; }
+  .dash-readiness .rscore .unit{ font-size:15px; color:var(--muted); font-weight:600; }
+  .dash-readiness .rtext{ flex:1; min-width:200px; }
+  .dash-readiness .rlabel{ font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted); margin-bottom:4px; }
+  .dash-readiness .rmsg{ font-size:13px; color:var(--ink); line-height:1.5; }
+
+  /* WEEKLY PLAN */
+  .weekly-overall{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+  .weekly-grid{ display:flex; flex-direction:column; gap:16px; }
+  .weekly-week{ background:var(--panel); border:1px solid var(--grid); border-left:3px solid var(--col-color,var(--grid)); border-radius:10px; padding:16px 18px; }
+  .weekly-week[data-level="beginner"]{ --col-color: var(--green); }
+  .weekly-week[data-level="intermediate"]{ --col-color: var(--blue); }
+  .weekly-week[data-level="advanced"]{ --col-color: var(--amber); }
+  .weekly-week[data-level="expert"]{ --col-color: var(--red); }
+  .weekly-week-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+  .weekly-week-head h4{ font-family:'Archivo', sans-serif; font-size:15px; }
+  .weekly-week-head .wk-sub{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+  .weekly-days{ display:flex; flex-direction:column; gap:6px; }
+  .weekly-day{ display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:6px; cursor:pointer; }
+  .weekly-day:hover{ background:var(--panel-2); }
+  .weekly-day input[type="checkbox"]{ margin-top:3px; accent-color:var(--col-color,var(--blue)); width:15px; height:15px; flex-shrink:0; }
+  .weekly-day .wd-text{ font-size:13px; color:var(--ink); line-height:1.4; }
+  .weekly-day.done .wd-text{ color:var(--muted); text-decoration:line-through; }
+
+  /* FOOTER */
+  footer{ max-width:1080px; margin:110px auto 60px; padding:32px 24px 0; border-top:1px solid var(--grid); display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  footer .fcell{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); }
+  footer .fcell b{ color:var(--ink); }
+
+  /* SHORTCUTS PANEL */
+  .shortcuts-toggle{ position:fixed; right:18px; bottom:18px; z-index:50; display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; padding:11px 16px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,0.4); cursor:pointer; }
+  .shortcuts-toggle:hover{ border-color:var(--blue); color:var(--blue); }
+  .shortcuts-toggle .kicon{ color:var(--blue); }
+  .shortcuts-panel{ position:fixed; right:18px; bottom:74px; z-index:50; width:320px; max-width:calc(100vw - 36px); background:var(--panel); border:1px solid var(--grid); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.5); display:none; flex-direction:column; overflow:hidden; }
+  .shortcuts-panel.open{ display:flex; }
+  .sp-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--grid); }
+  .sp-head h4{ font-family:'Archivo', sans-serif; font-size:14px; font-weight:700; }
+  .sp-close{ background:none; border:none; color:var(--muted); font-size:18px; cursor:pointer; line-height:1; padding:2px 4px; }
+  .sp-close:hover{ color:var(--ink); }
+  .sp-card{ margin:16px; padding:22px 16px; background:var(--panel-2); border:1px dashed var(--grid); border-radius:10px; text-align:center; cursor:pointer; min-height:64px; display:flex; align-items:center; justify-content:center; }
+  .sp-prompt{ font-size:14.5px; font-weight:600; color:var(--ink); }
+  .sp-keys{ display:none; font-family:'JetBrains Mono', monospace; font-size:16px; font-weight:700; color:var(--blue); letter-spacing:0.02em; }
+  .sp-card.flipped .sp-prompt{ display:none; }
+  .sp-card.flipped .sp-keys{ display:block; }
+  .sp-hint{ text-align:center; font-size:11px; color:var(--dim); margin:0 16px 14px; }
+  .sp-nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-top:1px solid var(--grid); gap:8px; }
+  .sp-btn{ background:var(--panel-2); border:1px solid var(--grid); color:var(--ink); font-family:'JetBrains Mono', monospace; font-size:11.5px; padding:7px 12px; border-radius:6px; cursor:pointer; }
+  .sp-btn:hover{ border-color:var(--blue); color:var(--blue); }
+  .sp-count{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<button class="shortcuts-toggle" id="scToggle" type="button"><span class="kicon">⌨</span> Shortcuts</button>
+<div class="shortcuts-panel" id="scPanel">
+  <div class="sp-head"><h4>Shortcut flash cards</h4><button class="sp-close" id="scClose" type="button" aria-label="Close">&times;</button></div>
+  <div class="sp-card" id="scCard"><span class="sp-prompt" id="scPrompt"></span><span class="sp-keys" id="scKeys"></span></div>
+  <p class="sp-hint">Tap the card to flip it · Word for Windows</p>
+  <div class="sp-nav">
+    <button class="sp-btn" id="scPrev" type="button">← Prev</button>
+    <span class="sp-count" id="scCount">1 / 20</span>
+    <button class="sp-btn" id="scShuffle" type="button">Shuffle</button>
+    <button class="sp-btn" id="scNext" type="button">Next →</button>
+  </div>
+</div>
+
+<nav class="app-nav">
+  <div class="app-nav-inner">
+    <button class="app-nav-link" data-page="dashboard" type="button">🏠 Dashboard</button>
+    <button class="app-nav-link" data-page="learn" type="button">📚 Learn</button>
+    <button class="app-nav-link" data-page="practice" type="button">🧪 Practice</button>
+    <button class="app-nav-link" data-page="projects" type="button">📂 Projects</button>
+    <button class="app-nav-link" data-page="progress" type="button">📊 Progress</button>
+  </div>
+</nav>
+
+<section class="app-page" id="page-dashboard" data-page="dashboard">
+<header class="hero">
+  <div class="doc-chrome"><span class="dot b"></span><span class="dot"></span><span class="dot"></span><span>Document1 — ProjectReport.docx</span></div>
+  <div class="field-bar"><span class="fx">FIELD</span><span id="fieldText">{ IF Excuses = 0 "Done" "Still due" }</span><span class="caret"></span></div>
+  <h1>Stop <span class="accent">fighting</span> the formatting.<br>Start <span class="accent2">command</span>ing the page.</h1>
+  <p class="hero-sub">A practical route from "I can bold a word" to "I built the template the whole office reuses." Four columns, one skill per row — tap any cell for the how-to, then prove it with a quick check.</p>
+  <div class="hero-meta">
+    <div class="meta-item">SKILLS<strong>28</strong></div>
+    <div class="meta-item">LEVELS<strong>4</strong></div>
+    <div class="meta-item">CAPSTONES<strong>4</strong></div>
+    <div class="meta-item">EST. TIME<strong>~6 hrs</strong></div>
+  </div>
+</header>
+
+<div class="home-card">
+  <div class="home-card-inner">
+    <div class="home-top">
+      <div class="home-progress-row" style="flex:1; margin-bottom:0;">
+        <div class="home-progress-label"><strong id="homeCompletionVal">0%</strong><span id="homeCompletionSub">0 / 28 skills</span></div>
+        <div class="home-progress-bar"><div class="home-progress-fill" id="homeCompletionFill"></div></div>
+      </div>
+      <button class="continue-btn" id="continueLearningBtn" type="button">Continue Learning →</button>
+    </div>
+    <div class="home-stats">
+      <div class="home-stat"><div class="dlabel">Current Level</div><div class="dvalue" id="homeLevelVal">Foundations</div></div>
+      <div class="home-stat"><div class="dlabel">Next Up</div><div class="dvalue" id="homeNextLesson" style="font-size:14px;">—</div></div>
+      <div class="home-stat"><div class="dlabel">Mastered</div><div class="dvalue" id="homeMasteredVal">0 / 28</div></div>
+      <div class="home-stat"><div class="dlabel">Capstones</div><div class="dvalue" id="homeProjectsVal">0 / 4</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="app-page" id="page-learn" data-page="learn">
+  <div class="section-intro"><span class="ref mono">01</span><h2>The Skill Board</h2></div>
+  <p class="section-note">28 skills across 4 levels. Tap a cell to open the how-to and a quick check — answer it correctly to mark the skill mastered.</p>
+  <div class="board" id="board"></div>
+</section>
+
+<section class="app-page" id="page-practice" data-page="practice">
+  <div class="section-intro"><span class="ref mono">02</span><h2>Practice Lab</h2></div>
+  <p class="section-note">One task per level. Try it in Word first, then check the solution.</p>
+  <div class="lab" id="lab"></div>
+  <div class="section-intro" style="margin-top:56px;"><span class="ref mono">02b</span><h2>Practice Files</h2></div>
+  <p class="section-note">Download raw text to paste into a blank document and format from scratch.</p>
+  <div class="datasets-grid" id="datasetsGrid"></div>
+</section>
+
+<section class="app-page" id="page-projects" data-page="projects">
+  <div class="section-intro"><span class="ref mono">03</span><h2>Capstone Projects</h2></div>
+  <p class="section-note">One real deliverable per level. Check off each requirement as you complete it.</p>
+  <div class="capstone-overall">
+    <span class="ov-label mono">Overall</span>
+    <div class="ov-bar"><div class="ov-bar-fill" id="capOverallFill"></div></div>
+    <span class="ov-count mono" id="capOverallCount">0 / 4 complete</span>
+    <button class="capstone-reset" id="capResetBtn" type="button">Reset checklist</button>
+  </div>
+  <div class="capstone" id="capstoneList"></div>
+</section>
+
+<section class="app-page" id="page-progress" data-page="progress">
+  <div class="section-intro"><span class="ref mono">04</span><h2>Progress</h2></div>
+  <div class="dashboard">
+    <div class="dash-head">
+      <div class="dash-title">📊 Your dashboard</div>
+      <button class="dash-reset" id="dashResetBtn" type="button">Reset all progress</button>
+    </div>
+    <div class="dash-progress-row">
+      <div class="dash-progress-label"><strong id="dashCompletionVal">0%</strong><span id="dashCompletionSub">0 / 28 skills mastered</span></div>
+      <div class="dash-progress-bar"><div class="dash-progress-fill" id="dashCompletionFill"></div></div>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card" data-metric="level"><div class="dlabel">Current Level</div><div class="dvalue" id="dashLevelVal">Foundations</div><div class="dsub">Based on lowest incomplete level</div></div>
+      <div class="dash-card" data-metric="mastered"><div class="dlabel">Skills Mastered</div><div class="dvalue" id="dashMasteredVal">0<span class="unit">/ 28</span></div><div class="dsub">Across all 4 levels</div></div>
+      <div class="dash-card" data-metric="projects"><div class="dlabel">Capstones Done</div><div class="dvalue" id="dashProjectsVal">0<span class="unit">/ 4</span></div><div class="dsub">Full projects completed</div></div>
+      <div class="dash-card" data-metric="streak"><div class="dlabel">Levels Cleared</div><div class="dvalue" id="dashLevelsClearedVal">0<span class="unit">/ 4</span></div><div class="dsub">100% mastered levels</div></div>
+    </div>
+    <div class="dash-readiness">
+      <div class="rscore" id="rScoreVal">0<span class="unit">/ 100</span></div>
+      <div class="rtext"><div class="rlabel">Document-Ready Score</div><div class="rmsg" id="rMsg">Complete a few skills to get your first score.</div></div>
+    </div>
+  </div>
+
+  <div class="section-intro" style="margin-top:56px;"><span class="ref mono">05</span><h2>4-Week Plan</h2></div>
+  <p class="section-note">A steady rhythm if you'd rather work through this week by week instead of skill by skill.</p>
+  <div class="dashboard" id="weeklyWrap">
+    <div class="weekly-overall">
+      <span class="ov-label mono">Weekly checklist</span>
+      <div class="ov-bar" style="flex:1;"><div class="ov-bar-fill" id="weeklyOverallFill"></div></div>
+      <span class="ov-count mono" id="weeklyOverallCount">0 / 16 done</span>
+    </div>
+    <div class="weekly-grid" id="weeklyGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fcell">Made for <b>real documents</b>, not test data.</div>
+  <div class="fcell">Progress saved locally in this browser.</div>
+</footer>
+
+<script>
+(function(){
+  // ---------------- DATA ----------------
+  const LEVELS = [
+    { key:'beginner', label:'Foundations', letter:'B', color:'green', skills:[
+      { id:'b1', addr:'B1', time:'5 min', skill:'Format Painter', why:"Copying formatting instead of rebuilding it by hand is the single fastest way to keep a long document consistent.", example:'Home → Format Painter (paintbrush icon)\nDouble-click it to apply to multiple spots', q:"How do you make Format Painter stick for multiple selections instead of just one?", a:['double-click','double click','double-click it'], good:['Double-click Format Painter when fixing formatting in several places'], avoid:['Manually re-applying font, size, and color one at a time when one click would copy it all'] },
+      { id:'b2', addr:'B2', time:'6 min', skill:'Clipboard & Paste Special', why:"The default paste drags in someone else's fonts and colors — Paste Special (or the Paste Options menu) lets you choose exactly what comes in.", example:'Ctrl+Alt+V opens Paste Special\nCtrl+V then click the Paste Options icon', q:"Shortcut that opens the Paste Special dialog?", a:['ctrl+alt+v'], good:['Use "Keep Text Only" when pasting from a webpage or PDF'], avoid:['Pasting with Ctrl+V by default into a styled document — it imports the source formatting'] },
+      { id:'b3', addr:'B3', time:'6 min', skill:'Tabs vs. Spaces (Tab Stops & Leaders)', why:"Spacebar-aligned columns fall apart the moment fonts or text length change — real tab stops (with optional dot leaders) hold their alignment.", example:'Ruler → click to set a tab stop\nHome → Paragraph → Tabs… for leaders', q:"What do you set on the ruler to align text without using spaces?", a:['tab stop','tab stops'], good:['Use a right tab stop with a dot leader for a table-of-contents-style line'], avoid:['Pressing spacebar repeatedly to line up columns of text'] },
+      { id:'b4', addr:'B4', time:'6 min', skill:'Indents & Hanging Indents', why:"First-line and hanging indents (bibliography entries, definitions) are paragraph properties — not something you fake with the Tab key.", example:'Ctrl+T applies a hanging indent\nHome → Paragraph → Indents and Spacing', q:"Shortcut to apply a hanging indent to the selected paragraph?", a:['ctrl+t'], good:['Use a hanging indent for reference lists and works cited entries'], avoid:['Pressing Tab at the start of every wrapped line to fake an indent'] },
+      { id:'b5', addr:'B5', time:'5 min', skill:'Formatting Marks (¶)', why:"Turning on formatting marks reveals the paragraph breaks, tabs, and extra spaces that are quietly causing layout problems.", example:'Ctrl+Shift+8 toggles marks\nHome → ¶ button in Paragraph group', q:"Shortcut to toggle formatting marks on and off?", a:['ctrl+shift+8'], good:['Turn on marks before troubleshooting any spacing or alignment issue'], avoid:['Guessing at a layout problem instead of just looking at the hidden marks'] },
+      { id:'b6', addr:'B6', time:'6 min', skill:'Keep with Next & Widow/Orphan Control', why:"These paragraph settings stop a heading from stranding itself at the bottom of a page, away from the text it introduces.", example:'Home → Paragraph → Line and Page Breaks tab\nCheck "Keep with next" / "Widow/Orphan control"', q:"Which paragraph setting keeps a heading attached to the paragraph that follows it?", a:['keep with next'], good:['Apply "Keep with next" to every heading style so it never gets orphaned'], avoid:['Fixing an orphaned heading by manually inserting a page break — it breaks again after edits'] },
+      { id:'b7', addr:'B7', time:'5 min', skill:'Page & Section Navigation', why:"Go To and the object browser move you instantly to a specific page, section, or item instead of scrolling through a 40-page document.", example:'Ctrl+G opens Go To\nSelect "Page" or "Section" as the target', q:"Shortcut that opens the Go To dialog?", a:['ctrl+g'], good:['Use Go To → Page for jumping straight to a page number in a long doc'], avoid:['Scrolling manually through a long document to find a specific section'] },
+      { id:'b8', addr:'B8', time:'6 min', skill:'Selection Tricks', why:"Double-click for a word, triple-click for a paragraph, and Ctrl+click for a sentence are far faster than dragging with the mouse every time.", example:'Double-click = word · Triple-click = paragraph\nCtrl+click = sentence · Ctrl+A = whole document', q:"What does triple-clicking inside a paragraph select?", a:['the paragraph','paragraph','whole paragraph'], good:['Ctrl+click anywhere in a sentence to select just that sentence'], avoid:['Dragging the mouse to select a full paragraph when a triple-click does it instantly'] },
+    ]},
+    { key:'intermediate', label:'Structure & Style', letter:'I', color:'blue', skills:[
+      { id:'i1', addr:'I1', time:'10 min', skill:'Styles Gallery (Heading 1/2, Normal)', why:"Applying Styles instead of manual formatting means one click can restyle the whole document — and it's what makes TOCs and navigation work.", example:'Home → Styles gallery → Heading 1', q:"What must headings use before an automatic Table of Contents will work?", a:['heading styles','styles','heading style'], good:['Apply Heading 1 for main sections, Heading 2 for sub-sections'], avoid:['Manually bolding + resizing text instead of applying a Heading style'] },
+      { id:'i2', addr:'I2', time:'8 min', skill:'Automatic Table of Contents', why:"An auto-generated TOC updates itself as the document changes — no retyping page numbers.", example:'References → Table of Contents → Automatic Table', q:"Which ribbon tab has Table of Contents?", a:['references'], good:['Right-click the TOC → Update Field after edits'], avoid:['Typing a TOC by hand — it goes stale the moment you edit'] },
+      { id:'i3', addr:'I3', time:'8 min', skill:'Headers, Footers & Page Numbers', why:"Headers and footers carry running info (title, date, page X of Y) without cluttering the body.", example:'Insert → Header/Footer\n(or double-click the top/bottom margin)', q:"Which tab do you use to insert a header?", a:['insert'], good:['Use "Different First Page" for a title page without a header'], avoid:['Manually typing page numbers into the body text'] },
+      { id:'i4', addr:'I4', time:'10 min', skill:'Tables — Insert, Format & Sort', why:"Tables organize comparable data far better than tabs or spaces ever will.", example:'Insert → Table → drag grid\nTable Design / Layout tabs', q:"Which ribbon tab lets you sort table data A→Z?", a:['layout'], good:['Use Table Design → Header Row shading for readability'], avoid:['Using spacebar-aligned columns instead of a real table'] },
+      { id:'i5', addr:'I5', time:'8 min', skill:'Inserting Images & Text Wrapping', why:"Text wrap options (Square, Tight, Behind Text) decide whether an image cooperates with your paragraphs or fights them.", example:'Insert → Pictures\nLayout Options → Square', q:"Which Layout Option wraps text around an image's outline?", a:['tight'], good:['Compress images before sending to keep file size small'], avoid:['Leaving images "In Line with Text" when you need wraparound'] },
+      { id:'i6', addr:'I6', time:'6 min', skill:'Find & Replace / Navigation Pane', why:"Find & Replace fixes repeated errors in seconds; the Navigation Pane turns a long doc into a clickable outline.", example:'Ctrl+H (Replace)\nCtrl+F (Find / Navigation Pane)', q:"Shortcut to open Find & Replace?", a:['ctrl+h'], good:['Use Replace All carefully — preview matches first on long docs'], avoid:[] },
+      { id:'i7', addr:'I7', time:'10 min', skill:'Track Changes & Comments', why:"Track Changes and Comments let multiple people edit the same document without silently overwriting each other's work.", example:'Review → Track Changes\nCtrl+Shift+E to toggle', q:"Shortcut to toggle Track Changes on/off?", a:['ctrl+shift+e'], good:['Add a comment instead of deleting someone else\'s text outright'], avoid:['Turning off Track Changes to hide edits from a collaborator'] },
+    ]},
+    { key:'advanced', label:'Power Formatting', letter:'A', color:'amber', skills:[
+      { id:'a1', addr:'A1', time:'8 min', skill:'Document Themes', why:"A Theme sets the color palette, heading/body fonts, and effects for the whole file at once — swap it and every styled element updates together.", example:'Design → Themes\nDesign → Colors / Fonts to build a custom theme', q:"Which ribbon tab holds Document Themes?", a:['design'], good:['Save a custom theme so every new document starts on-brand'], avoid:['Manually recoloring headings one at a time instead of editing the theme'] },
+      { id:'a2', addr:'A2', time:'12 min', skill:'Custom Styles & Style Sets', why:"Building your own Style — not just using the defaults — is how teams keep every document on-brand.", example:"Right-click formatted text → Styles → Create a Style", q:"Where do you create a new custom style from formatted text?", a:['styles','style'], good:['Base a new style on an existing one so updates cascade'], avoid:[] },
+      { id:'a3', addr:'A3', time:'8 min', skill:'Style Inspector', why:"When formatting looks wrong but you can't tell why, the Style Inspector shows exactly which paragraph and character formatting is layered on top of the base style.", example:'Home → Styles launcher → Style Inspector icon\n(bottom of the Styles pane)', q:"Which pane shows the exact paragraph and character formatting applied to your cursor position?", a:['style inspector'], good:['Use "Clear Formatting" inside the Style Inspector to reset a stubborn paragraph'], avoid:[] },
+      { id:'a4', addr:'A4', time:'18 min', skill:'Advanced Mail Merge (Conditional IF Fields)', why:'IF fields let one merge template show different text per recipient — "Dear Dr. X" vs "Dear Mr. X" — instead of one generic block for everyone.', example:'Mailings → Rules → If...Then...Else…', q:"Which menu on the Mailings tab lets you insert an IF...Then...Else field?", a:['rules'], good:['Test every branch of an IF field against a sample record before the full merge'], avoid:['Writing one generic paragraph to avoid conditional logic — it reads as impersonal'] },
+      { id:'a5', addr:'A5', time:'12 min', skill:'Section Breaks', why:'Section breaks let one document have different headers, footers, or page-number styles in different parts — a real research-paper requirement.', example:'Layout → Breaks → Next Page (Section)', q:"What do you insert to allow a different header starting on a specific page?", a:['section break'], good:['Use "Next Page" section breaks for chapter-style documents'], avoid:['Confusing a page break with a section break — they do different things'] },
+      { id:'a6', addr:'A6', time:'10 min', skill:'Cross-References & Captions', why:'Cross-references ("see Figure 3") update themselves automatically if you reorder figures — no more stale references.', example:'References → Insert Caption\nReferences → Cross-reference', q:"Which tab do you use to insert a caption for a figure?", a:['references'], good:['Caption every figure/table so cross-references have something to point to'], avoid:[] },
+      { id:'a7', addr:'A7', time:'8 min', skill:'Building Blocks / Quick Parts', why:'Quick Parts save boilerplate (letterheads, disclaimers, signature blocks) as reusable snippets you insert with two clicks.', example:'Select text → Insert → Quick Parts →\nSave Selection to Quick Part Gallery', q:"Which ribbon tab holds Quick Parts?", a:['insert'], good:['Name Quick Parts clearly so the gallery stays organized'], avoid:[] },
+      { id:'a8', addr:'A8', time:'12 min', skill:'Footnotes, Endnotes & Citations', why:"The References tab automates citation formatting (APA, MLA, Chicago) and builds a bibliography from sources you've already cited.", example:'References → Insert Footnote\nInsert Citation → Add New Source', q:"Shortcut to insert a footnote?", a:['alt+ctrl+f'], good:['Pick your citation style before adding the first source'], avoid:['Typing citations by hand instead of using the citation manager'] },
+      { id:'a9', addr:'A9', time:'10 min', skill:'Restrict Formatting & Editing', why:"Restrict Editing goes beyond a locked file — it can limit reviewers to specific styles only, or to filling in form fields, while leaving the rest untouchable.", example:'Review → Restrict Editing\nCheck "Limit formatting to a selection of styles"', q:"Which ribbon tab do you use to limit which styles reviewers are allowed to apply?", a:['review'], good:['Combine "Filling in forms" restriction with a password for shareable templates'], avoid:['Relying on "please don\'t change the formatting" in an email instead of enforcing it'] },
+      { id:'a10', addr:'A10', time:'14 min', skill:'Custom Templates for Organizations', why:'A well-built .dotx with locked styles, placeholder content, and a style set becomes the single source every team member starts from — instead of everyone drifting from an old copy-pasted file.', example:'Save As → Word Template (*.dotx)\nStore in a shared template folder or SharePoint', q:"What file extension does a Word template use?", a:['.dotx','dotx'], good:['Version your organization templates so old copies don\'t keep circulating'], avoid:['Distributing a template as a regular .docx — nothing stops it from being overwritten'] },
+      { id:'a11', addr:'A11', time:'10 min', skill:'Co-authoring & Version History', why:"Real-time co-authoring shows collaborators' cursors live, and Version History lets you roll back to any autosaved point — both replace emailing files back and forth.", example:'Share button → invite collaborators\nFile → Info → Version History', q:"Where do you go to restore an earlier autosaved version of a document?", a:['version history'], good:['Check Version History before assuming someone else\'s edit "deleted" your work'], avoid:['Keeping multiple emailed copies (Report_v2_FINAL_final.docx) instead of using shared co-authoring'] },
+      { id:'a12', addr:'A12', time:'10 min', skill:'Document Inspector & Protected View', why:"Document Inspector strips hidden metadata, comments, and tracked changes before you share a file externally; Protected View sandboxes files from untrusted sources so macros can't run automatically.", example:'File → Info → Check for Issues → Inspect Document', q:"Which tool removes hidden metadata and comments before you share a file externally?", a:['document inspector'], good:['Run Document Inspector right before sending any file outside your organization'], avoid:['Disabling Protected View globally just to avoid one extra click'] },
+      { id:'a13', addr:'A13', time:'8 min', skill:'PDF Export Optimization', why:"The Save As PDF options control file size, whether headings become PDF bookmarks, and whether text stays searchable — defaults aren't always right for the audience.", example:'File → Save As → PDF → Options…\nChoose "Minimum size" or "Standard" and check "Create bookmarks"', q:"Which checkbox in the PDF export Options dialog turns your headings into a clickable PDF outline?", a:['create bookmarks','bookmarks'], good:['Use "Minimum size" when emailing a PDF, "Standard" when print quality matters'], avoid:['Exporting a long report to PDF without enabling bookmarks — readers lose easy navigation'] },
+    ]},
+    { key:'expert', label:'Automation & Mastery', letter:'E', color:'red', skills:[
+      { id:'e1', addr:'E1', time:'12 min', skill:'Field Codes', why:'Almost everything "automatic" in Word (page numbers, TOC, dates) is a field code under the hood — knowing them unlocks custom automation.', example:'Ctrl+F9 inserts empty field braces { }\nAlt+F9 toggles field code view', q:"Shortcut to toggle between field codes and their results?", a:['alt+f9'], good:['Use Alt+F9 to debug a field that isn\'t updating correctly'], avoid:[] },
+      { id:'e2', addr:'E2', time:'20 min', skill:'Macros & the VBA Editor', why:"Recording a Macro turns a 12-click repetitive task into one keypress — arguably the highest-leverage skill on this whole roadmap.", example:'View → Macros → Record Macro\nAlt+F11 for the VBA editor', q:"Shortcut to open the VBA editor?", a:['alt+f11'], good:['Assign frequently-used macros to a custom keyboard shortcut'], avoid:['Running macros from unknown sources — they can contain harmful code'] },
+      { id:'e3', addr:'E3', time:'15 min', skill:'Content Controls & Structured Forms', why:"Content Controls (dropdowns, date pickers, checkboxes) turn a Word doc into a fillable form that keeps its formatting intact.", example:'Developer tab → Controls group →\nRich Text / Dropdown / Check Box', q:"Which ribbon tab (hidden by default) contains Content Controls?", a:['developer'], good:['Enable the Developer tab via File → Options → Customize Ribbon'], avoid:[] },
+      { id:'e4', addr:'E4', time:'18 min', skill:'XML Mapping', why:"XML Mapping binds Content Controls directly to elements in a custom XML data source, so a form can populate itself from — or feed data straight into — an external system.", example:'Developer → XML Mapping Pane →\nload a Custom XML Part, then map controls to nodes', q:"Which Developer-tab pane do you use to bind a content control to a custom XML data source?", a:['xml mapping pane','xml mapping'], good:['Validate your custom XML schema before mapping controls to it'], avoid:[] },
+      { id:'e5', addr:'E5', time:'10 min', skill:'Compare & Combine Documents', why:"Compare shows exactly what changed between two versions of a document — essential before signing off on a contract revision.", example:'Review → Compare → Compare (or Combine)', q:"Which ribbon tab has Compare?", a:['review'], good:['Combine multiple reviewers\' copies before finalizing edits'], avoid:[] },
+      { id:'e6', addr:'E6', time:'12 min', skill:'Accessibility Checker', why:"Alt text, reading order, and heading structure are what let screen readers — and many compliance rules — actually parse your document.", example:'Review → Check Accessibility', q:"Which ribbon tab runs the Accessibility Checker?", a:['review'], good:['Add alt text to every image before sharing publicly'], avoid:['Leaving "errors" flagged by the checker unresolved in a public document'] },
+      { id:'e7', addr:'E7', time:'15 min', skill:'Master Documents & Table of Authorities', why:'Master Documents stitch multiple sub-documents (chapters) into one manageable book-length file; Table of Authorities is the legal-brief cousin of a TOC.', example:'View → Outline → Master Document tools', q:"Which view exposes the Master Document tools?", a:['outline'], good:[], avoid:['Using Master Documents on a shared/synced drive — they corrupt easily'] },
+      { id:'e8', addr:'E8', time:'12 min', skill:'Digital Signatures', why:"A digital signature line binds a certificate-backed identity to the exact bytes of the document — the recipient can tell if a single character changed after signing.", example:'Insert → Signature Line\nFile → Info → Protect Document → Add a Digital Signature', q:"Which ribbon tab do you use to insert a signature line?", a:['insert'], good:['Get a valid signing certificate before relying on digital signatures for legal documents'], avoid:['Treating a typed name or scanned image as equivalent to a real digital signature'] },
+      { id:'e9', addr:'E9', time:'10 min', skill:'Ribbon & Quick Access Toolbar Customization', why:'A custom ribbon tab or QAT built around your actual workflow shaves real minutes off every document you touch.', example:'File → Options → Customize Ribbon\n/ Quick Access Toolbar', q:"Where do you go to customize the Quick Access Toolbar?", a:['options','file options','file > options'], good:['Export your customizations to reuse on another computer'], avoid:[] },
+    ]},
+  ];
+
+  const CAPSTONES = [
+    { level:'beginner', num:'CAPSTONE 01', title:'Clean Up a Messy Multi-Source Document', scenario:"A colleague sends you a document assembled from pasted emails and a PDF — mismatched fonts, spacebar-aligned columns, and a heading stranded at the bottom of a page.", skills:['Format Painter','Paste Special','Tabs vs Spaces','Indents','Format Marks','Keep with Next'], deliver:[
+        'Use Paste Special to strip inconsistent formatting from at least one pasted section',
+        'Replace any spacebar-aligned columns with real tab stops',
+        'Apply a hanging indent to any reference or definition list',
+        'Use Format Painter to make heading formatting consistent throughout',
+        'Turn on formatting marks to find and fix at least one hidden spacing issue',
+        'Apply "Keep with next" so no heading is stranded at the bottom of a page',
+      ]},
+    { level:'intermediate', num:'CAPSTONE 02', title:'Multi-Section Report with a Table of Contents', scenario:"Your team lead needs a project report with a clickable table of contents, page numbers, and a data table.", skills:['Styles','TOC','Headers/Footers','Tables','Images','Track Changes'], deliver:[
+        'Apply Heading 1/2 styles to every section and sub-section',
+        'Insert an automatic Table of Contents that updates correctly',
+        'Add a header with the report title and a footer with page numbers',
+        'Insert at least one formatted table summarizing data',
+        'Turn on Track Changes and add two reviewer comments',
+      ]},
+    { level:'advanced', num:'CAPSTONE 03', title:'Mail-Merged Certificate & Custom Template', scenario:"You've been asked to produce personalized completion certificates from a spreadsheet of names, saved as a reusable branded template.", skills:['Mail Merge','Custom Styles','Templates','Quick Parts','Section Breaks'], deliver:[
+        'Build a certificate layout using at least one custom Style',
+        'Run a Mail Merge from a list of names to produce all certificates',
+        'Save the base design as a .dotx template',
+        'Save a recurring block (e.g. a signature line) as a Quick Part',
+      ]},
+    { level:'expert', num:'CAPSTONE 04', title:'Automate a Fillable Intake Form', scenario:"An office wants a digital form staff can fill out — dropdowns, checkboxes, and a macro that clears the form for the next person.", skills:['Content Controls','Macros','Field Codes','Accessibility','Protection'], deliver:[
+        'Build the form using Content Controls (dropdown, date picker, checkbox)',
+        'Record a macro that clears all fields with a single click',
+        'Restrict editing so only the form fields can be changed',
+        'Run the Accessibility Checker and resolve any flagged issues',
+      ]},
+  ];
+
+  const LAB = [
+    { level:'beginner', title:'Fix a Pasted, Misaligned Paragraph', task:"Take a paragraph pasted from another source and clean it up: strip its inherited formatting with Paste Special, replace spacebar-aligned text with a real tab stop, and turn on formatting marks to check your work.", sample:[['Before','After'],['Pasted text, wrong font, spacebar columns','Matches document font, aligned with a tab stop']], solution:'1. Paste with Ctrl+Alt+V → Unformatted Text to strip the source formatting.\n2. Delete the spacebar runs and set a real tab stop on the ruler instead.\n3. Press Ctrl+Shift+8 to show formatting marks and confirm no stray spaces remain.' },
+    { level:'intermediate', title:'Build a 3-Page Outline with a TOC', task:"Create 3 headings using the Styles gallery, then insert an automatic Table of Contents above them.", sample:[['Style','Used for'],['Heading 1','Section title'],['Heading 2','Sub-section title']], solution:'1. Apply Heading 1 to each of the 3 section titles.\n2. Place cursor at the top → References → Table of Contents → Automatic Table 1.\n3. Add a sentence to any section, then right-click TOC → Update Field.' },
+    { level:'advanced', title:'Merge a Certificate List', task:"Design a certificate layout, connect it to a name list, and preview the merge for 3 recipients.", sample:[['Name','Course','Date'],['A. Reyes','Excel Basics','2026-07-01'],['J. Cruz','Word Basics','2026-07-02']], solution:'1. Mailings → Select Recipients → Use an Existing List (the CSV below).\n2. Insert Merge Field for Name, Course, Date onto the certificate.\n3. Mailings → Preview Results to check the first few records.' },
+    { level:'expert', title:'Record a "Clear Form" Macro', task:"Build 2 content controls (text + checkbox), then record a macro that resets both when run.", sample:[['Control','Type'],['Applicant Name','Rich Text'],['Agree to Terms','Check Box']], solution:'1. Developer → Controls → insert a Rich Text control and a Check Box control.\n2. View → Macros → Record Macro, name it ClearForm.\n3. Manually clear both controls while recording, then stop recording.' },
+  ];
+
+  const DATASETS = [
+    { key:'resume', name:'Messy Resume Draft', desc:'Unformatted resume text — practice headings, bullets, and page setup.', meta:'.txt · ~25 lines', file:'messy-resume-draft.txt' },
+    { key:'report', name:'Project Report Body', desc:'Multi-section long-form text — practice Styles and an automatic TOC.', meta:'.txt · ~60 lines', file:'project-report-body.txt' },
+    { key:'names', name:'Certificate Name List', desc:'Name/course/date columns for Mail Merge practice.', meta:'.csv · 20 rows', file:'certificate-name-list.csv' },
+    { key:'formfields', name:'Intake Form Field List', desc:'A plain-text spec of fields to rebuild as Content Controls.', meta:'.txt · 12 fields', file:'intake-form-fields.txt' },
+  ];
+
+  const SHORTCUTS = [
+    ['Save the document','Ctrl + S'], ['Bold selection','Ctrl + B'], ['Italicize selection','Ctrl + I'],
+    ['Underline selection','Ctrl + U'], ['Undo','Ctrl + Z'], ['Redo','Ctrl + Y'],
+    ['Find','Ctrl + F'], ['Find & Replace','Ctrl + H'], ['Select all','Ctrl + A'],
+    ['Center paragraph','Ctrl + E'], ['Left-align paragraph','Ctrl + L'], ['Right-align paragraph','Ctrl + R'],
+    ['Justify paragraph','Ctrl + J'], ['Toggle Track Changes','Ctrl + Shift + E'], ['Insert footnote','Alt + Ctrl + F'],
+    ['Toggle field codes','Alt + F9'], ['Insert empty field','Ctrl + F9'], ['Open VBA editor','Alt + F11'],
+    ['Spelling & Grammar check','F7'], ['Insert page break','Ctrl + Enter'],
+    ['Paste Special','Ctrl + Alt + V'], ['Hanging indent','Ctrl + T'], ['Toggle formatting marks','Ctrl + Shift + 8'],
+    ['Go To dialog','Ctrl + G'], ['Copy formatting (Format Painter)','Ctrl + Shift + C'], ['Apply copied formatting','Ctrl + Shift + V'],
+  ];
+
+  window.WORD_LEVELS = LEVELS;
+
+  // ---------------- STORAGE ----------------
+  const MASTERED_KEY = 'wordRoadmapMastered';
+  const CAP_KEY = 'wordRoadmapCapDone';
+  const WEEKLY_KEY = 'wordRoadmapWeekly';
+  const PAGE_KEY = 'wordRoadmapActivePage';
+  function loadSet(key){ try{ return new Set(JSON.parse(localStorage.getItem(key) || '[]')); }catch(e){ return new Set(); } }
+  function saveSet(key, set){ try{ localStorage.setItem(key, JSON.stringify([...set])); }catch(e){} }
+  function loadObj(key){ try{ return JSON.parse(localStorage.getItem(key) || '{}'); }catch(e){ return {}; } }
+  function saveObj(key, obj){ try{ localStorage.setItem(key, JSON.stringify(obj)); }catch(e){} }
+
+  let mastered = loadSet(MASTERED_KEY);
+  let capDone = loadObj(CAP_KEY);
+  let weeklyDone = loadSet(WEEKLY_KEY);
+
+  // ---------------- RENDER BOARD ----------------
+  const board = document.getElementById('board');
+  LEVELS.forEach(level => {
+    const col = document.createElement('div');
+    col.className = 'level-col';
+    col.dataset.level = level.key;
+    col.innerHTML = `<div class="level-head"><div class="letter mono">LEVEL ${level.letter}</div><h3>${level.label}</h3><span class="tag mono">${level.skills.length} skills</span></div>`;
+    level.skills.forEach(s => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.id = s.id;
+      const goodList = s.good && s.good.length ? `<div class="tn-group"><div class="tn-label good">Do</div><ul class="tn-list good">${s.good.map(g=>`<li>${g}</li>`).join('')}</ul></div>` : '';
+      const avoidList = s.avoid && s.avoid.length ? `<div class="tn-group"><div class="tn-label avoid">Avoid</div><ul class="tn-list avoid">${s.avoid.map(g=>`<li>${g}</li>`).join('')}</ul></div>` : '';
+      cell.innerHTML = `
+        <div class="addr mono"><span>${s.addr}</span><span class="time-est">${s.time}</span><span class="skill-done-badge">✓ mastered</span></div>
+        <div class="skill">${s.skill}</div>
+        <div class="why">${s.why}</div>
+        <div class="example mono">${s.example}</div>
+        ${(goodList||avoidList) ? `<div class="tool-notes">${goodList}${avoidList}</div>` : ''}
+        <div class="challenge" data-id="${s.id}">
+          <div class="ch-q"><b>Quick check:</b> ${s.q}</div>
+          <div class="ch-row">
+            <input class="ch-input mono" type="text" placeholder="Type your answer…">
+            <button class="ch-btn mono" type="button">Check</button>
+          </div>
+          <div class="ch-result"></div>
+          <button class="ch-reveal" type="button">Reveal answer</button>
+        </div>`;
+      cell.addEventListener('click', (e) => {
+        if (e.target.closest('.challenge')) return;
+        document.querySelectorAll('.cell.open').forEach(c => { if (c !== cell) c.classList.remove('open'); });
+        cell.classList.toggle('open');
+      });
+      const input = cell.querySelector('.ch-input');
+      const checkBtn = cell.querySelector('.ch-btn');
+      const result = cell.querySelector('.ch-result');
+      const revealBtn = cell.querySelector('.ch-reveal');
+      function norm(str){ return (str||'').toLowerCase().trim().replace(/\\s+/g,' '); }
+      function check(){
+        const val = norm(input.value);
+        const ok = s.a.some(ans => val === norm(ans) || val.includes(norm(ans)));
+        if (ok){
+          result.textContent = '✓ Correct — skill mastered.';
+          result.className = 'ch-result correct';
+          if (!mastered.has(s.id)){ mastered.add(s.id); saveSet(MASTERED_KEY, mastered); }
+          cell.classList.add('skill-mastered');
+          updateAll();
+        } else {
+          result.textContent = '✗ Not quite — try again, or reveal the answer.';
+          result.className = 'ch-result incorrect';
+        }
+      }
+      checkBtn.addEventListener('click', check);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+      revealBtn.addEventListener('click', () => {
+        result.textContent = 'Answer: ' + s.a[0];
+        result.className = 'ch-result';
+      });
+      if (mastered.has(s.id)) cell.classList.add('skill-mastered');
+      col.appendChild(cell);
+    });
+    const cta = document.createElement('div');
+    cta.className = 'level-practice-cta';
+    cta.innerHTML = `<a class="cta-link mono" href="#lab-${level.key}" data-goto-tab>🧪 Practice</a><a class="cta-link mono" href="#capstone-${level.key}">📂 Capstone</a>`;
+    col.appendChild(cta);
+    board.appendChild(col);
+  });
+
+  // ---------------- DESKTOP STAGE TABS (>880px) ----------------
+  // On desktop the board used to show all stages side by side at once, so
+  // any expanded topic made the whole board tall and narrow. This adds a
+  // tab bar so only one stage renders at a time, full width.
+  (function(){
+    const TAB_KEY = 'wordRoadmapStageTab';
+    const LEVEL_KEYS = LEVELS.map(l => l.key);
+
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_KEYS.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    board.parentElement.insertBefore(tabBar, board);
+
+    function currentProgressLevel(){
+      for (const level of LEVELS){
+        const allDone = level.skills.every(s => mastered.has(s.id));
+        if (!allDone) return level.key;
+      }
+      return LEVEL_KEYS[LEVEL_KEYS.length - 1];
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_KEYS.forEach(k => {
+        const col = document.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVELS.forEach((level, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = level.key;
+      btn.style.setProperty('--tab-color', 'var(--' + level.color + ')');
+      btn.innerHTML = '<span>Stage ' + i + ' \u00b7 ' + level.label + '</span>';
+      btn.addEventListener('click', () => setActiveTab(level.key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){ setActiveTab(manualTab || currentProgressLevel(), false); }
+    update();
+    window.updateStageTabs = update;
+  })();
+
+  // ---------------- RENDER LAB ----------------
+  const lab = document.getElementById('lab');
+  LAB.forEach(item => {
+    const level = LEVELS.find(l => l.key === item.level);
+    const card = document.createElement('div');
+    card.className = 'lab-card';
+    card.id = 'lab-' + item.level;
+    card.dataset.level = item.level;
+    const rows = item.sample.slice(1).map(r => `<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+    card.innerHTML = `
+      <div class="lab-head"><span class="swatch"></span><span class="lname mono">${level.label}</span></div>
+      <h4>${item.title}</h4>
+      <p class="task">${item.task}</p>
+      <table class="sample"><thead><tr>${item.sample[0].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>
+      <details class="solution"><summary>View solution steps</summary><div class="sol-body"><code>${item.solution}</code></div></details>`;
+    lab.appendChild(card);
+  });
+
+  // ---------------- RENDER DATASETS ----------------
+  const CONTENT = {
+    resume: `JAMIE RIVERA
+jamie.rivera@email.com | (555) 012-3456 | Manila, Philippines
+
+SUMMARY
+Detail-oriented coordinator with 4 years of experience in office administration and client support looking for a role in operations management.
+
+EXPERIENCE
+Office Coordinator, Bright Path Logistics, 2022-Present
+Managed scheduling for a 12-person team and reduced meeting conflicts by 30 percent. Maintained vendor contracts and processed monthly invoices. Trained 3 new hires on internal systems.
+
+Administrative Assistant, Coastal Realty Group, 2020-2022
+Handled client intake for 50+ property inquiries per month. Organized digital filing system that cut document retrieval time in half. Coordinated open house logistics.
+
+EDUCATION
+BS Business Administration, University of the Philippines, 2020
+
+SKILLS
+Scheduling, vendor management, Microsoft Office, client communication, basic bookkeeping`,
+    report: `PROJECT REPORT: Q3 REGIONAL SALES REVIEW
+
+INTRODUCTION
+This report summarizes regional sales performance for the third quarter and outlines recommended actions for Q4 planning.
+
+BACKGROUND
+Sales tracking for the region has historically relied on manual spreadsheets updated weekly by branch managers. This quarter introduced a shared dashboard to reduce reporting lag.
+
+METHODOLOGY
+Data was pulled from point-of-sale exports across 6 branches, cross-checked against finance reconciliation reports, and normalized to a common currency and date format.
+
+RESULTS
+Overall regional revenue increased relative to Q2. The North and Central branches led growth, while the South branch saw a modest decline attributed to a competitor opening nearby.
+
+DISCUSSION
+The dashboard rollout appears to correlate with faster issue detection, though a full quarter of data is needed before drawing firm conclusions.
+
+RECOMMENDATIONS
+Continue the dashboard rollout to remaining branches. Investigate the South branch decline with a targeted customer survey. Revisit staffing levels ahead of the holiday season.
+
+CONCLUSION
+Q3 results were positive overall, with clear next steps identified for Q4 to sustain momentum across all branches.`,
+    formfields: `INTAKE FORM — FIELD SPECIFICATION
+
+1. Applicant Full Name (Rich Text content control)
+2. Date of Visit (Date Picker content control)
+3. Department Visiting (Dropdown: Sales, Support, Billing, Other)
+4. Reason for Visit (Rich Text content control, multi-line)
+5. Returning Visitor? (Check Box content control)
+6. Preferred Contact Method (Dropdown: Email, Phone, No Preference)
+7. Email Address (Rich Text content control)
+8. Phone Number (Rich Text content control)
+9. Referred By (Rich Text content control, optional)
+10. Agree to Privacy Policy (Check Box content control, required)
+11. Staff Notes (Rich Text content control, staff only)
+12. Follow-up Needed? (Check Box content control)`,
+  };
+  function genNamesCSV(){
+    const first=['Alicia','James','Priya','Marcus','Elena','Tom','Sofia','Noah','Grace','Liam','Maya','Ethan','Chloe','Omar','Nina','Diego','Ivy','Sam','Ruth','Leo'];
+    const last=['Moore','Chen','Patel','Diaz','Novak','Reid','Kim','Silva','Turner','Boyd','Fischer','Ahmed','Ward','Lopez','Grant','Osei','Kane','Ito','Brown','Fox'];
+    const courses=['Word Fundamentals','Excel Basics','Business Writing','Digital Literacy'];
+    const rows = [['Name','Course','Date']];
+    for (let i=0;i<20;i++){
+      const d = new Date(2026,6,1 + i);
+      rows.push([first[i%first.length]+' '+last[(i*3)%last.length], courses[i%courses.length], d.toISOString().slice(0,10)]);
+    }
+    return rows.map(r => r.map(v => /,/.test(v) ? '"'+v+'"' : v).join(',')).join('\\n');
+  }
+  function download(filename, text){
+    const blob = new Blob([text], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  const grid = document.getElementById('datasetsGrid');
+  DATASETS.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'dataset-card';
+    card.innerHTML = `<h4>${d.name}</h4><p>${d.desc}</p><div class="dataset-meta mono">${d.meta}</div><button class="dataset-btn" type="button">Download</button>`;
+    card.querySelector('.dataset-btn').addEventListener('click', function(){
+      const btn = this; const original = btn.textContent;
+      btn.textContent = 'Generating…';
+      setTimeout(() => {
+        const text = d.key === 'names' ? genNamesCSV() : CONTENT[d.key];
+        download(d.file, text);
+        btn.textContent = 'Downloaded ✓';
+        setTimeout(() => { btn.textContent = original; }, 1600);
+      }, 10);
+    });
+    grid.appendChild(card);
+  });
+
+  // ---------------- RENDER CAPSTONES ----------------
+  const capList = document.getElementById('capstoneList');
+  CAPSTONES.forEach(cap => {
+    const level = LEVELS.find(l => l.key === cap.level);
+    if (!capDone[cap.level]) capDone[cap.level] = new Array(cap.deliver.length).fill(false);
+    const card = document.createElement('div');
+    card.className = 'capstone-card';
+    card.dataset.level = cap.level;
+    card.id = 'capstone-' + cap.level;
+    card.innerHTML = `
+      <div class="cap-side">
+        <div class="cap-num mono">${cap.num}</div>
+        <h4>${cap.title}</h4>
+        <span class="cap-level-tag mono">${level.label}</span>
+        <span class="cap-done-badge mono">✓ Complete</span>
+        <div class="cap-progress-row">
+          <span class="cap-progress-count mono">0 / ${cap.deliver.length}</span>
+          <div class="cap-progress-bar"><div class="cap-progress-bar-fill"></div></div>
+        </div>
+      </div>
+      <div class="cap-body">
+        <p class="cap-scenario"><b>Scenario:</b> ${cap.scenario}</p>
+        <div class="cap-skills">${cap.skills.map(s=>`<span class="cap-skill-chip mono">${s}</span>`).join('')}</div>
+        <div class="cap-deliver"><div class="cap-deliver-label mono">Deliverables</div><ul>${cap.deliver.map((d,i)=>`<li data-idx="${i}">${d}</li>`).join('')}</ul></div>
+      </div>`;
+    card.querySelectorAll('.cap-deliver li').forEach(li => {
+      const idx = +li.dataset.idx;
+      if (capDone[cap.level][idx]) li.classList.add('done');
+      li.addEventListener('click', () => {
+        capDone[cap.level][idx] = !capDone[cap.level][idx];
+        li.classList.toggle('done');
+        saveObj(CAP_KEY, capDone);
+        updateAll();
+      });
+    });
+    capList.appendChild(card);
+  });
+  document.getElementById('capResetBtn').addEventListener('click', () => {
+    if (!confirm('Reset all capstone checklists?')) return;
+    CAPSTONES.forEach(cap => { capDone[cap.level] = new Array(cap.deliver.length).fill(false); });
+    saveObj(CAP_KEY, capDone);
+    document.querySelectorAll('.cap-deliver li.done').forEach(li => li.classList.remove('done'));
+    updateAll();
+  });
+
+  // ---------------- RENDER WEEKLY PLAN ----------------
+  const WEEKLY = [
+    { level:'beginner', title:'Week 1 — Foundations', sub:'Handle real-world formatting problems, not toy examples', days:[
+      'Use Format Painter to match formatting across a multi-section document',
+      'Paste content from another source using Paste Special',
+      'Replace a spacebar-aligned list with real tab stops, and apply a hanging indent',
+      'Turn on formatting marks and use Go To / selection tricks to clean up a messy page']},
+    { level:'intermediate', title:'Week 2 — Structure & Style', sub:'Make a document that organizes itself', days:[
+      'Apply Heading styles to a 3-section document',
+      'Insert an automatic Table of Contents',
+      'Add a header, footer, and page numbers',
+      'Insert a table and one wrapped image']},
+    { level:'advanced', title:'Week 3 — Power Formatting', sub:'Automate the repetitive parts', days:[
+      'Create one custom Style',
+      'Run a small Mail Merge (3-5 recipients)',
+      'Insert a section break with a different header',
+      'Add a footnote and one cross-reference']},
+    { level:'expert', title:'Week 4 — Automation & Mastery', sub:'Build something that runs itself', days:[
+      'Toggle and inspect a field code',
+      'Record your first macro',
+      'Build a form with 2 content controls',
+      'Run the Accessibility Checker on any document']},
+  ];
+  const weeklyGrid = document.getElementById('weeklyGrid');
+  let weeklyTotal = 0;
+  WEEKLY.forEach(w => {
+    const wk = document.createElement('div');
+    wk.className = 'weekly-week';
+    wk.dataset.level = w.level;
+    wk.innerHTML = `<div class="weekly-week-head"><h4>${w.title}</h4><span class="wk-sub mono">${w.sub}</span></div><div class="weekly-days"></div>`;
+    const daysWrap = wk.querySelector('.weekly-days');
+    w.days.forEach((d, i) => {
+      weeklyTotal++;
+      const key = w.level + '-' + i;
+      const row = document.createElement('label');
+      row.className = 'weekly-day' + (weeklyDone.has(key) ? ' done' : '');
+      row.innerHTML = `<input type="checkbox" ${weeklyDone.has(key)?'checked':''}><span class="wd-text">${d}</span>`;
+      row.querySelector('input').addEventListener('change', function(){
+        if (this.checked){ weeklyDone.add(key); row.classList.add('done'); } else { weeklyDone.delete(key); row.classList.remove('done'); }
+        saveSet(WEEKLY_KEY, weeklyDone);
+        updateAll();
+      });
+      daysWrap.appendChild(row);
+    });
+    weeklyGrid.appendChild(wk);
+  });
+
+  // ---------------- DASHBOARD / STATS ----------------
+  function updateDashboard(){
+    const totalSkills = LEVELS.reduce((n,l) => n + l.skills.length, 0);
+    const masteredCount = mastered.size;
+    const pct = Math.round((masteredCount/totalSkills)*100);
+    const setText = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+    const setWidth = (id, w) => { const el = document.getElementById(id); if (el) el.style.width = w + '%'; };
+
+    setText('dashCompletionVal', pct + '%');
+    setText('dashCompletionSub', masteredCount + ' / ' + totalSkills + ' skills mastered');
+    setWidth('dashCompletionFill', pct);
+    setText('homeCompletionVal', pct + '%');
+    setText('homeCompletionSub', masteredCount + ' / ' + totalSkills + ' skills');
+    setWidth('homeCompletionFill', pct);
+
+    let currentLevel = LEVELS[LEVELS.length-1].label;
+    let levelsCleared = 0;
+    for (const level of LEVELS){
+      const allDone = level.skills.every(s => mastered.has(s.id));
+      if (allDone) levelsCleared++; else { currentLevel = level.label; break; }
+    }
+    if (levelsCleared === LEVELS.length) currentLevel = 'All levels complete';
+    setText('dashLevelVal', currentLevel);
+    setText('homeLevelVal', currentLevel);
+    setText('dashLevelsClearedVal', levelsCleared);
+
+    setText('dashMasteredVal', masteredCount);
+    document.querySelector('#dashMasteredVal').innerHTML = masteredCount + '<span class="unit">/ ' + totalSkills + '</span>';
+    setText('homeMasteredVal', masteredCount + ' / ' + totalSkills);
+
+    const projectsDone = CAPSTONES.filter(c => capDone[c.level] && capDone[c.level].every(Boolean)).length;
+    document.querySelector('#dashProjectsVal').innerHTML = projectsDone + '<span class="unit">/ ' + CAPSTONES.length + '</span>';
+    setText('homeProjectsVal', projectsDone + ' / ' + CAPSTONES.length);
+
+    let nextLessonText = 'All skills mastered! 🎉';
+    for (const level of LEVELS){
+      const next = level.skills.find(s => !mastered.has(s.id));
+      if (next){ nextLessonText = next.skill; break; }
+    }
+    setText('homeNextLesson', nextLessonText);
+
+    const readiness = Math.round(pct * 0.7 + (projectsDone/CAPSTONES.length)*100*0.3);
+    setText('rScoreVal', readiness);
+    document.querySelector('#rScoreVal').innerHTML = readiness + '<span class="unit">/ 100</span>';
+    let msg = 'Complete a few skills to get your first score.';
+    if (readiness >= 90) msg = 'You could format someone else\'s thesis and they\'d never know it started as a mess.';
+    else if (readiness >= 60) msg = 'Solid working knowledge — the advanced tools are where the real time savings live.';
+    else if (readiness >= 25) msg = 'Good start — the Foundations skills alone will noticeably clean up your documents.';
+    setText('rMsg', msg);
+
+    let capOverallDone = 0, capOverallTotal = 0;
+    CAPSTONES.forEach(c => {
+      const arr = capDone[c.level] || [];
+      capOverallDone += arr.filter(Boolean).length;
+      capOverallTotal += c.deliver.length;
+    });
+    setWidth('capOverallFill', capOverallTotal ? Math.round((capOverallDone/capOverallTotal)*100) : 0);
+    setText('capOverallCount', projectsDone + ' / ' + CAPSTONES.length + ' complete');
+
+    CAPSTONES.forEach(cap => {
+      const card = document.getElementById('capstone-' + cap.level);
+      if (!card) return;
+      const arr = capDone[cap.level] || [];
+      const done = arr.filter(Boolean).length;
+      card.querySelector('.cap-progress-count').textContent = done + ' / ' + cap.deliver.length;
+      card.querySelector('.cap-progress-bar-fill').style.width = Math.round((done/cap.deliver.length)*100) + '%';
+      card.classList.toggle('cap-complete', done === cap.deliver.length);
+    });
+
+    const weeklyDoneCount = weeklyDone.size;
+    setWidth('weeklyOverallFill', weeklyTotal ? Math.round((weeklyDoneCount/weeklyTotal)*100) : 0);
+    setText('weeklyOverallCount', weeklyDoneCount + ' / ' + weeklyTotal + ' done');
+  }
+  function updateAll(){ updateDashboard(); if (typeof window.updateStageTabs === 'function') window.updateStageTabs(); }
+  updateAll();
+
+  document.getElementById('dashResetBtn').addEventListener('click', () => {
+    if (!confirm('Reset ALL progress — skills, capstones, and weekly checklist?')) return;
+    mastered = new Set(); saveSet(MASTERED_KEY, mastered);
+    capDone = {}; CAPSTONES.forEach(c => capDone[c.level] = new Array(c.deliver.length).fill(false)); saveObj(CAP_KEY, capDone);
+    weeklyDone = new Set(); saveSet(WEEKLY_KEY, weeklyDone);
+    document.querySelectorAll('.cell.skill-mastered').forEach(c => c.classList.remove('skill-mastered'));
+    document.querySelectorAll('.cap-deliver li.done').forEach(li => li.classList.remove('done'));
+    document.querySelectorAll('.weekly-day.done').forEach(row => { row.classList.remove('done'); row.querySelector('input').checked = false; });
+    updateAll();
+  });
+
+  // ---------------- PAGE ROUTER ----------------
+  const PAGES = ['dashboard','learn','practice','projects','progress'];
+  const navLinks = document.querySelectorAll('.app-nav-link');
+  function showPage(pageId, scrollTargetId){
+    if (PAGES.indexOf(pageId) === -1) pageId = 'dashboard';
+    PAGES.forEach(p => { const el = document.getElementById('page-'+p); if (el) el.style.display = (p===pageId) ? '' : 'none'; });
+    navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.page === pageId));
+    try{ localStorage.setItem(PAGE_KEY, pageId); }catch(e){}
+    if (scrollTargetId){
+      requestAnimationFrame(() => { const t = document.getElementById(scrollTargetId); if (t) t.scrollIntoView({behavior:'smooth', block:'start'}); else window.scrollTo(0,0); });
+    } else { window.scrollTo(0,0); }
+  }
+  navLinks.forEach(btn => btn.addEventListener('click', () => showPage(btn.dataset.page)));
+  let initial = 'dashboard';
+  try{ initial = localStorage.getItem(PAGE_KEY) || 'dashboard'; }catch(e){}
+  showPage(initial);
+
+  document.querySelectorAll('a.cta-link[href^="#capstone-"]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); showPage('projects', a.getAttribute('href').slice(1)); });
+  });
+  document.querySelectorAll('a.cta-link[data-goto-tab]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); showPage('practice', a.getAttribute('href').slice(1)); });
+  });
+
+  document.getElementById('continueLearningBtn').addEventListener('click', () => {
+    let targetId = null;
+    for (const level of LEVELS){
+      const next = level.skills.find(s => !mastered.has(s.id));
+      if (next){ targetId = next.id; break; }
+    }
+    showPage('learn');
+    requestAnimationFrame(() => {
+      if (!targetId) return;
+      const cell = document.querySelector('.cell[data-id="'+targetId+'"]');
+      if (cell){ cell.classList.add('open'); cell.scrollIntoView({behavior:'smooth', block:'center'}); }
+    });
+  });
+
+  // ---------------- SHORTCUTS FLASHCARDS ----------------
+  let scIdx = 0;
+  const scToggle = document.getElementById('scToggle');
+  const scPanel = document.getElementById('scPanel');
+  const scCard = document.getElementById('scCard');
+  const scPrompt = document.getElementById('scPrompt');
+  const scKeys = document.getElementById('scKeys');
+  const scCount = document.getElementById('scCount');
+  function renderCard(){
+    scCard.classList.remove('flipped');
+    scPrompt.textContent = SHORTCUTS[scIdx][0];
+    scKeys.textContent = SHORTCUTS[scIdx][1];
+    scCount.textContent = (scIdx+1) + ' / ' + SHORTCUTS.length;
+  }
+  scToggle.addEventListener('click', () => { scPanel.classList.toggle('open'); if (scPanel.classList.contains('open')) renderCard(); });
+  document.getElementById('scClose').addEventListener('click', () => scPanel.classList.remove('open'));
+  scCard.addEventListener('click', () => scCard.classList.toggle('flipped'));
+  document.getElementById('scPrev').addEventListener('click', () => { scIdx = (scIdx-1+SHORTCUTS.length)%SHORTCUTS.length; renderCard(); });
+  document.getElementById('scNext').addEventListener('click', () => { scIdx = (scIdx+1)%SHORTCUTS.length; renderCard(); });
+  document.getElementById('scShuffle').addEventListener('click', () => { scIdx = Math.floor(Math.random()*SHORTCUTS.length); renderCard(); });
+  renderCard();
+})();
+</script>
+</body>
+</html>
