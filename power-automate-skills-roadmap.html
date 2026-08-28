@@ -275,6 +275,37 @@
     .level-col.collapsed > *:not(.level-head){ display:none; }
   }
 
+  /* ---------- DESKTOP STAGE TABS (>1020px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width: 1021px){
+    .stage-tabs{
+      display:flex; align-items:flex-end; gap:4px; max-width:1080px;
+      margin:24px auto 0; padding:0 24px; flex-wrap:wrap;
+    }
+    .stage-tab{
+      font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; color:var(--muted);
+      background:var(--panel); border:1px solid var(--grid); border-bottom:none; border-radius:8px 8px 0 0;
+      padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{
+      color:var(--tab-color, var(--blue)); background:var(--panel-2);
+      box-shadow: inset 0 2px 0 var(--tab-color, var(--blue));
+    }
+    .board{ grid-template-columns: 1fr; border-radius:0 10px 10px 10px; }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{ padding-left:24px; padding-right:24px; }
+    .level-col.tab-active .cell,
+    .level-col.tab-active .topic-divider,
+    .level-col.tab-active .level-project,
+    .level-col.tab-active .level-practice-cta{
+      margin-left:8px; margin-right:8px;
+    }
+    .level-col.tab-active .cell{ padding-left:24px; padding-right:24px; }
+  }
+
   /* ---------- WEEKLY PLAN ---------- */
   .weekly-wrap{ max-width:1080px; margin:0 auto 60px; padding:0 24px; }
   .weekly-progress{
@@ -1046,6 +1077,60 @@
     boardGrid.appendChild(col);
   });
 
+  /* ============================================================
+     DESKTOP STAGE TABS (>1020px)
+     On desktop the board used to show all 4 stages side by side at
+     once, so any expanded topic made the whole board tall and narrow.
+     This adds a tab bar so only one stage renders at a time, full width.
+     ============================================================ */
+  (function(){
+    const TAB_KEY = 'paRoadmapStageTab';
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_ORDER.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    boardGrid.parentElement.insertBefore(tabBar, boardGrid);
+
+    function currentProgressLevel(){
+      const found = LEVEL_ORDER.find(lv => !BOARD[lv].cells.every(c => mastery[c.id]));
+      return found || LEVEL_ORDER[LEVEL_ORDER.length - 1];
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_ORDER.forEach(k => {
+        const col = boardGrid.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVEL_ORDER.forEach((key, i) => {
+      const lvl = BOARD[key];
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = key;
+      btn.style.setProperty('--tab-color', 'var(--col-color)');
+      btn.innerHTML = '<span style="color:inherit;">Stage ' + lvl.letter + ' \u00b7 ' + lvl.title + '</span>';
+      const swatch = { foundation:'var(--blue)', intermediate:'var(--cyan)', advanced:'var(--amber)', expert:'var(--red)' }[key];
+      if (swatch) btn.style.setProperty('--tab-color', swatch);
+      btn.addEventListener('click', () => setActiveTab(key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){ setActiveTab(manualTab || currentProgressLevel(), false); }
+    update();
+    window.updateStageTabs = update;
+  })();
+
   function normalize(s){ return (s||'').toString().trim().toLowerCase().replace(/\s+/g,' ').replace(/[.,!?']/g,''); }
 
   function buildCell(cell, levelKey){
@@ -1368,6 +1453,8 @@
       if (el) el.classList.toggle('unlocked', ok);
     });
     document.getElementById('achCount').textContent = unlocked + ' / ' + ACHIEVEMENTS.length + ' unlocked';
+
+    if (typeof window.updateStageTabs === 'function') window.updateStageTabs();
   }
   refreshAll();
 
