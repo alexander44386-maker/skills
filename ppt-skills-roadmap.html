@@ -134,6 +134,20 @@
   .level-col[data-level="expert"]{ --col-color: var(--red); }
   @media (max-width:880px){ .board{ grid-template-columns:1fr; } .level-head{ position:static; } }
 
+  /* ---------- DESKTOP STAGE TABS (>880px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width:881px){
+    .stage-tabs{ display:flex; align-items:flex-end; gap:4px; max-width:1080px; margin:24px auto 0; padding:0 24px; flex-wrap:wrap; }
+    .stage-tab{ font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600; color:var(--muted); background:var(--panel); border:1px solid var(--grid); border-bottom:none; border-radius:8px 8px 0 0; padding:10px 16px; cursor:pointer; display:flex; align-items:center; gap:8px; transition:background 0.15s ease, color 0.15s ease; }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{ color:var(--tab-color,var(--orange)); background:var(--panel-2); box-shadow:inset 0 2px 0 var(--tab-color,var(--orange)); }
+    .board{ grid-template-columns:1fr; border-radius:0 10px 10px 10px; }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{ padding-left:24px; padding-right:24px; }
+    .level-col.tab-active .cell{ padding-left:24px; padding-right:24px; }
+  }
+
   .level-continue-btn{ display:inline-block; margin:4px 16px 20px; font-family:'Archivo', sans-serif; font-weight:700; font-size:13px; color:#1a0e08; background:var(--col-color,var(--orange)); border:none; border-radius:7px; padding:9px 18px; cursor:pointer; }
   .level-practice-cta{ margin:0 14px 20px; display:flex; gap:10px; flex-wrap:wrap; }
   .level-practice-cta .cta-link{ flex:1; min-width:130px; text-align:center; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:600; color:var(--col-color,var(--ink)); text-decoration:none; padding:10px 12px; border:1px solid var(--grid); border-left:2px solid var(--col-color,var(--grid)); border-radius:8px; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
@@ -608,6 +622,60 @@
     board.appendChild(col);
   });
 
+  // ---------------- DESKTOP STAGE TABS (>880px) ----------------
+  // On desktop the board used to show all stages side by side at once, so
+  // any expanded topic made the whole board tall and narrow. This adds a
+  // tab bar so only one stage renders at a time, full width.
+  (function(){
+    const TAB_KEY = 'pptRoadmapStageTab';
+    const LEVEL_KEYS = LEVELS.map(l => l.key);
+
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_KEYS.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    board.parentElement.insertBefore(tabBar, board);
+
+    function currentProgressLevel(){
+      for (const level of LEVELS){
+        const allDone = level.skills.every(s => mastered.has(s.id));
+        if (!allDone) return level.key;
+      }
+      return LEVEL_KEYS[LEVEL_KEYS.length - 1];
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_KEYS.forEach(k => {
+        const col = document.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVELS.forEach((level, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = level.key;
+      btn.style.setProperty('--tab-color', 'var(--' + level.color + ')');
+      btn.innerHTML = '<span>Stage ' + i + ' \u00b7 ' + level.label + '</span>';
+      btn.addEventListener('click', () => setActiveTab(level.key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){ setActiveTab(manualTab || currentProgressLevel(), false); }
+    update();
+    window.updateStageTabs = update;
+  })();
+
   // ---------------- RENDER LAB ----------------
   const lab = document.getElementById('lab');
   LAB.forEach(item => {
@@ -828,7 +896,7 @@
     setWidth('weeklyOverallFill', weeklyTotal ? Math.round((weeklyDoneCount/weeklyTotal)*100) : 0);
     setText('weeklyOverallCount', weeklyDoneCount + ' / ' + weeklyTotal + ' done');
   }
-  function updateAll(){ updateDashboard(); }
+  function updateAll(){ updateDashboard(); if (typeof window.updateStageTabs === 'function') window.updateStageTabs(); }
   updateAll();
 
   document.getElementById('dashResetBtn').addEventListener('click', () => {
