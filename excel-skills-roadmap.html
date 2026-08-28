@@ -866,6 +866,58 @@
     .level-head{ position:static; }
   }
 
+  /* ---------- DESKTOP STAGE TABS (>880px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width: 881px){
+    .stage-tabs{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      max-width:1080px;
+      margin:24px auto 0;
+      padding:0 24px;
+      flex-wrap:wrap;
+    }
+    .stage-tab{
+      font-family:'JetBrains Mono', monospace;
+      font-size:12.5px;
+      font-weight:600;
+      color:var(--muted);
+      background:var(--panel);
+      border:1px solid var(--grid);
+      border-bottom:none;
+      border-radius:8px 8px 0 0;
+      padding:10px 16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{
+      color:var(--tab-color, var(--green));
+      background:var(--panel-2);
+      box-shadow: inset 0 2px 0 var(--tab-color, var(--green));
+    }
+    .stage-tab-lock{ color:var(--amber); font-size:11px; }
+
+    .board{
+      grid-template-columns: 1fr;
+      border-radius:0 10px 10px 10px;
+    }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{
+      padding-left:24px;
+      padding-right:24px;
+    }
+    .level-col.tab-active .cell{
+      padding-left:24px;
+      padding-right:24px;
+    }
+  }
+
   /* ---------- PRACTICE LAB ---------- */
   .lab{
     max-width:1080px;
@@ -5593,6 +5645,90 @@ const EVAL_CONFIG = {
   }
   window.updateHomeCard = updateHomeCard;
   updateHomeCard();
+
+  // ---------- DESKTOP STAGE TABS (>880px) ----------
+  // On desktop the board used to show all 4 stages side by side at once,
+  // so any expanded topic made the whole board tall and narrow. This adds
+  // a tab bar so only one stage renders at a time, full width.
+  (function(){
+    const LEVEL_META = {
+      foundation:   { num: 1, name: 'Foundation', color: 'var(--green)' },
+      intermediate: { num: 2, name: 'Intermediate', color: 'var(--blue)' },
+      advanced:     { num: 3, name: 'Advanced', color: 'var(--amber)' },
+      expert:       { num: 4, name: 'Expert', color: 'var(--red)' }
+    };
+    const LEVEL_ORDER = ['foundation', 'intermediate', 'advanced', 'expert'];
+    const TAB_KEY = 'excelRoadmapStageTab';
+
+    const board = document.querySelector('.board');
+    if (!board) return;
+
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_ORDER.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    board.parentElement.insertBefore(tabBar, board);
+
+    function currentProgressLevel(){
+      if (typeof SkillProgress === 'undefined' || !SkillProgress.LEVELS) return LEVEL_ORDER[0];
+      const levelStats = {};
+      LEVEL_ORDER.forEach(lv => levelStats[lv] = { done: 0, total: 0 });
+      SkillProgress.LEVELS.forEach(level => {
+        level.ids.forEach(id => {
+          levelStats[level.key].total++;
+          const box = document.querySelector('.challenge[data-id="' + id + '"]');
+          const cell = box ? box.parentElement : null;
+          if (cell && cell.classList.contains('skill-mastered')) levelStats[level.key].done++;
+        });
+      });
+      const found = LEVEL_ORDER.find(l => levelStats[l].done < levelStats[l].total);
+      return found || 'expert';
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_ORDER.forEach(k => {
+        const col = document.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVEL_ORDER.forEach(key => {
+      const meta = LEVEL_META[key];
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = key;
+      btn.style.setProperty('--tab-color', meta.color);
+      btn.innerHTML = '<span>Stage ' + meta.num + ' \u00b7 ' + meta.name + '</span><span class="stage-tab-lock" style="display:none;">\ud83d\udd12</span>';
+      btn.addEventListener('click', () => setActiveTab(key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){
+      LEVEL_ORDER.forEach(key => {
+        const col = document.querySelector('.level-col[data-level="' + key + '"]');
+        const locked = col && col.classList.contains('section-locked');
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + key + '"]');
+        const lockEl = btn ? btn.querySelector('.stage-tab-lock') : null;
+        if (lockEl) lockEl.style.display = locked ? '' : 'none';
+      });
+      setActiveTab(manualTab || currentProgressLevel(), false);
+    }
+
+    update();
+    window.updateHomeCard = (function(orig){
+      return function(){ if (orig) orig(); update(); };
+    })(window.updateHomeCard);
+  })();
 
   // ---------- CONTINUE LEARNING ----------
   function goToNextInLevel(levelKey){
