@@ -524,6 +524,60 @@
     .level-head{ position:static; }
   }
 
+  /* ---------- DESKTOP STAGE TABS (>880px) ---------- */
+  .stage-tabs{ display:none; }
+  @media (min-width: 881px){
+    .stage-tabs{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      max-width:1080px;
+      margin:24px auto 0;
+      padding:0 24px;
+      flex-wrap:wrap;
+    }
+    .stage-tab{
+      font-family:'JetBrains Mono', monospace;
+      font-size:12.5px;
+      font-weight:600;
+      color:var(--muted);
+      background:var(--panel);
+      border:1px solid var(--grid);
+      border-bottom:none;
+      border-radius:8px 8px 0 0;
+      padding:10px 16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .stage-tab:hover{ color:var(--ink); background:var(--panel-2); }
+    .stage-tab.active{
+      color:var(--tab-color, var(--green));
+      background:var(--panel-2);
+      box-shadow: inset 0 2px 0 var(--tab-color, var(--green));
+    }
+    .stage-tab-lock{ color:var(--amber); font-size:11px; }
+
+    .board{
+      grid-template-columns: 1fr;
+      border-radius:0 10px 10px 10px;
+    }
+    .level-col{ display:none; }
+    .level-col.tab-active{ display:flex; }
+    .level-col.tab-active .level-head{
+      padding-left:24px;
+      padding-right:24px;
+    }
+    .level-col.tab-active .cell,
+    .level-col.tab-active .topic-divider,
+    .level-col.tab-active .section-lock-banner{
+      padding-left:24px;
+      padding-right:24px;
+    }
+  }
+
   /* ---------- DIAGRAMS ---------- */
   .diagram{
     margin-top:14px;
@@ -2811,6 +2865,80 @@ Invoke-PnPSiteTemplate -Path template.xml</code>
   function setText(id, val){ const el = document.getElementById(id); if (el) el.textContent = val; }
   function setWidth(id, pct){ const el = document.getElementById(id); if (el) el.style.width = pct + '%'; }
   window.updateDashboard = updateDashboard;
+
+  // ---------- DESKTOP STAGE TABS (>880px) ----------
+  // On desktop the board used to show all stages side by side at once, so
+  // any expanded topic made the whole board tall and narrow. This adds a
+  // tab bar so only one stage renders at a time, full width.
+  (function(){
+    const LEVEL_META = {
+      beginner:     { num: 0, name: 'Beginner', color: 'var(--green)' },
+      intermediate: { num: 1, name: 'Intermediate', color: 'var(--blue)' },
+      advanced:     { num: 2, name: 'Advanced', color: 'var(--amber)' },
+      expert:       { num: 3, name: 'Expert', color: 'var(--red)' }
+    };
+    const LEVEL_ORDER = ['beginner', 'intermediate', 'advanced', 'expert'];
+    const TAB_KEY = 'spRoadmapStageTab';
+
+    const board = document.querySelector('.board');
+    if (!board) return;
+
+    let manualTab = null;
+    try{ manualTab = localStorage.getItem(TAB_KEY) || null; }catch(e){ manualTab = null; }
+    if (manualTab && LEVEL_ORDER.indexOf(manualTab) === -1) manualTab = null;
+
+    const tabBar = document.createElement('div');
+    tabBar.className = 'stage-tabs';
+    tabBar.id = 'stageTabs';
+    board.parentElement.insertBefore(tabBar, board);
+
+    function currentProgressLevel(){
+      const found = LEVELS.find(l => !l.ids.every(id => isMastered(id)));
+      return found ? found.key : LEVEL_ORDER[LEVEL_ORDER.length - 1];
+    }
+
+    function setActiveTab(key, persist){
+      LEVEL_ORDER.forEach(k => {
+        const col = document.querySelector('.level-col[data-level="' + k + '"]');
+        if (col) col.classList.toggle('tab-active', k === key);
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + k + '"]');
+        if (btn) btn.classList.toggle('active', k === key);
+      });
+      if (persist){
+        manualTab = key;
+        try{ localStorage.setItem(TAB_KEY, key); }catch(e){}
+      }
+    }
+
+    LEVEL_ORDER.forEach(key => {
+      const meta = LEVEL_META[key];
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.level = key;
+      btn.style.setProperty('--tab-color', meta.color);
+      btn.innerHTML = '<span>Stage ' + meta.num + ' \u00b7 ' + meta.name + '</span><span class="stage-tab-lock" style="display:none;">\ud83d\udd12</span>';
+      btn.addEventListener('click', () => setActiveTab(key, true));
+      tabBar.appendChild(btn);
+    });
+
+    function update(){
+      LEVEL_ORDER.forEach(key => {
+        const col = document.querySelector('.level-col[data-level="' + key + '"]');
+        const locked = col && col.classList.contains('section-locked');
+        const btn = tabBar.querySelector('.stage-tab[data-level="' + key + '"]');
+        const lockEl = btn ? btn.querySelector('.stage-tab-lock') : null;
+        if (lockEl) lockEl.style.display = locked ? '' : 'none';
+      });
+      setActiveTab(manualTab || currentProgressLevel(), false);
+    }
+
+    update();
+    window.updateDashboard = (function(orig){
+      return function(){ if (orig) orig(); update(); };
+    })(window.updateDashboard);
+  })();
+
 
   const dashResetBtn = document.getElementById('dashResetBtn');
   if (dashResetBtn){
